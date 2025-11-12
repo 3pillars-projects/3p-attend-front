@@ -68,6 +68,11 @@ export class SideBarLinksService {
       routeId: RouteIdsEnum.PERMISSIONS,
     },
     {
+      labelKey: 'MENU.LIMITED_TIME_PERMISSION',
+      iconUrl: 'assets/icons/menu-icons/permissions.svg',
+      routerLink: ['/limited-time-permission'],
+    },
+    {
       labelKey: 'MENU.PRESENCE_INQUIRIES',
       iconUrl: 'assets/icons/menu-icons/tools.svg',
       routerLink: ['/presence-inquiries'],

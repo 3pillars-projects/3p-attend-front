@@ -327,6 +327,14 @@ export const routes: Routes = [
         resolve: { list: userProfileResolver },
         loadComponent: () => import('@/views/features/employee/profile/profile/profile.component'),
       },
+      {
+        path: 'limited-time-permission',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import(
+            '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
+          ),
+      }
     ],
   },
 

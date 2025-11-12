@@ -1,0 +1,111 @@
+<div dir="rtl">
+  <div class="p-6">
+    <button class="block ms-auto">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">طلب استئذان جديد</h3>
+
+    <form>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div>
+          <label class="label" for="nationality">نوع الاذن</label>
+          <div class="relative">
+            <p-select
+              class="w-full peer"
+              id="nationality"
+              name="nationality"
+              optionValue="id"
+              placeholder="نوع الاذن"
+            >
+            </p-select>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+        </div>
+        <div>
+          <label class="label" for="nationalIdExpiryDate">تاريخ الاذن</label>
+          <div class="relative">
+            <p-datepicker
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              class="peer block w-full"
+              id="nationalIdExpiryDate"
+              inputId="nationalIdExpiryDate"
+              name="nationalIdExpiryDate"
+              placeholder="تاريخ الاذن"
+            >
+              <ng-template pTemplate="inputicon">
+                <img alt="" src="assets/icons/calender-icon.svg" />
+              </ng-template>
+            </p-datepicker>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+        </div>
+        <div>
+          <label class="label" for="nationality">مدة الاستئذان</label>
+          <div class="relative">
+            <p-select
+              class="w-full peer"
+              id="nationality"
+              name="nationality"
+              optionValue="id"
+              placeholder="مدة الاستئذان"
+            >
+            </p-select>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+        </div>
+        <div>
+          <label class="label" for="time-picker-popup"> بداية مدة الاستئذان </label>
+          <div class="relative">
+            <p-datepicker
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              [timeOnly]="true"
+              class="peer block w-full"
+              id="time-picker-popup"
+              placeholder="بداية مدة الاستئذان"
+              [hourFormat]="'12'"
+            >
+              <ng-template pTemplate="inputicon">
+                <img alt="Time" src="assets/icons/time-icon.svg" />
+              </ng-template>
+            </p-datepicker>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+        </div>
+        <div class="lg:col-span-3 md:col-span-2 col-span-1">
+          <label class="label" for="visitPurpose">ملاحظات</label>
+          <div class="relative w-full">
+            <textarea
+              class="h-24 block overflow-auto mt-4 w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
+              cols="30"
+              id="visitPurpose"
+              pTextarea
+              placeholder="ملاحظات"
+              rows="5"
+            ></textarea>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions mt-6 flex items-center justify-end gap-4">
+        <button type="button" class="btn gray-btn">الغاء</button>
+        <button type="button" class="btn green-btn flex items-center">
+          <span>ارسال الطلب</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
