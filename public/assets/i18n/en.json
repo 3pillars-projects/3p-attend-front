@@ -130,7 +130,10 @@
     "AUTH_ACTIVE_DIRECTORY_USERNAME_EXISTS": "Active Directory username already exists",
     "ACTIVE_DIRECTORY_SERVICE_UNAVAILABLE": "Active Directory service is unavailable",
     "AUTH_ACTIVE_DIRECTORY_INVALID_CREDENTIALS": "Active Directory username or password is incorrect",
-    "INVALID_XML_FILE_TYPE": "File extension should be .xml"
+    "INVALID_XML_FILE_TYPE": "File extension should be .xml",
+    "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "You have exceeded both the allowed number of permissions and the total allowed duration.",
+    "EXCEEDED_NUMBER_Of_PERMISSIONS": "You have exceeded the allowed number of permissions.",
+    "EXCEEDED_PERMISSIONS_DURATION": "You have exceeded the allowed permissions duration."
   },
   "FOOTER": {
     "ALL_RIGHTS": "All rights reserved to the General Directorate of Mujahideen © 2025"
@@ -825,5 +828,32 @@
       "IMPORT_IGNORED_WITH_COUNT": "Ignored (duplication or wrong fingerprint): ",
       "IMPORT_FAILED_WITH_COUNT": "Failed due to missing data: "
     }
+  },
+  "LIMITED_TIME_PERMISSION": {
+    "LIMITED_TIME_PERMISSION": "Limited Time Permissions",
+    "MY_REQUESTS": "My Requests",
+    "INCOMING_REQUESTS": "Incoming Permission Requests",
+    "PERMISSION_TYPE": "Permission Type",
+    "PERMISSION_DURATION": "Permission Duration(min)",
+    "REQUEST_STATUS": "Request Status",
+    "PERMISSION_LIST": "Permissions List",
+    "ADD_NEW_PERMISSION_REQUEST": "Add New Permission Request",
+    "PERMISSION_DATE": "Permission Date",
+    "PERMISSION_START_TIME": "Permission Start Time",
+    "DEPARTMENT": "Department",
+    "EMPLOYEE_NAME": "Employee Name",
+    "ACCEPTED_PENDING_CANCELLATION": "Accepted - Pending Cancellation",
+    "FIRST_ACCEPTED_PENDING_CANCELLATION": "First Accepted - Pending Cancellation",
+    "REQUEST_DATA": "Request Data",
+    "APPROVAL_DATE": "Approval Date",
+    "REJECTION_DATE": "Rejection Date",
+    "PERMISSION_REASON": "Permission Reason",
+    "APPROVE_PERMISSION_CANCEL_REQUEST": "Approve Permission Cancellation Request",
+    "DECLINE_PERMISSION_CANCEL_REQUEST": "Decline Permission Cancellation Request",
+    "APPROVE_PERMISSION": "Approve Permission",
+    "DECLINE_PERMISSION": "Decline Permission",
+    "REQUEST_CANCEL_PERMISSION": "Request Permission Cancellation",
+    "NEW_PERMISSION_REQUEST": "New Permission Request",
+    "UPDATE_PERMISSION_REQUEST": "Update Permission Request"
   }
 }

@@ -1,68 +1,167 @@
-<div dir="rtl">
+<div [dir]="direction">
   <div class="p-6">
-    <button class="block ms-auto">
+    <button (click)="close()" class="block ms-auto">
       <i class="pi pi-times close-popup"></i>
     </button>
-    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">بيانات الطلب</h3>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'LIMITED_TIME_PERMISSION.REQUEST_DATA' | translate }}
+    </h3>
 
     <div class="bg-[#f3f4f6] p-6 rounded-4xl">
       <div
         class="flex items-start md:tems-center gap-6 justify-between flex-col md:flex-row bg-[#fff] py-3 px-6 rounded-4xl mb-8"
       >
         <div class="flex items-center gap-2">
-          <span class="text-[14px] text-[#6c737f]"> حالة الطلب</span>
-          <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
-            <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
-            <span class="text-[#085d3a] font-semibold text-sm">موافقة</span>
-          </div>
-          <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
-            <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
-            <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
-          </div>
+          <span class="text-[14px] text-[#6c737f]">
+            {{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</span
+          >
+
+          @if (
+            model.isCancelRequested &&
+            model.fkStatusId ===
+              (limitedTimePermissionStatusEnum.Accepted ||
+                limitedTimePermissionStatusEnum.FirstAccepted)
+          ) {
+            <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+              <span class="text-[#93370d] font-semibold text-sm">{{
+                'LIMITED_TIME_PERMISSION.ACCEPTED_PENDING_CANCELLATION' | translate
+              }}</span>
+            </div>
+          }
+
+          @if (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted) {
+            <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+              <span class="text-[#085d3a] font-semibold text-sm">{{ model.getStatusName() }}</span>
+            </div>
+          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.New) {
+            <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+              <span class="text-[#1849a9] font-semibold text-sm">{{ model.getStatusName() }}</span>
+            </div>
+          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.Rejected) {
+            <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+              <span class="text-[#912018] font-semibold text-sm">{{ model.getStatusName() }}</span>
+            </div>
+          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted) {
+            <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+              <span class="text-[#93370d] font-semibold text-sm">{{ model.getStatusName() }}</span>
+            </div>
+          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.Canceled) {
+            <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+              <span class="text-[#1f2a37] font-semibold text-sm">{{ model.getStatusName() }}</span>
+            </div>
+          }
         </div>
 
         <div class="flex items-center gap-2">
-          <span class="text-[14px] text-[#6c737f]"> تاريخ الطلب</span>
-          <h4 class="font-semibold text-[#161616]">2025-11-05</h4>
+          @if (
+            model.fkStatusId == limitedTimePermissionStatusEnum.Accepted ||
+            model.fkStatusId == limitedTimePermissionStatusEnum.FirstAccepted
+          ) {
+            <span class="text-[#6c737f] text-sm">
+              {{ 'LIMITED_TIME_PERMISSION.APPROVAL_DATE' | translate }}</span
+            >
+
+            <h4 class="font-semibold text-[#161616]">
+              {{ model.actionDate ? (model.actionDate | date: 'dd/MM/yyyy') : '' }}
+            </h4>
+          }
+          @if (model.fkStatusId == limitedTimePermissionStatusEnum.Rejected) {
+            <span class="text-[#6c737f] text-sm">
+              {{ 'LIMITED_TIME_PERMISSION.REJECTION_DATE' | translate }}</span
+            >
+
+            <h4 class="font-semibold text-[#161616]">
+              {{ model.actionDate ? (model.actionDate | date: 'dd/MM/yyyy') : '' }}
+            </h4>
+          }
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <!-- National ID -->
         <div>
-          <span class="text-[14px] text-[#6c737f]"> نوع الاستئذان </span>
-          <h4 class="font-semibold text-[#161616]">بداية الدوام</h4>
+          <span class="text-[14px] text-[#6c737f]">
+            {{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}</span
+          >
+          <h4 class="font-semibold text-[#161616]">{{ model.getPermissionTypeName() }}</h4>
         </div>
         <div>
-          <span class="text-[14px] text-[#6c737f]"> اسم الموظف </span>
-          <h4 class="font-semibold text-[#161616]">محمد أحمد طه</h4>
+          <span class="text-[14px] text-[#6c737f]">{{
+            'LIMITED_TIME_PERMISSION.EMPLOYEE_NAME' | translate
+          }}</span>
+          <h4 class="font-semibold text-[#161616]">{{ model.getCreationUserName() }}</h4>
         </div>
         <div>
-          <span class="text-[14px] text-[#6c737f]"> تاريخ الاستئذان </span>
-          <h4 class="font-semibold text-[#161616]">2025-11-05</h4>
+          <span class="text-[14px] text-[#6c737f]">{{
+            'LIMITED_TIME_PERMISSION.PERMISSION_DATE' | translate
+          }}</span>
+          <h4 class="font-semibold text-[#161616]">
+            {{ model.limitedTimePermissionDate | date: 'dd/MM/yyyy' }}
+          </h4>
         </div>
         <div>
-          <span class="text-[14px] text-[#6c737f]"> مدة الاستئذان </span>
-          <h4 class="font-semibold text-[#161616]">10 ساعات</h4>
+          <span class="text-[14px] text-[#6c737f]">{{
+            'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate
+          }}</span>
+          <h4 class="font-semibold text-[#161616]">{{ model.limitedTimePermissionDuration }}</h4>
         </div>
         <div class="xl:col-span-4 lg:col-span-3 md:col-span-2">
-          <span class="text-[14px] text-[#6c737f]"> بداية مدة الاستئذان </span>
-          <h4 class="font-semibold text-[#161616]">02:00 م</h4>
+          <span class="text-[14px] text-[#6c737f]">
+            {{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}</span
+          >
+          <h4 class="font-semibold text-[#161616]">
+            {{ formatTime12HourFromDate(model.limitedTimePermissionTimeFrom) }}
+          </h4>
         </div>
         <div class="xl:col-span-4 lg:col-span-3 md:col-span-2">
-          <span class="text-[14px] text-[#6c737f]"> ملاحظات </span>
-          <h4 class="font-semibold text-[#161616]">ملاحظات</h4>
+          <span class="text-[14px] text-[#6c737f]">
+            {{ 'LIMITED_TIME_PERMISSION.PERMISSION_REASON' | translate }}</span
+          >
+          <h4 class="font-semibold text-[#161616]">
+            {{ model.limitedTimePermissionReason ?? '' }}
+          </h4>
         </div>
       </div>
     </div>
 
     <!-- Action Buttons - Only show for TAKE_ACTION mode -->
     <div class="actions flex items-center justify-between mt-6">
-      <button class="btn gray-btn">الغاء</button>
+      <button class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
       <div class="flex items-center gap-4">
-        <button class="btn !text-[#b42318] red-btn-action">رفض الغاء طلب الاستئذان</button>
-        <button class="btn green-btn">قبول الغاء طلب الاستئذان</button>
-        <button class="btn green-btn">الغاء طلب الاستئذان</button>
+        @if (model.canTakeAction) {
+          @if (
+            model.isCancelRequested &&
+            (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
+              model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted)
+          ) {
+            <button class="btn green-btn" (click)="approveCancel()">
+              {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION_CANCEL_REQUEST' | translate }}
+            </button>
+            <button class="btn !text-[#b42318] red-btn-action" (click)="rejectCancel()">
+              {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION_CANCEL_REQUEST' | translate }}
+            </button>
+          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.New) {
+            <button class="btn green-btn" (click)="acceptPermission()">
+              {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
+            </button>
+            <button class="btn !text-[#b42318] red-btn-action" (click)="rejectPermission()">
+              {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION' | translate }}
+            </button>
+          }
+        } @else if (
+          model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
+          model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted
+        ) {
+          <button class="btn green-btn" (click)="requestCancel()">
+            {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
+          </button>
+        }
       </div>
     </div>
   </div>

@@ -130,7 +130,10 @@
     "AUTH_ACTIVE_DIRECTORY_USERNAME_EXISTS": "اسم المستخدم فى ال Active Directory موجود بالفعل",
     "ACTIVE_DIRECTORY_SERVICE_UNAVAILABLE": "خدمة Active Directory غير متاحة",
     "AUTH_ACTIVE_DIRECTORY_INVALID_CREDENTIALS": "اسم المستخدم أو كلمة المرور غير صحيحة",
-    "INVALID_XML_FILE_TYPE": "امتداد الملف يجب ان يكون .xml"
+    "INVALID_XML_FILE_TYPE": "امتداد الملف يجب ان يكون .xml",
+    "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "لقد تجاوزت الحد المسموح به لعدد الاستئذانات و المدة المسموح بها للاستئذان",
+    "EXCEEDED_NUMBER_Of_PERMISSIONS": "لقد تجاوزت الحد المسموح به لعدد الاستئذانات",
+    "EXCEEDED_PERMISSIONS_DURATION": "لقد تجاوزت الحد المسموح به للمدة المسموح بها للاستئذان"
   },
   "FOOTER": {
     "ALL_RIGHTS": "جميع الحقوق محفوظة للإدارة العامة للمجاهدين © 2025"
@@ -823,5 +826,32 @@
       "IMPORT_IGNORED_WITH_COUNT": "تم تجاهلهم (بصمات مكررة او غير صحيحة): ",
       "IMPORT_FAILED_WITH_COUNT": "فشلت لعدم اكتمال البيانات: "
     }
+  },
+  "LIMITED_TIME_PERMISSION": {
+    "LIMITED_TIME_PERMISSION": "الاستئذانات الزمنية المحدودة",
+    "MY_REQUESTS": "سجل طلباتي",
+    "INCOMING_REQUESTS": "طلبات الاستئذان الواردة",
+    "PERMISSION_TYPE": "نوع الاستئذان",
+    "PERMISSION_DURATION": "مدة الاستئذان(دق)",
+    "REQUEST_STATUS": "حالة الطلب",
+    "PERMISSION_LIST": "قائمة الاستئذانات",
+    "ADD_NEW_PERMISSION_REQUEST": "إضافة طلب استئذان جديد",
+    "PERMISSION_DATE": "تاريخ الاستئذان",
+    "PERMISSION_START_TIME": "بداية مدة الاستئذان",
+    "DEPARTMENT": "الإدارة",
+    "EMPLOYEE_NAME": "اسم الموظف",
+    "ACCEPTED_PENDING_CANCELLATION": "موافقة - بانتظار الإلغاء",
+    "FIRST_ACCEPTED_PENDING_CANCELLATION": "موافقة اوليه - بانتظار الإلغاء",
+    "REQUEST_DATA": "بيانات الطلب",
+    "APPROVAL_DATE": "تاريخ الموافقة",
+    "REJECTION_DATE": "تاريخ الرفض",
+    "PERMISSION_REASON": "سبب الاستئذان",
+    "APPROVE_PERMISSION_CANCEL_REQUEST": "قبول الغاء طلب الاستئذان",
+    "DECLINE_PERMISSION_CANCEL_REQUEST": "رفض الغاء طلب الاستئذان",
+    "APPROVE_PERMISSION": "قبول الاستئذان",
+    "DECLINE_PERMISSION": "رفض الاستئذان",
+    "REQUEST_CANCEL_PERMISSION": "الغاء طلب الاستئذان",
+    "NEW_PERMISSION_REQUEST": "طلب استئذان جديد",
+    "UPDATE_PERMISSION_REQUEST": "تعديل طلب الاستئذان"
   }
 }

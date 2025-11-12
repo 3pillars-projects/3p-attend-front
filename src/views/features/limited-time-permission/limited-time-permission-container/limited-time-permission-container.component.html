@@ -2,30 +2,651 @@
 <div class="bg-white">
   <div class="bg-[#f9fafb] p-3 sm:p-6">
     <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
-      <p-breadcrumb [home]="home" [model]="items" class="max-w-full">
+      <p-breadcrumb [home]="home" [model]="breadcrumbs" class="max-w-full">
         <ng-template let-item pTemplate="item">
-          <span>الاستئذانات</span>
+          <span>{{ 'LIMITED_TIME_PERMISSION.LIMITED_TIME_PERMISSION' | translate }}</span>
         </ng-template>
       </p-breadcrumb>
-      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">الاستئذانات</h3>
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+        {{ 'LIMITED_TIME_PERMISSION.LIMITED_TIME_PERMISSION' | translate }}
+      </h3>
     </div>
 
     <p-tabs value="0">
       <p-tablist class="my-6">
-        <p-tab value="0"> سجل طلباتي </p-tab>
-        <p-tab value="1"> طلبات الاستئذان الواردة</p-tab>
+        <p-tab value="0" (click)="clickMyPermissionTab()">{{
+          'LIMITED_TIME_PERMISSION.MY_REQUESTS' | translate
+        }}</p-tab>
+        @if (showIncomingPermissions()) {
+          <p-tab value="1" (click)="clickIncomingPermissionTab()">
+            {{ 'LIMITED_TIME_PERMISSION.INCOMING_REQUESTS' | translate }}</p-tab
+          >
+        }
       </p-tablist>
 
       <p-tabpanels>
         <!-- My Visits Tab Panel -->
         <p-tabpanel value="0">
-          <app-my-limited-time-permission-list />
+          <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+            <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+              <div class="flex items-center justify-between">
+                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+                  {{ 'COMMON.SEARCH_FILTERS' | translate }}
+                </h5>
+              </div>
+              <div class="pt-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                  <div class="relative">
+                    <label class="label" for="department">
+                      {{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}
+                    </label>
+                    <p-select
+                      [(ngModel)]="filterModel.fkPermissionTypeId"
+                      [options]="limitedTimepermissionTypes"
+                      [optionLabel]="getPropertyName()"
+                      placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}"
+                      optionValue="id"
+                      class="w-full peer"
+                      name="my-permission-type-select"
+                      id="my-permission-type-select"
+                      [showClear]="true"
+                    >
+                    </p-select>
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+                  <div class="relative">
+                    <label class="label" for="permission-date-picker">{{
+                      'COMMON.FROM' | translate
+                    }}</label>
+                    <p-datepicker
+                      [(ngModel)]="filterModel.dateFrom"
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      class="peer block w-full"
+                      id="permission-date-picker"
+                      [showClear]="true"
+                      inputId="permission-date-picker"
+                      placeholder="{{ 'COMMON.FROM' | translate }}"
+                    >
+                      <ng-template pTemplate="inputicon">
+                        <img alt="" src="assets/icons/calender-icon.svg" />
+                      </ng-template>
+                    </p-datepicker>
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+                  <div class="relative">
+                    <label class="label" for="permission-date-picker">{{
+                      'COMMON.TO' | translate
+                    }}</label>
+                    <p-datepicker
+                      [(ngModel)]="filterModel.dateTo"
+                      [iconDisplay]="'input'"
+                      placeholder="{{ 'COMMON.TO' | translate }}"
+                      [showIcon]="true"
+                      class="peer block w-full"
+                      id="my-permission-date-picker"
+                      inputId="my-permission-date-picker"
+                      [showClear]="true"
+                    >
+                      <ng-template pTemplate="inputicon">
+                        <img alt="" src="assets/icons/calender-icon.svg" />
+                      </ng-template>
+                    </p-datepicker>
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+
+                  <div class="relative">
+                    <label class="label" for="department">{{
+                      'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate
+                    }}</label>
+                    <p-select
+                      [(ngModel)]="filterModel.limitedTimePermissionDuration"
+                      [options]="availableTimeOptions"
+                      placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}"
+                      class="w-full peer"
+                      id="my-permission-duration-picker"
+                      inputId="my-permission-duration-picker"
+                      [showClear]="true"
+                    >
+                    </p-select>
+
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+
+                  <div class="relative">
+                    <label class="label" for="department">
+                      {{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</label
+                    >
+                    <p-select
+                      [(ngModel)]="filterModel.fkStatusId"
+                      [optionLabel]="getPropertyName()"
+                      [options]="limitedTimeprmissionStatuses"
+                      placeholder="{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}"
+                      optionLabel="type"
+                      optionValue="id"
+                      class="w-full peer"
+                      id="my-request-status-select"
+                      [showClear]="true"
+                    >
+                    </p-select>
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+                </div>
+                <div class="actions flex items-center gap-4 pt-6">
+                  <button (click)="search()" class="btn black-btn">
+                    {{ 'COMMON.SEARCH' | translate }}
+                  </button>
+                  <button (click)="resetSearch()" class="btn gray-btn border border-[#d2d6db]">
+                    {{ 'COMMON.RESET_SEARCH' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            @if (showAddingPermissionButton()) {
+              <div class="mt-6">
+                <div
+                  class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
+                >
+                  <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+                    {{ 'LIMITED_TIME_PERMISSION.PERMISSION_LIST' | translate }}
+                  </h4>
+                  <div class="actions flex items-center gap-4 ms-auto">
+                    <button
+                      class="table-head-action-btn"
+                      (click)="exportExcel('limited-time-permissions.xlsx')"
+                    >
+                      <img src="assets/icons/excel.svg" alt="" />
+                    </button>
+
+                    <button class="btn green-btn" (click)="addOrEditModel()">
+                      <img src="assets/icons/add-action.svg" alt="" />
+                      {{ 'LIMITED_TIME_PERMISSION.ADD_NEW_PERMISSION_REQUEST' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+            @if (list && list.length > 0) {
+              <p-table [value]="list">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}</th>
+                    <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DATE' | translate }}</th>
+                    <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}</th>
+                    <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}</th>
+                    <th>{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</th>
+                    <th>{{ 'COMMON.ACTION' | translate }}</th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-permission>
+                  <tr>
+                    <td>{{ permission.getPermissionTypeName() }}</td>
+                    <td>{{ permission.limitedTimePermissionDate | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                      <div
+                        class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+                      >
+                        {{ permission.limitedTimePermissionDuration }}
+                      </div>
+                    </td>
+                    <td>
+                      {{
+                        formatTime12HourFromDate(permission.limitedTimePermissionTimeFrom) || '-'
+                      }}
+                    </td>
+                    <td>
+                      @if (permission.isCancelRequested) {
+                        @if (permission.status.id === limitedTimePermissionStatusEnum.Accepted) {
+                          <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                            <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                            <span class="text-[#93370d] font-semibold text-sm">{{
+                              'LIMITED_TIME_PERMISSION.ACCEPTED_PENDING_CANCELLATION' | translate
+                            }}</span>
+                          </div>
+                        } @else {
+                          <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                            <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                            <span class="text-[#93370d] font-semibold text-sm">{{
+                              'LIMITED_TIME_PERMISSION.FIRST_ACCEPTED_PENDING_CANCELLATION'
+                                | translate
+                            }}</span>
+                          </div>
+                        }
+                      } @else if (
+                        permission.status.id === limitedTimePermissionStatusEnum.Accepted
+                      ) {
+                        <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                          <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                          <span class="text-[#085d3a] font-semibold text-sm">{{
+                            permission.getStatusName()
+                          }}</span>
+                        </div>
+                      } @else if (permission.status.id === limitedTimePermissionStatusEnum.New) {
+                        <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                          <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+                          <span class="text-[#1849a9] font-semibold text-sm">{{
+                            permission.getStatusName()
+                          }}</span>
+                        </div>
+                      } @else if (
+                        permission.status.id === limitedTimePermissionStatusEnum.Rejected
+                      ) {
+                        <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                          <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+                          <span class="text-[#912018] font-semibold text-sm">{{
+                            permission.getStatusName()
+                          }}</span>
+                        </div>
+                      } @else if (
+                        permission.status.id === limitedTimePermissionStatusEnum.FirstAccepted
+                      ) {
+                        <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                          <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                          <span class="text-[#93370d] font-semibold text-sm">{{
+                            permission.getStatusName()
+                          }}</span>
+                        </div>
+                      } @else if (
+                        permission.status.id === limitedTimePermissionStatusEnum.Canceled
+                      ) {
+                        <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                          <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                          <span class="text-[#1f2a37] font-semibold text-sm">{{
+                            permission.getStatusName()
+                          }}</span>
+                        </div>
+                      }
+                    </td>
+                    <td class="w-[36px] whitespace-nowrap">
+                      <div class="actions">
+                        @if (permission.status.id !== limitedTimePermissionStatusEnum.New) {
+                          <button
+                            class="table-action-gray-btn"
+                            (click)="openDataDialog(permission)"
+                          >
+                            <img src="/assets/icons/view-action.svg" alt="" />
+                          </button>
+                        }
+                        @if (permission.status.id === limitedTimePermissionStatusEnum.New) {
+                          <button
+                            class="table-action-gray-btn"
+                            (click)="addOrEditModel(permission)"
+                          >
+                            <img alt="" src="assets/icons/edit-action.svg" />
+                          </button>
+                          <button class="table-action-red-btn" (click)="deleteModel(permission.id)">
+                            <img alt="" src="assets/icons/delete-action.svg" />
+                          </button>
+                        }
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            } @else {
+              <div class="flex items-center justify-center h-64">
+                <p class="text-gray-500">
+                  {{ 'PERMISSION_REASONS_PAGE.NO_DATA_TO_SHOW' | translate }}
+                </p>
+              </div>
+            }
+            @if (paginationInfo) {
+              <p-paginator
+                (onPageChange)="onPageChange($event)"
+                [first]="first"
+                [rowsPerPageOptions]="[10, 20, 30]"
+                [rows]="rows"
+                [showCurrentPageReport]="false"
+                [totalRecords]="paginationInfo.totalItems"
+                class="mt-6"
+              />
+            }
+          </div>
         </p-tabpanel>
 
         <!-- All Visits Tab Panel -->
-        <p-tabpanel value="1">
-          <app-all-limited-time-permission-list />
-        </p-tabpanel>
+        @if (showIncomingPermissions()) {
+          <p-tabpanel value="1">
+            <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+              <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+                <div class="flex items-center justify-between">
+                  <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+                    {{ 'COMMON.SEARCH_FILTERS' | translate }}
+                  </h5>
+                </div>
+                <div class="pt-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div class="relative">
+                      <label class="label" for="department">
+                        {{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}</label
+                      >
+                      <p-select
+                        [(ngModel)]="filterModel.fkPermissionTypeId"
+                        [optionLabel]="getPropertyName()"
+                        [options]="limitedTimepermissionTypes"
+                        placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}"
+                        optionValue="id"
+                        class="w-full peer"
+                        id="permission-type-select"
+                        name="permission-type-select"
+                        [showClear]="true"
+                      >
+                      </p-select>
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                    <div class="relative">
+                      <label class="label" for="department">
+                        {{ 'LIMITED_TIME_PERMISSION.DEPARTMENT' | translate }}
+                      </label>
+                      <p-select
+                        [(ngModel)]="filterModel.fkDepartmentId"
+                        [optionLabel]="getPropertyName()"
+                        [options]="departments"
+                        placeholder="{{ 'LIMITED_TIME_PERMISSION.DEPARTMENT' | translate }}"
+                        optionLabel="type"
+                        optionValue="id"
+                        class="w-full peer"
+                        id="department-select"
+                        [showClear]="true"
+                      >
+                      </p-select>
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                    <div class="relative">
+                      <label class="label" for="department">
+                        {{ 'LIMITED_TIME_PERMISSION.EMPLOYEE_NAME' | translate }}</label
+                      >
+                      <p-select
+                        [(ngModel)]="filterModel.creationUserId"
+                        [optionLabel]="getPropertyName()"
+                        [options]="users"
+                        placeholder="{{ 'LIMITED_TIME_PERMISSION.EMPLOYEE_NAME' | translate }}"
+                        optionLabel="type"
+                        optionValue="id"
+                        class="w-full peer"
+                        id="employee-name-select"
+                        [showClear]="true"
+                      >
+                      </p-select>
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                    <div class="relative">
+                      <label class="label" for="department">
+                        {{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}</label
+                      >
+                      <p-select
+                        [(ngModel)]="filterModel.limitedTimePermissionDuration"
+                        [options]="availableTimeOptions"
+                        placeholder="{{
+                          'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate
+                        }}"
+                        class="w-full peer"
+                        id="my-permission-duration-picker"
+                        inputId="my-permission-duration-picker"
+                        [showClear]="true"
+                      >
+                      </p-select>
+
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                    <div class="relative">
+                      <label class="label" for="permission-date-picker">{{
+                        'COMMON.FROM' | translate
+                      }}</label>
+                      <p-datepicker
+                        [(ngModel)]="filterModel.dateFrom"
+                        [iconDisplay]="'input'"
+                        placeholder="{{ 'COMMON.FROM' | translate }}"
+                        [showIcon]="true"
+                        class="peer block w-full"
+                        id="permission-date-picker"
+                        [showClear]="true"
+                      >
+                        <ng-template pTemplate="inputicon">
+                          <img alt="" src="assets/icons/calender-icon.svg" />
+                        </ng-template>
+                      </p-datepicker>
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                    <div class="relative">
+                      <label class="label" for="permission-date-picker">{{
+                        'COMMON.TO' | translate
+                      }}</label>
+                      <p-datepicker
+                        [(ngModel)]="filterModel.dateTo"
+                        [iconDisplay]="'input'"
+                        placeholder="{{ 'COMMON.TO' | translate }}"
+                        [showIcon]="true"
+                        class="peer block w-full"
+                        id="permission-date-picker"
+                        inputId="permission-date-picker"
+                        [showClear]="true"
+                      >
+                        <ng-template pTemplate="inputicon">
+                          <img alt="" src="assets/icons/calender-icon.svg" />
+                        </ng-template>
+                      </p-datepicker>
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                    <div class="relative">
+                      <label class="label" for="department">
+                        {{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</label
+                      >
+                      <p-select
+                        [(ngModel)]="filterModel.fkStatusId"
+                        [optionLabel]="getPropertyName()"
+                        [options]="limitedTimeprmissionStatuses"
+                        placeholder="{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}"
+                        optionValue="id"
+                        class="w-full peer"
+                        id="request-status-select"
+                        [showClear]="true"
+                      >
+                      </p-select>
+                      <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="actions flex items-center gap-4 pt-6">
+                    <button (click)="departmentPermissionSearch()" class="btn black-btn">
+                      {{ 'COMMON.SEARCH' | translate }}
+                    </button>
+                    <button
+                      (click)="departmentPermissionResetSearch()"
+                      class="btn gray-btn border border-[#d2d6db]"
+                    >
+                      {{ 'COMMON.RESET_SEARCH' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6">
+                <div
+                  class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
+                >
+                  <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+                    {{ 'LIMITED_TIME_PERMISSION.PERMISSION_LIST' | translate }}
+                  </h4>
+                  <div class="actions flex items-center gap-4 ms-auto">
+                    <button
+                      class="table-head-action-btn"
+                      (click)="exportExcel('limited-time-permissions.xlsx', true)"
+                    >
+                      <img src="assets/icons/excel.svg" alt="" />
+                    </button>
+                  </div>
+                </div>
+                @if (list && list.length > 0) {
+                  <p-table [value]="list">
+                    <ng-template #header>
+                      <tr>
+                        <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}</th>
+                        <th>{{ 'LIMITED_TIME_PERMISSION.EMPLOYEE_NAME' | translate }}</th>
+                        <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DATE' | translate }}</th>
+                        <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}</th>
+                        <th>{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</th>
+                        <th>{{ 'COMMON.ACTION' | translate }}</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template #body let-permissionsRequest>
+                      <tr>
+                        <td>{{ permissionsRequest.getPermissionTypeName() }}</td>
+                        <td>{{ permissionsRequest.getCreationUserName() }}</td>
+                        <td>
+                          {{ permissionsRequest.limitedTimePermissionDate | date: 'dd/MM/yyyy' }}
+                        </td>
+                        <td>
+                          <div
+                            class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+                          >
+                            {{ permissionsRequest.limitedTimePermissionDuration }}
+                          </div>
+                        </td>
+                        <td>
+                          @if (permissionsRequest.isCancelRequested) {
+                            @if (
+                              permissionsRequest.status.id ===
+                              limitedTimePermissionStatusEnum.Accepted
+                            ) {
+                              <div
+                                class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2"
+                              >
+                                <span
+                                  class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"
+                                ></span>
+                                <span class="text-[#93370d] font-semibold text-sm">{{
+                                  'LIMITED_TIME_PERMISSION.ACCEPTED_PENDING_CANCELLATION'
+                                    | translate
+                                }}</span>
+                              </div>
+                            } @else {
+                              <div
+                                class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2"
+                              >
+                                <span
+                                  class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"
+                                ></span>
+                                <span class="text-[#93370d] font-semibold text-sm">{{
+                                  'LIMITED_TIME_PERMISSION.FIRST_ACCEPTED_PENDING_CANCELLATION'
+                                    | translate
+                                }}</span>
+                              </div>
+                            }
+                          } @else if (
+                            permissionsRequest.status.id ===
+                            limitedTimePermissionStatusEnum.Accepted
+                          ) {
+                            <div
+                              class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2"
+                            >
+                              <span
+                                class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"
+                              ></span>
+                              <span class="text-[#085d3a] font-semibold text-sm">{{
+                                permissionsRequest.getStatusName()
+                              }}</span>
+                            </div>
+                          } @else if (
+                            permissionsRequest.status.id === limitedTimePermissionStatusEnum.New
+                          ) {
+                            <div
+                              class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2"
+                            >
+                              <span
+                                class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"
+                              ></span>
+                              <span class="text-[#1849a9] font-semibold text-sm">{{
+                                permissionsRequest.getStatusName()
+                              }}</span>
+                            </div>
+                          } @else if (
+                            permissionsRequest.status.id ===
+                            limitedTimePermissionStatusEnum.Rejected
+                          ) {
+                            <div
+                              class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2"
+                            >
+                              <span
+                                class="w-[10px] h-[10px] rounded-full bg-[#912018] block"
+                              ></span>
+                              <span class="text-[#912018] font-semibold text-sm">{{
+                                permissionsRequest.getStatusName()
+                              }}</span>
+                            </div>
+                          } @else if (
+                            permissionsRequest.status.id ===
+                            limitedTimePermissionStatusEnum.Rejected
+                          ) {
+                            <div
+                              class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2"
+                            >
+                              <span
+                                class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"
+                              ></span>
+                              <span class="text-[#1f2a37] font-semibold text-sm">{{
+                                permissionsRequest.getStatusName()
+                              }}</span>
+                            </div>
+                          }
+                        </td>
+                        <td class="w-[36px] whitespace-nowrap">
+                          <div class="actions">
+                            <button
+                              class="table-action-gray-btn"
+                              (click)="openDataDialog(permissionsRequest)"
+                            >
+                              <img alt="" src="assets/icons/view-action.svg" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                } @else {
+                  <div class="flex items-center justify-center h-64">
+                    <p class="text-gray-500">
+                      {{ 'PERMISSION_REASONS_PAGE.NO_DATA_TO_SHOW' | translate }}
+                    </p>
+                  </div>
+                }
+                @if (paginationInfo) {
+                  <p-paginator
+                    (onPageChange)="onIncomingPermissionPageChange($event)"
+                    [first]="first"
+                    [rowsPerPageOptions]="[10, 20, 30]"
+                    [rows]="rows"
+                    [showCurrentPageReport]="false"
+                    [totalRecords]="paginationInfo.totalItems"
+                    class="mt-6"
+                  />
+                }
+              </div>
+            </div>
+          </p-tabpanel>
+        }
       </p-tabpanels>
     </p-tabs>
   </div>

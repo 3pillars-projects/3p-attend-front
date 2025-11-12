@@ -16,6 +16,9 @@ export const EndPoints = {
   PERMISSION_TYPES: '/permissiontypes',
   PERMISSION_STATUS: '/permissionstatuses',
   PERMISSIONS: '/permissions',
+  LIMITED_TIME_PERMISSIONS: '/limitedTimePermissions',
+  LIMITED_TIME_PERMISSIONS_TYPES: '/limitedTimePermissionTypes',
+  LIMITED_TIME_PERMISSIONS_STATUS: '/limitedTimePermissionStatuses',
   SHIFTS: '/shifts',
   NOTIFICATION: '/notifications',
   User_Work_Shifts: '/UserWorkShifts',
@@ -32,7 +35,7 @@ export const EndPoints = {
   DEVICE_STATUS: '/deviceStatuses',
   ATTENDANCE_REPORT: '/attendancereports',
   MANUAL_PROCESSING: '/ManualProcessing',
-  IMPORT: '/ImportSheet',
+  IMPORT: '/ImportExcel',
 };
 
 export type EndpointsType = typeof EndPoints;

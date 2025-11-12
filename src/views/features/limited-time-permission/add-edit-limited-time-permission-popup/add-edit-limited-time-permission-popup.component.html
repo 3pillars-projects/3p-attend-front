@@ -1,39 +1,59 @@
-<div dir="rtl">
+<div [dir]="direction">
   <div class="p-6">
-    <button class="block ms-auto">
+    <button (click)="close()" class="block ms-auto">
       <i class="pi pi-times close-popup"></i>
     </button>
-    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">طلب استئذان جديد</h3>
+    @if (isCreateMode) {
+      <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
+        {{ 'LIMITED_TIME_PERMISSION.NEW_PERMISSION_REQUEST' | translate }}
+      </h3>
+    } @else {
+      <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
+        {{ 'LIMITED_TIME_PERMISSION.UPDATE_PERMISSION_REQUEST' | translate }}
+      </h3>
+    }
 
-    <form>
+    <form [formGroup]="form">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div>
-          <label class="label" for="nationality">نوع الاذن</label>
+          <label class="label" for="permissionType">{{
+            'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate
+          }}</label>
           <div class="relative">
             <p-select
+              [optionLabel]="getPropertyName()"
+              [options]="permissionTypes"
+              formControlName="fkLimitedTimePermissionTypeId"
               class="w-full peer"
-              id="nationality"
-              name="nationality"
+              id="permissionType"
+              name="permissionType"
               optionValue="id"
-              placeholder="نوع الاذن"
+              placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate }}"
             >
             </p-select>
             <span
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
           </div>
+          <app-validation-messages
+            [control]="fkLimitedTimePermissionTypeIdControl"
+          ></app-validation-messages>
         </div>
+
         <div>
-          <label class="label" for="nationalIdExpiryDate">تاريخ الاذن</label>
+          <label class="label" for="permissionDate">{{
+            'LIMITED_TIME_PERMISSION.PERMISSION_DATE' | translate
+          }}</label>
           <div class="relative">
             <p-datepicker
               [iconDisplay]="'input'"
+              formControlName="limitedTimePermissionDate"
               [showIcon]="true"
               class="peer block w-full"
-              id="nationalIdExpiryDate"
-              inputId="nationalIdExpiryDate"
-              name="nationalIdExpiryDate"
-              placeholder="تاريخ الاذن"
+              id="permissionDate"
+              inputId="permissionDate"
+              name="permissionDate"
+              placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DATE' | translate }}"
             >
               <ng-template pTemplate="inputicon">
                 <img alt="" src="assets/icons/calender-icon.svg" />
@@ -43,33 +63,49 @@
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
           </div>
+          <app-validation-messages
+            [control]="limitedTimePermissionDateControl"
+          ></app-validation-messages>
         </div>
+
         <div>
-          <label class="label" for="nationality">مدة الاستئذان</label>
+          <label class="label" for="permissionDuration">{{
+            'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate
+          }}</label>
           <div class="relative">
             <p-select
+              [options]="availableTimeOptions"
+              formControlName="limitedTimePermissionDuration"
               class="w-full peer"
-              id="nationality"
-              name="nationality"
-              optionValue="id"
-              placeholder="مدة الاستئذان"
+              id="permissionDuration"
+              name="permissionDuration"
+              optionValue="value"
+              placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}"
             >
             </p-select>
             <span
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
           </div>
+          <app-validation-messages
+            [control]="limitedTimePermissionDurationControl"
+          ></app-validation-messages>
         </div>
-        <div>
-          <label class="label" for="time-picker-popup"> بداية مدة الاستئذان </label>
+
+        <!-- Conditionally show time picker only for Mid-Shift -->
+        <div *ngIf="shouldShowTimePicker()">
+          <label class="label" for="time-picker-popup">
+            {{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}</label
+          >
           <div class="relative">
             <p-datepicker
+              formControlName="limitedTimePermissionTimeFrom"
               [iconDisplay]="'input'"
               [showIcon]="true"
               [timeOnly]="true"
               class="peer block w-full"
               id="time-picker-popup"
-              placeholder="بداية مدة الاستئذان"
+              placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}"
               [hourFormat]="'12'"
             >
               <ng-template pTemplate="inputicon">
@@ -80,30 +116,40 @@
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
           </div>
+          <app-validation-messages
+            [control]="limitedTimePermissionTimeFromControl"
+          ></app-validation-messages>
         </div>
+
         <div class="lg:col-span-3 md:col-span-2 col-span-1">
-          <label class="label" for="visitPurpose">ملاحظات</label>
+          <label class="label" for="reason">{{
+            'LIMITED_TIME_PERMISSION.PERMISSION_REASON' | translate
+          }}</label>
           <div class="relative w-full">
             <textarea
+              formControlName="limitedTimePermissionReason"
               class="h-24 block overflow-auto mt-4 w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
               cols="30"
-              id="visitPurpose"
+              id="reason"
               pTextarea
-              placeholder="ملاحظات"
+              placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_REASON' | translate }}"
               rows="5"
             ></textarea>
             <span
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
             ></span>
           </div>
+          <app-validation-messages
+            [control]="limitedTimePermissionReasonControl"
+          ></app-validation-messages>
         </div>
       </div>
 
       <!-- Action Buttons -->
       <div class="actions mt-6 flex items-center justify-end gap-4">
-        <button type="button" class="btn gray-btn">الغاء</button>
-        <button type="button" class="btn green-btn flex items-center">
-          <span>ارسال الطلب</span>
+        <button (click)="close()" class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
+        <button (click)="save$.next()" class="btn green-btn">
+          {{ 'COMMON.SAVE' | translate }}
         </button>
       </div>
     </form>
