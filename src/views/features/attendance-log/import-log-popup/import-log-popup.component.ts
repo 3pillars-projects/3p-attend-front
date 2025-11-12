@@ -28,7 +28,7 @@ export class ImportLogPopupComponent implements OnInit {
   dialogRef = inject(MatDialogRef);
   translateService = inject(TranslateService);
   maxFileSizeInMB: number = 5;
-  requiredHeaders = ['ID', 'Recorded Time', 'Status'];
+  requiredHeaders = ['Recorded Time', 'Status'];
   requiredValues = ['Recorded Time', 'Status'];
 
   constructor(private importService: ImportService) {}
