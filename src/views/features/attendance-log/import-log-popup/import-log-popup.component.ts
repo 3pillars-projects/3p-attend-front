@@ -107,7 +107,7 @@ export class ImportLogPopupComponent implements OnInit {
     this.importService.importAttendanceLogsXml(formData).subscribe({
       next: (response) => {
         this.alertService.showSuccessMessage({messages: this.getImportResponseMessages(response)}, {width: '100%', maxWidth: '600px'});
-        this.dialogRef.close();
+        this.dialogRef.close(DIALOG_ENUM.OK);
       },
     });
   }
