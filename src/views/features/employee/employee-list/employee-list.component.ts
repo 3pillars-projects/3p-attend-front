@@ -235,11 +235,13 @@ export default class EmployeeListComponent
     });
 
     dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      if(result && result == DIALOG_ENUM.OK) {
+      if (result && result == DIALOG_ENUM.OK) {
         this.loadList().subscribe({
           next: (response) => {
             this.handleLoadListSuccess(response);
-            this.alertService.showSuccessMessage({messages: ['COMMON.DATA_HAS_BEEN_IMPORTED_SUCCESSFULLY']});
+            this.alertService.showSuccessMessage({
+              messages: ['COMMON.DATA_HAS_BEEN_IMPORTED_SUCCESSFULLY'],
+            });
           },
           error: this.handleLoadListError,
         });

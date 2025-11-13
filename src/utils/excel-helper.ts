@@ -52,9 +52,7 @@ export class ExcelHelper {
           const headerRow = rows[0] ?? [];
           const provided = headerRow.map((cell) => String(cell ?? '').trim());
           const providedSet = new Set(provided);
-          const missing = importRequiredHeaders.filter(
-            (req) => !providedSet.has(req)
-          );
+          const missing = importRequiredHeaders.filter((req) => !providedSet.has(req));
 
           observer.next({ validHeaders: missing.length === 0, missing, provided });
           observer.complete();

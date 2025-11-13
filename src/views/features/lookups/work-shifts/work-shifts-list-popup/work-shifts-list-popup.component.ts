@@ -157,7 +157,9 @@ export class WorkShiftsListPopupComponent extends BasePopupComponent<Shift> impl
 
   override buildForm(): void {
     this.form = this.fb.group(this.model.buildForm(), {
-      validators: [CustomValidators.crossDateTimeValidator('timeFrom', 'timeTo', 'isCrossDayShift')],
+      validators: [
+        CustomValidators.crossDateTimeValidator('timeFrom', 'timeTo', 'isCrossDayShift'),
+      ],
     });
 
     if (!this.isCreateMode) {
@@ -198,7 +200,7 @@ export class WorkShiftsListPopupComponent extends BasePopupComponent<Shift> impl
 
     this.isCrossDayShiftControl.valueChanges.subscribe(() => {
       this.form.updateValueAndValidity({ onlySelf: false, emitEvent: false });
-    })
+    });
   }
 
   get isCrossDayShiftControl() {
@@ -206,7 +208,7 @@ export class WorkShiftsListPopupComponent extends BasePopupComponent<Shift> impl
   }
 
   override saveFail(error: any): void {
-    if(this.isSaveAndActivateClicked) {
+    if (this.isSaveAndActivateClicked) {
       this.isSaveAndActivateClicked = false;
       this.model.isActive = false;
       this.form.get('isActive')?.setValue(false);

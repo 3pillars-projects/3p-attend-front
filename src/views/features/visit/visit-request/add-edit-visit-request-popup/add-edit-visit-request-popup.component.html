@@ -257,11 +257,15 @@
             >
               <span>{{ isEnglishLanguage() ? loc.nameEn : loc.nameAr }}</span>
 
-              @if(loc.status) {
-                <span class="bg-[#067647] rounded-full text-white px-2 block ">{{'DEVICE_STATUS.CONNECTED' | translate}}</span>
+              @if (loc.status) {
+                <span class="bg-[#067647] rounded-full text-white px-2 block">{{
+                  'DEVICE_STATUS.CONNECTED' | translate
+                }}</span>
               }
-              @if(!loc.status) {
-                <span class="bg-[#d92d20] rounded-full text-white px-2 block ">{{'DEVICE_STATUS.NOT_CONNECTED' | translate}}</span>
+              @if (!loc.status) {
+                <span class="bg-[#d92d20] rounded-full text-white px-2 block">{{
+                  'DEVICE_STATUS.NOT_CONNECTED' | translate
+                }}</span>
               }
               <button type="button" (click)="removeAccessLocation(loc.id)">
                 <svg

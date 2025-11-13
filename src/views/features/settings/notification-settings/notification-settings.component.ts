@@ -27,7 +27,7 @@ import { Select } from 'primeng/select';
     TranslatePipe,
     TabsModule,
     RouterModule,
-    Select
+    Select,
   ],
   templateUrl: './notification-settings.component.html',
   styleUrls: ['./notification-settings.component.scss'],

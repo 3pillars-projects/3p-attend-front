@@ -17,7 +17,7 @@ import { DIALOG_ENUM } from '@/enums/dialog-enum';
   templateUrl: './import-log-popup.component.html',
   styleUrl: './import-log-popup.component.scss',
 })
-export class ImportLogPopupComponent implements OnInit{
+export class ImportLogPopupComponent implements OnInit {
   declare direction: LAYOUT_DIRECTION_ENUM;
   alertService = inject(AlertService);
   languageService = inject(LanguageService);
@@ -131,7 +131,9 @@ export class ImportLogPopupComponent implements OnInit{
   }
 
   getMaxAllowedFileSizeMessage() {
-    return this.translateService.instant('IMPORT.THE_MAXIMUM_ALLOWED_FILE_SIZE').replace('{size}', this.maxFileSizeInMB);
+    return this.translateService
+      .instant('IMPORT.THE_MAXIMUM_ALLOWED_FILE_SIZE')
+      .replace('{size}', this.maxFileSizeInMB);
   }
 
   onCancel(): void {

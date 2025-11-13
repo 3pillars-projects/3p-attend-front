@@ -22,8 +22,9 @@ export class SpreadsheetXmlHelper {
 
           // locate header row (contains all requiredHeaders)
           const headerRow = rows.find((r) => {
-            const vals = Array.from(r.getElementsByTagNameNS(ns, 'Data'))
-              .map((d) => (d.textContent ?? '').trim());
+            const vals = Array.from(r.getElementsByTagNameNS(ns, 'Data')).map((d) =>
+              (d.textContent ?? '').trim()
+            );
             const set = new Set(vals.map(norm));
             return requiredHeaders.every((h) => set.has(norm(h)));
           });
@@ -80,8 +81,9 @@ export class SpreadsheetXmlHelper {
 
           // find header row by matching first required field
           const headerRow = rows.find((r) =>
-            Array.from(r.getElementsByTagNameNS(ns, 'Data'))
-              .some((d) => norm(d.textContent ?? '') === norm(nonEmptyFields[0]))
+            Array.from(r.getElementsByTagNameNS(ns, 'Data')).some(
+              (d) => norm(d.textContent ?? '') === norm(nonEmptyFields[0])
+            )
           );
 
           if (!headerRow) {
@@ -102,7 +104,9 @@ export class SpreadsheetXmlHelper {
           provided.forEach((name, i) => headerIndexMap.set(norm(name), i));
 
           // map required fields to their column indices
-          const nonEmptyIndices = nonEmptyFields.map((f) => headerIndexMap.get(norm(f) as string) ?? -1);
+          const nonEmptyIndices = nonEmptyFields.map(
+            (f) => headerIndexMap.get(norm(f) as string) ?? -1
+          );
 
           // if any required header is completely missing, treat all as missing
           if (nonEmptyIndices.some((idx) => idx < 0)) {
@@ -133,8 +137,9 @@ export class SpreadsheetXmlHelper {
           for (let r = 0; r < dataRows.length; r++) {
             const row = dataRows[r];
 
-            const vals = Array.from(row.getElementsByTagNameNS(ns, 'Data'))
-              .map((d) => (d.textContent ?? '').trim());
+            const vals = Array.from(row.getElementsByTagNameNS(ns, 'Data')).map((d) =>
+              (d.textContent ?? '').trim()
+            );
 
             const allEmpty = vals.every((v) => !v);
             if (allEmpty) {
@@ -176,5 +181,4 @@ export class SpreadsheetXmlHelper {
       reader.readAsText(file);
     });
   }
-
 }
