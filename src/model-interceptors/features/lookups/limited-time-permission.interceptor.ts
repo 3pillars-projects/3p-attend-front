@@ -22,9 +22,7 @@ export class LimitedTimePermissionInterceptor
       model.limitedTimePermissionTimeFrom &&
       typeof model.limitedTimePermissionTimeFrom === 'string'
     ) {
-      model.limitedTimePermissionTimeFrom = convertUtcToSystemTimeZone(
-        timeStringToDate(model.limitedTimePermissionTimeFrom)
-      );
+      model.limitedTimePermissionTimeFrom = timeStringToDate(model.limitedTimePermissionTimeFrom);
     }
 
     return model;
@@ -37,13 +35,13 @@ export class LimitedTimePermissionInterceptor
     delete model.creationUser;
     delete (model as any)['languageService'];
 
-    model.limitedTimePermissionDate = toDateOnly(model.limitedTimePermissionDate);
+    model.limitedTimePermissionDate = toDateOnly(model.limitedTimePermissionDate); //"2025-11-16"
 
     if (model.limitedTimePermissionTimeFrom) {
       const value = model.limitedTimePermissionTimeFrom as any;
       const timeAsDate = value instanceof Date ? value : timeStringToDate(value as string);
 
-      model.limitedTimePermissionTimeFrom = dateToTimeString(convertKsaToUtc(timeAsDate)) as string;
+      model.limitedTimePermissionTimeFrom = dateToTimeString(timeAsDate) as string; //"16:42:00"
     }
 
     return model;

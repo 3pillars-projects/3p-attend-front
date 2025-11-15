@@ -846,6 +846,7 @@
     "APPROVAL_DATE": "تاريخ الموافقة",
     "REJECTION_DATE": "تاريخ الرفض",
     "PERMISSION_REASON": "سبب الاستئذان",
+    "REQUEST_CANCEL": "الغاء طلب الاستئذان",
     "APPROVE_PERMISSION_CANCEL_REQUEST": "قبول الغاء طلب الاستئذان",
     "DECLINE_PERMISSION_CANCEL_REQUEST": "رفض الغاء طلب الاستئذان",
     "APPROVE_PERMISSION": "قبول الاستئذان",

@@ -206,7 +206,7 @@
                     </td>
                     <td>
                       @if (permission.isCancelRequested) {
-                        @if (permission.status.id === limitedTimePermissionStatusEnum.Accepted) {
+                        @if (permission.fkStatusId === limitedTimePermissionStatusEnum.Accepted) {
                           <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
                             <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
                             <span class="text-[#93370d] font-semibold text-sm">{{
@@ -223,7 +223,7 @@
                           </div>
                         }
                       } @else if (
-                        permission.status.id === limitedTimePermissionStatusEnum.Accepted
+                        permission.fkStatusId === limitedTimePermissionStatusEnum.Accepted
                       ) {
                         <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
                           <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
@@ -231,7 +231,7 @@
                             permission.getStatusName()
                           }}</span>
                         </div>
-                      } @else if (permission.status.id === limitedTimePermissionStatusEnum.New) {
+                      } @else if (permission.fkStatusId === limitedTimePermissionStatusEnum.New) {
                         <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
                           <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
                           <span class="text-[#1849a9] font-semibold text-sm">{{
@@ -239,7 +239,7 @@
                           }}</span>
                         </div>
                       } @else if (
-                        permission.status.id === limitedTimePermissionStatusEnum.Rejected
+                        permission.fkStatusId === limitedTimePermissionStatusEnum.Rejected
                       ) {
                         <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
                           <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
@@ -248,7 +248,7 @@
                           }}</span>
                         </div>
                       } @else if (
-                        permission.status.id === limitedTimePermissionStatusEnum.FirstAccepted
+                        permission.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted
                       ) {
                         <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
                           <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
@@ -257,7 +257,7 @@
                           }}</span>
                         </div>
                       } @else if (
-                        permission.status.id === limitedTimePermissionStatusEnum.Canceled
+                        permission.fkStatusId === limitedTimePermissionStatusEnum.Canceled
                       ) {
                         <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
                           <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
@@ -269,7 +269,7 @@
                     </td>
                     <td class="w-[36px] whitespace-nowrap">
                       <div class="actions">
-                        @if (permission.status.id !== limitedTimePermissionStatusEnum.New) {
+                        @if (permission.fkStatusId !== limitedTimePermissionStatusEnum.New) {
                           <button
                             class="table-action-gray-btn"
                             (click)="openDataDialog(permission)"
@@ -277,7 +277,7 @@
                             <img src="/assets/icons/view-action.svg" alt="" />
                           </button>
                         }
-                        @if (permission.status.id === limitedTimePermissionStatusEnum.New) {
+                        @if (permission.fkStatusId === limitedTimePermissionStatusEnum.New) {
                           <button
                             class="table-action-gray-btn"
                             (click)="addOrEditModel(permission)"
@@ -528,7 +528,7 @@
                         <td>
                           @if (permissionsRequest.isCancelRequested) {
                             @if (
-                              permissionsRequest.status.id ===
+                              permissionsRequest.fkStatusId ===
                               limitedTimePermissionStatusEnum.Accepted
                             ) {
                               <div
@@ -556,7 +556,7 @@
                               </div>
                             }
                           } @else if (
-                            permissionsRequest.status.id ===
+                            permissionsRequest.fkStatusId ===
                             limitedTimePermissionStatusEnum.Accepted
                           ) {
                             <div
@@ -570,7 +570,7 @@
                               }}</span>
                             </div>
                           } @else if (
-                            permissionsRequest.status.id === limitedTimePermissionStatusEnum.New
+                            permissionsRequest.fkStatusId === limitedTimePermissionStatusEnum.New
                           ) {
                             <div
                               class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2"
@@ -583,7 +583,7 @@
                               }}</span>
                             </div>
                           } @else if (
-                            permissionsRequest.status.id ===
+                            permissionsRequest.fkStatusId ===
                             limitedTimePermissionStatusEnum.Rejected
                           ) {
                             <div
@@ -597,8 +597,8 @@
                               }}</span>
                             </div>
                           } @else if (
-                            permissionsRequest.status.id ===
-                            limitedTimePermissionStatusEnum.Rejected
+                            permissionsRequest.fkStatusId ===
+                            limitedTimePermissionStatusEnum.Canceled
                           ) {
                             <div
                               class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2"

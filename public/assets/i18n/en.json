@@ -848,10 +848,11 @@
     "APPROVAL_DATE": "Approval Date",
     "REJECTION_DATE": "Rejection Date",
     "PERMISSION_REASON": "Permission Reason",
+    "REQUEST_CANCEL": "Request Cancel",
     "APPROVE_PERMISSION_CANCEL_REQUEST": "Approve Permission Cancellation Request",
     "DECLINE_PERMISSION_CANCEL_REQUEST": "Decline Permission Cancellation Request",
     "APPROVE_PERMISSION": "Approve Permission",
-    "DECLINE_PERMISSION": "Decline Permission",
+    "DECLINE_PERMISSION": "Reject Permission",
     "REQUEST_CANCEL_PERMISSION": "Request Permission Cancellation",
     "NEW_PERMISSION_REQUEST": "New Permission Request",
     "UPDATE_PERMISSION_REQUEST": "Update Permission Request"

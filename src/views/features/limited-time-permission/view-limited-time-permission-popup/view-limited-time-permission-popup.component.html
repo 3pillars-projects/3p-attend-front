@@ -16,21 +16,23 @@
             {{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</span
           >
 
-          @if (
-            model.isCancelRequested &&
-            model.fkStatusId ===
-              (limitedTimePermissionStatusEnum.Accepted ||
-                limitedTimePermissionStatusEnum.FirstAccepted)
-          ) {
-            <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
-              <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
-              <span class="text-[#93370d] font-semibold text-sm">{{
-                'LIMITED_TIME_PERMISSION.ACCEPTED_PENDING_CANCELLATION' | translate
-              }}</span>
-            </div>
-          }
-
-          @if (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted) {
+          @if (model.isCancelRequested) {
+            @if (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted) {
+              <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                <span class="text-[#93370d] font-semibold text-sm">{{
+                  'LIMITED_TIME_PERMISSION.ACCEPTED_PENDING_CANCELLATION' | translate
+                }}</span>
+              </div>
+            } @else {
+              <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                <span class="text-[#93370d] font-semibold text-sm">{{
+                  'LIMITED_TIME_PERMISSION.FIRST_ACCEPTED_PENDING_CANCELLATION' | translate
+                }}</span>
+              </div>
+            }
+          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted) {
             <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
               <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
               <span class="text-[#085d3a] font-semibold text-sm">{{ model.getStatusName() }}</span>
@@ -135,18 +137,7 @@
       <button class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
       <div class="flex items-center gap-4">
         @if (model.canTakeAction) {
-          @if (
-            model.isCancelRequested &&
-            (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
-              model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted)
-          ) {
-            <button class="btn green-btn" (click)="approveCancel()">
-              {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION_CANCEL_REQUEST' | translate }}
-            </button>
-            <button class="btn !text-[#b42318] red-btn-action" (click)="rejectCancel()">
-              {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION_CANCEL_REQUEST' | translate }}
-            </button>
-          } @else if (model.fkStatusId === limitedTimePermissionStatusEnum.New) {
+          @if (model.fkStatusId === limitedTimePermissionStatusEnum.New) {
             <button class="btn green-btn" (click)="acceptPermission()">
               {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
             </button>
@@ -155,11 +146,24 @@
             </button>
           }
         } @else if (
-          model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
-          model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted
+          model.canRequestCancel &&
+          (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
+            model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted)
         ) {
           <button class="btn green-btn" (click)="requestCancel()">
-            {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
+            {{ 'LIMITED_TIME_PERMISSION.REQUEST_CANCEL' | translate }}
+          </button>
+        } @else if (
+          model.isCancelRequested &&
+          model.canApproveOrDeclineCancel &&
+          (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
+            model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted)
+        ) {
+          <button class="btn green-btn" (click)="approveCancel()">
+            {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION_CANCEL_REQUEST' | translate }}
+          </button>
+          <button class="btn !text-[#b42318] red-btn-action" (click)="rejectCancel()">
+            {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION_CANCEL_REQUEST' | translate }}
           </button>
         }
       </div>

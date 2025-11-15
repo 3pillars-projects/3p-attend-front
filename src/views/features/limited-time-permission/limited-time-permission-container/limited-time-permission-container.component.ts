@@ -31,6 +31,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationInfo } from '@/models/shared/response/pagination-info';
 import { PaginatedList } from '@/models/shared/response/paginated-list';
 import { formatTimeTo12Hour } from '@/utils/general-helper';
+import { LimitedTimePermissionStatusService } from '@/services/features/lookups/limited-time-permission-status.service';
+import { LimitedTimePermissionTypeService } from '@/services/features/lookups/limited-time-permission-type.service';
+import { UserService } from '@/services/features/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-limited-time-permission-container',
@@ -62,12 +66,15 @@ export default class LimitedTimePermissionContainerComponent
   items: MenuItem[] | undefined;
   languageService = inject(LanguageService);
   permissionService = inject(LimitedTimePermissionService);
+  permissionTypeService = inject(LimitedTimePermissionTypeService);
+  permissionStatusService = inject(LimitedTimePermissionStatusService);
+  userService = inject(UserService);
   limitedTimePermissionStatusEnum = LIMITED_TIME_PERMISSION_STATUS_ENUM;
   limitedTimepermissionTypes: BaseLookupModel[] = [];
   departments: BaseLookupModel[] = [];
   users: BaseLookupModel[] = [];
   limitedTimeprmissionStatuses: BaseLookupModel[] = [];
-  availableTimeOptions: number[] = [];
+  availableTimeOptions: { label: string; value: number }[] = [];
   myPermissions?: PaginatedList<LimitedTimePermission>;
   filterModel: LimitedTimePermissionFilter = new LimitedTimePermissionFilter();
   viewMode = ViewModeEnum;
@@ -94,33 +101,48 @@ export default class LimitedTimePermissionContainerComponent
       this.paginationInfo = new PaginationInfo();
     }
   }
+
   override initListComponent(): void {
-    let resolverData = this.activatedRoute.snapshot.data['list'];
-    this.myPermissions = resolverData.myPermissions;
-    this.limitedTimepermissionTypes = resolverData.types;
-    this.departments = resolverData.departments;
-    this.limitedTimeprmissionStatuses = resolverData.statuses;
-    this.users = resolverData.users;
+    const resolverData = this.activatedRoute.snapshot.data['list'];
 
-    if (resolverData?.timeOptions?.data) {
-      this.availableTimeOptions = resolverData.timeOptions.data.map((t: number) => ({
-        label: `${t}`,
-        value: t,
-      }));
-    } else {
-      this.availableTimeOptions = [];
-    }
+    this.myPermissions = resolverData;
+    this.list = resolverData?.list ?? [];
+    this.paginationInfo = resolverData?.paginationInfo ?? new PaginationInfo();
 
-    // FIX: Extract the list from myPermissions
-    if (this.myPermissions?.list) {
-      this.list = this.myPermissions.list;
-    }
-
-    // FIX: Also set the pagination info if available
-    if (this.myPermissions?.paginationInfo) {
-      this.paginationInfo = this.myPermissions.paginationInfo;
-    }
+    this.loadLookups(); // now separate
   }
+
+  private loadLookups(): void {
+    forkJoin({
+      types: this.permissionTypeService.getLookup(),
+      departments: this.userService.getMyDepartmentsLookup(),
+      statuses: this.permissionStatusService.getLookup(),
+      users: this.userService.getMyDepartmentUsersLookup(),
+      timeOptions: this.permissionService.getTimeOptions(),
+    }).subscribe({
+      next: (result) => {
+        this.limitedTimepermissionTypes = result.types;
+        this.departments = result.departments;
+        this.limitedTimeprmissionStatuses = result.statuses;
+        this.users = result.users;
+
+        this.availableTimeOptions = result?.timeOptions?.data
+          ? result.timeOptions.data.map((t: number) => ({
+              label: `${t}`,
+              value: t,
+            }))
+          : [];
+      },
+      error: (_) => {
+        this.limitedTimepermissionTypes = [];
+        this.departments = [];
+        this.limitedTimeprmissionStatuses = [];
+        this.users = [];
+        this.availableTimeOptions = [];
+      },
+    });
+  }
+
   formatTime12HourFromDate(value: Date | string): string {
     if (!value) return '';
     const date = value instanceof Date ? value : new Date(value);
@@ -200,6 +222,31 @@ export default class LimitedTimePermissionContainerComponent
         },
       });
   }
+  loadMyPermissions() {
+    this.service.loadPaginated(this.paginationParams, { ...this.appliedFilterModel! }).subscribe({
+      next: (response) => {
+        this.list = response.list || [];
+
+        if (response.paginationInfo) {
+          this.paginationInfoMap(response);
+        } else {
+          // Ensure paginationInfo exists before setting totalItems
+          if (!this.paginationInfo) {
+            this.paginationInfo = new PaginationInfo();
+          }
+          this.paginationInfo.totalItems = this.list.length;
+        }
+      },
+      error: (_) => {
+        this.list = [];
+        // Ensure paginationInfo exists before setting totalItems
+        if (!this.paginationInfo) {
+          this.paginationInfo = new PaginationInfo();
+        }
+        this.paginationInfo.totalItems = 0;
+      },
+    });
+  }
   clickIncomingPermissionTab() {
     this.isIncomingPermissions = true;
     this.filterModel = new LimitedTimePermissionFilter();
@@ -252,7 +299,11 @@ export default class LimitedTimePermissionContainerComponent
 
     dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
       if (result && result == DIALOG_ENUM.OK) {
-        this.loadIncomingPermissions();
+        if (this.activeTabIndex === LIMITED_TIME_PERMISSION_TABS_ENUM.MY_PERMISSIONS) {
+          this.loadMyPermissions();
+        } else {
+          this.loadIncomingPermissions();
+        }
       }
     });
   }

@@ -3,6 +3,7 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LAYOUT_DIRECTION_ENUM } from '@/enums/layout-direction-enum';
 import { LIMITED_TIME_PERMISSION_STATUS_ENUM } from '@/enums/limited-time-permission-status-enum';
 import { LimitedTimePermission } from '@/models/features/lookups/limited-time-permission/limited-time-permission';
+import { AuthService } from '@/services/auth/auth.service';
 import { LimitedTimePermissionService } from '@/services/features/lookups/limited-time-permission.service';
 import { AlertService } from '@/services/shared/alert.service';
 import { LanguageService } from '@/services/shared/language.service';
@@ -29,7 +30,7 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   dialogRef = inject(MatDialogRef);
   limitedTimePermissionStatusEnum = LIMITED_TIME_PERMISSION_STATUS_ENUM;
   declare direction: LAYOUT_DIRECTION_ENUM;
-
+  authService = inject(AuthService);
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {

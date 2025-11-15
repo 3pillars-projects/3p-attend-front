@@ -8,40 +8,20 @@ import { LimitedTimePermissionService } from '@/services/features/lookups/limite
 import { UserService } from '@/services/features/user.service';
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
-import { catchError, forkJoin, of } from 'rxjs';
+import { catchError, forkJoin, map, of } from 'rxjs';
 
-export const limitedTimePermissionResolver: ResolveFn<any | null> = () => {
+export const limitedTimePermissionResolver: ResolveFn<
+  PaginatedList<LimitedTimePermission> | null
+> = () => {
   const permissionService = inject(LimitedTimePermissionService);
-  const permissionTypeService = inject(LimitedTimePermissionTypeService);
-  const permissionStatusService = inject(LimitedTimePermissionStatusService);
-  const userService = inject(UserService);
 
-  return forkJoin({
-    myPermissions: permissionService.loadPaginated(new PaginationParams()),
-    types: permissionTypeService.getLookup(),
-    departments: userService.getMyDepartmentsLookup(),
-    statuses: permissionStatusService.getLookup(),
-    users: userService.getMyDepartmentUsersLookup(),
-    timeOptions: permissionService.getTimeOptions(),
-  }).pipe(
+  return permissionService.loadPaginated(new PaginationParams()).pipe(
     catchError((error) => {
       console.error('Error in limitedTimePermissionResolver', error);
       return of({
-        myPermissions: [],
-        types: [],
-        departments: [],
-        statuses: [],
-        users: [],
-        timeOptions: { data: [] },
         list: [],
         paginationInfo: new PaginationInfo(),
-      });
+      } as PaginatedList<LimitedTimePermission>);
     })
   );
 };
-
-//   permissionTypeService.getLookup().subscribe();
-//   userService.getMyDepartmentsLookup().subscribe();
-//   permissionStatusService.getLookup().subscribe();
-//   userService.getMyDepartmentUsersLookup().subscribe();
-//   permissionService.getTimeOptions().subscribe();
