@@ -474,7 +474,8 @@
     "WEDNESDAY": "Wednesday",
     "THURSDAY": "Thursday",
     "FRIDAY": "Friday",
-    "WORKING_DAYS": "Official working Days"
+    "WORKING_DAYS": "Official working Days",
+    "START_DAY_OF_MONTH": "Start day of the month"
   },
   "NOTIFICATIONS_PAGE": {
     "NOTIFICATIONS": "Notifications",

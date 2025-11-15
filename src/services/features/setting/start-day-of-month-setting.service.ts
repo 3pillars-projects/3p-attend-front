@@ -31,17 +31,17 @@ export class StartDayOfMonthSettingService extends BaseCrudService<StartDayOfMon
     return this.urlService.URLS.GENERAL_SETTINGS;
   }
 
-  getMonthDays(): Observable<MonthDay> {
-    return this.http
-      .get<ResponseData<MonthDay>>(this.getUrlSegment() + '/' + 'GetMonthDays', {
-        withCredentials: true,
-      })
-      .pipe(
-        switchMap((response: ResponseData<MonthDay>) => {
-          return of(response.data);
-        })
-      );
-  }
+  // getMonthDays(): Observable<MonthDay> {
+  //   return this.http
+  //     .get<ResponseData<MonthDay>>(this.getUrlSegment() + '/' + 'GetMonthDays', {
+  //       withCredentials: true,
+  //     })
+  //     .pipe(
+  //       switchMap((response: ResponseData<MonthDay>) => {
+  //         return of(response.data);
+  //       })
+  //     );
+  // }
 
   @CastResponse(undefined, { fallback: '$get' })
   @HasInterception
@@ -65,9 +65,7 @@ export class StartDayOfMonthSettingService extends BaseCrudService<StartDayOfMon
   setStartDayOfMonth(dayNumber: number): Observable<StartDayOfMonthSetting> {
     const url = `${this.getUrlSegment()}/SetStartDayOfMonth`;
     return this.http
-      .put<
-        ResponseData<StartDayOfMonthSetting>
-      >(url, { updatedWorkDays: dayNumber }, { withCredentials: true })
+      .put<ResponseData<StartDayOfMonthSetting>>(url, dayNumber, { withCredentials: true })
       .pipe(map((response) => response.data));
   }
 }

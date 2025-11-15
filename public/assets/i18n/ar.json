@@ -472,7 +472,8 @@
     "WEDNESDAY": "الأربعاء",
     "THURSDAY": "الخميس",
     "FRIDAY": "الجمعة",
-    "WORKING_DAYS": "أيام العمل الرسمية"
+    "WORKING_DAYS": "أيام العمل الرسمية",
+    "START_DAY_OF_MONTH": " يوم بداية الشهر"
   },
   "NOTIFICATIONS_PAGE": {
     "NOTIFICATIONS": "الإشعارات",
