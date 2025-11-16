@@ -77,23 +77,20 @@
                 <app-validation-messages [control]="usernameControl"></app-validation-messages>
               </div>
               <div class="mb-10">
-                <div class="relative">
-                  <label for="systemPassword" class="label">{{
-                    'LOGIN_PAGE.PASSWORD_LBL' | translate
-                  }}</label>
+                <div class="relative group">
+                  <label for="adPassword" class="label">
+                    {{ 'LOGIN_PAGE.PASSWORD_LBL' | translate }}
+                  </label>
                   <p-password
                     formControlName="password"
                     [toggleMask]="true"
-                    class="peer"
-                    id="systemPassword"
-                    type="password"
+                    id="adPassword"
+                    [feedback]="false"
+                    inputStyleClass="password-input"
                     [placeholder]="'LOGIN_PAGE.PASSWORD_LBL' | translate"
                     fluid="true"
-                    [feedback]="false"
-                  />
-                  <span
-                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
-                  ></span>
+                  ></p-password>
+                  <span class="password-underline"></span>
                 </div>
                 <app-validation-messages [control]="passwordControl"></app-validation-messages>
               </div>
@@ -131,7 +128,7 @@
                   <p-password
                     formControlName="password"
                     [toggleMask]="true"
-                    class="peer"
+                    inputStyleClass="peer"
                     id="adPassword"
                     type="password"
                     [placeholder]="'LOGIN_PAGE.PASSWORD_LBL' | translate"

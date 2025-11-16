@@ -1,0 +1,61 @@
+::ng-deep {
+  //.p-inputtext.ng-invalid.ng-dirty,
+  //.ng-invalid.ng-dirty .p-inputtext {
+  //  border-color: unset !important;
+  //}
+  p-password.ng-invalid.ng-dirty {
+    .p-inputtext {
+      color: #b42318;
+      border-color: #b42318 !important;
+    }
+    ::placeholder {
+      color: #b42318 !important;
+    }
+  }
+
+  .peer.ng-pristine.ng-invalid.ng-star-inserted.ng-touched,
+  .peer.ng-pristine.ng-invalid.ng-touched {
+    .p-inputtext {
+      color: #b42318;
+      border-color: #b42318 !important;
+    }
+    ::placeholder {
+      color: #b42318 !important;
+    }
+  }
+}
+
+::ng-deep {
+  p-password .p-password {
+    position: relative;
+  }
+  p-password .p-password::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: all 0.4s ease;
+  }
+  p-password .p-password:focus-within::after {
+    left: 0;
+    width: 100%;
+  }
+  p-password.ng-invalid.ng-touched .p-password::after,
+  p-password.ng-invalid.ng-dirty .p-password::after {
+    background: #b42318 !important;
+    opacity: 1 !important;
+  }
+  p-password.ng-invalid.ng-touched .p-inputtext,
+  p-password.ng-invalid.ng-dirty .p-inputtext {
+    border-color: #b42318 !important;
+    color: #b42318 !important;
+  }
+
+  p-password.ng-invalid.ng-touched .p-inputtext::placeholder,
+  p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
+    color: #b42318 !important;
+  }
+}
