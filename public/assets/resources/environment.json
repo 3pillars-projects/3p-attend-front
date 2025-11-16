@@ -1,14 +1,14 @@
 {
   "ENVIRONMENTS_URLS": {
     "DEV": "http://localhost:7107/api",
-    "TESTING": "http://m-front.dev3pillars.org/api",
-    "PRE_PRODUCTION": "http://10.0.3.54/api",
-    "PRE_PRODUCTION_IMAGE": "http://dev3pillarstc-001-site1.rtempurl.com/api",
+    "TESTING": "http://localhost:7107/api",
+    "PRE_PRODUCTION": "http://localhost:7107/api",
+    "PRE_PRODUCTION_IMAGE": "http://localhost:7107/api",
     "PRODUCTION": ""
   },
   "API_VERSION": "",
   "DEPLOY_VERSION": "2.0.0",
-  "BASE_ENVIRONMENT": "TESTING",
+  "BASE_ENVIRONMENT": "DEV",
   "DEV_VARIABLES": {
     "INTEGRATION1": "http//dev/integration1",
     "INTEGRATION2": "http//dev/integration2"

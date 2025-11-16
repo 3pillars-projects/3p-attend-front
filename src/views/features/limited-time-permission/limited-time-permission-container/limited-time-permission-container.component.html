@@ -1,0 +1,32 @@
+<!-- visit-request-container.component.html -->
+<div class="bg-white">
+  <div class="bg-[#f9fafb] p-3 sm:p-6">
+    <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+      <p-breadcrumb [home]="home" [model]="items" class="max-w-full">
+        <ng-template let-item pTemplate="item">
+          <span>الاستئذانات</span>
+        </ng-template>
+      </p-breadcrumb>
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">الاستئذانات</h3>
+    </div>
+
+    <p-tabs value="0">
+      <p-tablist class="my-6">
+        <p-tab value="0"> سجل طلباتي </p-tab>
+        <p-tab value="1"> طلبات الاستئذان الواردة</p-tab>
+      </p-tablist>
+
+      <p-tabpanels>
+        <!-- My Visits Tab Panel -->
+        <p-tabpanel value="0">
+          <app-my-limited-time-permission-list />
+        </p-tabpanel>
+
+        <!-- All Visits Tab Panel -->
+        <p-tabpanel value="1">
+          <app-all-limited-time-permission-list />
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</div>

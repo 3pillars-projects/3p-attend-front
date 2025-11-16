@@ -451,7 +451,8 @@
     "VISIT_REQUEST": "Visit Requests",
     "ACCESS_LOCATIONS": "Access Locations",
     "DEVICES_CONFIGURATION": "Devices Configuration",
-    "ATTENDANCE_REPORT_PROCESSING": "Attendance Report Processing"
+    "ATTENDANCE_REPORT_PROCESSING": "Attendance Report Processing",
+    "LIMITED_TIME_PERMISSION": "Limited Time Permission"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "General Settings",

@@ -449,7 +449,8 @@
     "VISIT_REQUEST": "طلبات الزيارات",
     "ACCESS_LOCATIONS": "مواقع أجهزة البصمة",
     "DEVICES_CONFIGURATION": "إعدادات أجهزة البصمة",
-    "ATTENDANCE_REPORT_PROCESSING": "معالجة بيانات تقارير الموظفين"
+    "ATTENDANCE_REPORT_PROCESSING": "معالجة بيانات تقارير الموظفين",
+    "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",

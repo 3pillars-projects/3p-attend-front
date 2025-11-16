@@ -1,0 +1,265 @@
+<div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+  <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+    <div class="flex items-center justify-between">
+      <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+    </div>
+    <div class="pt-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="relative">
+          <label class="label" for="department"> نوع الاذن </label>
+          <p-select
+            placeholder="نوع الاذن"
+            optionValue="id"
+            class="w-full peer"
+            id="department"
+            [showClear]="true"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="dateTo"> التاريخ (من) </label>
+          <p-datepicker
+            [iconDisplay]="'input'"
+            placeholder="التاريخ (من)"
+            [showIcon]="true"
+            class="peer block w-full"
+            id="dateTo"
+            [showClear]="true"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="dateTo"> التاريخ (الي) </label>
+          <p-datepicker
+            [iconDisplay]="'input'"
+            placeholder="التاريخ (الي)"
+            [showIcon]="true"
+            class="peer block w-full"
+            id="dateTo"
+            [showClear]="true"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+
+        <div class="relative">
+          <label class="label" for="department"> مدة الاستئذان </label>
+          <p-select
+            placeholder="مدة الاستئذان"
+            optionValue="id"
+            class="w-full peer"
+            id="department"
+            [showClear]="true"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+
+        <div class="relative">
+          <label class="label" for="department"> حالة الطلب</label>
+          <p-select
+            placeholder="حالة الطلب"
+            optionValue="id"
+            class="w-full peer"
+            id="department"
+            [showClear]="true"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+      </div>
+      <div class="actions flex items-center gap-4 pt-6">
+        <button class="btn black-btn">بحث</button>
+        <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6">
+    <div
+      class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
+    >
+      <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">قائمة الاستئذانات</h4>
+      <div class="actions flex items-center gap-4 ms-auto">
+        <button class="table-head-action-btn">
+          <img src="assets/icons/excel.svg" alt="" />
+        </button>
+        <button class="table-head-action-btn">
+          <img src="assets/icons/print.svg" alt="" />
+        </button>
+        <button class="btn green-btn" (click)="openDialog()">
+          <img src="assets/icons/add-action.svg" alt="" />
+          إضافة طلب استئذان جديد
+        </button>
+      </div>
+    </div>
+
+    <p-table [value]="attendance">
+      <ng-template #header>
+        <tr>
+          <th>نوع الاذن</th>
+          <th>تاريخ الاستئذان</th>
+          <th>مدة الاستئذان</th>
+          <th>بداية مدة الاستئذان</th>
+          <th>حالة الطلب</th>
+          <th>اجراء</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-attendance>
+        <tr>
+          <td>بداية الدوام</td>
+          <td>12/12/2024</td>
+          <td>
+            <div
+              class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+            >
+              30 دقيقة
+            </div>
+          </td>
+          <td>08:00 صباحاً</td>
+          <td>
+            <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+              <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
+            </div>
+          </td>
+          <td class="w-[36px] whitespace-nowrap">
+            <div class="actions">
+              <button class="table-action-gray-btn" (click)="openViewDialog()">
+                <img src="/assets/icons/view-action.svg" alt="" />
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>بداية الدوام</td>
+          <td>12/12/2024</td>
+          <td>
+            <div
+              class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+            >
+              30 دقيقة
+            </div>
+          </td>
+          <td>08:00 صباحاً</td>
+          <td>
+            <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+              <span class="text-[#085d3a] font-semibold text-sm">موافقة</span>
+            </div>
+          </td>
+          <td class="w-[36px] whitespace-nowrap">
+            <div class="actions flex gap-2">
+              <button class="table-action-gray-btn" (click)="openDialog()">
+                <img alt="" src="assets/icons/edit-action.svg" />
+              </button>
+              <button class="table-action-red-btn">
+                <img alt="" src="assets/icons/delete-action.svg" />
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>بداية الدوام</td>
+          <td>12/12/2024</td>
+          <td>
+            <div
+              class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+            >
+              30 دقيقة
+            </div>
+          </td>
+          <td>08:00 صباحاً</td>
+          <td>
+            <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+              <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
+            </div>
+          </td>
+          <td class="w-[36px] whitespace-nowrap">
+            <div class="actions">
+              <button class="table-action-gray-btn" (click)="openViewDialog()">
+                <img alt="" src="assets/icons/view-action.svg" />
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>بداية الدوام</td>
+          <td>12/12/2024</td>
+          <td>
+            <div
+              class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+            >
+              30 دقيقة
+            </div>
+          </td>
+          <td>08:00 صباحاً</td>
+          <td>
+            <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+              <span class="text-[#93370d] font-semibold text-sm">موافقة أولية</span>
+            </div>
+          </td>
+          <td class="w-[36px] whitespace-nowrap">
+            <div class="actions">
+              <button class="table-action-gray-btn" (click)="openViewDialog()">
+                <img alt="" src="assets/icons/view-action.svg" />
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>بداية الدوام</td>
+          <td>12/12/2024</td>
+          <td>
+            <div
+              class="bg-[#f9fafb] border border-[#e5e7eb] px-3 w-fit text-[#1f2a37] font-semibold rounded-full"
+            >
+              30 دقيقة
+            </div>
+          </td>
+          <td>08:00 صباحاً</td>
+          <td>
+            <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+              <span class="text-[#1f2a37] font-semibold text-sm">ملغى</span>
+            </div>
+          </td>
+          <td class="w-[36px] whitespace-nowrap">
+            <div class="actions">
+              <button class="table-action-gray-btn" (click)="openViewDialog()">
+                <img alt="" src="assets/icons/view-action.svg" />
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-paginator
+      class="mt-6"
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="120"
+      [rowsPerPageOptions]="[10, 20, 30]"
+    />
+  </div>
+</div>
