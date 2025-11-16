@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImportService {
   urlService = inject(UrlService);
@@ -24,6 +24,8 @@ export class ImportService {
   }
 
   importAttendanceLogsXml(formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/attendance-logs-xml`, formData, { withCredentials: true });
+    return this.http.post(`${this.baseUrl}/attendance-logs-xml`, formData, {
+      withCredentials: true,
+    });
   }
 }

@@ -3,7 +3,9 @@
     <button (click)="onCancel()" class="block ms-auto">
       <i class="pi pi-times close-popup"></i>
     </button>
-    <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">{{'IMPORT.DEPARTMENTS.IMPORT_NEW_DEPARTMENT_LIST' | translate}}</h3>
+    <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'IMPORT.DEPARTMENTS.IMPORT_NEW_DEPARTMENT_LIST' | translate }}
+    </h3>
     <div class="p-4 rounded-2xl border border-[#d2d6db] border-s-[8px] border-s-[#1570ef]">
       <div class="flex gap-3">
         <svg
@@ -80,18 +82,18 @@
               />
             </svg>
 
-
             <div class="flex flex-col gap-2">
               <h4>{{ 'IMPORT.UNABLE_TO_IMPORT_ALL_DATA' | translate }}</h4>
               <p class="text-[#384250] text-sm">
                 <span>{{ 'IMPORT.VALID_DATA_WAS_IMPORTED_SUCCESSFULLY' | translate }}</span>
                 <span>{{ ' ' }}</span>
-                <a (click)="downloadReviewFile()" class="text-[#1b8354] underline">{{ 'IMPORT.DOWNLOAD_THE_REVIEW_FILE' | translate }}</a>
+                <a (click)="downloadReviewFile()" class="text-[#1b8354] underline">{{
+                  'IMPORT.DOWNLOAD_THE_REVIEW_FILE' | translate
+                }}</a>
                 <span>{{ ' ' }}</span>
                 <span>{{ 'IMPORT.TO_VIEW_AND_CORRECT_THE_RECORDS' | translate }}</span>
               </p>
             </div>
-
           </div>
         </div>
       </div>
@@ -102,7 +104,9 @@
         {{ getMaxAllowedFileSizeMessage() }}
       </p>
       <div>
-        <label for="browse-file" class="btn black-btn w-fit">{{ 'IMPORT.BROWSE_FILES' | translate }}</label>
+        <label for="browse-file" class="btn black-btn w-fit">{{
+          'IMPORT.BROWSE_FILES' | translate
+        }}</label>
         <input
           id="browse-file"
           type="file"
@@ -116,10 +120,11 @@
       </div>
     </div>
     <div class="actions mt-8 flex items-center justify-end gap-4">
-      <button class="btn gray-btn" type="button" (click)="onCancel()">{{ 'COMMON.CANCEL' | translate }}</button>
-      <button class="btn green-btn"
-              [disabled]="!selectedFile"
-              (click)="onImport()">{{ 'IMPORT.IMPORT' | translate }}
+      <button class="btn gray-btn" type="button" (click)="onCancel()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button class="btn green-btn" [disabled]="!selectedFile" (click)="onImport()">
+        {{ 'IMPORT.IMPORT' | translate }}
       </button>
     </div>
   </div>

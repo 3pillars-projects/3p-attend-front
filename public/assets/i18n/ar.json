@@ -795,7 +795,8 @@
     "RESET": "إعادة تعيين",
     "CONFIRM_PROCESS_ALL_EMPLOYEES": "هل أنت متأكد من معالجة جميع الموظفين؟",
     "CONFIRM_PROCESS_ALL_EMPLOYEES_MESSAGE": "يرجى العلم أنه في حال متابعة هذا الإجراء، سيتم إلغاء أي تخصيصات سابقة تمت على مستوى الموظفين أو الإدارات، وإعادة التعيين لمعالجة جميع الموظفين بشكل كامل.",
-    "DATE_MAX_RANGE_EXCEEDED": "يمكنك معالجة 3 شهور فقط علي الاكثر"
+    "DATE_MAX_RANGE_EXCEEDED": "يمكنك معالجة 3 شهور فقط علي الاكثر",
+    "PROCESSED_SUCCESSFULLY": "Processed Successfully"
   },
   "IMPORT": {
     "DOWNLOAD_IMPORT_TEMPLATE": "تحميل نموذج القائمة",

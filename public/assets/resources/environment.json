@@ -8,7 +8,7 @@
   },
   "API_VERSION": "",
   "DEPLOY_VERSION": "2.0.0",
-  "BASE_ENVIRONMENT": "DEV",
+  "BASE_ENVIRONMENT": "TESTING",
   "DEV_VARIABLES": {
     "INTEGRATION1": "http//dev/integration1",
     "INTEGRATION2": "http//dev/integration2"

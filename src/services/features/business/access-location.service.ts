@@ -26,7 +26,7 @@ import { AccessLocationLookup } from '@/models/features/business/access-location
     model: () => AccessLocationLookup,
     unwrap: 'data',
     shape: { data: () => AccessLocationLookup },
-  }
+  },
 })
 @Injectable({
   providedIn: 'root',

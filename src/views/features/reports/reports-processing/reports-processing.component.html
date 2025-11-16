@@ -75,16 +75,14 @@
                 <label class="label" for="department">{{
                   'EMPLOYEES_PAGE.DEPARTMENT' | translate
                 }}</label>
-                <p-multiselect
+                <p-select
                   #departmentsDropdown
                   formControlName="departmentIds"
                   [optionLabel]="optionLabel"
                   optionValue="id"
                   [placeholder]="'ATTENDANCE_REPORT_PROCESSING_PAGE.SELECT_DEPARTMENT' | translate"
-                  [maxSelectedLabels]="2"
                   class="w-full"
                   [options]="departmentList"
-                  [selectedItemsLabel]="getSelectedDepartmentsLabel()"
                 />
                 <span
                   class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"

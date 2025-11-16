@@ -4,33 +4,36 @@
       <i class="pi pi-times close-popup"></i>
     </button>
     <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
-      {{'IMPORT.ATTENDANCE_LOG.IMPORT_NEW_ATTENDANCE_LOG' | translate}}
+      {{ 'IMPORT.ATTENDANCE_LOG.IMPORT_NEW_ATTENDANCE_LOG' | translate }}
     </h3>
-      <div class="mt-6 flex flex-col">
-        <h4 class="text-[#161616] text-base mb-2">{{ 'IMPORT.UPLOAD_FILE' | translate }}</h4>
-        <p class="text-[#64748b] text-xs mb-4">
-          {{ getMaxAllowedFileSizeMessage() }}
-        </p>
-        <div>
-          <label for="browse-file" class="btn black-btn w-fit">{{ 'IMPORT.BROWSE_FILES' | translate }}</label>
-          <input
-            #fileInput
-            id="browse-file"
-            type="file"
-            accept=".xml"
-            (change)="onFileSelected($event)"
-            hidden
-          />
-          @if (selectedFile) {
-            <p>{{ selectedFile.name }}</p>
-          }
-        </div>
+    <div class="mt-6 flex flex-col">
+      <h4 class="text-[#161616] text-base mb-2">{{ 'IMPORT.UPLOAD_FILE' | translate }}</h4>
+      <p class="text-[#64748b] text-xs mb-4">
+        {{ getMaxAllowedFileSizeMessage() }}
+      </p>
+      <div>
+        <label for="browse-file" class="btn black-btn w-fit">{{
+          'IMPORT.BROWSE_FILES' | translate
+        }}</label>
+        <input
+          #fileInput
+          id="browse-file"
+          type="file"
+          accept=".xml"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+        @if (selectedFile) {
+          <p>{{ selectedFile.name }}</p>
+        }
       </div>
+    </div>
     <div class="actions mt-8 flex items-center justify-end gap-4">
-      <button class="btn gray-btn" type="button" (click)="onCancel()">{{ 'COMMON.CANCEL' | translate }}</button>
-      <button class="btn green-btn"
-              [disabled]="!selectedFile"
-              (click)="onImport()">{{ 'IMPORT.IMPORT' | translate }}
+      <button class="btn gray-btn" type="button" (click)="onCancel()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button class="btn green-btn" [disabled]="!selectedFile" (click)="onImport()">
+        {{ 'IMPORT.IMPORT' | translate }}
       </button>
     </div>
   </div>

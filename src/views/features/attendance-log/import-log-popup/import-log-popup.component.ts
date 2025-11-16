@@ -106,7 +106,10 @@ export class ImportLogPopupComponent implements OnInit {
 
     this.importService.importAttendanceLogsXml(formData).subscribe({
       next: (response) => {
-        this.alertService.showSuccessMessage({messages: this.getImportResponseMessages(response)}, {width: '100%', maxWidth: '600px'});
+        this.alertService.showSuccessMessage(
+          { messages: this.getImportResponseMessages(response) },
+          { width: '100%', maxWidth: '600px' }
+        );
         this.dialogRef.close(DIALOG_ENUM.OK);
       },
     });
@@ -121,9 +124,18 @@ export class ImportLogPopupComponent implements OnInit {
     data: { successCount: number; failureCount: number; skippedCount: number };
   }) {
     let messages: string[] = [];
-    messages.push(this.translateService.instant('IMPORT.ATTENDANCE_LOG.IMPORT_SUCCEEDED_WITH_COUNT') + response.data.successCount);
-    messages.push(this.translateService.instant('IMPORT.ATTENDANCE_LOG.IMPORT_IGNORED_WITH_COUNT') + response.data.skippedCount);
-    messages.push(this.translateService.instant('IMPORT.ATTENDANCE_LOG.IMPORT_FAILED_WITH_COUNT') + response.data.failureCount);
+    messages.push(
+      this.translateService.instant('IMPORT.ATTENDANCE_LOG.IMPORT_SUCCEEDED_WITH_COUNT') +
+        response.data.successCount
+    );
+    messages.push(
+      this.translateService.instant('IMPORT.ATTENDANCE_LOG.IMPORT_IGNORED_WITH_COUNT') +
+        response.data.skippedCount
+    );
+    messages.push(
+      this.translateService.instant('IMPORT.ATTENDANCE_LOG.IMPORT_FAILED_WITH_COUNT') +
+        response.data.failureCount
+    );
     return messages;
   }
 
