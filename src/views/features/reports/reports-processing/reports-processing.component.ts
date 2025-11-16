@@ -32,6 +32,7 @@ import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { CustomValidators } from '@/validators/custom-validators';
 import { ManualProcessingService } from '@/services/features/business/manual-processing.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { Select } from 'primeng/select';
 
 interface DepartmentEmployees {
   department: BaseLookupModel;
@@ -55,6 +56,7 @@ interface DepartmentEmployees {
     TranslatePipe,
     ValidationMessagesComponent,
     RequiredMarkerDirective,
+    Select,
   ],
   templateUrl: './reports-processing.component.html',
   styleUrl: './reports-processing.component.scss',
@@ -176,29 +178,17 @@ export default class ReportsProcessingComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDepartmentChange(departmentIds: number[] | null): void {
+  onDepartmentChange(departmentId: number | null): void {
     // Get previously selected departments
     // const previousDepartmentIds = this.selectedDepartments.map((dept) => dept.id);
 
-    if (departmentIds && departmentIds.length > 0) {
+    if (departmentId) {
       // Update selected departments
-      this.selectedDepartments = this.departmentList.filter((dept) =>
-        departmentIds.includes(dept.id || 0)
-      );
-
-      // Find deselected departments
-      // const deselectedDepartmentIds = previousDepartmentIds.filter(
-      //   (prevId) => !departmentIds.includes(prevId || 0)
-      // );
-
-      // Remove employees from deselected departments
-      // if (deselectedDepartmentIds.length > 0) {
-      //   this.removeEmployeesFromDeselectedDepartments(deselectedDepartmentIds);
-      // }
+      this.selectedDepartments = this.departmentList.filter((dept) => departmentId == dept.id);
 
       // Filter employees by selected departments
-      this.filteredEmployeeList = this.employeeList.filter((emp) =>
-        departmentIds.includes(emp.departmentId || 0)
+      this.filteredEmployeeList = this.employeeList.filter(
+        (emp) => departmentId == emp.departmentId
       );
     } else {
       // No departments selected - clear everything
@@ -361,7 +351,9 @@ export default class ReportsProcessingComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       const formValue = this.form.value;
       const submittedModel = Object.assign(new ManualProcessing(), { ...formValue });
-      const successObject = { messages: ['COMMON.SAVED_SUCCESSFULLY'] };
+      const successObject = {
+        messages: ['ATTENDANCE_REPORT_PROCESSING_PAGE.PROCESSED_SUCCESSFULLY'],
+      };
       this.manualProcessingService.excuteManualProcessing(submittedModel).subscribe((res) => {
         this.alertService.showSuccessMessage(successObject);
       });
