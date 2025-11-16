@@ -189,7 +189,8 @@ export default class LimitedTimePermissionContainerComponent
       [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DURATION')]:
         model.limitedTimePermissionDuration || '-',
 
-      [this.translateService.instant('PERMISSION_PAGE.PERMISSION_STATUS')]: model.getStatusName(),
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.REQUEST_STATUS')]:
+        model.getStatusName(),
     };
   }
   getPropertyName() {
