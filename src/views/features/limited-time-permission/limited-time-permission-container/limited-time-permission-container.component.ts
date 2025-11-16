@@ -13,7 +13,6 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     TabsModule,
     MyLimitedTimePermissionListComponent,
     AllLimitedTimePermissionListComponent,
-    TranslatePipe,
   ],
   templateUrl: './limited-time-permission-container.component.html',
   styleUrl: './limited-time-permission-container.component.scss',
