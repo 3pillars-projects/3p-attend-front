@@ -180,13 +180,14 @@ export default class LimitedTimePermissionContainerComponent
   }
   mapIncomingRequestsToExcelRow(model: LimitedTimePermission): { [key: string]: any } {
     return {
-      [this.translateService.instant('PERMISSION_PAGE.PERMISSION_TYPE')]:
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_TYPE')]:
         model.getPermissionTypeName(),
-      [this.translateService.instant('EMPLOYEES_PAGE.EMPLOYEE_NAME')]: model.getCreationUserName(),
-      [this.translateService.instant('DEPARTMENTS_HEADER_PAGE.DEPARTMENT_NAME')]:
-        model.getPermissionDepartmentName(),
-      [this.translateService.instant('PERMISSION_PAGE.PERMISSION_DATE')]:
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.EMPLOYEE_NAME')]:
+        model.getCreationUserName(),
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DATE')]:
         model.limitedTimePermissionDate,
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DURATION')]:
+        model.limitedTimePermissionDuration || '-',
 
       [this.translateService.instant('PERMISSION_PAGE.PERMISSION_STATUS')]: model.getStatusName(),
     };
@@ -372,14 +373,17 @@ export default class LimitedTimePermissionContainerComponent
   }
   protected override mapModelToExcelRow(model: LimitedTimePermission): { [key: string]: any } {
     return {
-      [this.translateService.instant('PERMISSION_PAGE.PERMISSION_TYPE')]:
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_TYPE')]:
         model.getPermissionTypeName(),
-      [this.translateService.instant('PERMISSION_PAGE.PERMISSION_DATE')]:
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DATE')]:
         model.limitedTimePermissionDate,
-      ['مدة الاستئذان']: model.limitedTimePermissionDuration,
-      ['بداية مدة الاستئذان']: this.formatTime12HourFromDate(model.limitedTimePermissionTimeFrom!),
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DURATION')]:
+        model.limitedTimePermissionDuration || '-',
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_START_TIME')]:
+        this.formatTime12HourFromDate(model.limitedTimePermissionTimeFrom!) || '-',
 
-      ['حالة الطلب']: model.getStatusName(),
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.REQUEST_STATUS')]:
+        model.getStatusName(),
     };
   }
 }
