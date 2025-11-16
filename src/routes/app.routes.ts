@@ -334,7 +334,7 @@ export const routes: Routes = [
           import(
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
           ),
-      }
+      },
     ],
   },
 

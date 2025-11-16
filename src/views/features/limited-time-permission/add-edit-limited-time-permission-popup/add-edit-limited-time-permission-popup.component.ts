@@ -12,7 +12,4 @@ import { TextareaModule } from 'primeng/textarea';
   templateUrl: './add-edit-limited-time-permission-popup.component.html',
   styleUrl: './add-edit-limited-time-permission-popup.component.scss',
 })
-export class AddEditLimitedTimePermissionPopupComponent {
-
-  
-}
+export class AddEditLimitedTimePermissionPopupComponent {}
