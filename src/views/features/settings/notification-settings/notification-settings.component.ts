@@ -71,10 +71,7 @@ export default class NotificationSettingsComponent implements OnInit, OnDestroy 
     this.startDayForm = this.fb.group(this.startDayOfMonthModel.buildForm());
 
     // Generate 1 → 28
-    this.daysOfMonth = Array.from({ length: 28 }, (_, i) => ({
-      id: i + 1,
-      name: i + 1,
-    }));
+    this.generateMonthDays();
 
     // If backend returned a value → preselect it
     if (this.startDayOfMonthModel.dayOfMonth) {
@@ -90,6 +87,13 @@ export default class NotificationSettingsComponent implements OnInit, OnDestroy 
     });
 
     this.breadcrumbs = [{ label: this.translateService.instant('NOTIFICATION.GENERAL_SETTINGS') }];
+  }
+
+  private generateMonthDays() {
+    this.daysOfMonth = Array.from({ length: 28 }, (_, i) => ({
+      id: i + 1,
+      name: i + 1,
+    }));
   }
 
   setHomeItem(): MenuItem {
