@@ -361,9 +361,6 @@ export default class OthersAttendanceLogListComponent
     dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
       if (result && result == DIALOG_ENUM.OK) {
         this.loadDataIfNeeded();
-        this.alertService.showSuccessMessage({
-          messages: ['COMMON.DATA_HAS_BEEN_IMPORTED_SUCCESSFULLY'],
-        });
       }
     });
   }

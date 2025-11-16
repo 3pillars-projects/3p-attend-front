@@ -110,7 +110,7 @@ export class ImportLogPopupComponent implements OnInit {
           { messages: this.getImportResponseMessages(response) },
           { width: '100%', maxWidth: '600px' }
         );
-        this.dialogRef.close();
+        this.dialogRef.close(DIALOG_ENUM.OK);
       },
     });
   }

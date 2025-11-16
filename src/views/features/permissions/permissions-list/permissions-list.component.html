@@ -281,6 +281,8 @@
                         optionLabel="type"
                         optionValue="id"
                         placeholder="{{ 'PERMISSION_PAGE.EMPLOYEE_NAME' | translate }}"
+                        [virtualScroll]="true"
+                        [virtualScrollItemSize]="38"
                       ></p-select>
                       <span
                         class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
