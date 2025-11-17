@@ -1,12 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { TabsModule } from 'primeng/tabs';
-import { MyLimitedTimePermissionListComponent } from '../my-limited-time-permission-list/my-limited-time-permission-list.component';
-import { AllLimitedTimePermissionListComponent } from '../all-limited-time-permission-list/all-limited-time-permission-list.component';
 import { MenuItem } from '@/models/shared/menu-item';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Paginator, PaginatorState } from 'primeng/paginator';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 import { ViewLimitedTimePermissionPopupComponent } from '../view-limited-time-permission-popup/view-limited-time-permission-popup.component';
 import { AddEditLimitedTimePermissionPopupComponent } from '../add-edit-limited-time-permission-popup/add-edit-limited-time-permission-popup.component';
 import { TableModule } from 'primeng/table';
@@ -26,7 +24,7 @@ import { LIMITED_TIME_PERMISSION_TABS_ENUM } from '@/enums/limited-time-permissi
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import * as XLSX from 'xlsx';
 import { CustomValidators } from '@/validators/custom-validators';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationInfo } from '@/models/shared/response/pagination-info';
 import { PaginatedList } from '@/models/shared/response/paginated-list';
@@ -34,7 +32,6 @@ import { formatTimeTo12Hour } from '@/utils/general-helper';
 import { LimitedTimePermissionStatusService } from '@/services/features/lookups/limited-time-permission-status.service';
 import { LimitedTimePermissionTypeService } from '@/services/features/lookups/limited-time-permission-type.service';
 import { UserService } from '@/services/features/user.service';
-import { forkJoin, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-limited-time-permission-container',
@@ -113,35 +110,28 @@ export default class LimitedTimePermissionContainerComponent
   }
 
   private loadLookups(): void {
-    this.permissionTypeService
-      .getLookup()
-      .pipe(
-        switchMap((types) => {
-          this.limitedTimepermissionTypes = types || [];
-          return this.userService.getMyDepartmentsLookup();
-        }),
-        switchMap((departments) => {
-          this.departments = departments || [];
-          return this.permissionStatusService.getLookup();
-        }),
-        switchMap((statuses) => {
-          this.limitedTimeprmissionStatuses = statuses || [];
-          return this.userService.getMyDepartmentUsersLookup();
-        }),
-        switchMap((users) => {
-          this.users = users || [];
-          return this.permissionService.getTimeOptions();
-        })
-      )
-      .subscribe({
-        next: (timeOptions) => {
-          this.availableTimeOptions = (timeOptions?.data || []).map((t: number) => ({
-            label: `${t}`,
-            value: t,
-          }));
-        },
-        error: () => {},
-      });
+    this.permissionTypeService.getLookup().subscribe((types) => {
+      this.limitedTimepermissionTypes = types || [];
+    });
+
+    this.userService.getMyDepartmentsLookup().subscribe((departments) => {
+      this.departments = departments || [];
+    });
+
+    this.permissionStatusService.getLookup().subscribe((statuses) => {
+      this.limitedTimeprmissionStatuses = statuses || [];
+    });
+
+    this.userService.getMyDepartmentUsersLookup().subscribe((users) => {
+      this.users = users || [];
+    });
+
+    this.permissionService.getTimeOptions().subscribe((timeOptions) => {
+      this.availableTimeOptions = (timeOptions?.data || []).map((t: number) => ({
+        label: `${t}`,
+        value: t,
+      }));
+    });
   }
 
   formatTime12HourFromDate(value: Date | string): string {
