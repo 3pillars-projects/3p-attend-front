@@ -37,7 +37,6 @@ export class LimitedTimePermission extends BaseCrudModel<
   declare isCancelRequested?: boolean;
   declare canTakeAction?: boolean;
   declare canRequestCancel?: boolean;
-  declare canApproveOrDeclineCancel?: boolean;
   private languageService?: LanguageService;
   constructor() {
     super();
