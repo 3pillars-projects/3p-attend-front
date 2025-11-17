@@ -131,4 +131,33 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
+  get isAcceptedOrFirstAccepted(): boolean {
+    return (
+      this.model.fkStatusId === this.limitedTimePermissionStatusEnum.Accepted ||
+      this.model.fkStatusId === this.limitedTimePermissionStatusEnum.FirstAccepted
+    );
+  }
+
+  get canShowCancelApprovalButtons(): boolean {
+    return (
+      !!this.model.canTakeAction && !!this.model.isCancelRequested && this.isAcceptedOrFirstAccepted
+    );
+  }
+
+  get canShowNormalApprovalButtons(): boolean {
+    return (
+      !!this.model.canTakeAction &&
+      !this.model.isCancelRequested &&
+      this.model.fkStatusId === this.limitedTimePermissionStatusEnum.New
+    );
+  }
+
+  get canShowRequestCancelButton(): boolean {
+    return (
+      !!this.model.canRequestCancel &&
+      !this.model.isCancelRequested &&
+      this.isAcceptedOrFirstAccepted
+    );
+  }
 }

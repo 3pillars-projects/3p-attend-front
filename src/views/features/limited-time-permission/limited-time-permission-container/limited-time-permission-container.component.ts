@@ -34,7 +34,7 @@ import { formatTimeTo12Hour } from '@/utils/general-helper';
 import { LimitedTimePermissionStatusService } from '@/services/features/lookups/limited-time-permission-status.service';
 import { LimitedTimePermissionTypeService } from '@/services/features/lookups/limited-time-permission-type.service';
 import { UserService } from '@/services/features/user.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-limited-time-permission-container',
@@ -113,34 +113,35 @@ export default class LimitedTimePermissionContainerComponent
   }
 
   private loadLookups(): void {
-    forkJoin({
-      types: this.permissionTypeService.getLookup(),
-      departments: this.userService.getMyDepartmentsLookup(),
-      statuses: this.permissionStatusService.getLookup(),
-      users: this.userService.getMyDepartmentUsersLookup(),
-      timeOptions: this.permissionService.getTimeOptions(),
-    }).subscribe({
-      next: (result) => {
-        this.limitedTimepermissionTypes = result.types;
-        this.departments = result.departments;
-        this.limitedTimeprmissionStatuses = result.statuses;
-        this.users = result.users;
-
-        this.availableTimeOptions = result?.timeOptions?.data
-          ? result.timeOptions.data.map((t: number) => ({
-              label: `${t}`,
-              value: t,
-            }))
-          : [];
-      },
-      error: (_) => {
-        this.limitedTimepermissionTypes = [];
-        this.departments = [];
-        this.limitedTimeprmissionStatuses = [];
-        this.users = [];
-        this.availableTimeOptions = [];
-      },
-    });
+    this.permissionTypeService
+      .getLookup()
+      .pipe(
+        switchMap((types) => {
+          this.limitedTimepermissionTypes = types || [];
+          return this.userService.getMyDepartmentsLookup();
+        }),
+        switchMap((departments) => {
+          this.departments = departments || [];
+          return this.permissionStatusService.getLookup();
+        }),
+        switchMap((statuses) => {
+          this.limitedTimeprmissionStatuses = statuses || [];
+          return this.userService.getMyDepartmentUsersLookup();
+        }),
+        switchMap((users) => {
+          this.users = users || [];
+          return this.permissionService.getTimeOptions();
+        })
+      )
+      .subscribe({
+        next: (timeOptions) => {
+          this.availableTimeOptions = (timeOptions?.data || []).map((t: number) => ({
+            label: `${t}`,
+            value: t,
+          }));
+        },
+        error: () => {},
+      });
   }
 
   formatTime12HourFromDate(value: Date | string): string {

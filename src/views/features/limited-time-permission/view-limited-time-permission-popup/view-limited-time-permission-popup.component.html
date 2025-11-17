@@ -136,34 +136,23 @@
     <div class="actions flex items-center justify-between mt-6">
       <button class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
       <div class="flex items-center gap-4">
-        @if (model.canTakeAction) {
-          @if (model.fkStatusId === limitedTimePermissionStatusEnum.New) {
-            <button class="btn green-btn" (click)="acceptPermission()">
-              {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
-            </button>
-            <button class="btn !text-[#b42318] red-btn-action" (click)="rejectPermission()">
-              {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION' | translate }}
-            </button>
-          }
-        } @else if (
-          model.canRequestCancel &&
-          (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
-            model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted)
-        ) {
-          <button class="btn green-btn" (click)="requestCancel()">
-            {{ 'LIMITED_TIME_PERMISSION.REQUEST_CANCEL' | translate }}
-          </button>
-        } @else if (
-          model.isCancelRequested &&
-          model.canApproveOrDeclineCancel &&
-          (model.fkStatusId === limitedTimePermissionStatusEnum.Accepted ||
-            model.fkStatusId === limitedTimePermissionStatusEnum.FirstAccepted)
-        ) {
+        @if (canShowCancelApprovalButtons) {
           <button class="btn green-btn" (click)="approveCancel()">
             {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION_CANCEL_REQUEST' | translate }}
           </button>
           <button class="btn !text-[#b42318] red-btn-action" (click)="rejectCancel()">
             {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION_CANCEL_REQUEST' | translate }}
+          </button>
+        } @else if (canShowNormalApprovalButtons) {
+          <button class="btn green-btn" (click)="acceptPermission()">
+            {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
+          </button>
+          <button class="btn !text-[#b42318] red-btn-action" (click)="rejectPermission()">
+            {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION' | translate }}
+          </button>
+        } @else if (canShowRequestCancelButton) {
+          <button class="btn green-btn" (click)="requestCancel()">
+            {{ 'LIMITED_TIME_PERMISSION.REQUEST_CANCEL' | translate }}
           </button>
         }
       </div>
