@@ -8,7 +8,7 @@ on:
 jobs:
   build_and_deploy:
     runs-on: windows-latest
-    environment: mujdn-frontend
+    environment: attendance-back
 
     steps:
       - name: Checkout repository
@@ -28,9 +28,9 @@ jobs:
       - name: Deploy to SmarterASP.NET via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.MUJDN_BACK_SERVER_IP }}
-          username: ${{ secrets.MUJDN_BACK_SERVER_USERNAME_DEVFRONT }}
-          password: ${{ secrets.MUJDN_BACK_SERVER_PASSWORD }}
+          server: ${{ secrets.ATTEND_BACK_SERVER_IP }}
+          username: ${{ secrets.ATTEND_BACK_SERVER_USERNAME }}
+          password: ${{ secrets.ATTEND_BACK_SERVER_PASSWORD }}
           server-dir: /wwwroot/
           local-dir: ./dist/browser/
           protocol: ftp
