@@ -1,7 +1,7 @@
 {
   "ENVIRONMENTS_URLS": {
     "DEV": "http://localhost:7107/api",
-    "TESTING": "http://localhost:7107/api",
+    "TESTING": "http://attendance.dev3pillars.org/api",
     "PRE_PRODUCTION": "http://localhost:7107/api",
     "PRE_PRODUCTION_IMAGE": "http://localhost:7107/api",
     "PRODUCTION": ""

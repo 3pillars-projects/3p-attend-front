@@ -16,6 +16,8 @@ import { WeekDaysEnum } from '@/enums/week-days-enum';
 import { AlertService } from '@/services/shared/alert.service';
 import { NOTIFICATIONS_SETTINGS_TABS_ENUM } from '@/enums/notifications-settings-tabs-enum';
 import { Select } from 'primeng/select';
+import { StartDayOfMonthSetting } from '@/models/features/setting/start-day-of-month-setting';
+import { StartDayOfMonthSettingService } from '@/services/features/setting/start-day-of-month-setting.service';
 
 @Component({
   selector: 'app-notification-channels',
@@ -47,6 +49,10 @@ export default class NotificationSettingsComponent implements OnInit, OnDestroy 
   workDaysSettingModel = new WorkDaysSetting();
   notificationForm!: FormGroup;
   workDaysForm!: FormGroup;
+  startDayOfMonthModel = new StartDayOfMonthSetting();
+  daysOfMonth: { id: number; name: number }[] = [];
+  startDayForm!: FormGroup;
+  startDayService = inject(StartDayOfMonthSettingService);
 
   activeTab: NOTIFICATIONS_SETTINGS_TABS_ENUM = NOTIFICATIONS_SETTINGS_TABS_ENUM.NOTIFICATIONS_TAB;
   NOTIFICATIONS_SETTINGS_TABS_ENUM = NOTIFICATIONS_SETTINGS_TABS_ENUM;
@@ -54,17 +60,25 @@ export default class NotificationSettingsComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
     const data = this.route.snapshot.data['channel'];
+
     this.notificationSettingModel = data.notificationSetting;
     this.workDaysSettingModel = data.workDays;
+    this.startDayOfMonthModel = data.startDayOfMonth ?? new StartDayOfMonthSetting();
 
-    this.notificationForm = this.fb.group({
-      ...this.notificationSettingModel.buildForm(),
-    });
+    // Build forms
+    this.notificationForm = this.fb.group(this.notificationSettingModel.buildForm());
+    this.workDaysForm = this.fb.group(this.workDaysSettingModel.buildForm());
+    this.startDayForm = this.fb.group(this.startDayOfMonthModel.buildForm());
 
-    this.workDaysForm = this.fb.group({
-      ...this.workDaysSettingModel.buildForm(),
-    });
+    // Generate 1 → 28
+    this.generateMonthDays();
 
+    // If backend returned a value → preselect it
+    if (this.startDayOfMonthModel.dayOfMonth) {
+      this.startDayForm.patchValue({ dayOfMonth: this.startDayOfMonthModel.dayOfMonth });
+    }
+
+    // Lang subscription (unchanged)
     this.translateService.onLangChange.pipe(takeUntil(this.$destroy)).subscribe(() => {
       this.home = this.setHomeItem();
       this.breadcrumbs = [
@@ -73,6 +87,13 @@ export default class NotificationSettingsComponent implements OnInit, OnDestroy 
     });
 
     this.breadcrumbs = [{ label: this.translateService.instant('NOTIFICATION.GENERAL_SETTINGS') }];
+  }
+
+  private generateMonthDays() {
+    this.daysOfMonth = Array.from({ length: 28 }, (_, i) => ({
+      id: i + 1,
+      name: i + 1,
+    }));
   }
 
   setHomeItem(): MenuItem {
@@ -90,12 +111,35 @@ export default class NotificationSettingsComponent implements OnInit, OnDestroy 
     const successObject = { messages: ['COMMON.SAVED_SUCCESSFULLY'] };
     this.alertService.showSuccessMessage(successObject);
   }
+
   save(): void {
     if (this.activeTab === NOTIFICATIONS_SETTINGS_TABS_ENUM.NOTIFICATIONS_TAB) {
       this.saveNotifications();
     } else if (this.activeTab === NOTIFICATIONS_SETTINGS_TABS_ENUM.WORK_DAYS_TAB) {
       this.saveWorkDays();
+    } else if (this.activeTab === NOTIFICATIONS_SETTINGS_TABS_ENUM.START_DAY_TAB) {
+      this.saveStartDay();
     }
+  }
+
+  saveStartDay(): void {
+    if (this.startDayForm.valid) {
+      const newValue = this.startDayForm.value.dayOfMonth;
+
+      this.startDayService.setStartDayOfMonth(newValue).subscribe({
+        next: (result) => {
+          this.startDayOfMonthModel = Object.assign(new StartDayOfMonthSetting(), result);
+          this.startDayForm.patchValue({ dayOfMonth: result.dayOfMonth });
+          this.afterSave();
+        },
+      });
+    }
+  }
+
+  resetStartDay(): void {
+    this.startDayForm.patchValue({
+      dayOfMonth: this.startDayOfMonthModel.dayOfMonth,
+    });
   }
 
   saveNotifications(): void {
