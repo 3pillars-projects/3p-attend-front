@@ -26,6 +26,7 @@ import { visitResolver } from '@/resolvers/features/visit/visit.resolver';
 import { accessLocationResolver } from '@/resolvers/business/access-location.resolver';
 import { devicesConfigurationResolver } from '@/resolvers/business/devices-configuration.resolver';
 import { attendanceReportResolver } from '@/resolvers/business/attendance-report.resolver';
+import { limitedTimePermissionResolver } from '@/resolvers/lookups/limited-timepermission.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -330,6 +331,11 @@ export const routes: Routes = [
       {
         path: 'limited-time-permission',
         canActivate: [authGuard],
+        data: {
+          roles: [ROLES_ENUM.EMPLOYEE],
+          routeId: RouteIdsEnum.LIMITED_TIME_PERMISSION,
+        },
+        resolve: { list: limitedTimePermissionResolver },
         loadComponent: () =>
           import(
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
