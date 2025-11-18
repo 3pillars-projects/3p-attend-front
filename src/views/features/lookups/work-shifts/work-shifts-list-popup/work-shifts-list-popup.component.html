@@ -54,11 +54,71 @@
           </div>
           <app-validation-messages [control]="nameEnControl"></app-validation-messages>
         </div>
-        <div>
-          <div class="w-[50%]">
-            <label class="label" for="max-attendance-time">{{
-              'WORK_SHIFTS_POPUP.MAX_ATTENDANCE_TIME' | translate
-            }}</label>
+        <label class="inline-flex items-center space-x-2 cursor-pointer relative">
+          <input
+            type="checkbox"
+            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer disabled:bg-gray-300 disabled:border-none disabled:checked:bg-gray-300 disabled:checked:cursor-not-allowed"
+          />
+          <svg
+            class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span class="text-base font-medium text-[#1f2a37]"
+            >فترة العمل تتجاوز منتصف الليل (يمتد وقت العمل لليوم التالي)</span
+          >
+        </label>
+        <label class="inline-flex items-center space-x-2 cursor-pointer relative">
+          <input
+            type="checkbox"
+            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer disabled:bg-gray-300 disabled:border-none disabled:checked:bg-gray-300 disabled:checked:cursor-not-allowed"
+          />
+          <svg
+            class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span class="text-base font-medium text-[#1f2a37]">وردية مرنة</span>
+        </label>
+      </div>
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">الحضور</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label class="label" for="time-picker-popup"> الوقت (من) </label>
+            <div class="relative">
+              <p-datepicker
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                [timeOnly]="true"
+                class="peer block w-full"
+                id="time-picker-popup"
+                placeholder="الوقت (من)"
+                [hourFormat]="'12'"
+              >
+                <ng-template pTemplate="inputicon">
+                  <img alt="Time" src="assets/icons/time-icon.svg" />
+                </ng-template>
+              </p-datepicker>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+          </div>
+          <div>
+            <label class="label" for="max-attendance-time">مدة السماح قبل الحضور (دق) </label>
             <p-inputnumber
               [inputStyle]="{ width: '3rem' }"
               [showButtons]="true"
@@ -78,12 +138,8 @@
             </p-inputnumber>
             <app-validation-messages [control]="attendanceBufferControl"></app-validation-messages>
           </div>
-        </div>
-        <div>
-          <div class="w-[50%]">
-            <label class="label" for="max-leave-time">{{
-              'WORK_SHIFTS.MAX_LEAVE_TIME' | translate
-            }}</label>
+          <div>
+            <label class="label" for="max-leave-time">مدة السماح بعد الحضور (دق)</label>
             <p-inputnumber
               [inputStyle]="{ width: '3rem' }"
               [showButtons]="true"
@@ -105,88 +161,89 @@
           </div>
         </div>
       </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 border-t border-t-[#d2d6db] mt-6 pt-6 mb-6">
-        <div class="grid lg:grid-cols-2 gap-6">
-          <div class="lg:col-span-2">
-            <label class="inline-flex items-center space-x-2 mb-4 cursor-pointer relative">
-              <input
-                type="checkbox"
-                class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer disabled:bg-gray-300 disabled:border-none disabled:checked:bg-gray-300 disabled:checked:cursor-not-allowed"
-                formControlName="isCrossDayShift"
-              />
-              <svg
-                class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                viewBox="0 0 24 24"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <span class="text-base font-medium text-[#1f2a37]">{{
-                'WORK_SHIFTS_POPUP.CROSS_DAY_SHIFT' | translate
-              }}</span>
-            </label>
-          </div>
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">الانصراف</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label class="label" for="time-pick-from">{{
-              'WORK_SHIFTS_POPUP.TIME_FROM' | translate
-            }}</label>
+            <label class="label" for="time-picker-popup"> الوقت (الى)</label>
             <div class="relative">
               <p-datepicker
-                [hourFormat]="'12'"
                 [iconDisplay]="'input'"
-                [placeholder]="'WORK_SHIFTS_POPUP.TIME_FROM' | translate"
                 [showIcon]="true"
                 [timeOnly]="true"
                 class="peer block w-full"
-                formControlName="timeFrom"
-                id="time-pick-from"
-                inputId="icondisplay"
-                name="time-pick-from"
+                id="time-picker-popup"
+                placeholder="الوقت (من)"
+                [hourFormat]="'12'"
               >
                 <ng-template pTemplate="inputicon">
-                  <img alt="" src="assets/icons/time-icon.svg" />
+                  <img alt="Time" src="assets/icons/time-icon.svg" />
                 </ng-template>
               </p-datepicker>
               <span
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
             </div>
-            <app-validation-messages [control]="timeFromControl"></app-validation-messages>
           </div>
           <div>
-            <label class="label" for="time-pick-to">{{
-              'WORK_SHIFTS_POPUP.TIME_TO' | translate
-            }}</label>
-            <div class="relative">
-              <p-datepicker
-                [hourFormat]="'12'"
-                [iconDisplay]="'input'"
-                [placeholder]="'WORK_SHIFTS_POPUP.TIME_TO' | translate"
-                [showIcon]="true"
-                [timeOnly]="true"
-                class="peer block w-full"
-                formControlName="timeTo"
-                id="time-pick-to"
-                inputId="icondisplay"
-                name="time-pick-to"
-              >
-                <ng-template pTemplate="inputicon">
-                  <img alt="" src="assets/icons/time-icon.svg" />
-                </ng-template>
-              </p-datepicker>
-              <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
-            </div>
-            <app-validation-messages [control]="timeToControl"></app-validation-messages>
-            <app-validation-messages [control]="form"></app-validation-messages>
+            <label class="label" for="max-attendance-time">مدة السماح قبل الحضور (دق) </label>
+            <p-inputnumber
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              formControlName="attendanceBuffer"
+              id="max-attendance-time"
+              spinnerMode="horizontal"
+              [min]="0"
+              [max]="30"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages [control]="attendanceBufferControl"></app-validation-messages>
+          </div>
+          <div>
+            <label class="label" for="max-leave-time">مدة السماح بعد الحضور (دق)</label>
+            <p-inputnumber
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              formControlName="leaveBuffer"
+              id="max-leave-time"
+              spinnerMode="horizontal"
+              [min]="0"
+              [max]="30"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages [control]="leaveBufferControl"></app-validation-messages>
           </div>
         </div>
+      </div>
+      <div class="bg-[#f3f4f6] rounded-3xl p-6 mt-6">
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">بيانات عمل الوردية</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div>
+            <span class="text-[#6c737f] text-sm">موعد بداية اليوم</span>
+            <h5 class="text-[#161616] font-[600] mt-2 text-base">07:00 ص</h5>
+          </div>
+          <div>
+            <span class="text-[#6c737f] text-sm">مدة الوردية</span>
+            <h5 class="text-[#161616] font-[600] mt-2 text-base">8 ساعات</h5>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 border-t border-t-[#d2d6db] mt-6 pt-6 mb-6">
+        
         <div class="grid lg:grid-cols-2 gap-6">
           <div>
             <label class="inline-flex items-center space-x-2 mb-4 cursor-pointer relative">
