@@ -787,6 +787,15 @@
     "PERMISSIONS": "الاستئذانات",
     "TIME_DIFFERENCE": "فرق مدة الانصراف"
   },
+  "ATTENDANCE_REPORT_PERMISSION_POPUP": {
+    "TITLE": "طلبات الاستئذانات",
+    "PERMISSION_DATE": "تاريخ الاستئذان",
+    "PERMISSION_TYPE": "نوع الاستئذان",
+    "PERMISSION_DURATION": "مدة الاستئذان",
+    "TIME_FROM": "الوقت - من",
+    "TIME_TO": "الوقت - إلى",
+    "SHIFT_START_LATE": "بداية الدوام (للحضور المتأخر)"
+  },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "معالجة بيانات تقارير الموظفين",
     "DATE_FROM": "التاريخ (من)",

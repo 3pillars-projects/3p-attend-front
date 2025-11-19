@@ -212,16 +212,49 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH;
   }
 
-  getPermissionLabel(attendance: any): string {
-    if (attendance.attendancePermissionId && attendance.leavePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.PRESENCE_LEAVE';
+  getPermissionLabel(att: AttendanceReport): string {
+    let count = 0;
+    if (att.attendancePermissionId) count++;
+    if (att.midDayPermissionId) count++;
+    if (att.leavePermissionId) count++;
+
+    const isEnglish = this.isCurrentLanguageEnglish();
+    const text = isEnglish ? 'permission' : 'إذن';
+
+    return `${count} ${text}`;
+  }
+  private formatMinutes(total: number): string {
+    const hours = Math.floor(total / 60)
+      .toString()
+      .padStart(2, '0');
+
+    const minutes = (total % 60).toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
+  getTimeDifference(att: AttendanceReport): string {
+    if (att.totalOvertimeMinutes && att.totalOvertimeMinutes > 0) {
+      const time = this.formatMinutes(att.totalOvertimeMinutes);
+      return `
+        <div class="text-[16px] font-medium text-[#085d3a] min-w-[67px] min-h-[24px]
+                    inline-flex justify-center items-center px-3 gap-1 rounded-full
+                    border border-[#abefc6] bg-[#ecfdf3] font-medium">
+          + ${time}
+        </div>
+      `;
     }
-    if (attendance.leavePermissionId && !attendance.attendancePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.LEAVE';
+
+    if (att.totalMissingMinutes && att.totalMissingMinutes > 0) {
+      const time = this.formatMinutes(att.totalMissingMinutes);
+      return `
+        <div class="text-[16px] font-medium text-[#912018] min-w-[67px] min-h-[24px]
+                    inline-flex justify-center items-center px-3 gap-1 rounded-full
+                    border border-[#fecdca] bg-[#fef3f2] font-medium">
+          - ${time}
+        </div>
+      `;
     }
-    if (attendance.attendancePermissionId && !attendance.leavePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.PRESENCE';
-    }
-    return '';
+
+    return ''; // nothing to show
   }
 }
