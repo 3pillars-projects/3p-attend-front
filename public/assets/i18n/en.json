@@ -786,7 +786,8 @@
     "PRESENCE": "Attendance",
     "LEAVE": "Leave",
     "PRESENCE_LEAVE": "Attendance - Leave",
-    "PERMISSIONS": "Permissions"
+    "PERMISSIONS": "Permissions",
+    "TIME_DIFFERENCE": "Check-out Time Difference"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "Employee Reports Processing",

@@ -784,7 +784,8 @@
     "PRESENCE": "حضور",
     "LEAVE": "انصراف",
     "PRESENCE_LEAVE": "حضور - انصراف",
-    "PERMISSIONS": "الاستئذانات"
+    "PERMISSIONS": "الاستئذانات",
+    "TIME_DIFFERENCE": "فرق مدة الانصراف"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "معالجة بيانات تقارير الموظفين",
