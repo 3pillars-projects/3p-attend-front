@@ -25,6 +25,9 @@ import {
 } from '@/enums/attendance-status-enum';
 import { SHIFT_TYPE_ENUM } from '@/enums/shift-type-enum';
 import { formatDateTo12Hour } from '@/utils/general-helper';
+import { PermissionRequestPopupComponent } from '../permission-request-popup/permission-request-popup.component';
+import { DIALOG_ENUM } from '@/enums/dialog-enum';
+import { MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-my-attendance-report-list',
@@ -55,6 +58,24 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
     width: '100%',
     maxWidth: '800px',
   };
+  dialogSize2 = {
+    width: '100%',
+    maxWidth: '1024px',
+  };
+
+  openDialog2(model?: any) {
+    let dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      model: model,
+    };
+    dialogConfig.width = this.dialogSize.width;
+    dialogConfig.maxWidth = this.dialogSize.maxWidth;
+    const dialogRef = this.matDialog.open(PermissionRequestPopupComponent as any, dialogConfig);
+
+    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
+      console.log('closed');
+    });
+  }
 
   attendanceReportService = inject(AttendanceReportService);
   filterModel: AttendanceReportFilter = new AttendanceReportFilter();
