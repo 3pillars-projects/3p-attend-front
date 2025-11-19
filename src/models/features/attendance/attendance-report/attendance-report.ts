@@ -92,4 +92,30 @@ export default class AttendanceReport extends BaseCrudModel<
       ? this.holidayNameEn!
       : this.holidayNameAr!;
   }
+
+  /**
+   * Numeric difference: overtime minutes minus missing minutes.
+   * (Useful if you need arithmetic instead of a display string.)
+   */
+  getAttendanceDifferenceNumeric(): number {
+    const overtime = Number(this.totalOvertimeMinutes ?? 0);
+    const missing = Number(this.totalMissingMinutes ?? 0);
+    // if only one has value and other is 0 this will produce +30 or -20 as numeric
+    return overtime - missing;
+  }
+
+  /**
+   * Display string for the attendance difference.
+   * Returns:
+   *  - "+{minutes}" when overtime exists (e.g. "+30")
+   *  - "-{minutes}" when missing exists (e.g. "-20")
+   *  - "0" when neither
+   */
+  getAttendanceDifference(): string {
+    const numeric = this.getAttendanceDifferenceNumeric();
+
+    if (numeric > 0) return `+${numeric}`;
+    if (numeric < 0) return `${numeric}`; // negative already has '-' sign
+    return '0';
+  }
 }
