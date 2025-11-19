@@ -112,9 +112,11 @@
             <th>{{ 'ATTENDANCE_REPORT_PAGE.LEAVE_NAME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.MISSION_NAME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.PERMISSIONS' | translate }}</th>
+            <th>الاستئذانات</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.DOCUMENTATION' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.CHECKIN_TIME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.CHECKOUT_TIME' | translate }}</th>
+            <th>فرق مدة الانصراف</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.STATUS' | translate }}</th>
           </tr>
         </ng-template>
@@ -135,6 +137,32 @@
               {{ getPermissionLabel(attendance) | translate }}
             </td>
             <td>
+              <button
+                (click)="openDialog2(attendance)"
+                class="text-[16px] font-medium text-[#1849a9] min-w-[67px] min-h-[24px] inline-flex justify-center items-center px-3 gap-1 rounded-full border border-[#b2ddff] bg-[#eff8ff] font-semibold"
+              >
+                4 أذن
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.618 8.813h-.186a.563.563 0 0 1 0-1.125h.025c.154 0 .32 0 .461.018a.93.93 0 0 1 .552.256.93.93 0 0 1 .255.552c.02.14.02.306.02.46v3.776a.562.562 0 1 1-1.126 0V8.813zM8.994 5.25a.75.75 0 0 0 0 1.5h.007a.75.75 0 0 0 0-1.5h-.007z"
+                    fill="#1849A9"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M.938 9a8.062 8.062 0 1 0 16.124 0A8.062 8.062 0 0 0 .937 9zM9 15.938A6.937 6.937 0 1 1 9 2.063a6.937 6.937 0 0 1 0 13.874z"
+                    fill="#1849A9"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td>
               @if (attendance.isPresenceInquirySucceed) {
                 <div class="flex items-center justify-center">
                   <img src="assets/icons/right-icon.svg" alt="" />
@@ -147,7 +175,18 @@
             </td>
             <td>{{ formatTime(attendance.firstAttendanceFingerPrint) }}</td>
             <td>{{ formatTime(attendance.lastLeaveFingerPrint) }}</td>
-
+            <td>
+              <div
+                class="text-[16px] font-medium text-[#085d3a] min-w-[67px] min-h-[24px] inline-flex justify-center items-center px-3 gap-1 rounded-full border border-[#abefc6] bg-[#ecfdf3] font-medium"
+              >
+                + 01:30
+              </div>
+              <div
+                class="text-[16px] font-medium text-[#912018] min-w-[67px] min-h-[24px] inline-flex justify-center items-center px-3 gap-1 rounded-full border border-[#fecdca] bg-[#fef3f2] font-medium"
+              >
+                - 00:30
+              </div>
+            </td>
             <td>
               <div
                 class="px-2 py-1 flex items-center gap-2 rounded-full font-medium text-[14px] w-fit"
