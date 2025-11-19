@@ -49,6 +49,7 @@ export default class AttendanceReport extends BaseCrudModel<
   declare latestAllowedArrivalDateTime?: Date | string | null;
   declare earliestAllowedDepartureDateTime?: Date | string | null;
   declare latestAllowedDepartureDateTime?: Date | string | null;
+  declare isFlexibleShift?: boolean;
 
   declare missionId?: number | null;
   declare missionNameEn?: string | null;
@@ -59,10 +60,14 @@ export default class AttendanceReport extends BaseCrudModel<
   declare lastLeaveFingerPrint?: Date | string | null;
 
   declare attendancePermissionId?: number | null;
+  declare midDayPermissionId?: number | null;
   declare leavePermissionId?: number | null;
 
   declare attendanceStatus: number;
   declare processingStatus: number;
+
+  declare totalOvertimeMinutes: number;
+  declare totalMissingMinutes: number;
 
   declare creationDate: Date | string | null;
   declare modificationDate?: Date | string | null;

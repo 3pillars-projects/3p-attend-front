@@ -757,7 +757,11 @@
     "MISSION": "مهمة",
     "ABSENT": "غائب",
     "PRESENT": "حاضر",
-    "EXEMPTED": "معفى من البصمة"
+    "EXEMPTED": "معفى من البصمة",
+    "ONE_FINGER_PRINT": "بصمة واحدة",
+    "LATE_ATTENDANCE": "حضور متأخر",
+    "EARLY_LEAVE": "انصراف مبكر",
+    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "حضور متأخر وانصراف مبكر"
   },
   "ATTENDANCE_REPORT_PAGE": {
     "SPECIAL_SHIFT": "وردية عمل خاصة",
