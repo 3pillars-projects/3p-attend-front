@@ -57,15 +57,15 @@ export const ATTENDANCE_STATUS_CONFIG: Record<
   },
   [ATTENDANCE_STATUS_ENUM.EXEMPTED]: {
     labelKey: 'ATTENDANCE_STATUS.EXEMPTED',
-    bgColor: '#fffaeb',
-    textColor: '#93370d',
-    dotColor: '#93370d',
-  },
-  [ATTENDANCE_STATUS_ENUM.MISSION]: {
-    labelKey: 'ATTENDANCE_STATUS.MISSION',
     bgColor: '#eff8ff',
     textColor: '#1849a9',
     dotColor: '#1849a9',
+  },
+  [ATTENDANCE_STATUS_ENUM.MISSION]: {
+    labelKey: 'ATTENDANCE_STATUS.MISSION',
+    bgColor: '#f9fafb',
+    textColor: '#1f2a37',
+    dotColor: '#4d5761',
   },
   [ATTENDANCE_STATUS_ENUM.PRESENT]: {
     labelKey: 'ATTENDANCE_STATUS.PRESENT',
@@ -82,26 +82,26 @@ export const ATTENDANCE_STATUS_CONFIG: Record<
   // new status
   [ATTENDANCE_STATUS_ENUM.ONE_FINGER_PRINT]: {
     labelKey: 'ATTENDANCE_STATUS.ONE_FINGER_PRINT',
-    bgColor: '#ecfdf3',
-    textColor: '#085d3a',
-    dotColor: '#085d3a',
+    bgColor: '#fffaeb',
+    textColor: '#93370d',
+    dotColor: '#93370d',
   },
   [ATTENDANCE_STATUS_ENUM.LATE_ATTENDANCE]: {
     labelKey: 'ATTENDANCE_STATUS.LATE_ATTENDANCE',
-    bgColor: '#ecfdf3',
-    textColor: '#085d3a',
-    dotColor: '#085d3a',
+    bgColor: '#fffaeb',
+    textColor: '#93370d',
+    dotColor: '#93370d',
   },
   [ATTENDANCE_STATUS_ENUM.EARLY_LEAVE]: {
     labelKey: 'ATTENDANCE_STATUS.EARLY_LEAVE',
-    bgColor: '#ecfdf3',
-    textColor: '#085d3a',
-    dotColor: '#085d3a',
+    bgColor: '#fffaeb',
+    textColor: '#93370d',
+    dotColor: '#93370d',
   },
   [ATTENDANCE_STATUS_ENUM.LATE_ATTENDANCE_AND_EARLY_LEAVE]: {
     labelKey: 'ATTENDANCE_STATUS.LATE_ATTENDANCE_AND_EARLY_LEAVE',
-    bgColor: '#ecfdf3',
-    textColor: '#085d3a',
-    dotColor: '#085d3a',
+    bgColor: '#fffaeb',
+    textColor: '#93370d',
+    dotColor: '#93370d',
   },
 };
