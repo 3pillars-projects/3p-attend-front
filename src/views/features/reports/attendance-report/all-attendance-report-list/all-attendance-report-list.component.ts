@@ -125,10 +125,13 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
       ),
 
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_NAME')]: model.getShiftName(),
-      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_TYPE')]:
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_STATUS')]:
         model.shiftType === SHIFT_TYPE_ENUM.DEFAULT
           ? this.translateService.instant('ATTENDANCE_REPORT_PAGE.DEFAULT_SHIFT')
           : this.translateService.instant('ATTENDANCE_REPORT_PAGE.SPECIAL_SHIFT'),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_TYPE')]: model.isFlexibleShift
+        ? this.translateService.instant('ATTENDANCE_REPORT_PAGE.FLEXIBLE_SHIFT')
+        : this.translateService.instant('ATTENDANCE_REPORT_PAGE.FIXED_SHIFT'),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.LEAVE_NAME')]: model.getHolidayName(),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.MISSION_NAME')]:
         model.getMissionName(),
