@@ -51,7 +51,7 @@ export default class Shift extends BaseCrudModel<Shift, ShiftService> {
       isActive,
       shiftLogStartDate,
       isUpdateOnly,
-      isFlexibleShift
+      isFlexibleShift,
     } = this;
 
     return {

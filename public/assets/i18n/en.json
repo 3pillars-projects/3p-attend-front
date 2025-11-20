@@ -134,7 +134,19 @@
     "INVALID_XML_FILE_TYPE": "File extension should be .xml",
     "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "You have exceeded both the allowed number of permissions and the total allowed duration.",
     "EXCEEDED_NUMBER_Of_PERMISSIONS": "You have exceeded the allowed number of permissions.",
-    "EXCEEDED_PERMISSIONS_DURATION": "You have exceeded the allowed permissions duration."
+    "EXCEEDED_PERMISSIONS_DURATION": "You have exceeded the allowed permissions duration.",
+    "PERMISSION_BOUNDARIES_VIOLATION": "Permission lies outside the allowed full shift window.",
+    "SHIFT_BEGINNING_PERMISSION_BOUNDARIES_VIOLATION": "You already created a Shift Beginning permission today.",
+    "SHIFT_ENDING_PERMISSION_BOUNDARIES_VIOLATION": "You already created a Shift Ending permission today.",
+    "SHIFT_BEGINNING_PERMISSION_SHIFT_START_ATTENDANCE_BUFFER": "Shift Beginning permission must start exactly after end attendance buffer.",
+    "SHIFT_BEGINNING_OVERLAP_ISSUE": "Shift Beginning overlaps with existing mid-shift permission.",
+    "SHIFT_ENDING_PERMISSION_SHIFT_END_ATTENDANCE_BUFFER": "Shift ending permission must end before leave buffer.",
+    "SHIFT_ENDING_OVERLAP_ISSUE": "Shift ending overlaps with existing mid-shift permission.",
+    "MID_SHIFT_BOUNDARY_ISSUE": "Mid-shift permission lies outside the allowed mid-shift window.",
+    "MID_SHIFT_OVERLAP": "Mid-shift permission overlaps another mid-shift.",
+    "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "Mid-shift intersects with existing Shift Beginning.",
+    "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "Mid-shift intersects with existing Shift Ending.",
+    "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "Shift Beginning/Ending overlaps with mid-shift permission."
   },
   "FOOTER": {
     "ALL_RIGHTS": "All rights reserved to the General Directorate of Mujahideen © 2025"
