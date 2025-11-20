@@ -103,6 +103,28 @@ export default class AttendanceReport extends BaseCrudModel<
       const time = formatMinutes(this.totalMissingMinutes);
       return `- ${time}`;
     }
+    if (this.totalOvertimeMinutes == 0 && this.totalMissingMinutes == 0) {
+      const time = formatMinutes(0);
+      return `${time}`;
+    }
     return '';
+  }
+  getTimeDifferenceData(): { value: string; type: 'overtime' | 'missing' | 'zero' | null } {
+    if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
+      const time = formatMinutes(this.totalOvertimeMinutes);
+      return { value: `+ ${time}`, type: 'overtime' };
+    }
+
+    if (this.totalMissingMinutes && this.totalMissingMinutes > 0) {
+      const time = formatMinutes(this.totalMissingMinutes);
+      return { value: `- ${time}`, type: 'missing' };
+    }
+
+    if (this.totalOvertimeMinutes === 0 && this.totalMissingMinutes === 0) {
+      const time = formatMinutes(0);
+      return { value: time, type: 'zero' };
+    }
+
+    return { value: '', type: null };
   }
 }

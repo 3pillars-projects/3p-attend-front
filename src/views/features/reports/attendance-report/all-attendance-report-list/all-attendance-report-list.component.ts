@@ -143,7 +143,7 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
         model.lastLeaveFingerPrint ? new Date(model.lastLeaveFingerPrint) : undefined
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
-        model.getTimeDifferenceValue(),
+        model.getTimeDifferenceData().value,
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',
@@ -225,38 +225,38 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
 
     return `${count} ${text}`;
   }
-  private formatMinutes(total: number): string {
-    const hours = Math.floor(total / 60)
-      .toString()
-      .padStart(2, '0');
 
-    const minutes = (total % 60).toString().padStart(2, '0');
-
-    return `${hours}:${minutes}`;
-  }
   getTimeDifference(att: AttendanceReport): string {
-    if (att.totalOvertimeMinutes && att.totalOvertimeMinutes > 0) {
-      const time = this.formatMinutes(att.totalOvertimeMinutes);
-      return `
-      <div class="text-[16px] font-medium text-[#085d3a] min-w-[67px] min-h-[24px]
-                  inline-flex justify-center items-center px-3 gap-1 rounded-full
-                  border border-[#abefc6] bg-[#ecfdf3] font-medium">
-        + ${time}
-      </div>
-    `;
-    }
+    const data = att.getTimeDifferenceData();
 
-    if (att.totalMissingMinutes && att.totalMissingMinutes > 0) {
-      const time = this.formatMinutes(att.totalMissingMinutes);
-      return `
-      <div class="text-[16px] font-medium text-[#912018] min-w-[67px] min-h-[24px]
-                  inline-flex justify-center items-center px-3 gap-1 rounded-full
-                  border border-[#fecdca] bg-[#fef3f2] font-medium">
-        - ${time}
-      </div>
-    `;
-    }
+    if (!data.type) return '';
 
-    return ''; // nothing to show
+    const styles = {
+      overtime: {
+        text: 'text-[#085d3a]',
+        border: 'border-[#abefc6]',
+        bg: 'bg-[#ecfdf3]',
+      },
+      missing: {
+        text: 'text-[#912018]',
+        border: 'border-[#fecdca]',
+        bg: 'bg-[#fef3f2]',
+      },
+      zero: {
+        text: 'text-[#085d3a]',
+        border: 'border-[#abefc6]',
+        bg: 'bg-[#ecfdf3]',
+      },
+    };
+
+    const style = styles[data.type];
+
+    return `
+    <div class="text-[16px] font-medium ${style.text} min-w-[67px] min-h-[24px]
+                inline-flex justify-center items-center px-3 gap-1 rounded-full
+                border ${style.border} ${style.bg} font-medium">
+      ${data.value}
+    </div>
+  `;
   }
 }
