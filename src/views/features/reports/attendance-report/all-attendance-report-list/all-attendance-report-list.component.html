@@ -180,6 +180,7 @@
             <th>{{ 'ATTENDANCE_REPORT_PAGE.DEPARTMENT' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.DATE' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.SHIFT_NAME' | translate }}</th>
+            <th>{{ 'ATTENDANCE_REPORT_PAGE.SHIFT_STATUS' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.SHIFT_TYPE' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.LEAVE_NAME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.MISSION_NAME' | translate }}</th>
@@ -220,6 +221,13 @@
                 {{ 'ATTENDANCE_REPORT_PAGE.SPECIAL_SHIFT' | translate }}
               } @else {
                 {{ 'ATTENDANCE_REPORT_PAGE.DEFAULT_SHIFT' | translate }}
+              }
+            </td>
+            <td>
+              @if (attendance.isFlexibleShift) {
+                {{ 'ATTENDANCE_REPORT_PAGE.FLEXIBLE_SHIFT' | translate }}
+              } @else {
+                {{ 'ATTENDANCE_REPORT_PAGE.FIXED_SHIFT' | translate }}
               }
             </td>
             <td>{{ attendance.getHolidayName() }}</td>

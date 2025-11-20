@@ -783,6 +783,7 @@
     "DATE": "Date",
     "SHIFT_NAME": "Shift Name",
     "SHIFT_TYPE": "Shift Type",
+    "SHIFT_STATUS": "Shift Status",
     "LEAVE_NAME": "Holiday Name",
     "MISSION_NAME": "Mission Name",
     "DOCUMENTATION": "Presence Inquiry",
@@ -799,7 +800,9 @@
     "LEAVE": "Leave",
     "PRESENCE_LEAVE": "Attendance - Leave",
     "PERMISSIONS": "Permissions",
-    "TIME_DIFFERENCE": "Check-out Time Difference"
+    "TIME_DIFFERENCE": "Check-out Time Difference",
+    "FLEXIBLE_SHIFT": "Flexible shift",
+    "FIXED_SHIFT": "Fixed Shift"
   },
   "ATTENDANCE_REPORT_PERMISSION_POPUP": {
     "TITLE": "Permission Requests",
