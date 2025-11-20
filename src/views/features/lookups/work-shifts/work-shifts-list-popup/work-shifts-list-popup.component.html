@@ -16,8 +16,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="label" for="shiftNameAr">{{
-            'WORK_SHIFTS_POPUP.SHIFT_NAME_ARABIC' | translate
-          }}</label>
+              'WORK_SHIFTS_POPUP.SHIFT_NAME_ARABIC' | translate
+            }}</label>
           <div class="relative">
             <input
               [placeholder]="'WORK_SHIFTS_POPUP.SHIFT_NAME_ARABIC' | translate"
@@ -36,8 +36,8 @@
         </div>
         <div>
           <label class="label" for="shiftNameEn">{{
-            'WORK_SHIFTS_POPUP.SHIFT_NAME_ENGLISH' | translate
-          }}</label>
+              'WORK_SHIFTS_POPUP.SHIFT_NAME_ENGLISH' | translate
+            }}</label>
           <div class="relative">
             <input
               [placeholder]="'WORK_SHIFTS_POPUP.SHIFT_NAME_ENGLISH' | translate"
@@ -54,10 +54,11 @@
           </div>
           <app-validation-messages [control]="nameEnControl"></app-validation-messages>
         </div>
-        <label class="inline-flex items-center space-x-2 cursor-pointer relative">
+        <label class="inline-flex items-center space-x-2 mb-4 cursor-pointer relative">
           <input
             type="checkbox"
             class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer disabled:bg-gray-300 disabled:border-none disabled:checked:bg-gray-300 disabled:checked:cursor-not-allowed"
+            formControlName="isCrossDayShift"
           />
           <svg
             class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
@@ -70,14 +71,15 @@
           >
             <polyline points="20 6 9 17 4 12" />
           </svg>
-          <span class="text-base font-medium text-[#1f2a37]"
-            >فترة العمل تتجاوز منتصف الليل (يمتد وقت العمل لليوم التالي)</span
-          >
+          <span class="text-base font-medium text-[#1f2a37]">{{
+              'WORK_SHIFTS_POPUP.CROSS_DAY_SHIFT' | translate
+            }}</span>
         </label>
         <label class="inline-flex items-center space-x-2 cursor-pointer relative">
           <input
             type="checkbox"
             class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer disabled:bg-gray-300 disabled:border-none disabled:checked:bg-gray-300 disabled:checked:cursor-not-allowed"
+            formControlName="isFlexibleShift"
           />
           <svg
             class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
@@ -90,23 +92,32 @@
           >
             <polyline points="20 6 9 17 4 12" />
           </svg>
-          <span class="text-base font-medium text-[#1f2a37]">وردية مرنة</span>
+          <span class="text-base font-medium text-[#1f2a37]">{{
+              'WORK_SHIFTS_POPUP.FLEXIBLE_SHIFT' | translate
+            }}</span>
         </label>
       </div>
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
-        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">الحضور</h3>
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">{{
+            'WORK_SHIFTS_POPUP.ATTENDANCE' | translate
+          }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label class="label" for="time-picker-popup"> الوقت (من) </label>
+            <label class="label" for="time-pick-from"> {{
+                'WORK_SHIFTS_POPUP.TIME_FROM' | translate
+              }} </label>
             <div class="relative">
               <p-datepicker
+                [hourFormat]="'12'"
                 [iconDisplay]="'input'"
+                [placeholder]="'WORK_SHIFTS_POPUP.TIME_FROM' | translate"
                 [showIcon]="true"
                 [timeOnly]="true"
                 class="peer block w-full"
-                id="time-picker-popup"
-                placeholder="الوقت (من)"
-                [hourFormat]="'12'"
+                formControlName="timeFrom"
+                id="time-pick-from"
+                inputId="icondisplay"
+                name="time-pick-from"
               >
                 <ng-template pTemplate="inputicon">
                   <img alt="Time" src="assets/icons/time-icon.svg" />
@@ -116,18 +127,21 @@
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
             </div>
+            <app-validation-messages [control]="timeFromControl"></app-validation-messages>
           </div>
           <div>
-            <label class="label" for="max-attendance-time">مدة السماح قبل الحضور (دق) </label>
+            <label class="label" for="before-attendance-time">{{
+                'WORK_SHIFTS_POPUP.ALLOWED_MINUTES_BEFORE_ATTENDANCE' | translate
+              }}</label>
             <p-inputnumber
               [inputStyle]="{ width: '3rem' }"
               [showButtons]="true"
               buttonLayout="horizontal"
-              formControlName="attendanceBuffer"
-              id="max-attendance-time"
+              formControlName="startAttendanceBuffer"
+              id="before-attendance-time"
               spinnerMode="horizontal"
-              [min]="0"
-              [max]="30"
+              [min]="minBeforeBuffer"
+              [max]="maxBeforeBuffer"
             >
               <ng-template #incrementbuttonicon>
                 <span class="pi pi-plus"></span>
@@ -136,19 +150,20 @@
                 <span class="pi pi-minus"></span>
               </ng-template>
             </p-inputnumber>
-            <app-validation-messages [control]="attendanceBufferControl"></app-validation-messages>
           </div>
           <div>
-            <label class="label" for="max-leave-time">مدة السماح بعد الحضور (دق)</label>
+            <label class="label" for="after-attendance-time">{{
+                'WORK_SHIFTS_POPUP.ALLOWED_MINUTES_AFTER_ATTENDANCE' | translate
+              }}</label>
             <p-inputnumber
               [inputStyle]="{ width: '3rem' }"
               [showButtons]="true"
               buttonLayout="horizontal"
-              formControlName="leaveBuffer"
-              id="max-leave-time"
+              formControlName="endAttendanceBuffer"
+              id="after-attendance-time"
               spinnerMode="horizontal"
-              [min]="0"
-              [max]="30"
+              [min]="minAfterBuffer"
+              [max]="maxAfterBuffer"
             >
               <ng-template #incrementbuttonicon>
                 <span class="pi pi-plus"></span>
@@ -157,24 +172,30 @@
                 <span class="pi pi-minus"></span>
               </ng-template>
             </p-inputnumber>
-            <app-validation-messages [control]="leaveBufferControl"></app-validation-messages>
           </div>
         </div>
       </div>
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
-        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">الانصراف</h3>
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">{{
+            'WORK_SHIFTS_POPUP.LEAVE' | translate
+          }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <label class="label" for="time-picker-popup"> الوقت (الى)</label>
+            <label class="label" for="time-pick-to">{{
+                'WORK_SHIFTS_POPUP.TIME_TO' | translate
+              }}</label>
             <div class="relative">
               <p-datepicker
+                [hourFormat]="'12'"
                 [iconDisplay]="'input'"
+                [placeholder]="'WORK_SHIFTS_POPUP.TIME_TO' | translate"
                 [showIcon]="true"
                 [timeOnly]="true"
                 class="peer block w-full"
-                id="time-picker-popup"
-                placeholder="الوقت (من)"
-                [hourFormat]="'12'"
+                formControlName="timeTo"
+                id="time-pick-to"
+                inputId="icondisplay"
+                name="time-pick-to"
               >
                 <ng-template pTemplate="inputicon">
                   <img alt="Time" src="assets/icons/time-icon.svg" />
@@ -184,18 +205,21 @@
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
             </div>
+            <app-validation-messages [control]="timeToControl"></app-validation-messages>
           </div>
           <div>
-            <label class="label" for="max-attendance-time">مدة السماح قبل الحضور (دق) </label>
+            <label class="label" for="before-leave-time">{{
+                'WORK_SHIFTS_POPUP.ALLOWED_MINUTES_BEFORE_LEAVE' | translate
+              }}</label>
             <p-inputnumber
               [inputStyle]="{ width: '3rem' }"
               [showButtons]="true"
               buttonLayout="horizontal"
-              formControlName="attendanceBuffer"
-              id="max-attendance-time"
+              formControlName="startLeaveBuffer"
+              id="before-leave-time"
               spinnerMode="horizontal"
-              [min]="0"
-              [max]="30"
+              [min]="minBeforeBuffer"
+              [max]="maxBeforeBuffer"
             >
               <ng-template #incrementbuttonicon>
                 <span class="pi pi-plus"></span>
@@ -204,19 +228,20 @@
                 <span class="pi pi-minus"></span>
               </ng-template>
             </p-inputnumber>
-            <app-validation-messages [control]="attendanceBufferControl"></app-validation-messages>
           </div>
           <div>
-            <label class="label" for="max-leave-time">مدة السماح بعد الحضور (دق)</label>
+            <label class="label" for="after-leave-time">{{
+                'WORK_SHIFTS_POPUP.ALLOWED_MINUTES_AFTER_LEAVE' | translate
+              }}</label>
             <p-inputnumber
               [inputStyle]="{ width: '3rem' }"
               [showButtons]="true"
               buttonLayout="horizontal"
-              formControlName="leaveBuffer"
-              id="max-leave-time"
+              formControlName="endLeaveBuffer"
+              id="after-leave-time"
               spinnerMode="horizontal"
-              [min]="0"
-              [max]="30"
+              [min]="minAfterBuffer"
+              [max]="maxAfterBuffer"
             >
               <ng-template #incrementbuttonicon>
                 <span class="pi pi-plus"></span>
@@ -225,25 +250,33 @@
                 <span class="pi pi-minus"></span>
               </ng-template>
             </p-inputnumber>
-            <app-validation-messages [control]="leaveBufferControl"></app-validation-messages>
           </div>
         </div>
       </div>
+      <app-validation-messages [control]="form"></app-validation-messages>
       <div class="bg-[#f3f4f6] rounded-3xl p-6 mt-6">
-        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">بيانات عمل الوردية</h3>
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">{{
+            'WORK_SHIFTS_POPUP.READ_ONLY_SHIFT_DETAILS' | translate
+          }}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
-            <span class="text-[#6c737f] text-sm">موعد بداية اليوم</span>
-            <h5 class="text-[#161616] font-[600] mt-2 text-base">07:00 ص</h5>
+            <span class="text-[#6c737f] text-sm">{{
+                'WORK_SHIFTS_POPUP.DAY_BOUNDARY' | translate
+              }}</span>
+            <h5 class="text-[#161616] font-[600] mt-2 text-base">{{getDayBoundaryTime()}}</h5>
+<!--            <h5 class="text-[#161616] font-[600] mt-2 text-base">07:00 ص</h5>-->
           </div>
           <div>
-            <span class="text-[#6c737f] text-sm">مدة الوردية</span>
-            <h5 class="text-[#161616] font-[600] mt-2 text-base">8 ساعات</h5>
+            <span class="text-[#6c737f] text-sm">{{
+                'WORK_SHIFTS_POPUP.SHIFT_DURATION' | translate
+              }}</span>
+            <!--            <h5 class="text-[#161616] font-[600] mt-2 text-base">8 ساعات</h5>-->
+            <h5 class="text-[#161616] font-[600] mt-2 text-base">{{ getShiftDuration() }}</h5>
           </div>
         </div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 border-t border-t-[#d2d6db] mt-6 pt-6 mb-6">
-        
+
         <div class="grid lg:grid-cols-2 gap-6">
           <div>
             <label class="inline-flex items-center space-x-2 mb-4 cursor-pointer relative">
@@ -264,8 +297,8 @@
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               <span class="text-base font-medium text-[#1f2a37]">{{
-                'WORK_SHIFTS_POPUP.MARK_AS_DEFAULT' | translate
-              }}</span>
+                  'WORK_SHIFTS_POPUP.MARK_AS_DEFAULT' | translate
+                }}</span>
             </label>
           </div>
 
@@ -308,8 +341,8 @@
         >
           <div class="lg:col-span-2">
             <span class="text-[14px] font-normal text-[#6c737f]">{{
-              'WORK_SHIFTS_POPUP.SHIFT_ACTIVATION_DATE' | translate
-            }}</span>
+                'WORK_SHIFTS_POPUP.SHIFT_ACTIVATION_DATE' | translate
+              }}</span>
             <p class="text-[16px] font-semibold text-[#161616]">
               {{
                 model.isActive
@@ -320,8 +353,8 @@
           </div>
           <div class="lg:col-span-2">
             <span class="text-[14px] font-normal text-[#6c737f]">{{
-              'WORK_SHIFTS_POPUP.ACTIVATION_STATUS' | translate
-            }}</span>
+                'WORK_SHIFTS_POPUP.ACTIVATION_STATUS' | translate
+              }}</span>
             @if (model.isActive) {
               <div
                 class="px-2 py-1 rounded-full w-fit text-sm flex items-center gap-2 bg-[#ecfdf3] text-[#085d3a]"

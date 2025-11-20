@@ -10,6 +10,7 @@ export enum ValidationErrorKeyEnum {
   TIME_FROM_AFTER_TIME_TO = 'timeFromAfterTimeTo',
   TIME_RANGE_SHOULD_CROSS_DAY = 'timeRangeShouldCrossDay',
   TIME_FROM_AND_TO_ARE_EQUAL = 'timeFromAndToAreEqual',
+  INVALID_SHIFT_CONFIGURATION = 'invalidShiftConfiguration',
   EMAIL = 'EMAIL',
   STRONG_PASSWORD = 'strongPassword',
   NATIONAL_ID = 'NATIONAL_ID',
