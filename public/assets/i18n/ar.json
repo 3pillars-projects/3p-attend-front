@@ -794,7 +794,8 @@
     "PERMISSION_DURATION": "مدة الاستئذان",
     "TIME_FROM": "الوقت - من",
     "TIME_TO": "الوقت - إلى",
-    "SHIFT_START_LATE": "بداية الدوام (للحضور المتأخر)"
+    "SHIFT_START_LATE": "بداية الدوام (للحضور المتأخر)",
+    "NO_PERMISSIONS": "لا يوجد استئذانات"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "معالجة بيانات تقارير الموظفين",

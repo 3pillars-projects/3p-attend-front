@@ -796,7 +796,8 @@
     "PERMISSION_DURATION": "Permission Duration",
     "TIME_FROM": "Time - From",
     "TIME_TO": "Time - To",
-    "SHIFT_START_LATE": "Start of shift (for late arrival)"
+    "SHIFT_START_LATE": "Start of shift (for late arrival)",
+    "NO_PERMISSIONS": "No Permissions"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "Employee Reports Processing",

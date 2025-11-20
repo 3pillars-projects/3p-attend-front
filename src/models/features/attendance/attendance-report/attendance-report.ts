@@ -6,6 +6,7 @@ import { AttendanceReportInterceptor } from '@/model-interceptors/features/atten
 import { FactoryService } from '@/services/factory-service';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { formatMinutes } from '@/utils/general-helper';
 
 const { send, receive } = new AttendanceReportInterceptor();
 
@@ -91,5 +92,17 @@ export default class AttendanceReport extends BaseCrudModel<
     return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
       ? this.holidayNameEn!
       : this.holidayNameAr!;
+  }
+  getTimeDifferenceValue(): string {
+    if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
+      const time = formatMinutes(this.totalOvertimeMinutes);
+      return `+ ${time}`;
+    }
+
+    if (this.totalMissingMinutes && this.totalMissingMinutes > 0) {
+      const time = formatMinutes(this.totalMissingMinutes);
+      return `- ${time}`;
+    }
+    return '';
   }
 }

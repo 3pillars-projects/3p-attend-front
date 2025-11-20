@@ -136,19 +136,14 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
         this.getPermissionLabel(model)
           ? this.translateService.instant(this.getPermissionLabel(model))
           : '',
-      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.DOCUMENTATION')]:
-        model.isPresenceInquirySucceed == null
-          ? '' // show empty if null
-          : model.isPresenceInquirySucceed
-            ? this.translateService.instant('INQUIRIES_PAGE.CONFIRMED')
-            : this.translateService.instant('INQUIRIES_PAGE.NOT_CONFIRMED'),
-
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.CHECKIN_TIME')]: this.formatTime(
         model.firstAttendanceFingerPrint ? new Date(model.firstAttendanceFingerPrint) : undefined
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.CHECKOUT_TIME')]: this.formatTime(
         model.lastLeaveFingerPrint ? new Date(model.lastLeaveFingerPrint) : undefined
       ),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
+        model.getTimeDifferenceValue(),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',
