@@ -66,7 +66,7 @@ export default class MyShiftsComponent extends BaseListComponent<
   filterModel: EmployeeShiftsFilter = new EmployeeShiftsFilter();
   dialogSize = {
     width: '100%',
-    maxWidth: '600px',
+    maxWidth: '1024px',
   };
 
   filterOptions: EmployeeShiftsFilter = new EmployeeShiftsFilter();
