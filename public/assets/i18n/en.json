@@ -771,7 +771,11 @@
     "MISSION": "Mission",
     "ABSENT": "Absent",
     "PRESENT": "Present",
-    "EXEMPTED": "Exempted"
+    "EXEMPTED": "Exempted",
+    "ONE_FINGER_PRINT": "One Finger Print",
+    "LATE_ATTENDANCE": "Late Attendance",
+    "EARLY_LEAVE": "Early Leave",
+    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "Late Attendance and Early Leave"
   },
   "ATTENDANCE_REPORT_PAGE": {
     "SPECIAL_SHIFT": "Special Shift",
@@ -794,7 +798,18 @@
     "PRESENCE": "Attendance",
     "LEAVE": "Leave",
     "PRESENCE_LEAVE": "Attendance - Leave",
-    "PERMISSIONS": "Permissions"
+    "PERMISSIONS": "Permissions",
+    "TIME_DIFFERENCE": "Check-out Time Difference"
+  },
+  "ATTENDANCE_REPORT_PERMISSION_POPUP": {
+    "TITLE": "Permission Requests",
+    "PERMISSION_DATE": "Permission Date",
+    "PERMISSION_TYPE": "Permission Type",
+    "PERMISSION_DURATION": "Permission Duration",
+    "TIME_FROM": "Time - From",
+    "TIME_TO": "Time - To",
+    "SHIFT_START_LATE": "Start of shift (for late arrival)",
+    "NO_PERMISSIONS": "No Permissions"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "Employee Reports Processing",
