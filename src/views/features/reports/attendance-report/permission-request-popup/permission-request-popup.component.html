@@ -1,0 +1,60 @@
+<div [dir]="direction">
+  <div class="p-6">
+    <button class="block ms-auto" (click)="onClose()" type="button">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.TITLE' | translate }}
+    </h3>
+
+    <div class="bg-[#074d31] p-6 rounded-2xl mb-6">
+      <span class="text-white text-sm">{{
+        'ATTENDANCE_REPORT_PERMISSION_POPUP.PERMISSION_DATE' | translate
+      }}</span>
+      <h5 class="text-base font-semibold mt-2 text-white">
+        {{ attendance.processingDate | date: 'dd/MM/yyyy' }}
+      </h5>
+    </div>
+
+    <!-- No Permissions State -->
+    <div *ngIf="permissions.length === 0" class="text-center py-8">
+      <i class="pi pi-info-circle text-3xl text-gray-400"></i>
+      <p class="mt-2 text-gray-600">
+        {{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.NO_PERMISSIONS' | translate }}
+      </p>
+    </div>
+
+    <!-- Permissions Table -->
+    <p-table *ngIf="permissions.length > 0" [value]="permissions" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.PERMISSION_TYPE' | translate }}</th>
+          <th>{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.PERMISSION_DURATION' | translate }}</th>
+          <th>{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.TIME_FROM' | translate }}</th>
+          <th>{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.TIME_TO' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-permission>
+        <tr>
+          <td>{{ permission.getPermissionTypeName() }}</td>
+          <td>{{ formatDuration(permission.limitedTimePermissionDuration) }}</td>
+          <td>{{ formatTime(permission.limitedTimePermissionTimeFrom) }}</td>
+          <td>
+            {{
+              calculateEndTime(
+                permission.limitedTimePermissionTimeFrom,
+                permission.limitedTimePermissionDuration
+              )
+            }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <div class="actions mt-8 flex items-center justify-end gap-4">
+      <button class="btn gray-btn" type="button" (click)="onClose()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

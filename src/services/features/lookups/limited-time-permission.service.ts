@@ -102,4 +102,19 @@ export class LimitedTimePermissionService extends BaseCrudService<LimitedTimePer
     const url = `${this.getUrlSegment()}/GetTimeOptions`;
     return this.http.get<ListResponseData<number>>(url, { withCredentials: true });
   }
+
+  @CastResponse()
+  @HasInterception
+  getPermissionByIds(ids: number[]): Observable<LimitedTimePermission[]> {
+    const url = `${this.getUrlSegment()}/GetByIds`;
+    return this.http
+      .post<ListResponseData<LimitedTimePermission>>(url, ids, {
+        withCredentials: true,
+      })
+      .pipe(
+        map((response) => {
+          return response.data;
+        })
+      );
+  }
 }

@@ -757,7 +757,11 @@
     "MISSION": "مهمة",
     "ABSENT": "غائب",
     "PRESENT": "حاضر",
-    "EXEMPTED": "معفى من البصمة"
+    "EXEMPTED": "معفى من البصمة",
+    "ONE_FINGER_PRINT": "بصمة واحدة",
+    "LATE_ATTENDANCE": "حضور متأخر",
+    "EARLY_LEAVE": "انصراف مبكر",
+    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "حضور متأخر وانصراف مبكر"
   },
   "ATTENDANCE_REPORT_PAGE": {
     "SPECIAL_SHIFT": "وردية عمل خاصة",
@@ -780,7 +784,18 @@
     "PRESENCE": "حضور",
     "LEAVE": "انصراف",
     "PRESENCE_LEAVE": "حضور - انصراف",
-    "PERMISSIONS": "الاستئذانات"
+    "PERMISSIONS": "الاستئذانات",
+    "TIME_DIFFERENCE": "فرق مدة الانصراف"
+  },
+  "ATTENDANCE_REPORT_PERMISSION_POPUP": {
+    "TITLE": "طلبات الاستئذانات",
+    "PERMISSION_DATE": "تاريخ الاستئذان",
+    "PERMISSION_TYPE": "نوع الاستئذان",
+    "PERMISSION_DURATION": "مدة الاستئذان",
+    "TIME_FROM": "الوقت - من",
+    "TIME_TO": "الوقت - إلى",
+    "SHIFT_START_LATE": "بداية الدوام (للحضور المتأخر)",
+    "NO_PERMISSIONS": "لا يوجد استئذانات"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "معالجة بيانات تقارير الموظفين",
