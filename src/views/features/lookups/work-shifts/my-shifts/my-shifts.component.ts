@@ -1,3 +1,4 @@
+import { Select } from 'primeng/select';
 import { Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
@@ -35,6 +36,7 @@ import {
   toDateOnly,
 } from '@/utils/general-helper';
 import { WorkDaysSetting } from '@/models/features/setting/work-days-setting';
+import { Accordion, AccordionModule } from 'primeng/accordion';
 @Component({
   selector: 'app-my-shifts',
   imports: [
@@ -48,6 +50,8 @@ import { WorkDaysSetting } from '@/models/features/setting/work-days-setting';
     DatePickerModule,
     FormsModule,
     TranslatePipe,
+    AccordionModule,
+    Select
   ],
   templateUrl: './my-shifts.component.html',
   styleUrl: './my-shifts.component.scss',

@@ -1,0 +1,20 @@
+::ng-deep {
+  .my-shifts {
+    .p-accordionpanel {
+      background-color: #074d31;
+      padding: 24px 24px 0 24px;
+      border-radius: 16px;
+    }
+    .p-accordionheader {
+      background: #074d31 !important;
+      padding: 0 0 24px 0;
+    }
+    .p-iconwrapper {
+      color: white !important;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.2);
+      width: 32px;
+      height: 32px;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-<div class="bg-white">
+<div class="bg-white my-shifts">
   <div class="bg-[#f9fafb] p-3 sm:p-6">
     <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
       <p-breadcrumb [home]="home" [model]="breadcrumbs" class="max-w-full">
@@ -14,62 +14,109 @@
     </div>
 
     <!-- Current Shift Section -->
-    <div
-      class="p-8 md:p-10 rounded-[16px] bg-[#074d31] shadow-[0_4px_6px_-2px_rgba(16,24,40,0.03),_0_12px_16px_-4px_rgba(16,24,40,0.08)] mb-6"
-    >
-      <div class="flex items-center gap-4 justify-between flex-wrap border-b border-white pb-6">
-        <h5
-          class="min-w-[152px] min-h-[32px] flex flex-row justify-center items-center px-3 rounded-full border border-[#e5e7eb] bg-[#f9fafb] text-[#1f2a37] text-[16px] font-medium"
-        >
-          {{ getCurrentShiftName() }}
-        </h5>
-        <button
-          (click)="openDialog(currentShift!)"
-          class="min-w-[146px] min-h-[32px] flex justify-center items-center gap-[10px] px-3 rounded-[4px] bg-[rgba(255,255,255,0.2)] text-white text-[14px] font-medium"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M10 13.125a3.125 3.125 0 1 1 0-6.25 3.125 3.125 0 0 1 0 6.25zM8.125 10a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 0 0-3.75 0z"
-              fill="#fff"
-            />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M10 3.542c-2.142 0-3.979.942-5.4 2.052-1.423 1.11-2.474 2.422-3.062 3.247l-.045.062c-.21.293-.452.628-.452 1.097 0 .468.241.803.452 1.097l.045.062c.588.824 1.64 2.136 3.062 3.247 1.421 1.11 3.258 2.052 5.4 2.052 2.142 0 3.978-.943 5.4-2.052 1.422-1.111 2.474-2.423 3.062-3.247l.044-.062c.211-.294.452-.629.452-1.097 0-.469-.24-.804-.452-1.097l-.044-.062c-.588-.825-1.64-2.136-3.062-3.247-1.422-1.11-3.258-2.053-5.4-2.053zM2.555 9.567c.55-.772 1.522-1.979 2.814-2.988C6.663 5.57 8.234 4.792 10 4.792c1.766 0 3.338.777 4.631 1.787 1.293 1.01 2.264 2.216 2.814 2.988.136.19.201.284.24.358.024.047.024.06.024.073v.004c0 .012 0 .025-.024.073a3.562 3.562 0 0 1-.24.358c-.55.771-1.521 1.978-2.814 2.987-1.293 1.01-2.865 1.788-4.63 1.788-1.766 0-3.337-.778-4.63-1.788-1.293-1.009-2.264-2.216-2.815-2.987-.136-.191-.2-.284-.24-.358-.024-.048-.024-.06-.023-.073v-.004c0-.013 0-.026.024-.073.039-.074.103-.167.24-.358z"
-              fill="#fff"
-            />
-          </svg>
-          {{ 'MY_SHIFTS.SHIFT_DAYS' | translate }}
-        </button>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
-        <div>
-          <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</p>
-          <h5 class="text-base font-semibold text-white">
-            {{ currentShift?.formattedTimeFrom }} - {{ currentShift?.formattedTimeTo }}
-          </h5>
-        </div>
-        <div>
-          <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}</p>
-          <h5 class="text-base font-semibold text-white">
-            {{ currentShift?.attendanceBuffer || '0' }}
-          </h5>
-        </div>
-        <div>
-          <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.LEAVE_BUFFER' | translate }}</p>
-          <h5 class="text-base font-semibold text-white">
-            {{ currentShift?.leaveBuffer || '0' }}
-          </h5>
-        </div>
-      </div>
+
+    <div class="mb-6">
+      <p-accordion [value]="'0'">
+        <p-accordion-panel value="0">
+          <p-accordion-header>
+            <div class="flex items-center gap-4 justify-between flex-wrap bg-[#074d31] flex-1 me-4">
+              <h5
+                class="min-w-[152px] min-h-[32px] flex flex-row justify-center items-center px-3 rounded-full border border-[#e5e7eb] bg-[#f9fafb] text-[#1f2a37] text-[16px] font-medium"
+              >
+                {{ getCurrentShiftName() }}
+              </h5>
+              <button
+                (click)="openDialog(currentShift!)"
+                class="min-w-[146px] min-h-[32px] flex justify-center items-center gap-[10px] px-3 rounded-[4px] bg-[rgba(255,255,255,0.2)] text-white text-[14px] font-medium"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M10 13.125a3.125 3.125 0 1 1 0-6.25 3.125 3.125 0 0 1 0 6.25zM8.125 10a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 0 0-3.75 0z"
+                    fill="#fff"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M10 3.542c-2.142 0-3.979.942-5.4 2.052-1.423 1.11-2.474 2.422-3.062 3.247l-.045.062c-.21.293-.452.628-.452 1.097 0 .468.241.803.452 1.097l.045.062c.588.824 1.64 2.136 3.062 3.247 1.421 1.11 3.258 2.052 5.4 2.052 2.142 0 3.978-.943 5.4-2.052 1.422-1.111 2.474-2.423 3.062-3.247l.044-.062c.211-.294.452-.629.452-1.097 0-.469-.24-.804-.452-1.097l-.044-.062c-.588-.825-1.64-2.136-3.062-3.247-1.422-1.11-3.258-2.053-5.4-2.053zM2.555 9.567c.55-.772 1.522-1.979 2.814-2.988C6.663 5.57 8.234 4.792 10 4.792c1.766 0 3.338.777 4.631 1.787 1.293 1.01 2.264 2.216 2.814 2.988.136.19.201.284.24.358.024.047.024.06.024.073v.004c0 .012 0 .025-.024.073a3.562 3.562 0 0 1-.24.358c-.55.771-1.521 1.978-2.814 2.987-1.293 1.01-2.865 1.788-4.63 1.788-1.766 0-3.337-.778-4.63-1.788-1.293-1.009-2.264-2.216-2.815-2.987-.136-.191-.2-.284-.24-.358-.024-.048-.024-.06-.023-.073v-.004c0-.013 0-.026.024-.073.039-.074.103-.167.24-.358z"
+                    fill="#fff"
+                  />
+                </svg>
+                {{ 'MY_SHIFTS.SHIFT_DAYS' | translate }}
+              </button>
+            </div>
+          </p-accordion-header>
+          <p-accordion-content>
+            <div class="bg-[#074d31] py-6 border-t border-[#f3f4f6]">
+              <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                <div>
+                  <p class="text-sm text-white mb-2">مدة الوردية</p>
+                  <h5 class="text-base font-semibold text-white">8 ساعات</h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">نوع الوردية</p>
+                  <h5 class="text-base font-semibold text-white">مرنة</h5>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4 bg-[#ffffff19] rounded-lg p-4"
+              >
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.formattedTimeFrom }} - {{ currentShift?.formattedTimeTo }}
+                  </h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">
+                    {{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}
+                  </p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.attendanceBuffer || '0' }}
+                  </h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.LEAVE_BUFFER' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.leaveBuffer || '0' }}
+                  </h5>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4 bg-[#ffffff19] rounded-lg p-4"
+              >
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.formattedTimeFrom }} - {{ currentShift?.formattedTimeTo }}
+                  </h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">
+                    {{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}
+                  </p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.attendanceBuffer || '0' }}
+                  </h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.LEAVE_BUFFER' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.leaveBuffer || '0' }}
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
     </div>
 
     <!-- Shifts List Section -->
@@ -82,8 +129,8 @@
           </h5>
         </div>
         <div class="pt-6">
-          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-            <div class="relative">
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-6 gap-6">
+            <div class="relative xl:col-span-3">
               <label class="label" for="shiftName">{{ 'MY_SHIFTS.NAME_ARABIC' | translate }}</label>
               <input
                 [(ngModel)]="filterOptions.nameAr"
@@ -98,7 +145,7 @@
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
             </div>
-            <div class="relative">
+            <div class="relative xl:col-span-3">
               <label class="label" for="shiftName">{{
                 'MY_SHIFTS.NAME_ENGLISH' | translate
               }}</label>
@@ -115,7 +162,22 @@
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
             </div>
-            <div class="relative">
+            <div class="relative xl:col-span-2">
+              <label class="label" for="department">نوع الوردية</label>
+              <p-select
+                placeholder="نوع الوردية"
+                class="w-full peer"
+                id="department"
+                optionValue="id"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative xl:col-span-2">
               <label class="label" for="dateFrom">{{ 'MY_SHIFTS.START_DATE' | translate }}</label>
               <p-datepicker
                 [(ngModel)]="filterOptions.startDate"
@@ -134,7 +196,7 @@
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
             </div>
-            <div class="relative">
+            <div class="relative xl:col-span-2">
               <label class="label" for="dateTo">{{ 'MY_SHIFTS.END_DATE' | translate }}</label>
               <p-datepicker
                 [(ngModel)]="filterOptions.endDate"
@@ -191,6 +253,7 @@
               <tr>
                 <th>{{ 'MY_SHIFTS.NAME_ARABIC' | translate }}</th>
                 <th>{{ 'MY_SHIFTS.NAME_ENGLISH' | translate }}</th>
+                <th>نوع الوردية</th>
                 <th>{{ 'MY_SHIFTS.DATE_RANGE_PLACEHOLDER' | translate }}</th>
                 <th>{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</th>
                 <th>{{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}</th>
@@ -202,6 +265,7 @@
               <tr>
                 <td>{{ shift.nameAr }}</td>
                 <td>{{ shift.nameEn }}</td>
+                <td>نوع الوردية</td>
                 <td>
                   {{ shift.startDate | date: 'dd/MM/yyyy' }} -
                   {{ shift.endDate | date: 'dd/MM/yyyy' }}

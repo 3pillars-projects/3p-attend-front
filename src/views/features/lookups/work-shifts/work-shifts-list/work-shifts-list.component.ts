@@ -18,6 +18,7 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { formatTimeTo12Hour } from '@/utils/general-helper';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-work-shifts-list',
@@ -31,6 +32,7 @@ import { formatTimeTo12Hour } from '@/utils/general-helper';
     PaginatorModule,
     FormsModule,
     TranslatePipe,
+    Select
   ],
   templateUrl: './work-shifts-list.component.html',
   styleUrl: './work-shifts-list.component.scss',
