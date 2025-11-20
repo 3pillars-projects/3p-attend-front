@@ -16,8 +16,11 @@ export default class Shift extends BaseCrudModel<Shift, ShiftService> {
   declare nameEn?: string;
   declare timeFrom?: string;
   declare timeTo?: string;
-  declare attendanceBuffer?: number;
-  declare leaveBuffer?: number;
+  declare boundaryTime?: string;
+  declare startAttendanceBuffer?: number;
+  declare endAttendanceBuffer?: number;
+  declare startLeaveBuffer?: number;
+  declare endLeaveBuffer?: number;
   isDefaultShift?: boolean = false;
   declare shiftLogStartDate?: Date | string;
   declare shiftLogId?: number;
@@ -29,6 +32,7 @@ export default class Shift extends BaseCrudModel<Shift, ShiftService> {
   isAvailableDefaultShift?: boolean = false;
   declare defaultShiftId?: number;
   isCrossDayShift: boolean = false;
+  isFlexibleShift: boolean = false;
 
   buildForm() {
     const {
@@ -36,14 +40,18 @@ export default class Shift extends BaseCrudModel<Shift, ShiftService> {
       nameEn,
       timeFrom,
       timeTo,
-      attendanceBuffer,
-      leaveBuffer,
+      boundaryTime,
+      startAttendanceBuffer,
+      endAttendanceBuffer,
+      startLeaveBuffer,
+      endLeaveBuffer,
       isCrossDayShift,
       isDefaultShift,
       isDefaultShiftForm,
       isActive,
       shiftLogStartDate,
       isUpdateOnly,
+      isFlexibleShift
     } = this;
 
     return {
@@ -67,21 +75,13 @@ export default class Shift extends BaseCrudModel<Shift, ShiftService> {
       ],
       timeFrom: [timeFrom ? timeStringToDate(timeFrom) : null, [Validators.required]],
       timeTo: [timeTo ? timeStringToDate(timeTo) : null, [Validators.required]],
-      attendanceBuffer: [
-        attendanceBuffer,
-        [
-          CustomValidators.positiveNumber(),
-          Validators.max(CustomValidators.defaultLengths.maxShiftBuffer),
-        ],
-      ],
-      leaveBuffer: [
-        leaveBuffer,
-        [
-          CustomValidators.positiveNumber(),
-          Validators.max(CustomValidators.defaultLengths.maxShiftBuffer),
-        ],
-      ],
+      boundaryTime: [],
+      startAttendanceBuffer: [startAttendanceBuffer],
+      endAttendanceBuffer: [endAttendanceBuffer],
+      startLeaveBuffer: [startLeaveBuffer],
+      endLeaveBuffer: [endLeaveBuffer],
       isCrossDayShift: [isCrossDayShift, []],
+      isFlexibleShift: [isFlexibleShift, []],
       isDefaultShift: [isDefaultShift, []],
       isDefaultShiftForm: [isDefaultShiftForm],
       shiftLogStartDate: [shiftLogStartDate],

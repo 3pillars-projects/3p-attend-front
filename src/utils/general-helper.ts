@@ -105,6 +105,18 @@ export function formatTimeTo12Hour(
 
   return formatted;
 }
+
+// Used to format minutes for attendance report
+export function formatMinutes(total: number): string {
+  const hours = Math.floor(total / 60)
+    .toString()
+    .padStart(2, '0');
+
+  const minutes = (total % 60).toString().padStart(2, '0');
+
+  return `${hours}:${minutes}`;
+}
+
 export function changeTimeSuffix<T>(
   isCurrentLanguageEnglish: () => boolean,
   item: T,

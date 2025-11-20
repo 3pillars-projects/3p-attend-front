@@ -26,6 +26,9 @@ import {
 import { SHIFT_TYPE_ENUM } from '@/enums/shift-type-enum';
 import { formatDateTo12Hour } from '@/utils/general-helper';
 import { UserService } from '@/services/features/user.service';
+import { MatDialogConfig } from '@angular/material/dialog';
+import { DIALOG_ENUM } from '@/enums/dialog-enum';
+import { PermissionRequestPopupComponent } from '../permission-request-popup/permission-request-popup.component';
 @Component({
   selector: 'app-all-attendance-report-list',
   imports: [
@@ -55,6 +58,25 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
     width: '100%',
     maxWidth: '800px',
   };
+
+  dialogSize2 = {
+    width: '100%',
+    maxWidth: '1024px',
+  };
+
+  openDialog2(model?: any) {
+    let dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      model: model,
+    };
+    dialogConfig.width = this.dialogSize.width;
+    dialogConfig.maxWidth = this.dialogSize.maxWidth;
+    const dialogRef = this.matDialog.open(PermissionRequestPopupComponent as any, dialogConfig);
+
+    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
+      console.log('closed');
+    });
+  }
 
   attendanceReportService = inject(AttendanceReportService);
   filterModel: AttendanceReportFilter = new AttendanceReportFilter();
@@ -114,19 +136,14 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
         this.getPermissionLabel(model)
           ? this.translateService.instant(this.getPermissionLabel(model))
           : '',
-      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.DOCUMENTATION')]:
-        model.isPresenceInquirySucceed == null
-          ? '' // show empty if null
-          : model.isPresenceInquirySucceed
-            ? this.translateService.instant('INQUIRIES_PAGE.CONFIRMED')
-            : this.translateService.instant('INQUIRIES_PAGE.NOT_CONFIRMED'),
-
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.CHECKIN_TIME')]: this.formatTime(
         model.firstAttendanceFingerPrint ? new Date(model.firstAttendanceFingerPrint) : undefined
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.CHECKOUT_TIME')]: this.formatTime(
         model.lastLeaveFingerPrint ? new Date(model.lastLeaveFingerPrint) : undefined
       ),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
+        model.getTimeDifferenceValue(),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',
@@ -197,16 +214,49 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH;
   }
 
-  getPermissionLabel(attendance: any): string {
-    if (attendance.attendancePermissionId && attendance.leavePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.PRESENCE_LEAVE';
+  getPermissionLabel(att: AttendanceReport): string {
+    let count = 0;
+    if (att.attendancePermissionId) count++;
+    if (att.midDayPermissionId) count++;
+    if (att.leavePermissionId) count++;
+
+    const isEnglish = this.isCurrentLanguageEnglish();
+    const text = isEnglish ? 'permission' : 'إذن';
+
+    return `${count} ${text}`;
+  }
+  private formatMinutes(total: number): string {
+    const hours = Math.floor(total / 60)
+      .toString()
+      .padStart(2, '0');
+
+    const minutes = (total % 60).toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
+  getTimeDifference(att: AttendanceReport): string {
+    if (att.totalOvertimeMinutes && att.totalOvertimeMinutes > 0) {
+      const time = this.formatMinutes(att.totalOvertimeMinutes);
+      return `
+      <div class="text-[16px] font-medium text-[#085d3a] min-w-[67px] min-h-[24px]
+                  inline-flex justify-center items-center px-3 gap-1 rounded-full
+                  border border-[#abefc6] bg-[#ecfdf3] font-medium">
+        + ${time}
+      </div>
+    `;
     }
-    if (attendance.leavePermissionId && !attendance.attendancePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.LEAVE';
+
+    if (att.totalMissingMinutes && att.totalMissingMinutes > 0) {
+      const time = this.formatMinutes(att.totalMissingMinutes);
+      return `
+      <div class="text-[16px] font-medium text-[#912018] min-w-[67px] min-h-[24px]
+                  inline-flex justify-center items-center px-3 gap-1 rounded-full
+                  border border-[#fecdca] bg-[#fef3f2] font-medium">
+        - ${time}
+      </div>
+    `;
     }
-    if (attendance.attendancePermissionId && !attendance.leavePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.PRESENCE';
-    }
-    return '';
+
+    return ''; // nothing to show
   }
 }

@@ -6,6 +6,7 @@ import { AttendanceReportInterceptor } from '@/model-interceptors/features/atten
 import { FactoryService } from '@/services/factory-service';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { formatMinutes } from '@/utils/general-helper';
 
 const { send, receive } = new AttendanceReportInterceptor();
 
@@ -49,6 +50,7 @@ export default class AttendanceReport extends BaseCrudModel<
   declare latestAllowedArrivalDateTime?: Date | string | null;
   declare earliestAllowedDepartureDateTime?: Date | string | null;
   declare latestAllowedDepartureDateTime?: Date | string | null;
+  declare isFlexibleShift?: boolean;
 
   declare missionId?: number | null;
   declare missionNameEn?: string | null;
@@ -59,10 +61,14 @@ export default class AttendanceReport extends BaseCrudModel<
   declare lastLeaveFingerPrint?: Date | string | null;
 
   declare attendancePermissionId?: number | null;
+  declare midDayPermissionId?: number | null;
   declare leavePermissionId?: number | null;
 
   declare attendanceStatus: number;
   declare processingStatus: number;
+
+  declare totalOvertimeMinutes: number;
+  declare totalMissingMinutes: number;
 
   declare creationDate: Date | string | null;
   declare modificationDate?: Date | string | null;
@@ -86,5 +92,17 @@ export default class AttendanceReport extends BaseCrudModel<
     return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
       ? this.holidayNameEn!
       : this.holidayNameAr!;
+  }
+  getTimeDifferenceValue(): string {
+    if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
+      const time = formatMinutes(this.totalOvertimeMinutes);
+      return `+ ${time}`;
+    }
+
+    if (this.totalMissingMinutes && this.totalMissingMinutes > 0) {
+      const time = formatMinutes(this.totalMissingMinutes);
+      return `- ${time}`;
+    }
+    return '';
   }
 }
