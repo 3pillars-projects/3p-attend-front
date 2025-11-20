@@ -7,6 +7,7 @@ import { FactoryService } from '@/services/factory-service';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { formatMinutes } from '@/utils/general-helper';
+import { ATTENDANCE_STATUS_ENUM } from '@/enums/attendance-status-enum';
 
 const { send, receive } = new AttendanceReportInterceptor();
 
@@ -109,10 +110,19 @@ export default class AttendanceReport extends BaseCrudModel<
     }
     return '';
   }
-  getTimeDifferenceData(): { value: string; type: 'overtime' | 'missing' | 'zero' | null } {
+  getTimeDifferenceData(): { value: string; type: 'overtime' | 'missing' | 'ignore' | null } {
     if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
       const time = formatMinutes(this.totalOvertimeMinutes);
       return { value: `+ ${time}`, type: 'overtime' };
+    }
+
+    if (
+      !this.isFlexibleShift &&
+      this.attendanceStatus == ATTENDANCE_STATUS_ENUM.PRESENT &&
+      this.totalMissingMinutes > 0
+    ) {
+      const time = formatMinutes(this.totalMissingMinutes);
+      return { value: `- ${time}`, type: 'ignore' };
     }
 
     if (this.totalMissingMinutes && this.totalMissingMinutes > 0) {
@@ -122,7 +132,7 @@ export default class AttendanceReport extends BaseCrudModel<
 
     if (this.totalOvertimeMinutes === 0 && this.totalMissingMinutes === 0) {
       const time = formatMinutes(0);
-      return { value: time, type: 'zero' };
+      return { value: time, type: 'ignore' };
     }
 
     return { value: '', type: null };

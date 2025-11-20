@@ -235,10 +235,10 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
         border: 'border-[#fecdca]',
         bg: 'bg-[#fef3f2]',
       },
-      zero: {
-        text: 'text-[#085d3a]',
-        border: 'border-[#abefc6]',
-        bg: 'bg-[#ecfdf3]',
+      ignore: {
+        text: 'text-[#4d5761]',
+        border: 'border-[#e5e7eb]',
+        bg: 'bg-[#f9fafb]',
       },
     };
 
