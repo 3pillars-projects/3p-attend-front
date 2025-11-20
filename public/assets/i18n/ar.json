@@ -34,6 +34,7 @@
     "START_BEFORE_END": "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء",
     "TIME_FROM_BEFORE_TIME_TO": "يجب أن يكون وقت البدء قبل وقت الانتهاء",
     "TIME_RANGE_SHOULD_CROSS_DAY": "يجب أن يكون وقت الانتهاء اصغر من وقت البدء",
+    "INVALID_SHIFT_CONFIGURATION": "عدد ساعات العمل اليومية (شاملة فترات السماح قبل الحضور وبعد الانصراف) يجب الا يتجاوز 24 ساعة",
     "TIME_FROM_AND_TO_ARE_EQUAL": "لا يمكن ان يتساوى وقت البدء ووقت الانتهاء",
     "UNKNOWN_ERROR": "خطأ غير معروف",
     "SERVICE_UNAVAILABLE": "الخدمة غير متاحة الآن",
@@ -379,7 +380,18 @@
     "ACTIVATE": "تفعيل",
     "SAVE_AND_ACTIVATE": "حفظ وتفعيل",
     "NEW_DEFAULT_SHIFT_TO_BE_ADDED": "عند إضافة وردية افتراضية جديدة، يتم إلغاء تعيين الوردية السابقة كافتراضية تلقائياً",
-    "CROSS_DAY_SHIFT": "وردية متداخلة الايام (موعد الحضور وموعد الانصراف في يومين مختلفين)"
+    "CROSS_DAY_SHIFT": "وردية متداخلة الايام (موعد الحضور وموعد الانصراف في يومين مختلفين)",
+    "FLEXIBLE_SHIFT": "وردية مرنة",
+    "ATTENDANCE": "الحضور",
+    "LEAVE": "الانصراف",
+    "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "مدة السماح قبل الحضور (دق)",
+    "ALLOWED_MINUTES_AFTER_ATTENDANCE": "مدة السماح بعد الحضور (دق)",
+    "ALLOWED_MINUTES_BEFORE_LEAVE": "مدة السماح قبل الانصراف (دق)",
+    "ALLOWED_MINUTES_AFTER_LEAVE": "مدة السماح بعد الانصراف (دق)",
+    "READ_ONLY_SHIFT_DETAILS": "بيانات الوردية (للعرض فقط)",
+    "DAY_BOUNDARY": "وقت بداية اليوم",
+    "SHIFT_DURATION": "مدة الوردية",
+    "SHIFT_DURATION_INCLUDING_GRACE_PERIODS": "عدد ساعات العمل شاملة فترات السماح"
   },
   "ATTENDANCE_LOG_PAGE": {
     "MY_ATTENDANCE_LOGS": "سجل حضوري",

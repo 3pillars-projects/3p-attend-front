@@ -209,6 +209,42 @@ export function crossDateTimeValidator(
   };
 }
 
+export function crossDateShiftEndNotPassNextDayStart(): ValidatorFn {
+  return (form: AbstractControl): ValidationErrors | null => {
+    let isCrossDayShift = !!form.get('isCrossDayShift')!.value;
+
+    let from = form.get('timeFrom')?.value ? new Date(form.get('timeFrom')?.value) : null;
+    let bufferBeforeStart = form.get('startAttendanceBuffer')?.value || 0;
+
+    let to = form.get('timeTo')?.value ? new Date(form.get('timeTo')?.value) : null;
+    let bufferAfterEnd = form.get('endLeaveBuffer')?.value || 0;
+
+    if (!from || !to) {
+      return null;
+    }
+
+    from.setSeconds(0, 0);
+    to.setSeconds(0, 0);
+
+    // Add day if needed
+    if (isCrossDayShift) {
+      to.setDate(to.getDate() + 1);
+    }
+
+    from.setMinutes(from.getMinutes() - bufferBeforeStart);
+    to.setMinutes(to.getMinutes() + bufferAfterEnd);
+
+    let diffMs = to.getTime() - from.getTime();
+
+    const totalMinutes = Math.floor(diffMs / 60000); // ignore seconds
+    if (totalMinutes > 24 * 60) {
+      return { invalidShiftConfiguration: true };
+    }
+
+    return null;
+  };
+}
+
 /**
  * Date range validator for ensuring dates are within allowed business rules
  * @param minDate - Minimum allowed date
@@ -420,4 +456,5 @@ export const CustomValidators = {
   numberRange,
   timeFromBeforeTimeTo,
   crossDateTimeValidator,
+  crossDateShiftEndNotPassNextDayStart,
 };
