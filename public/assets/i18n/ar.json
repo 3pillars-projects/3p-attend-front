@@ -34,6 +34,7 @@
     "START_BEFORE_END": "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء",
     "TIME_FROM_BEFORE_TIME_TO": "يجب أن يكون وقت البدء قبل وقت الانتهاء",
     "TIME_RANGE_SHOULD_CROSS_DAY": "يجب أن يكون وقت الانتهاء اصغر من وقت البدء",
+    "INVALID_SHIFT_CONFIGURATION": "عدد ساعات العمل اليومية (شاملة فترات السماح قبل الحضور وبعد الانصراف) يجب الا يتجاوز 24 ساعة",
     "TIME_FROM_AND_TO_ARE_EQUAL": "لا يمكن ان يتساوى وقت البدء ووقت الانتهاء",
     "UNKNOWN_ERROR": "خطأ غير معروف",
     "SERVICE_UNAVAILABLE": "الخدمة غير متاحة الآن",
@@ -379,7 +380,18 @@
     "ACTIVATE": "تفعيل",
     "SAVE_AND_ACTIVATE": "حفظ وتفعيل",
     "NEW_DEFAULT_SHIFT_TO_BE_ADDED": "عند إضافة وردية افتراضية جديدة، يتم إلغاء تعيين الوردية السابقة كافتراضية تلقائياً",
-    "CROSS_DAY_SHIFT": "وردية متداخلة الايام (موعد الحضور وموعد الانصراف في يومين مختلفين)"
+    "CROSS_DAY_SHIFT": "وردية متداخلة الايام (موعد الحضور وموعد الانصراف في يومين مختلفين)",
+    "FLEXIBLE_SHIFT": "وردية مرنة",
+    "ATTENDANCE": "الحضور",
+    "LEAVE": "الانصراف",
+    "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "مدة السماح قبل الحضور (دق)",
+    "ALLOWED_MINUTES_AFTER_ATTENDANCE": "مدة السماح بعد الحضور (دق)",
+    "ALLOWED_MINUTES_BEFORE_LEAVE": "مدة السماح قبل الانصراف (دق)",
+    "ALLOWED_MINUTES_AFTER_LEAVE": "مدة السماح بعد الانصراف (دق)",
+    "READ_ONLY_SHIFT_DETAILS": "بيانات الوردية (للعرض فقط)",
+    "DAY_BOUNDARY": "وقت بداية اليوم",
+    "SHIFT_DURATION": "مدة الوردية",
+    "SHIFT_DURATION_INCLUDING_GRACE_PERIODS": "عدد ساعات العمل شاملة فترات السماح"
   },
   "ATTENDANCE_LOG_PAGE": {
     "MY_ATTENDANCE_LOGS": "سجل حضوري",
@@ -757,7 +769,11 @@
     "MISSION": "مهمة",
     "ABSENT": "غائب",
     "PRESENT": "حاضر",
-    "EXEMPTED": "معفى من البصمة"
+    "EXEMPTED": "معفى من البصمة",
+    "ONE_FINGER_PRINT": "بصمة واحدة",
+    "LATE_ATTENDANCE": "حضور متأخر",
+    "EARLY_LEAVE": "انصراف مبكر",
+    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "حضور متأخر وانصراف مبكر"
   },
   "ATTENDANCE_REPORT_PAGE": {
     "SPECIAL_SHIFT": "وردية عمل خاصة",
@@ -765,6 +781,7 @@
     "DATE": "التاريخ",
     "SHIFT_NAME": "اسم الوردية",
     "SHIFT_TYPE": "نوع الوردية",
+    "SHIFT_STATUS": "حالة الوردية",
     "LEAVE_NAME": "اسم الإجازة",
     "MISSION_NAME": "اسم المهمة",
     "DOCUMENTATION": "التوثيق",
@@ -780,7 +797,20 @@
     "PRESENCE": "حضور",
     "LEAVE": "انصراف",
     "PRESENCE_LEAVE": "حضور - انصراف",
-    "PERMISSIONS": "الاستئذانات"
+    "PERMISSIONS": "الاستئذانات",
+    "TIME_DIFFERENCE": "فرق مدة الانصراف",
+    "FLEXIBLE_SHIFT": "وردية مرنة",
+    "FIXED_SHIFT": "وردية ثابتة"
+  },
+  "ATTENDANCE_REPORT_PERMISSION_POPUP": {
+    "TITLE": "طلبات الاستئذانات",
+    "PERMISSION_DATE": "تاريخ الاستئذان",
+    "PERMISSION_TYPE": "نوع الاستئذان",
+    "PERMISSION_DURATION": "مدة الاستئذان",
+    "TIME_FROM": "الوقت - من",
+    "TIME_TO": "الوقت - إلى",
+    "SHIFT_START_LATE": "بداية الدوام (للحضور المتأخر)",
+    "NO_PERMISSIONS": "لا يوجد استئذانات"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "معالجة بيانات تقارير الموظفين",

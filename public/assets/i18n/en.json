@@ -34,6 +34,7 @@
     "START_BEFORE_END": "Start date must be before end date",
     "TIME_FROM_BEFORE_TIME_TO": "Time from must be before time to",
     "TIME_RANGE_SHOULD_CROSS_DAY": "Time to must be less than time from",
+    "INVALID_SHIFT_CONFIGURATION": "The daily working hours (including grace periods before attendance and after leave) should not exceed 24 hours",
     "TIME_FROM_AND_TO_ARE_EQUAL": "Time from and time to can not be equal",
     "UNKNOWN_ERROR": "Unknown error",
     "SERVICE_UNAVAILABLE": "Service unavailable",
@@ -381,7 +382,18 @@
     "ACTIVATE": "Activate",
     "SAVE_AND_ACTIVATE": "Save and Activate",
     "NEW_DEFAULT_SHIFT_TO_BE_ADDED": "When a new default shift is added, the previous default shift is automatically unset.",
-    "CROSS_DAY_SHIFT": "Cross-Day Shift (check-in and check-out on different days)"
+    "CROSS_DAY_SHIFT": "Cross-Day Shift (check-in and check-out on different days)",
+    "FLEXIBLE_SHIFT": "Flexible shift",
+    "ATTENDANCE": "Attendance",
+    "LEAVE": "Leave",
+    "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "Allowed minutes before attendance",
+    "ALLOWED_MINUTES_AFTER_ATTENDANCE": "Allowed minutes after attendance",
+    "ALLOWED_MINUTES_BEFORE_LEAVE": "Allowed minutes before leave",
+    "ALLOWED_MINUTES_AFTER_LEAVE": "Allowed minutes after leave",
+    "READ_ONLY_SHIFT_DETAILS": "Shift details (read only)",
+    "DAY_BOUNDARY": "Day boundary time",
+    "SHIFT_DURATION": "Shift duration",
+    "SHIFT_DURATION_INCLUDING_GRACE_PERIODS": "Shift duration including grace periods"
   },
   "ATTENDANCE_LOG_PAGE": {
     "MY_ATTENDANCE_LOGS": "My Attendance Logs",
@@ -759,7 +771,11 @@
     "MISSION": "Mission",
     "ABSENT": "Absent",
     "PRESENT": "Present",
-    "EXEMPTED": "Exempted"
+    "EXEMPTED": "Exempted",
+    "ONE_FINGER_PRINT": "One Finger Print",
+    "LATE_ATTENDANCE": "Late Attendance",
+    "EARLY_LEAVE": "Early Leave",
+    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "Late Attendance and Early Leave"
   },
   "ATTENDANCE_REPORT_PAGE": {
     "SPECIAL_SHIFT": "Special Shift",
@@ -767,6 +783,7 @@
     "DATE": "Date",
     "SHIFT_NAME": "Shift Name",
     "SHIFT_TYPE": "Shift Type",
+    "SHIFT_STATUS": "Shift Status",
     "LEAVE_NAME": "Holiday Name",
     "MISSION_NAME": "Mission Name",
     "DOCUMENTATION": "Presence Inquiry",
@@ -782,7 +799,20 @@
     "PRESENCE": "Attendance",
     "LEAVE": "Leave",
     "PRESENCE_LEAVE": "Attendance - Leave",
-    "PERMISSIONS": "Permissions"
+    "PERMISSIONS": "Permissions",
+    "TIME_DIFFERENCE": "Check-out Time Difference",
+    "FLEXIBLE_SHIFT": "Flexible shift",
+    "FIXED_SHIFT": "Fixed Shift"
+  },
+  "ATTENDANCE_REPORT_PERMISSION_POPUP": {
+    "TITLE": "Permission Requests",
+    "PERMISSION_DATE": "Permission Date",
+    "PERMISSION_TYPE": "Permission Type",
+    "PERMISSION_DURATION": "Permission Duration",
+    "TIME_FROM": "Time - From",
+    "TIME_TO": "Time - To",
+    "SHIFT_START_LATE": "Start of shift (for late arrival)",
+    "NO_PERMISSIONS": "No Permissions"
   },
   "ATTENDANCE_REPORT_PROCESSING_PAGE": {
     "EMPLOYEE_REPORTS_PROCESSING": "Employee Reports Processing",

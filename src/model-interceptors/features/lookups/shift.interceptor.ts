@@ -51,6 +51,12 @@ export class ShiftInterceptor implements ModelInterceptorContract<Shift> {
       ) as string;
     }
 
+    if (model.boundaryTime) {
+      model.boundaryTime = dateToTimeString(
+        convertKsaToUtc(timeStringToDate(model.boundaryTime as string))
+      ) as string;
+    }
+
     return model;
   }
 }

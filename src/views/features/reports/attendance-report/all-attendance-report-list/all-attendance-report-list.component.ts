@@ -26,6 +26,9 @@ import {
 import { SHIFT_TYPE_ENUM } from '@/enums/shift-type-enum';
 import { formatDateTo12Hour } from '@/utils/general-helper';
 import { UserService } from '@/services/features/user.service';
+import { MatDialogConfig } from '@angular/material/dialog';
+import { DIALOG_ENUM } from '@/enums/dialog-enum';
+import { PermissionRequestPopupComponent } from '../permission-request-popup/permission-request-popup.component';
 @Component({
   selector: 'app-all-attendance-report-list',
   imports: [
@@ -55,6 +58,25 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
     width: '100%',
     maxWidth: '800px',
   };
+
+  dialogSize2 = {
+    width: '100%',
+    maxWidth: '1024px',
+  };
+
+  openDialog2(model?: any) {
+    let dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      model: model,
+    };
+    dialogConfig.width = this.dialogSize.width;
+    dialogConfig.maxWidth = this.dialogSize.maxWidth;
+    const dialogRef = this.matDialog.open(PermissionRequestPopupComponent as any, dialogConfig);
+
+    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
+      console.log('closed');
+    });
+  }
 
   attendanceReportService = inject(AttendanceReportService);
   filterModel: AttendanceReportFilter = new AttendanceReportFilter();
@@ -103,10 +125,13 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
       ),
 
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_NAME')]: model.getShiftName(),
-      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_TYPE')]:
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_STATUS')]:
         model.shiftType === SHIFT_TYPE_ENUM.DEFAULT
           ? this.translateService.instant('ATTENDANCE_REPORT_PAGE.DEFAULT_SHIFT')
           : this.translateService.instant('ATTENDANCE_REPORT_PAGE.SPECIAL_SHIFT'),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_TYPE')]: model.isFlexibleShift
+        ? this.translateService.instant('ATTENDANCE_REPORT_PAGE.FLEXIBLE_SHIFT')
+        : this.translateService.instant('ATTENDANCE_REPORT_PAGE.FIXED_SHIFT'),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.LEAVE_NAME')]: model.getHolidayName(),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.MISSION_NAME')]:
         model.getMissionName(),
@@ -114,19 +139,14 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
         this.getPermissionLabel(model)
           ? this.translateService.instant(this.getPermissionLabel(model))
           : '',
-      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.DOCUMENTATION')]:
-        model.isPresenceInquirySucceed == null
-          ? '' // show empty if null
-          : model.isPresenceInquirySucceed
-            ? this.translateService.instant('INQUIRIES_PAGE.CONFIRMED')
-            : this.translateService.instant('INQUIRIES_PAGE.NOT_CONFIRMED'),
-
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.CHECKIN_TIME')]: this.formatTime(
         model.firstAttendanceFingerPrint ? new Date(model.firstAttendanceFingerPrint) : undefined
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.CHECKOUT_TIME')]: this.formatTime(
         model.lastLeaveFingerPrint ? new Date(model.lastLeaveFingerPrint) : undefined
       ),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
+        model.getTimeDifferenceData().value,
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',
@@ -197,16 +217,49 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH;
   }
 
-  getPermissionLabel(attendance: any): string {
-    if (attendance.attendancePermissionId && attendance.leavePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.PRESENCE_LEAVE';
-    }
-    if (attendance.leavePermissionId && !attendance.attendancePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.LEAVE';
-    }
-    if (attendance.attendancePermissionId && !attendance.leavePermissionId) {
-      return 'ATTENDANCE_REPORT_PAGE.PRESENCE';
-    }
-    return '';
+  getPermissionLabel(att: AttendanceReport): string {
+    let count = 0;
+    if (att.attendancePermissionId) count++;
+    if (att.midDayPermissionId) count++;
+    if (att.leavePermissionId) count++;
+
+    const isEnglish = this.isCurrentLanguageEnglish();
+    const text = isEnglish ? 'permission' : 'إذن';
+
+    return `${count} ${text}`;
+  }
+
+  getTimeDifference(att: AttendanceReport): string {
+    const data = att.getTimeDifferenceData();
+
+    if (!data.type) return '';
+
+    const styles = {
+      overtime: {
+        text: 'text-[#085d3a]',
+        border: 'border-[#abefc6]',
+        bg: 'bg-[#ecfdf3]',
+      },
+      missing: {
+        text: 'text-[#912018]',
+        border: 'border-[#fecdca]',
+        bg: 'bg-[#fef3f2]',
+      },
+      ignore: {
+        text: 'text-[#4d5761]',
+        border: 'border-[#e5e7eb]',
+        bg: 'bg-[#f9fafb]',
+      },
+    };
+
+    const style = styles[data.type];
+
+    return `
+    <div class="text-[16px] font-medium ${style.text} min-w-[67px] min-h-[24px]
+                inline-flex justify-center items-center px-3 gap-1 rounded-full
+                border ${style.border} ${style.bg} font-medium">
+      ${data.value}
+    </div>
+  `;
   }
 }
