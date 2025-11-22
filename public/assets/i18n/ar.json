@@ -146,7 +146,8 @@
     "MID_SHIFT_OVERLAP": "إذن وسط الدوام يتداخل مع إذن وسط دوام آخر.",
     "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن بداية الدوام.",
     "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن نهاية الدوام.",
-    "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "إذن بداية/نهاية الدوام يتداخل مع إذن وسط الدوام."
+    "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "إذن بداية/نهاية الدوام يتداخل مع إذن وسط الدوام.",
+    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل"
   },
   "FOOTER": {
     "ALL_RIGHTS": "جميع الحقوق محفوظة للإدارة العامة للمجاهدين © 2025"
