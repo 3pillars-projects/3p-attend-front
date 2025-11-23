@@ -230,7 +230,7 @@ export default class MyShiftsComponent extends BaseListComponent<
 
   // Custom search method for template
   onSearch(): void {
-    this.syncFilters();
+    // this.syncFilters();
     this.search();
   }
 
@@ -321,6 +321,7 @@ export default class MyShiftsComponent extends BaseListComponent<
     if (filter.nameEn) options['nameEn'] = filter.nameEn;
     if (filter.startDate) options['startDate'] = filter.startDate;
     if (filter.endDate) options['endDate'] = filter.endDate;
+    if (filter.isFlexibleShift !== null) options['isFlexibleShift'] = filter.isFlexibleShift;
 
     return options;
   }
