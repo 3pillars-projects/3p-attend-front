@@ -119,10 +119,15 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
       ),
 
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_NAME')]: model.getShiftName(),
-      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_TYPE')]:
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_STATUS')]:
         model.shiftType === SHIFT_TYPE_ENUM.DEFAULT
           ? this.translateService.instant('ATTENDANCE_REPORT_PAGE.DEFAULT_SHIFT')
           : this.translateService.instant('ATTENDANCE_REPORT_PAGE.SPECIAL_SHIFT'),
+
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.SHIFT_TYPE')]: model.isFlexibleShift
+        ? this.translateService.instant('ATTENDANCE_REPORT_PAGE.FLEXIBLE_SHIFT')
+        : this.translateService.instant('ATTENDANCE_REPORT_PAGE.FIXED_SHIFT'),
+
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.LEAVE_NAME')]: model.getHolidayName(),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.MISSION_NAME')]:
         model.getMissionName(),
@@ -137,7 +142,7 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
         model.lastLeaveFingerPrint ? new Date(model.lastLeaveFingerPrint) : undefined
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
-        model.getTimeDifferenceValue(),
+        model.getTimeDifferenceData().value,
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',
@@ -220,26 +225,36 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
   }
 
   getTimeDifference(att: AttendanceReport): string {
-    if (att.totalOvertimeMinutes && att.totalOvertimeMinutes > 0) {
-      return `
-        <div class="text-[16px] font-medium text-[#085d3a] min-w-[67px] min-h-[24px]
-                    inline-flex justify-center items-center px-3 gap-1 rounded-full
-                    border border-[#abefc6] bg-[#ecfdf3] font-medium">
-          ${att.getTimeDifferenceValue()}
-        </div>
-      `;
-    }
+    const data = att.getTimeDifferenceData();
 
-    if (att.totalMissingMinutes && att.totalMissingMinutes > 0) {
-      return `
-        <div class="text-[16px] font-medium text-[#912018] min-w-[67px] min-h-[24px]
-                    inline-flex justify-center items-center px-3 gap-1 rounded-full
-                    border border-[#fecdca] bg-[#fef3f2] font-medium">
-          ${att.getTimeDifferenceValue()}
-        </div>
-      `;
-    }
+    if (!data.type) return '';
 
-    return ''; // nothing to show
+    const styles = {
+      overtime: {
+        text: 'text-[#085d3a]',
+        border: 'border-[#abefc6]',
+        bg: 'bg-[#ecfdf3]',
+      },
+      missing: {
+        text: 'text-[#912018]',
+        border: 'border-[#fecdca]',
+        bg: 'bg-[#fef3f2]',
+      },
+      ignore: {
+        text: 'text-[#4d5761]',
+        border: 'border-[#e5e7eb]',
+        bg: 'bg-[#f9fafb]',
+      },
+    };
+
+    const style = styles[data.type];
+
+    return `
+    <div class="text-[16px] font-medium ${style.text} min-w-[67px] min-h-[24px]
+                inline-flex justify-center items-center px-3 gap-1 rounded-full
+                border ${style.border} ${style.bg} font-medium">
+      ${data.value}
+    </div>
+  `;
   }
 }
