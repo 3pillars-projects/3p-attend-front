@@ -256,8 +256,6 @@
                 <th>نوع الوردية</th>
                 <th>{{ 'MY_SHIFTS.DATE_RANGE_PLACEHOLDER' | translate }}</th>
                 <th>{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</th>
-                <th>{{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}</th>
-                <th>{{ 'MY_SHIFTS.LEAVE_BUFFER' | translate }}</th>
                 <th>{{ 'COMMON.ACTION' | translate }}</th>
               </tr>
             </ng-template>
@@ -271,8 +269,6 @@
                   {{ shift.endDate | date: 'dd/MM/yyyy' }}
                 </td>
                 <td>{{ shift.formattedTimeFrom }} - {{ shift.formattedTimeTo }}</td>
-                <td>{{ shift.attendanceBuffer || '0' }}</td>
-                <td>{{ shift.leaveBuffer || '0' }}</td>
                 <td>
                   <button
                     class="table-action-gray-btn gap-1 !min-w-[146px] !px-6"
