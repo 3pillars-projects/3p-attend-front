@@ -898,6 +898,9 @@
     "DECLINE_PERMISSION": "رفض الاستئذان",
     "REQUEST_CANCEL_PERMISSION": "الغاء طلب الاستئذان",
     "NEW_PERMISSION_REQUEST": "طلب استئذان جديد",
-    "UPDATE_PERMISSION_REQUEST": "تعديل طلب الاستئذان"
+    "UPDATE_PERMISSION_REQUEST": "تعديل طلب الاستئذان",
+    "SUBMISSION_DATE": "تاريخ تقديم الطلب",
+    "CANCELLATION_REQUEST_DATE": "تاريخ تقديم طلب الإلغاء",
+    "CANCELLATION_DATE": "تاريخ الإلغاء"
   }
 }
