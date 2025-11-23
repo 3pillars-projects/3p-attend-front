@@ -794,6 +794,7 @@
     "DATE": "التاريخ",
     "SHIFT_NAME": "اسم الوردية",
     "SHIFT_TYPE": "نوع الوردية",
+    "SHIFT_STATUS": "حالة الوردية",
     "LEAVE_NAME": "اسم الإجازة",
     "MISSION_NAME": "اسم المهمة",
     "DOCUMENTATION": "التوثيق",
@@ -810,7 +811,9 @@
     "LEAVE": "انصراف",
     "PRESENCE_LEAVE": "حضور - انصراف",
     "PERMISSIONS": "الاستئذانات",
-    "TIME_DIFFERENCE": "فرق مدة الانصراف"
+    "TIME_DIFFERENCE": "فرق مدة الانصراف",
+    "FLEXIBLE_SHIFT": "وردية مرنة",
+    "FIXED_SHIFT": "وردية ثابتة"
   },
   "ATTENDANCE_REPORT_PERMISSION_POPUP": {
     "TITLE": "طلبات الاستئذانات",
