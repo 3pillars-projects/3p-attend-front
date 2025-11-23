@@ -396,19 +396,19 @@ export default class MyShiftsComponent extends BaseListComponent<
         .filter((day) => {
           switch (day.value) {
             case WeekDaysEnum.SUNDAY:
-              return this.workDays.sunday;
+              return this.defaultWorkDays.sunday;
             case WeekDaysEnum.MONDAY:
-              return this.workDays.monday;
+              return this.defaultWorkDays.monday;
             case WeekDaysEnum.TUESDAY:
-              return this.workDays.tuesday;
+              return this.defaultWorkDays.tuesday;
             case WeekDaysEnum.WEDNESDAY:
-              return this.workDays.wednesday;
+              return this.defaultWorkDays.wednesday;
             case WeekDaysEnum.THURSDAY:
-              return this.workDays.thursday;
+              return this.defaultWorkDays.thursday;
             case WeekDaysEnum.FRIDAY:
-              return this.workDays.friday;
+              return this.defaultWorkDays.friday;
             case WeekDaysEnum.SATURDAY:
-              return this.workDays.saturday;
+              return this.defaultWorkDays.saturday;
             default:
               return false;
           }
