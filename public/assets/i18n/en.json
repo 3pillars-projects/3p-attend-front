@@ -370,7 +370,11 @@
     "SHIFT_NAME_INVALID": "Shift name is required",
     "DEFAULT_SHIFT": "Default shift status",
     "ACTIVE": "Active",
-    "NOT_ACTIVE": "Not active"
+    "NOT_ACTIVE": "Not active",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
+    "SHIFT_TYPE": "Shift type"
   },
   "WORK_SHIFTS_POPUP": {
     "ADD_NEW_SHIFT": "Add new work shift",
@@ -529,6 +533,7 @@
     "WORK_SHIFT_ASSIGNMENT": "Assign a shift to an employee",
     "SHIFT_NAME_AR": "Shift Name (Arabic)",
     "SHIFT_NAME_EN": "Shift Name (English)",
+    "SHIFT_TYPE": "Shift type",
     "SHIFT_NAME_PLACEHOLDER": "Shift Name",
     "START_DATE": "Date (From)",
     "END_DATE": "Date (To)",
@@ -540,7 +545,9 @@
     "STARTING_DATE": "Start date",
     "ENDING_DATE": "End date",
     "EMPLOYEE_NAME_AR": "Employee Name (Arabic)",
-    "EMPLOYEE_NAME_EN": "Employee Name (English)"
+    "EMPLOYEE_NAME_EN": "Employee Name (English)",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed"
   },
   "PROFILE_PAGE": {
     "PROFILE": "Profile",
@@ -577,11 +584,27 @@
     "END_DATE": "Date to",
     "STARTING_DATE": "Start date",
     "ENDING_DATE": "End date",
-    "TIME_FROM_TO": "Time (From - To)",
+    "START_TIME": "Start time",
+    "END_TIME": "End time",
     "ATTENDANCE_BUFFER": "Attendance grace period (min)",
     "LEAVE_BUFFER": "Leave grace period (min)",
     "NO_DAYS_SELECTED": "No working days selected",
-    "DATE_RANGE_PLACEHOLDER": "Start date - End date"
+    "DATE_RANGE_PLACEHOLDER": "Start date - End date",
+    "SHIFT_TYPE": "Shift type",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
+    "SHIFT_DETAILS": "Details",
+    "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "Allowed minutes before attendance",
+    "ALLOWED_MINUTES_AFTER_ATTENDANCE": "Allowed minutes after attendance",
+    "ALLOWED_MINUTES_BEFORE_LEAVE": "Allowed minutes before leave",
+    "ALLOWED_MINUTES_AFTER_LEAVE": "Allowed minutes after leave",
+    "SHIFT_DURATION": "Shift duration",
+    "SHIFT_WORK_DAYS": "Shift work days:",
+    "ATTENDANCE": "Attendance",
+    "LEAVE": "Leave",
+    "ATTENDANCE_TIME": "Attendance time",
+    "LEAVE_TIME": "Leave time"
   },
   "RESET_PASSWORD": {
     "FORGOT_PASSWORD": "Forgot Password",

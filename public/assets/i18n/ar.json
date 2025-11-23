@@ -369,7 +369,11 @@
     "SHIFT_NAME_INVALID": "اسم الوردية غير صحيح",
     "DEFAULT_SHIFT": "حالة الوردية الافتراضية",
     "ACTIVE": "مفعلة",
-    "NOT_ACTIVE": "غير مفعلة"
+    "NOT_ACTIVE": "غير مفعلة",
+    "FLEXIBLE": "مرنة",
+    "FIXED": "ثابتة",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "فترة العمل الرسمية (من - إلى)",
+    "SHIFT_TYPE": "نوع الوردية"
   },
   "WORK_SHIFTS_POPUP": {
     "ADD_NEW_SHIFT": "إضافة وردية عمل جديدة",
@@ -528,6 +532,7 @@
     "SHIFT_NAME_AR": "اسم الوردية (عربي)",
     "SHIFT_NAME_EN": "اسم الوردية (انجليزي)",
     "SHIFT_NAME_PLACEHOLDER": "اسم الوردية",
+    "SHIFT_TYPE": "نوع الوردية",
     "START_DATE": "التاريخ (من)",
     "END_DATE": "التاريخ (الى)",
     "DATE_RANGE_PLACEHOLDER": "التاريخ (من - الى)",
@@ -538,7 +543,9 @@
     "EMPLOYEE_NAME_AR": "اسم الموظف (عربي)",
     "STARTING_DATE": "تاريخ البداية",
     "ENDING_DATE": "تاريخ النهاية",
-    "EMPLOYEE_NAME_EN": "اسم الموظف (إنجليزي)"
+    "EMPLOYEE_NAME_EN": "اسم الموظف (إنجليزي)",
+    "FLEXIBLE": "مرنة",
+    "FIXED": "ثابتة"
   },
   "PROFILE_PAGE": {
     "PROFILE": "الملف الشخصي",
@@ -575,11 +582,27 @@
     "END_DATE": "التاريخ (إلى)",
     "STARTING_DATE": "تاريخ البداية",
     "ENDING_DATE": "تاريخ النهاية",
-    "TIME_FROM_TO": "الوقت (من - الى)",
+    "START_TIME": "وقت البداية",
+    "END_TIME": "وقت الانتهاء",
     "ATTENDANCE_BUFFER": "مدة السماح للحضور(دق)",
     "LEAVE_BUFFER": "مدة السماح للانصراف(دق)",
     "NO_DAYS_SELECTED": "لم يتم اختيار أيام العمل",
-    "DATE_RANGE_PLACEHOLDER": "تاريخ البداية - تاريخ النهاية"
+    "DATE_RANGE_PLACEHOLDER": "تاريخ البداية - تاريخ النهاية",
+    "SHIFT_TYPE": "نوع الوردية",
+    "FLEXIBLE": "مرنة",
+    "FIXED": "ثابتة",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "فترة العمل الرسمية (من - إلى)",
+    "SHIFT_DETAILS": "التفاصيل",
+    "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "مدة السماح قبل الحضور (دق)",
+    "ALLOWED_MINUTES_AFTER_ATTENDANCE": "مدة السماح بعد الحضور (دق)",
+    "ALLOWED_MINUTES_BEFORE_LEAVE": "مدة السماح قبل الانصراف (دق)",
+    "ALLOWED_MINUTES_AFTER_LEAVE": "مدة السماح بعد الانصراف (دق)",
+    "SHIFT_DURATION": "مدة الوردية",
+    "SHIFT_WORK_DAYS": "ايام العمل بالوردية:",
+    "ATTENDANCE": "الحضور",
+    "LEAVE": "الانصراف",
+    "ATTENDANCE_TIME": "وقت الحضور",
+    "LEAVE_TIME": "وقت الانصراف"
   },
   "RESET_PASSWORD": {
     "FORGOT_PASSWORD": "نسيت كلمة المرور",

@@ -31,70 +31,82 @@
             <div class="bg-[#074d31] py-6 border-t border-[#f3f4f6]">
               <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 <div>
-                  <p class="text-sm text-white mb-2">مدة الوردية</p>
-                  <h5 class="text-base font-semibold text-white">8 ساعات</h5>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.SHIFT_DURATION' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">{{currentShift?.shiftDuration}}</h5>
                 </div>
                 <div>
-                  <p class="text-sm text-white mb-2">نوع الوردية</p>
-                  <h5 class="text-base font-semibold text-white">مرنة</h5>
-                </div>
-              </div>
-              <div
-                class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4 bg-[#ffffff19] rounded-lg p-4"
-              >
-                <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</p>
-                  <h5 class="text-base font-semibold text-white">
-                    {{ currentShift?.formattedTimeFrom }} - {{ currentShift?.formattedTimeTo }}
-                  </h5>
-                </div>
-                <div>
-                  <p class="text-sm text-white mb-2">
-                    {{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}
-                  </p>
-                  <h5 class="text-base font-semibold text-white">
-                    {{ currentShift?.attendanceBuffer || '0' }}
-                  </h5>
-                </div>
-                <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.LEAVE_BUFFER' | translate }}</p>
-                  <h5 class="text-base font-semibold text-white">
-                    {{ currentShift?.leaveBuffer || '0' }}
-                  </h5>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.SHIFT_TYPE' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">{{ (currentShift?.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate }}</h5>
                 </div>
               </div>
               <div
                 class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4 bg-[#ffffff19] rounded-lg p-4"
               >
                 <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</p>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.START_TIME' | translate }}</p>
                   <h5 class="text-base font-semibold text-white">
-                    {{ currentShift?.formattedTimeFrom }} - {{ currentShift?.formattedTimeTo }}
+                    {{ currentShift?.formattedTimeFrom }}
                   </h5>
                 </div>
                 <div>
                   <p class="text-sm text-white mb-2">
-                    {{ 'MY_SHIFTS.ATTENDANCE_BUFFER' | translate }}
+                    {{ 'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_ATTENDANCE' | translate }}
                   </p>
                   <h5 class="text-base font-semibold text-white">
-                    {{ currentShift?.attendanceBuffer || '0' }}
+                    {{ currentShift?.startAttendanceBuffer || '0' }}
                   </h5>
                 </div>
                 <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.LEAVE_BUFFER' | translate }}</p>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.ALLOWED_MINUTES_AFTER_ATTENDANCE' | translate }}</p>
                   <h5 class="text-base font-semibold text-white">
-                    {{ currentShift?.leaveBuffer || '0' }}
+                    {{ currentShift?.endAttendanceBuffer || '0' }}
+                  </h5>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4 bg-[#ffffff19] rounded-lg p-4"
+              >
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.END_TIME' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.formattedTimeTo }}
+                  </h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">
+                    {{ 'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_LEAVE' | translate }}
+                  </p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.startLeaveBuffer || '0' }}
+                  </h5>
+                </div>
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_LEAVE' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.endLeaveBuffer || '0' }}
                   </h5>
                 </div>
               </div>
               <div class="flex items-center gap-4 mt-4">
-                <span class="text-sm text-white">أيام العمل بالوردية :</span>
+                <span class="text-sm text-white">{{ 'MY_SHIFTS.SHIFT_WORK_DAYS' | translate }}</span>
                 <div class="flex gap-4 items-center flex-wrap">
-                  <div class="bg-white px-3 py-1 font-semibold rounded-full">الأحد</div>
-                  <div class="bg-white px-3 py-1 font-semibold rounded-full">الاثنين</div>
-                  <div class="bg-white px-3 py-1 font-semibold rounded-full">الثلاثاء</div>
-                  <div class="bg-white px-3 py-1 font-semibold rounded-full">الأربعاء</div>
-                  <div class="bg-white px-3 py-1 font-semibold rounded-full">الخميس</div>
+                  <ul class="flex items-center gap-4 flex-wrap">
+                    @if (displayDays && displayDays.length > 0) {
+                      @for (day of displayDays; track day.value) {
+                        <li
+                          class="min-w-[64px] min-h-[32px] flex flex-row justify-center items-center gap-1 px-3 rounded-full bg-[#f3f4f6] text-[#161616] text-[16px] font-medium"
+                        >
+                          {{ getDayLabel(day.labelKey) }}
+                        </li>
+                      }
+                    } @else {
+                      <li
+                        class="min-w-[64px] min-h-[32px] flex flex-row justify-center items-center gap-1 px-3 rounded-full bg-[#f3f4f6] text-[#161616] text-[16px] font-medium"
+                      >
+                        {{ 'MY_SHIFTS.NO_DAYS_SELECTED' | translate }}
+                      </li>
+                    }
+                  </ul>
                 </div>
               </div>
             </div>
@@ -130,16 +142,16 @@
               ></span>
             </div>
             <div class="relative xl:col-span-3">
-              <label class="label" for="shiftName">{{
-                'MY_SHIFTS.NAME_ENGLISH' | translate
-              }}</label>
+              <label class="label" for="shiftType">{{
+                  'MY_SHIFTS.SHIFT_TYPE' | translate
+                }}</label>
               <input
                 [(ngModel)]="filterOptions.nameEn"
                 class="peer"
                 fluid="true"
-                id="shiftName"
+                id="shiftType"
                 pInputText
-                [placeholder]="'MY_SHIFTS.NAME_ENGLISH' | translate"
+                [placeholder]="'MY_SHIFTS.SHIFT_TYPE' | translate"
                 type="text"
               />
               <span
@@ -147,19 +159,22 @@
               ></span>
             </div>
             <div class="relative xl:col-span-2">
-              <label class="label" for="department">نوع الوردية</label>
-              <p-select
-                placeholder="نوع الوردية"
-                class="w-full peer"
-                id="department"
-                optionValue="id"
-                [showClear]="true"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-              ></p-select>
-              <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+              <label class="label"
+                     for="attendance-department-popup"> {{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }} </label>
+              <div class="relative">
+                <p-select
+                  [(ngModel)]="filterModel.isFlexibleShift"
+                  [options]="shiftTypes"
+                  class="w-full peer"
+                  optionLabel="label"
+                  optionValue="value"
+                  [placeholder]="'MY_SHIFTS.SHIFT_TYPE' | translate"
+                  [showClear]="true"
+                ></p-select>
+                <span
+                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                ></span>
+              </div>
             </div>
             <div class="relative xl:col-span-2">
               <label class="label" for="dateFrom">{{ 'MY_SHIFTS.START_DATE' | translate }}</label>
@@ -237,9 +252,9 @@
               <tr>
                 <th>{{ 'MY_SHIFTS.NAME_ARABIC' | translate }}</th>
                 <th>{{ 'MY_SHIFTS.NAME_ENGLISH' | translate }}</th>
-                <th>نوع الوردية</th>
+                <th>{{ 'MY_SHIFTS.SHIFT_TYPE' | translate }}</th>
                 <th>{{ 'MY_SHIFTS.DATE_RANGE_PLACEHOLDER' | translate }}</th>
-                <th>{{ 'MY_SHIFTS.TIME_FROM_TO' | translate }}</th>
+                <th>{{ 'MY_SHIFTS.OFFICIAL_WORKING_TIME_FROM_TO' | translate }}</th>
                 <th>{{ 'COMMON.ACTION' | translate }}</th>
               </tr>
             </ng-template>
@@ -247,7 +262,7 @@
               <tr>
                 <td>{{ shift.nameAr }}</td>
                 <td>{{ shift.nameEn }}</td>
-                <td>نوع الوردية</td>
+                <td>{{ (shift.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate }}</td>
                 <td>
                   {{ shift.startDate | date: 'dd/MM/yyyy' }} -
                   {{ shift.endDate | date: 'dd/MM/yyyy' }}
@@ -259,7 +274,7 @@
                     (click)="openDialog(shift)"
                   >
                     <img src="/assets/icons/view.svg" alt="عرض" />
-                    {{ 'MY_SHIFTS.SHIFT_DAYS' | translate }}
+                    {{ 'MY_SHIFTS.SHIFT_DETAILS' | translate }}
                   </button>
                 </td>
               </tr>

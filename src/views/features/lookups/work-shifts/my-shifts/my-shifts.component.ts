@@ -34,9 +34,11 @@ import {
   formatTimeTo12Hour,
   timeStringToDate,
   toDateOnly,
+  weekDays,
 } from '@/utils/general-helper';
 import { WorkDaysSetting } from '@/models/features/setting/work-days-setting';
 import { Accordion, AccordionModule } from 'primeng/accordion';
+import { WeekDaysEnum } from '@/enums/week-days-enum';
 @Component({
   selector: 'app-my-shifts',
   imports: [
@@ -62,6 +64,12 @@ export default class MyShiftsComponent extends BaseListComponent<
   MyShiftsService,
   EmployeeShiftsFilter
 > {
+  workDays: WorkDaysSetting = new WorkDaysSetting();
+  displayDays: { labelKey: string; value: WeekDaysEnum; isSelected: boolean }[] = [];
+  shiftTypes = [
+    { label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true },
+    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false }
+  ];
   // Required by BaseListComponent
   filterModel: EmployeeShiftsFilter = new EmployeeShiftsFilter();
   dialogSize = {
@@ -78,6 +86,7 @@ export default class MyShiftsComponent extends BaseListComponent<
   locale: 'en-US' | 'ar-EG' = 'en-US';
 
   override initListComponent(): void {
+    this.changeShiftTypesTranslation();
     this.locale = this.isCurrentLanguageEnglish() ? 'en-US' : 'ar-EG';
     this.loadInitialData();
 
@@ -131,6 +140,16 @@ export default class MyShiftsComponent extends BaseListComponent<
   protected override getBreadcrumbKeys() {
     return [{ labelKey: 'MY_SHIFTS.MY_SHIFTS' }];
   }
+
+  changeShiftTypesTranslation() {
+    this.languageService.languageChanged$.subscribe((_) => {
+      this.shiftTypes = [
+        { ...{ label: this.translateService.instant('MY_SHIFTS.FLEXIBLE'), value: true } },
+        { ...{ label: this.translateService.instant('MY_SHIFTS.FIXED'), value: false } },
+      ];
+    });
+  }
+
   protected override mapModelToExcelRow(model: EmployeeShift): { [key: string]: any } {
     return {
       [this.translateService.instant('MY_SHIFTS.NAME_ARABIC')]: model.nameAr || '',
@@ -139,8 +158,8 @@ export default class MyShiftsComponent extends BaseListComponent<
       [this.translateService.instant('MY_SHIFTS.END_DATE')]: model.endDate,
       [this.translateService.instant('MY_SHIFTS.TIME_FROM_TO')]:
         `${model.formattedTimeFrom} - ${model.formattedTimeTo}`,
-      [this.translateService.instant('MY_SHIFTS.ATTENDANCE_BUFFER')]: model.attendanceBuffer ?? '',
-      [this.translateService.instant('MY_SHIFTS.LEAVE_BUFFER')]: model.leaveBuffer ?? '',
+      [this.translateService.instant('MY_SHIFTS.ATTENDANCE_BUFFER')]: 'hello attendance',
+      [this.translateService.instant('MY_SHIFTS.LEAVE_BUFFER')]: 'hello leave',
     };
   }
 
@@ -165,6 +184,7 @@ export default class MyShiftsComponent extends BaseListComponent<
     this.defaultWorkDays = resolverData.defaultworkDays;
     // Load current shift data
     this.currentShift = resolverData.currentShift || null;
+    this.prepareDisplayDays();
   }
 
   getCurrentShiftName(): string {
@@ -354,5 +374,53 @@ export default class MyShiftsComponent extends BaseListComponent<
 
   get endDate() {
     return this.filterOptions.endDate as Date;
+  }
+
+  getDayLabel(labelKey: string): string {
+    return this.translateService.instant(labelKey);
+  }
+
+  private prepareDisplayDays(): void {
+    let workingDayValues: number[] = [];
+
+    if (this.currentShift?.employeeWorkingDays) {
+      // case 1: from model
+      workingDayValues = this.currentShift.employeeWorkingDays
+        .split(',')
+        .map((day) => parseInt(day.trim(), 10))
+        .filter((day) => !isNaN(day));
+    } else {
+      // case 2: fallback to workDays settings
+      workingDayValues = weekDays
+        .filter((day) => {
+          switch (day.value) {
+            case WeekDaysEnum.SUNDAY:
+              return this.workDays.sunday;
+            case WeekDaysEnum.MONDAY:
+              return this.workDays.monday;
+            case WeekDaysEnum.TUESDAY:
+              return this.workDays.tuesday;
+            case WeekDaysEnum.WEDNESDAY:
+              return this.workDays.wednesday;
+            case WeekDaysEnum.THURSDAY:
+              return this.workDays.thursday;
+            case WeekDaysEnum.FRIDAY:
+              return this.workDays.friday;
+            case WeekDaysEnum.SATURDAY:
+              return this.workDays.saturday;
+            default:
+              return false;
+          }
+        })
+        .map((day) => day.value);
+    }
+
+    // build display list
+    this.displayDays = weekDays
+      .filter((day) => workingDayValues.includes(day.value))
+      .map((day) => ({
+        ...day,
+        isSelected: true,
+      }));
   }
 }

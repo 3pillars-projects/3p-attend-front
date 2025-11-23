@@ -10,6 +10,7 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CastResponse, CastResponseContainer } from 'cast-response';
 import { switchMap, of, map } from 'rxjs';
+import { EmployeeShiftInterceptor } from '@/model-interceptors/features/lookups/employee-shift-interceptor';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +38,8 @@ export class MyShiftsService extends LookupBaseService<EmployeeShift, number> {
       })
       .pipe(
         switchMap((response: SingleResponseData<EmployeeShift>) => {
-          return of(response.data);
+          let employeeShiftInterceptor = new EmployeeShiftInterceptor();
+          return of(employeeShiftInterceptor.receive(response.data));
         })
       );
   }

@@ -41,6 +41,10 @@ export default class WorkShiftsListComponent
   extends BaseListComponent<Shift, WorkShiftsListPopupComponent, ShiftService, ShiftsFilter>
   implements OnInit
 {
+  shiftTypes = [
+    { label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true },
+    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false }
+  ];
   filterModel: ShiftsFilter = new ShiftsFilter();
 
   shiftService = inject(ShiftService);
@@ -58,10 +62,21 @@ export default class WorkShiftsListComponent
     return this.shiftService;
   }
 
-  override initListComponent(): void {}
+  override initListComponent(): void {
+    this.changeShiftTypesTranslation();
+  }
 
   protected override getBreadcrumbKeys() {
     return [{ labelKey: 'WORK_SHIFTS.WORK_SHIFTS' }];
+  }
+
+  changeShiftTypesTranslation() {
+    this.languageService.languageChanged$.subscribe((_) => {
+      this.shiftTypes = [
+        { ...{ label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true } },
+        { ...{ label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false } },
+      ];
+    });
   }
 
   openDialog(model: Shift): void {

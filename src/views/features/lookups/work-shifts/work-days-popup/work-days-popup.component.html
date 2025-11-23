@@ -5,49 +5,49 @@
     </button>
 
     <div class="mb-6 pb-6 border-b border-[#d2d6db]">
-      <h3 class="text-[#1f2a37] font-[600] mb-6 text-lg sm:text-xl">تفاصيل الوردية</h3>
+      <h3 class="text-[#1f2a37] font-[600] mb-6 text-lg sm:text-xl">{{'MY_SHIFTS.SHIFT_DETAILS' | translate}}</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div>
-          <span class="text-[#6c737f] text-sm">مدة الوردية</span>
-          <h5 class="text-[#161616] text-base font-medium">8 ساعات</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.SHIFT_DURATION' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.shiftDuration}}</h5>
         </div>
         <div>
-          <span class="text-[#6c737f] text-sm">نوع الوردية</span>
-          <h5 class="text-[#161616] text-base font-medium">مرنة</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.SHIFT_TYPE' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{(model.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate}}</h5>
         </div>
       </div>
-      <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">الحضور</h3>
+      <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">{{'MY_SHIFTS.ATTENDANCE' | translate}}</h3>
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 p-6 rounded-2xl bg-[#f3f4f6]"
       >
         <div>
-          <span class="text-[#6c737f] text-sm">وقت الحضور</span>
-          <h5 class="text-[#161616] text-base font-medium">06:00 ص</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.ATTENDANCE_TIME' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.formattedTimeFrom}}</h5>
         </div>
         <div>
-          <span class="text-[#6c737f] text-sm">مدة السماح قبل الحضور (دق)</span>
-          <h5 class="text-[#161616] text-base font-medium">15</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_ATTENDANCE' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.startAttendanceBuffer || '0'}}</h5>
         </div>
         <div>
-          <span class="text-[#6c737f] text-sm">مدة السماح بعد الحضور (دق)</span>
-          <h5 class="text-[#161616] text-base font-medium">10</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.ALLOWED_MINUTES_AFTER_ATTENDANCE' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.endAttendanceBuffer || '0'}}</h5>
         </div>
       </div>
-      <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">الانصراف</h3>
+      <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">{{'MY_SHIFTS.LEAVE' | translate}}</h3>
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 rounded-2xl bg-[#f3f4f6]"
       >
         <div>
-          <span class="text-[#6c737f] text-sm">وقت الانصراف</span>
-          <h5 class="text-[#161616] text-base font-medium">06:00 ص</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.LEAVE_TIME' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.formattedTimeTo}}</h5>
         </div>
         <div>
-          <span class="text-[#6c737f] text-sm">مدة السماح قبل الانصراف (دق)</span>
-          <h5 class="text-[#161616] text-base font-medium">15</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_LEAVE' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.startLeaveBuffer || '0'}}</h5>
         </div>
         <div>
-          <span class="text-[#6c737f] text-sm">مدة السماح بعد الانصراف (دق)</span>
-          <h5 class="text-[#161616] text-base font-medium">10</h5>
+          <span class="text-[#6c737f] text-sm">{{'MY_SHIFTS.ALLOWED_MINUTES_AFTER_LEAVE' | translate}}</span>
+          <h5 class="text-[#161616] text-base font-medium">{{model.endLeaveBuffer || '0'}}</h5>
         </div>
       </div>
     </div>

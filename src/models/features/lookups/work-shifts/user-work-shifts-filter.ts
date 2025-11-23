@@ -5,4 +5,5 @@ export default class UserWorkShiftsFilter {
   declare fkDepartmentId: number;
   declare startDate: any;
   declare endDate: any;
+  declare isFlexibleShift: boolean;
 }
