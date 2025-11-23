@@ -54,7 +54,9 @@
               ></span>
             </div>
             <div>
-              <label class="label" for="attendance-department-popup"> {{'WORK_SHIFTS.SHIFT_TYPE' | translate}} </label>
+              <label class="label" for="attendance-department-popup">
+                {{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }}
+              </label>
               <div class="relative">
                 <p-select
                   [(ngModel)]="filterModel.isFlexibleShift"
@@ -118,7 +120,11 @@
             <tr>
               <td>{{ shift.nameAr }}</td>
               <td>{{ shift.nameEn }}</td>
-              <td>{{(shift.isFlexibleShift ? 'WORK_SHIFTS.FLEXIBLE' : 'WORK_SHIFTS.FIXED') | translate}}</td>
+              <td>
+                {{
+                  (shift.isFlexibleShift ? 'WORK_SHIFTS.FLEXIBLE' : 'WORK_SHIFTS.FIXED') | translate
+                }}
+              </td>
               <td>{{ getFormattedTimeRange(shift.timeFrom, shift.timeTo) }}</td>
               <!-- hidden for release 1 -->
               <td>

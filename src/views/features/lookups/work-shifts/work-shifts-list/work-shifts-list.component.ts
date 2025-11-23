@@ -32,7 +32,7 @@ import { Select } from 'primeng/select';
     PaginatorModule,
     FormsModule,
     TranslatePipe,
-    Select
+    Select,
   ],
   templateUrl: './work-shifts-list.component.html',
   styleUrl: './work-shifts-list.component.scss',
@@ -43,7 +43,7 @@ export default class WorkShiftsListComponent
 {
   shiftTypes = [
     { label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true },
-    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false }
+    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false },
   ];
   filterModel: ShiftsFilter = new ShiftsFilter();
 

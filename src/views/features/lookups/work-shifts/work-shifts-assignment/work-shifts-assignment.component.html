@@ -193,7 +193,14 @@
               <tr>
                 <td>{{ shiftData.shiftNameAr }}</td>
                 <td>{{ shiftData.shiftNameEn }}</td>
-                <td>{{ (shiftData.isFlexibleShift ? 'USER_WORK_SHIFT_PAGE.FLEXIBLE' : 'USER_WORK_SHIFT_PAGE.FIXED') | translate }}</td>
+                <td>
+                  {{
+                    (shiftData.isFlexibleShift
+                      ? 'USER_WORK_SHIFT_PAGE.FLEXIBLE'
+                      : 'USER_WORK_SHIFT_PAGE.FIXED'
+                    ) | translate
+                  }}
+                </td>
                 <td>
                   {{
                     isCurrentLanguageEnglish() ? shiftData.employeeNameEn : shiftData.employeeNameAr
