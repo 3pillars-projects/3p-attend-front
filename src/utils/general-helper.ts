@@ -250,15 +250,14 @@ export const weekDays = [
 ];
 
 export function getShiftDuration(timeFrom?: string, timeTo?: string): string {
-  if(!timeFrom || !timeTo) {
+  if (!timeFrom || !timeTo) {
     return '';
   }
   const fromMinutes = timeStringToMinutes(timeFrom);
   const toMinutes = timeStringToMinutes(timeTo);
 
   // If timeTo is earlier, assume it's on the *next* day
-  const normalizedTo =
-    toMinutes >= fromMinutes ? toMinutes : toMinutes + 24 * 60;
+  const normalizedTo = toMinutes >= fromMinutes ? toMinutes : toMinutes + 24 * 60;
 
   const diff = normalizedTo - fromMinutes; // minutes
   return minutesToTimeString(diff);

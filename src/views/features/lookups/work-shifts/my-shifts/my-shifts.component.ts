@@ -53,7 +53,7 @@ import { WeekDaysEnum } from '@/enums/week-days-enum';
     FormsModule,
     TranslatePipe,
     AccordionModule,
-    Select
+    Select,
   ],
   templateUrl: './my-shifts.component.html',
   styleUrl: './my-shifts.component.scss',
@@ -68,7 +68,7 @@ export default class MyShiftsComponent extends BaseListComponent<
   displayDays: { labelKey: string; value: WeekDaysEnum; isSelected: boolean }[] = [];
   shiftTypes = [
     { label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true },
-    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false }
+    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false },
   ];
   // Required by BaseListComponent
   filterModel: EmployeeShiftsFilter = new EmployeeShiftsFilter();
@@ -230,7 +230,7 @@ export default class MyShiftsComponent extends BaseListComponent<
 
   // Custom search method for template
   onSearch(): void {
-    this.syncFilters();
+    // this.syncFilters();
     this.search();
   }
 
@@ -321,6 +321,7 @@ export default class MyShiftsComponent extends BaseListComponent<
     if (filter.nameEn) options['nameEn'] = filter.nameEn;
     if (filter.startDate) options['startDate'] = filter.startDate;
     if (filter.endDate) options['endDate'] = filter.endDate;
+    if (filter.isFlexibleShift !== null) options['isFlexibleShift'] = filter.isFlexibleShift;
 
     return options;
   }

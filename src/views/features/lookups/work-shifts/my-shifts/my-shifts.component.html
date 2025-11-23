@@ -31,12 +31,21 @@
             <div class="bg-[#074d31] py-6 border-t border-[#f3f4f6]">
               <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                 <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.SHIFT_DURATION' | translate }}</p>
-                  <h5 class="text-base font-semibold text-white">{{currentShift?.shiftDuration}}</h5>
+                  <p class="text-sm text-white mb-2">
+                    {{ 'MY_SHIFTS.SHIFT_DURATION' | translate }}
+                  </p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ currentShift?.shiftDuration }}
+                  </h5>
                 </div>
                 <div>
                   <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.SHIFT_TYPE' | translate }}</p>
-                  <h5 class="text-base font-semibold text-white">{{ (currentShift?.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate }}</h5>
+                  <h5 class="text-base font-semibold text-white">
+                    {{
+                      (currentShift?.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED')
+                        | translate
+                    }}
+                  </h5>
                 </div>
               </div>
               <div
@@ -57,7 +66,9 @@
                   </h5>
                 </div>
                 <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.ALLOWED_MINUTES_AFTER_ATTENDANCE' | translate }}</p>
+                  <p class="text-sm text-white mb-2">
+                    {{ 'MY_SHIFTS.ALLOWED_MINUTES_AFTER_ATTENDANCE' | translate }}
+                  </p>
                   <h5 class="text-base font-semibold text-white">
                     {{ currentShift?.endAttendanceBuffer || '0' }}
                   </h5>
@@ -81,14 +92,18 @@
                   </h5>
                 </div>
                 <div>
-                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_LEAVE' | translate }}</p>
+                  <p class="text-sm text-white mb-2">
+                    {{ 'MY_SHIFTS.ALLOWED_MINUTES_BEFORE_LEAVE' | translate }}
+                  </p>
                   <h5 class="text-base font-semibold text-white">
                     {{ currentShift?.endLeaveBuffer || '0' }}
                   </h5>
                 </div>
               </div>
               <div class="flex items-center gap-4 mt-4">
-                <span class="text-sm text-white">{{ 'MY_SHIFTS.SHIFT_WORK_DAYS' | translate }}</span>
+                <span class="text-sm text-white">{{
+                  'MY_SHIFTS.SHIFT_WORK_DAYS' | translate
+                }}</span>
                 <div class="flex gap-4 items-center flex-wrap">
                   <ul class="flex items-center gap-4 flex-wrap">
                     @if (displayDays && displayDays.length > 0) {
@@ -142,9 +157,7 @@
               ></span>
             </div>
             <div class="relative xl:col-span-3">
-              <label class="label" for="shiftType">{{
-                  'MY_SHIFTS.SHIFT_TYPE' | translate
-                }}</label>
+              <label class="label" for="shiftType">{{ 'MY_SHIFTS.SHIFT_TYPE' | translate }}</label>
               <input
                 [(ngModel)]="filterOptions.nameEn"
                 class="peer"
@@ -159,8 +172,9 @@
               ></span>
             </div>
             <div class="relative xl:col-span-2">
-              <label class="label"
-                     for="attendance-department-popup"> {{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }} </label>
+              <label class="label" for="attendance-department-popup">
+                {{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }}
+              </label>
               <div class="relative">
                 <p-select
                   [(ngModel)]="filterModel.isFlexibleShift"
@@ -262,7 +276,11 @@
               <tr>
                 <td>{{ shift.nameAr }}</td>
                 <td>{{ shift.nameEn }}</td>
-                <td>{{ (shift.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate }}</td>
+                <td>
+                  {{
+                    (shift.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate
+                  }}
+                </td>
                 <td>
                   {{ shift.startDate | date: 'dd/MM/yyyy' }} -
                   {{ shift.endDate | date: 'dd/MM/yyyy' }}

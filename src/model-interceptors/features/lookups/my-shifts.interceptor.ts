@@ -2,7 +2,8 @@ import EmployeeShift from '@/models/features/lookups/work-shifts/employee-shift'
 import {
   convertUtcToSystemTimeZone,
   dateToTimeString,
-  formatTimeTo12Hour, getShiftDuration,
+  formatTimeTo12Hour,
+  getShiftDuration,
   timeStringToDate,
   toDateOnly,
 } from '@/utils/general-helper';
