@@ -278,15 +278,20 @@
                           </button>
                         }
                         @if (permission.fkStatusId === limitedTimePermissionStatusEnum.New) {
-                          <button
-                            class="table-action-gray-btn"
-                            (click)="addOrEditModel(permission)"
-                          >
-                            <img alt="" src="assets/icons/edit-action.svg" />
-                          </button>
-                          <button class="table-action-red-btn" (click)="deleteModel(permission.id)">
-                            <img alt="" src="assets/icons/delete-action.svg" />
-                          </button>
+                          <div class="flex gap-2 items-center">
+                            <button
+                              class="table-action-gray-btn"
+                              (click)="addOrEditModel(permission)"
+                            >
+                              <img alt="" src="assets/icons/edit-action.svg" />
+                            </button>
+                            <button
+                              class="table-action-red-btn"
+                              (click)="deleteModel(permission.id)"
+                            >
+                              <img alt="" src="assets/icons/delete-action.svg" />
+                            </button>
+                          </div>
                         }
                       </div>
                     </td>
