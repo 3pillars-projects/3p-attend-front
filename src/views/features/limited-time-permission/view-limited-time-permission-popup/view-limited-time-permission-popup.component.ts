@@ -149,7 +149,8 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
     return (
       !!this.model.canTakeAction &&
       !this.model.isCancelRequested &&
-      this.model.fkStatusId === this.limitedTimePermissionStatusEnum.New
+      (this.model.fkStatusId === this.limitedTimePermissionStatusEnum.New ||
+        this.model.fkStatusId === this.limitedTimePermissionStatusEnum.FirstAccepted)
     );
   }
 

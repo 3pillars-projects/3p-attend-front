@@ -182,6 +182,7 @@
               <tr>
                 <th>{{ 'USER_WORK_SHIFT_PAGE.SHIFT_NAME_AR' | translate }}</th>
                 <th>{{ 'USER_WORK_SHIFT_PAGE.SHIFT_NAME_EN' | translate }}</th>
+                <th>{{ 'USER_WORK_SHIFT_PAGE.SHIFT_TYPE' | translate }}</th>
                 <th>{{ 'USER_WORK_SHIFT_PAGE.EMPLOYEE_NAME' | translate }}</th>
                 <th>{{ 'USER_WORK_SHIFT_PAGE.STARTING_DATE' | translate }}</th>
                 <th>{{ 'USER_WORK_SHIFT_PAGE.ENDING_DATE' | translate }}</th>
@@ -192,6 +193,14 @@
               <tr>
                 <td>{{ shiftData.shiftNameAr }}</td>
                 <td>{{ shiftData.shiftNameEn }}</td>
+                <td>
+                  {{
+                    (shiftData.isFlexibleShift
+                      ? 'USER_WORK_SHIFT_PAGE.FLEXIBLE'
+                      : 'USER_WORK_SHIFT_PAGE.FIXED'
+                    ) | translate
+                  }}
+                </td>
                 <td>
                   {{
                     isCurrentLanguageEnglish() ? shiftData.employeeNameEn : shiftData.employeeNameAr

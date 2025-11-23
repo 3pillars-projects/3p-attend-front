@@ -248,3 +248,31 @@ export const weekDays = [
   { labelKey: 'USER_WORK_SHIFT_ASSIGNMENT.THURSDAY', value: WeekDaysEnum.THURSDAY },
   { labelKey: 'USER_WORK_SHIFT_ASSIGNMENT.FRIDAY', value: WeekDaysEnum.FRIDAY },
 ];
+
+export function getShiftDuration(timeFrom?: string, timeTo?: string): string {
+  if (!timeFrom || !timeTo) {
+    return '';
+  }
+  const fromMinutes = timeStringToMinutes(timeFrom);
+  const toMinutes = timeStringToMinutes(timeTo);
+
+  // If timeTo is earlier, assume it's on the *next* day
+  const normalizedTo = toMinutes >= fromMinutes ? toMinutes : toMinutes + 24 * 60;
+
+  const diff = normalizedTo - fromMinutes; // minutes
+  return minutesToTimeString(diff);
+}
+
+export function timeStringToMinutes(time: string): number {
+  // expects "HH:mm:ss" or "HH:mm"
+  const [h, m] = time.split(':').map(Number);
+  return h * 60 + m;
+}
+
+export function minutesToTimeString(totalMinutes: number): string {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const hh = hours.toString().padStart(2, '0');
+  const mm = minutes.toString().padStart(2, '0');
+  return `${hh}:${mm}`;
+}

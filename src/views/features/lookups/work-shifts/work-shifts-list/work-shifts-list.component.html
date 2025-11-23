@@ -18,7 +18,7 @@
           </h5>
         </div>
         <div class="pt-6">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="relative">
               <label class="label" for="shiftNameAr">{{
                 'WORK_SHIFTS.SHIFT_NAME_AR' | translate
@@ -52,6 +52,25 @@
               <span
                 class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
               ></span>
+            </div>
+            <div>
+              <label class="label" for="attendance-department-popup">
+                {{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }}
+              </label>
+              <div class="relative">
+                <p-select
+                  [(ngModel)]="filterModel.isFlexibleShift"
+                  [options]="shiftTypes"
+                  class="w-full peer"
+                  optionLabel="label"
+                  optionValue="value"
+                  [placeholder]="'WORK_SHIFTS.SHIFT_TYPE' | translate"
+                  [showClear]="true"
+                ></p-select>
+                <span
+                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                ></span>
+              </div>
             </div>
           </div>
 
@@ -90,9 +109,8 @@
             <tr>
               <th>{{ 'WORK_SHIFTS.SHIFT_NAME_AR' | translate }}</th>
               <th>{{ 'WORK_SHIFTS.SHIFT_NAME_EN' | translate }}</th>
-              <th>{{ 'WORK_SHIFTS.MAX_ATTENDANCE_TIME' | translate }}</th>
-              <th>{{ 'WORK_SHIFTS.MAX_LEAVE_TIME' | translate }}</th>
-              <th>{{ 'WORK_SHIFTS.TIME_FROM_TO' | translate }}</th>
+              <th>{{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }}</th>
+              <th>{{ 'WORK_SHIFTS.OFFICIAL_WORKING_TIME_FROM_TO' | translate }}</th>
               <!-- hidden for release 1 -->
               <th>{{ 'WORK_SHIFTS.DEFAULT_SHIFT' | translate }}</th>
               <th>{{ 'COMMON.ACTION' | translate }}</th>
@@ -102,8 +120,11 @@
             <tr>
               <td>{{ shift.nameAr }}</td>
               <td>{{ shift.nameEn }}</td>
-              <td>{{ shift.attendanceBuffer || '0' }}</td>
-              <td>{{ shift.leaveBuffer || '0' }}</td>
+              <td>
+                {{
+                  (shift.isFlexibleShift ? 'WORK_SHIFTS.FLEXIBLE' : 'WORK_SHIFTS.FIXED') | translate
+                }}
+              </td>
               <td>{{ getFormattedTimeRange(shift.timeFrom, shift.timeTo) }}</td>
               <!-- hidden for release 1 -->
               <td>

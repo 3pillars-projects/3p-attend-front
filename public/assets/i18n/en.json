@@ -134,7 +134,20 @@
     "INVALID_XML_FILE_TYPE": "File extension should be .xml",
     "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "You have exceeded both the allowed number of permissions and the total allowed duration.",
     "EXCEEDED_NUMBER_Of_PERMISSIONS": "You have exceeded the allowed number of permissions.",
-    "EXCEEDED_PERMISSIONS_DURATION": "You have exceeded the allowed permissions duration."
+    "EXCEEDED_PERMISSIONS_DURATION": "You have exceeded the allowed permissions duration.",
+    "PERMISSION_BOUNDARIES_VIOLATION": "Permission lies outside the allowed full shift window.",
+    "SHIFT_BEGINNING_PERMISSION_BOUNDARIES_VIOLATION": "You already created a Shift Beginning permission today.",
+    "SHIFT_ENDING_PERMISSION_BOUNDARIES_VIOLATION": "You already created a Shift Ending permission today.",
+    "SHIFT_BEGINNING_PERMISSION_SHIFT_START_ATTENDANCE_BUFFER": "Shift Beginning permission must start exactly after end attendance buffer.",
+    "SHIFT_BEGINNING_OVERLAP_ISSUE": "Shift Beginning overlaps with existing mid-shift permission.",
+    "SHIFT_ENDING_PERMISSION_SHIFT_END_ATTENDANCE_BUFFER": "Shift ending permission must end before leave buffer.",
+    "SHIFT_ENDING_OVERLAP_ISSUE": "Shift ending overlaps with existing mid-shift permission.",
+    "MID_SHIFT_BOUNDARY_ISSUE": "Mid-shift permission lies outside the allowed mid-shift window.",
+    "MID_SHIFT_OVERLAP": "Mid-shift permission overlaps another mid-shift.",
+    "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "Mid-shift intersects with existing Shift Beginning.",
+    "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "Mid-shift intersects with existing Shift Ending.",
+    "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "Shift Beginning/Ending overlaps with mid-shift permission.",
+    "MID_SHIFT_SUBMIT_CONFIRMATION": "Please note that a mid-shift permission requires having a check-in fingerprint at the beginning of the shift and a check-out fingerprint at the end of the shift, and that the mid-shift permission will not affect the total working hours."
   },
   "FOOTER": {
     "ALL_RIGHTS": "All rights reserved to the General Directorate of Mujahideen © 2025"
@@ -357,7 +370,11 @@
     "SHIFT_NAME_INVALID": "Shift name is required",
     "DEFAULT_SHIFT": "Default shift status",
     "ACTIVE": "Active",
-    "NOT_ACTIVE": "Not active"
+    "NOT_ACTIVE": "Not active",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
+    "SHIFT_TYPE": "Shift type"
   },
   "WORK_SHIFTS_POPUP": {
     "ADD_NEW_SHIFT": "Add new work shift",
@@ -516,6 +533,7 @@
     "WORK_SHIFT_ASSIGNMENT": "Assign a shift to an employee",
     "SHIFT_NAME_AR": "Shift Name (Arabic)",
     "SHIFT_NAME_EN": "Shift Name (English)",
+    "SHIFT_TYPE": "Shift type",
     "SHIFT_NAME_PLACEHOLDER": "Shift Name",
     "START_DATE": "Date (From)",
     "END_DATE": "Date (To)",
@@ -527,7 +545,9 @@
     "STARTING_DATE": "Start date",
     "ENDING_DATE": "End date",
     "EMPLOYEE_NAME_AR": "Employee Name (Arabic)",
-    "EMPLOYEE_NAME_EN": "Employee Name (English)"
+    "EMPLOYEE_NAME_EN": "Employee Name (English)",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed"
   },
   "PROFILE_PAGE": {
     "PROFILE": "Profile",
@@ -564,11 +584,27 @@
     "END_DATE": "Date to",
     "STARTING_DATE": "Start date",
     "ENDING_DATE": "End date",
-    "TIME_FROM_TO": "Time (From - To)",
+    "START_TIME": "Start time",
+    "END_TIME": "End time",
     "ATTENDANCE_BUFFER": "Attendance grace period (min)",
     "LEAVE_BUFFER": "Leave grace period (min)",
     "NO_DAYS_SELECTED": "No working days selected",
-    "DATE_RANGE_PLACEHOLDER": "Start date - End date"
+    "DATE_RANGE_PLACEHOLDER": "Start date - End date",
+    "SHIFT_TYPE": "Shift type",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
+    "SHIFT_DETAILS": "Details",
+    "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "Allowed minutes before attendance",
+    "ALLOWED_MINUTES_AFTER_ATTENDANCE": "Allowed minutes after attendance",
+    "ALLOWED_MINUTES_BEFORE_LEAVE": "Allowed minutes before leave",
+    "ALLOWED_MINUTES_AFTER_LEAVE": "Allowed minutes after leave",
+    "SHIFT_DURATION": "Shift duration",
+    "SHIFT_WORK_DAYS": "Shift work days:",
+    "ATTENDANCE": "Attendance",
+    "LEAVE": "Leave",
+    "ATTENDANCE_TIME": "Attendance time",
+    "LEAVE_TIME": "Leave time"
   },
   "RESET_PASSWORD": {
     "FORGOT_PASSWORD": "Forgot Password",
@@ -887,6 +923,9 @@
     "DECLINE_PERMISSION": "Reject Permission",
     "REQUEST_CANCEL_PERMISSION": "Request Permission Cancellation",
     "NEW_PERMISSION_REQUEST": "New Permission Request",
-    "UPDATE_PERMISSION_REQUEST": "Update Permission Request"
+    "UPDATE_PERMISSION_REQUEST": "Update Permission Request",
+    "SUBMISSION_DATE": "Submission Date",
+    "CANCELLATION_REQUEST_DATE": "Cancellation request date",
+    "CANCELLATION_DATE": "Cancellation date"
   }
 }

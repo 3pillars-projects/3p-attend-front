@@ -278,15 +278,20 @@
                           </button>
                         }
                         @if (permission.fkStatusId === limitedTimePermissionStatusEnum.New) {
-                          <button
-                            class="table-action-gray-btn"
-                            (click)="addOrEditModel(permission)"
-                          >
-                            <img alt="" src="assets/icons/edit-action.svg" />
-                          </button>
-                          <button class="table-action-red-btn" (click)="deleteModel(permission.id)">
-                            <img alt="" src="assets/icons/delete-action.svg" />
-                          </button>
+                          <div class="flex gap-2 items-center">
+                            <button
+                              class="table-action-gray-btn"
+                              (click)="addOrEditModel(permission)"
+                            >
+                              <img alt="" src="assets/icons/edit-action.svg" />
+                            </button>
+                            <button
+                              class="table-action-red-btn"
+                              (click)="deleteModel(permission.id)"
+                            >
+                              <img alt="" src="assets/icons/delete-action.svg" />
+                            </button>
+                          </div>
                         }
                       </div>
                     </td>
@@ -507,6 +512,7 @@
                         <th>{{ 'LIMITED_TIME_PERMISSION.EMPLOYEE_NAME' | translate }}</th>
                         <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DATE' | translate }}</th>
                         <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}</th>
+                        <th>{{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}</th>
                         <th>{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</th>
                         <th>{{ 'COMMON.ACTION' | translate }}</th>
                       </tr>
@@ -524,6 +530,13 @@
                           >
                             {{ permissionsRequest.limitedTimePermissionDuration }}
                           </div>
+                        </td>
+                        <td>
+                          {{
+                            formatTime12HourFromDate(
+                              permissionsRequest.limitedTimePermissionTimeFrom
+                            ) || '-'
+                          }}
                         </td>
                         <td>
                           @if (permissionsRequest.isCancelRequested) {
@@ -555,6 +568,20 @@
                                 }}</span>
                               </div>
                             }
+                          } @else if (
+                            permissionsRequest.fkStatusId ===
+                            limitedTimePermissionStatusEnum.FirstAccepted
+                          ) {
+                            <div
+                              class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2"
+                            >
+                              <span
+                                class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"
+                              ></span>
+                              <span class="text-[#93370d] font-semibold text-sm">{{
+                                permissionsRequest.getStatusName()
+                              }}</span>
+                            </div>
                           } @else if (
                             permissionsRequest.fkStatusId ===
                             limitedTimePermissionStatusEnum.Accepted

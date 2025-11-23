@@ -6,14 +6,29 @@
     <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
       {{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.TITLE' | translate }}
     </h3>
-
-    <div class="bg-[#074d31] p-6 rounded-2xl mb-6">
-      <span class="text-white text-sm">{{
+    <div class="pb-6 mb-6 border-b border-[#d2d6db]">
+      <span class="text-[#6c737f] text-sm">{{
         'ATTENDANCE_REPORT_PERMISSION_POPUP.PERMISSION_DATE' | translate
       }}</span>
-      <h5 class="text-base font-semibold mt-2 text-white">
+      <h5 class="text-base font-semibold mt-2 text-[#161616]">
         {{ attendance.processingDate | date: 'dd/MM/yyyy' }}
       </h5>
+    </div>
+    <div class="bg-[#074d31] p-6 rounded-2xl mb-6">
+      <div class="flex items-center gap-4 justify-between pb-4 mb-4 border-b border-[#d2d6db]">
+        <div class="flex gap-1 items-center">
+          <span class="text-white text-sm">اسم الموظف:</span>
+          <h5 class="text-white text-base font-medium">محمد أحمد محمود</h5>
+        </div>
+        <div class="flex gap-1 items-center">
+          <span class="text-[#fae996] text-sm">معرف الموظف:</span>
+          <h5 class="text-[#fae996] text-base font-medium">1234</h5>
+        </div>
+      </div>
+      <div class="mt-6">
+        <span class="text-white text-sm"> الادارة</span>
+        <h5 class="text-white text-base font-medium">ادارة الموارد البشرية</h5>
+      </div>
     </div>
 
     <!-- No Permissions State -->

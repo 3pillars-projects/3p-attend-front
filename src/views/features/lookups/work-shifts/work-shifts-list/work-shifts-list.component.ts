@@ -18,6 +18,7 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { formatTimeTo12Hour } from '@/utils/general-helper';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-work-shifts-list',
@@ -31,6 +32,7 @@ import { formatTimeTo12Hour } from '@/utils/general-helper';
     PaginatorModule,
     FormsModule,
     TranslatePipe,
+    Select,
   ],
   templateUrl: './work-shifts-list.component.html',
   styleUrl: './work-shifts-list.component.scss',
@@ -39,6 +41,10 @@ export default class WorkShiftsListComponent
   extends BaseListComponent<Shift, WorkShiftsListPopupComponent, ShiftService, ShiftsFilter>
   implements OnInit
 {
+  shiftTypes = [
+    { label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true },
+    { label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false },
+  ];
   filterModel: ShiftsFilter = new ShiftsFilter();
 
   shiftService = inject(ShiftService);
@@ -56,10 +62,21 @@ export default class WorkShiftsListComponent
     return this.shiftService;
   }
 
-  override initListComponent(): void {}
+  override initListComponent(): void {
+    this.changeShiftTypesTranslation();
+  }
 
   protected override getBreadcrumbKeys() {
     return [{ labelKey: 'WORK_SHIFTS.WORK_SHIFTS' }];
+  }
+
+  changeShiftTypesTranslation() {
+    this.languageService.languageChanged$.subscribe((_) => {
+      this.shiftTypes = [
+        { ...{ label: this.translateService.instant('WORK_SHIFTS.FLEXIBLE'), value: true } },
+        { ...{ label: this.translateService.instant('WORK_SHIFTS.FIXED'), value: false } },
+      ];
+    });
   }
 
   openDialog(model: Shift): void {

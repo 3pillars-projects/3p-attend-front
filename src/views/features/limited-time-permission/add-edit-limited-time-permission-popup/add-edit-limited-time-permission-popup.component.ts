@@ -21,9 +21,12 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { RequiredMarkerDirective } from '../../../../directives/required-marker.directive';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
+import { ConfirmationService } from '@/services/shared/confirmation.service';
+import { DIALOG_ENUM } from '@/enums/dialog-enum';
+import { LIMITED_TIME_PERMISSION_TYPES_ENUM } from '@/enums/limited-time-permission-types-enum';
 
 @Component({
   selector: 'app-add-edit-limited-time-permission-popup',
@@ -48,16 +51,19 @@ export class AddEditLimitedTimePermissionPopupComponent
 {
   declare model: LimitedTimePermission;
   declare form: FormGroup;
+
   alertService = inject(AlertService);
   service = inject(LimitedTimePermissionService);
   fb = inject(FormBuilder);
+  confirmationService = inject(ConfirmationService);
+
   permissionTypes: BaseLookupModel[] | undefined = [];
   availableTimeOptions: number[] | undefined = [];
   data = inject(MAT_DIALOG_DATA);
   isCreateMode = false;
 
   // Constants for permission type IDs
-  readonly MID_SHIFT_TYPE_ID = 2; // "اثناء الوردية" / "Mid-Shift"
+  permissionTypesEnum = LIMITED_TIME_PERMISSION_TYPES_ENUM; // "اثناء الوردية" / "Mid-Shift"
 
   override saveFail(error: Error): void {
     // logic after error if there
@@ -80,14 +86,13 @@ export class AddEditLimitedTimePermissionPopupComponent
 
   override buildForm() {
     this.form = this.fb.group(this.model.buildForm());
-
     // Subscribe to permission type changes
     this.setupPermissionTypeListener();
   }
 
   private setupPermissionTypeListener() {
     this.fkLimitedTimePermissionTypeIdControl.valueChanges.subscribe((typeId: number) => {
-      if (typeId === this.MID_SHIFT_TYPE_ID) {
+      if (typeId === this.permissionTypesEnum.MidShift) {
         // Mid-shift selected: make time required
         this.limitedTimePermissionTimeFromControl.setValidators([Validators.required]);
       } else {
@@ -101,12 +106,44 @@ export class AddEditLimitedTimePermissionPopupComponent
 
   // Helper method to check if time picker should be shown
   shouldShowTimePicker(): boolean {
-    return this.fkLimitedTimePermissionTypeIdControl?.value === this.MID_SHIFT_TYPE_ID;
+    return this.fkLimitedTimePermissionTypeIdControl?.value === this.permissionTypesEnum.MidShift;
   }
 
-  beforeSave(model: LimitedTimePermission, form: FormGroup) {
-    // manipulation before save
-    return !!form.valid;
+  // Override beforeSave to add confirmation for MidShift
+  override beforeSave(
+    model: LimitedTimePermission,
+    form: FormGroup
+  ): Observable<boolean> | boolean {
+    // Check if form is valid first
+    if (!form.valid) {
+      return false;
+    }
+
+    // Check if the selected permission type is MidShift
+    const selectedTypeId = this.fkLimitedTimePermissionTypeIdControl.value;
+    if (selectedTypeId === this.permissionTypesEnum.MidShift) {
+      // Show confirmation dialog for MidShift
+      return this.showMidShiftConfirmation();
+    }
+
+    // For other types, proceed normally
+    return true;
+  }
+
+  private showMidShiftConfirmation(): Observable<boolean> {
+    const dialogRef = this.confirmationService.open({
+      icon: 'warning',
+      messages: ['COMMON.MID_SHIFT_SUBMIT_CONFIRMATION'],
+      confirmText: 'COMMON.OK',
+      cancelText: 'COMMON.CANCEL',
+    });
+
+    return dialogRef.afterClosed().pipe(
+      map((result) => {
+        // Return true if user clicked OK, false if canceled
+        return result === DIALOG_ENUM.OK;
+      })
+    );
   }
 
   afterSave() {
@@ -121,15 +158,19 @@ export class AddEditLimitedTimePermissionPopupComponent
   get fkLimitedTimePermissionTypeIdControl() {
     return this.form.get('fkLimitedTimePermissionTypeId') as FormControl;
   }
+
   get limitedTimePermissionDateControl() {
     return this.form.get('limitedTimePermissionDate') as FormControl;
   }
+
   get limitedTimePermissionDurationControl() {
     return this.form.get('limitedTimePermissionDuration') as FormControl;
   }
+
   get limitedTimePermissionTimeFromControl() {
     return this.form.get('limitedTimePermissionTimeFrom') as FormControl;
   }
+
   get limitedTimePermissionReasonControl() {
     return this.form.get('limitedTimePermissionReason') as FormControl;
   }

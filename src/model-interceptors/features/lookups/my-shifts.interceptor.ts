@@ -3,6 +3,7 @@ import {
   convertUtcToSystemTimeZone,
   dateToTimeString,
   formatTimeTo12Hour,
+  getShiftDuration,
   timeStringToDate,
   toDateOnly,
 } from '@/utils/general-helper';
@@ -12,6 +13,7 @@ export class MyShiftsInterceptor implements ModelInterceptorContract<EmployeeShi
   receive(model: EmployeeShift): EmployeeShift {
     model.startDate = toDateOnly(model.startDate);
     model.endDate = toDateOnly(model.endDate);
+    model.shiftDuration = getShiftDuration(model.timeFrom, model.timeTo);
     model.timeFrom =
       model.timeFrom &&
       (dateToTimeString(
@@ -26,6 +28,7 @@ export class MyShiftsInterceptor implements ModelInterceptorContract<EmployeeShi
   }
 
   send(model: Partial<EmployeeShift>): Partial<EmployeeShift> {
+    delete model.shiftDuration;
     return model;
   }
 }
