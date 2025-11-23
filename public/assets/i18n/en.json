@@ -370,7 +370,11 @@
     "SHIFT_NAME_INVALID": "Shift name is required",
     "DEFAULT_SHIFT": "Default shift status",
     "ACTIVE": "Active",
-    "NOT_ACTIVE": "Not active"
+    "NOT_ACTIVE": "Not active",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
+    "SHIFT_TYPE": "Shift type"
   },
   "WORK_SHIFTS_POPUP": {
     "ADD_NEW_SHIFT": "Add new work shift",

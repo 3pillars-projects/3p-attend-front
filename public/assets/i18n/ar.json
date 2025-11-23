@@ -369,7 +369,11 @@
     "SHIFT_NAME_INVALID": "اسم الوردية غير صحيح",
     "DEFAULT_SHIFT": "حالة الوردية الافتراضية",
     "ACTIVE": "مفعلة",
-    "NOT_ACTIVE": "غير مفعلة"
+    "NOT_ACTIVE": "غير مفعلة",
+    "FLEXIBLE": "مرنة",
+    "FIXED": "ثابتة",
+    "OFFICIAL_WORKING_TIME_FROM_TO": "فترة العمل الرسمية (من - إلى)",
+    "SHIFT_TYPE": "نوع الوردية"
   },
   "WORK_SHIFTS_POPUP": {
     "ADD_NEW_SHIFT": "إضافة وردية عمل جديدة",

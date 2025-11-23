@@ -122,4 +122,8 @@ export default class WorkShiftsListComponent
       else return '---';
     }
   }
+
+  getShiftType() {
+
+  }
 }

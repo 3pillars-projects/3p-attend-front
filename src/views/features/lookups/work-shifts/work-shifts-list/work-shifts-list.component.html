@@ -105,8 +105,8 @@
             <tr>
               <th>{{ 'WORK_SHIFTS.SHIFT_NAME_AR' | translate }}</th>
               <th>{{ 'WORK_SHIFTS.SHIFT_NAME_EN' | translate }}</th>
-              <th>نوع الوردية</th>
-              <th>فترة العمل الرسمية (من - الى)</th>
+              <th>{{ 'WORK_SHIFTS.SHIFT_TYPE' | translate }}</th>
+              <th>{{ 'WORK_SHIFTS.OFFICIAL_WORKING_TIME_FROM_TO' | translate }}</th>
               <!-- hidden for release 1 -->
               <th>{{ 'WORK_SHIFTS.DEFAULT_SHIFT' | translate }}</th>
               <th>{{ 'COMMON.ACTION' | translate }}</th>
@@ -116,7 +116,7 @@
             <tr>
               <td>{{ shift.nameAr }}</td>
               <td>{{ shift.nameEn }}</td>
-              <td>مرنة</td>
+              <td>{{(shift.isFlexibleShift ? 'WORK_SHIFTS.FLEXIBLE' : 'WORK_SHIFTS.FIXED') | translate}}</td>
               <td>{{ getFormattedTimeRange(shift.timeFrom, shift.timeTo) }}</td>
               <!-- hidden for release 1 -->
               <td>
