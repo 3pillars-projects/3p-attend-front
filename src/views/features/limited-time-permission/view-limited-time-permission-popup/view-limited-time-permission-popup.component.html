@@ -113,22 +113,26 @@
           }}</span>
           <h4 class="font-semibold text-[#161616]">{{ model.limitedTimePermissionDuration }}</h4>
         </div>
-        <div class="xl:col-span-4 lg:col-span-3 md:col-span-2">
-          <span class="text-[14px] text-[#6c737f]">
-            {{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}</span
-          >
-          <h4 class="font-semibold text-[#161616]">
-            {{ formatTime12HourFromDate(model.limitedTimePermissionTimeFrom) }}
-          </h4>
-        </div>
-        <div class="xl:col-span-4 lg:col-span-3 md:col-span-2">
-          <span class="text-[14px] text-[#6c737f]">
-            {{ 'LIMITED_TIME_PERMISSION.PERMISSION_REASON' | translate }}</span
-          >
-          <h4 class="font-semibold text-[#161616]">
-            {{ model.limitedTimePermissionReason ?? '' }}
-          </h4>
-        </div>
+        @if (model.limitedTimePermissionTimeFrom) {
+          <div class="xl:col-span-4 lg:col-span-3 md:col-span-2">
+            <span class="text-[14px] text-[#6c737f]">
+              {{ 'LIMITED_TIME_PERMISSION.PERMISSION_START_TIME' | translate }}</span
+            >
+            <h4 class="font-semibold text-[#161616]">
+              {{ formatTime12HourFromDate(model.limitedTimePermissionTimeFrom) }}
+            </h4>
+          </div>
+        }
+        @if (model.limitedTimePermissionReason) {
+          <div class="xl:col-span-4 lg:col-span-3 md:col-span-2">
+            <span class="text-[14px] text-[#6c737f]">
+              {{ 'LIMITED_TIME_PERMISSION.PERMISSION_REASON' | translate }}</span
+            >
+            <h4 class="font-semibold text-[#161616]">
+              {{ model.limitedTimePermissionReason }}
+            </h4>
+          </div>
+        }
       </div>
     </div>
 
