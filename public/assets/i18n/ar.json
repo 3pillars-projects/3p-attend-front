@@ -598,7 +598,11 @@
     "ALLOWED_MINUTES_BEFORE_LEAVE": "مدة السماح قبل الانصراف (دق)",
     "ALLOWED_MINUTES_AFTER_LEAVE": "مدة السماح بعد الانصراف (دق)",
     "SHIFT_DURATION": "مدة الوردية",
-    "SHIFT_WORK_DAYS": "ايام العمل بالوردية:"
+    "SHIFT_WORK_DAYS": "ايام العمل بالوردية:",
+    "ATTENDANCE": "الحضور",
+    "LEAVE": "الانصراف",
+    "ATTENDANCE_TIME": "وقت الحضور",
+    "LEAVE_TIME": "وقت الانصراف"
   },
   "RESET_PASSWORD": {
     "FORGOT_PASSWORD": "نسيت كلمة المرور",

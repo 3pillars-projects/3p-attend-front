@@ -600,7 +600,11 @@
     "ALLOWED_MINUTES_BEFORE_LEAVE": "Allowed minutes before leave",
     "ALLOWED_MINUTES_AFTER_LEAVE": "Allowed minutes after leave",
     "SHIFT_DURATION": "Shift duration",
-    "SHIFT_WORK_DAYS": "Shift work days:"
+    "SHIFT_WORK_DAYS": "Shift work days:",
+    "ATTENDANCE": "Attendance",
+    "LEAVE": "Leave",
+    "ATTENDANCE_TIME": "Attendance time",
+    "LEAVE_TIME": "Leave time"
   },
   "RESET_PASSWORD": {
     "FORGOT_PASSWORD": "Forgot Password",
