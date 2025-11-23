@@ -897,6 +897,9 @@
     "DECLINE_PERMISSION": "Reject Permission",
     "REQUEST_CANCEL_PERMISSION": "Request Permission Cancellation",
     "NEW_PERMISSION_REQUEST": "New Permission Request",
-    "UPDATE_PERMISSION_REQUEST": "Update Permission Request"
+    "UPDATE_PERMISSION_REQUEST": "Update Permission Request",
+    "SUBMISSION_DATE": "Submission Date",
+    "CANCELLATION_REQUEST_DATE": "Cancellation request date",
+    "CANCELLATION_DATE": "Cancellation date"
   }
 }

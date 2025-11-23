@@ -61,7 +61,14 @@
         </div>
 
         <div class="flex items-center gap-2">
-          @if (
+          @if (model.isCancelRequested) {
+            <span class="text-[#6c737f] text-sm">{{
+              'LIMITED_TIME_PERMISSION.CANCELLATION_REQUEST_DATE' | translate
+            }}</span>
+            <h4 class="font-semibold text-[#161616]">
+              {{ model.actionDate ? (model.actionDate | date: 'dd/MM/yyyy') : '' }}
+            </h4>
+          } @else if (
             model.fkStatusId == limitedTimePermissionStatusEnum.Accepted ||
             model.fkStatusId == limitedTimePermissionStatusEnum.FirstAccepted
           ) {
@@ -73,9 +80,27 @@
               {{ model.actionDate ? (model.actionDate | date: 'dd/MM/yyyy') : '' }}
             </h4>
           }
+          @if (model.fkStatusId == limitedTimePermissionStatusEnum.New) {
+            <span class="text-[#6c737f] text-sm">
+              {{ 'LIMITED_TIME_PERMISSION.SUBMISSION_DATE' | translate }}</span
+            >
+
+            <h4 class="font-semibold text-[#161616]">
+              {{ model.actionDate ? (model.actionDate | date: 'dd/MM/yyyy') : '' }}
+            </h4>
+          }
           @if (model.fkStatusId == limitedTimePermissionStatusEnum.Rejected) {
             <span class="text-[#6c737f] text-sm">
               {{ 'LIMITED_TIME_PERMISSION.REJECTION_DATE' | translate }}</span
+            >
+
+            <h4 class="font-semibold text-[#161616]">
+              {{ model.actionDate ? (model.actionDate | date: 'dd/MM/yyyy') : '' }}
+            </h4>
+          }
+          @if (model.fkStatusId == limitedTimePermissionStatusEnum.Canceled) {
+            <span class="text-[#6c737f] text-sm">
+              {{ 'LIMITED_TIME_PERMISSION.CANCELLATION_DATE' | translate }}</span
             >
 
             <h4 class="font-semibold text-[#161616]">
