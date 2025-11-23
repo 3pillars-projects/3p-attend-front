@@ -3,4 +3,5 @@ export class EmployeeShiftsFilter {
   declare nameEn: string;
   declare startDate: Date | string;
   declare endDate: Date | string;
+  declare isFlexibleShift: boolean;
 }
