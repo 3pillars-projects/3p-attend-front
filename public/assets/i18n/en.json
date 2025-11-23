@@ -533,6 +533,7 @@
     "WORK_SHIFT_ASSIGNMENT": "Assign a shift to an employee",
     "SHIFT_NAME_AR": "Shift Name (Arabic)",
     "SHIFT_NAME_EN": "Shift Name (English)",
+    "SHIFT_TYPE": "Shift type",
     "SHIFT_NAME_PLACEHOLDER": "Shift Name",
     "START_DATE": "Date (From)",
     "END_DATE": "Date (To)",
@@ -544,7 +545,9 @@
     "STARTING_DATE": "Start date",
     "ENDING_DATE": "End date",
     "EMPLOYEE_NAME_AR": "Employee Name (Arabic)",
-    "EMPLOYEE_NAME_EN": "Employee Name (English)"
+    "EMPLOYEE_NAME_EN": "Employee Name (English)",
+    "FLEXIBLE": "Flexible",
+    "FIXED": "Fixed"
   },
   "PROFILE_PAGE": {
     "PROFILE": "Profile",

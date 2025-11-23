@@ -532,6 +532,7 @@
     "SHIFT_NAME_AR": "اسم الوردية (عربي)",
     "SHIFT_NAME_EN": "اسم الوردية (انجليزي)",
     "SHIFT_NAME_PLACEHOLDER": "اسم الوردية",
+    "SHIFT_TYPE": "نوع الوردية",
     "START_DATE": "التاريخ (من)",
     "END_DATE": "التاريخ (الى)",
     "DATE_RANGE_PLACEHOLDER": "التاريخ (من - الى)",
@@ -542,7 +543,9 @@
     "EMPLOYEE_NAME_AR": "اسم الموظف (عربي)",
     "STARTING_DATE": "تاريخ البداية",
     "ENDING_DATE": "تاريخ النهاية",
-    "EMPLOYEE_NAME_EN": "اسم الموظف (إنجليزي)"
+    "EMPLOYEE_NAME_EN": "اسم الموظف (إنجليزي)",
+    "FLEXIBLE": "مرنة",
+    "FIXED": "ثابتة"
   },
   "PROFILE_PAGE": {
     "PROFILE": "الملف الشخصي",
