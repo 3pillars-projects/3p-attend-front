@@ -45,7 +45,7 @@
     "DASHBOARD": "Dashboard",
     "NO_DATA_TO_SHOW": "No data to display",
     "NO_DATA_TO_EXPORT": "No data in the table",
-    "NATIONAL_ID_VALIDATION": "National ID must be 10 digits and starts with 1 or 2 or 3 or 4",
+    "NATIONAL_ID_VALIDATION": "National ID must be 14 digits",
     "POSITIVE_NUMBER_ONLY": "Only positive numbers are allowed",
     "INVALID_NUMBER": "Please enter a valid number",
     "NUMBER_RANGE": "Maximum length is 4 numbers",
