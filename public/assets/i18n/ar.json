@@ -45,7 +45,7 @@
     "DASHBOARD": "لوحة المعلومات",
     "NO_DATA_TO_SHOW": "لا توجد بيانات لعرضها",
     "NO_DATA_TO_EXPORT": "لا توجد بيانات بالجدول",
-    "NATIONAL_ID_VALIDATION": "رقم الهوية يجب أن يبدأ ب 1 أو 2 أو 3 أو 4 ويحتوي على 10 أرقام",
+    "NATIONAL_ID_VALIDATION": "رقم الهوية يجب أن يحتوي على 14 أرقام",
     "POSITIVE_NUMBER_ONLY": "يجب أن يكون الرقم إيجابي",
     "INVALID_NUMBER": "الرقم غير صحيح",
     "NUMBER_RANGE": "يجب أن يكون الحد الأقصى للحقل هو 4 ارقام",
