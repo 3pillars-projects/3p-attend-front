@@ -51,7 +51,7 @@ import { Accordion, AccordionModule } from 'primeng/accordion';
     FormsModule,
     TranslatePipe,
     AccordionModule,
-    Select
+    Select,
   ],
   templateUrl: './my-shifts.component.html',
   styleUrl: './my-shifts.component.scss',

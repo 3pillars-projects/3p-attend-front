@@ -36,6 +36,7 @@ export class LimitedTimePermissionInterceptor
     delete (model as any)['languageService'];
 
     model.limitedTimePermissionDate = toDateOnly(model.limitedTimePermissionDate); //"2025-11-16"
+    model.actionDate = model.actionDate ? toDateOnly(model.actionDate) : null;
 
     if (model.limitedTimePermissionTimeFrom) {
       const value = model.limitedTimePermissionTimeFrom as any;

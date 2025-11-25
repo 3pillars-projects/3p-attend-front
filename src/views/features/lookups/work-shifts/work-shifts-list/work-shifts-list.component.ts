@@ -32,7 +32,7 @@ import { Select } from 'primeng/select';
     PaginatorModule,
     FormsModule,
     TranslatePipe,
-    Select
+    Select,
   ],
   templateUrl: './work-shifts-list.component.html',
   styleUrl: './work-shifts-list.component.scss',
