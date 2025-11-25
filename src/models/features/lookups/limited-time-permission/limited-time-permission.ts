@@ -32,7 +32,7 @@ export class LimitedTimePermission extends BaseCrudModel<
   declare limitedTimePermissionReason?: string | null;
   declare limitedTimePermissionDuration: number;
   declare limitedTimePermissionRejectionReason?: string;
-  declare actionDate?: Date | string | null;
+  declare actionDate?: Date | string;
   declare limitedTimePermissionTimeFrom?: Date | string;
   declare isCancelRequested?: boolean;
   declare canTakeAction?: boolean;
