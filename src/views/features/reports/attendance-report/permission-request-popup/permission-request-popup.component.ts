@@ -46,8 +46,8 @@ export class PermissionRequestPopupComponent implements OnInit {
     if (this.attendance.attendancePermissionId != null) {
       permissionIds.push(this.attendance.attendancePermissionId);
     }
-    if (this.attendance.midDayPermissionId != null) {
-      permissionIds.push(this.attendance.midDayPermissionId);
+    if (this.attendance.midDayPermissionIds?.length) {
+      permissionIds.push(...this.attendance.midDayPermissionIds);
     }
     if (this.attendance.leavePermissionId != null) {
       permissionIds.push(this.attendance.leavePermissionId);
@@ -104,5 +104,13 @@ export class PermissionRequestPopupComponent implements OnInit {
     } else {
       return `${minutes} دقيقة`;
     }
+  }
+  get employeeName() {
+    const isEnglish = this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
+    return isEnglish ? this.attendance.fullNameEn : this.attendance.fullNameAr;
+  }
+  get departmentName() {
+    const isEnglish = this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
+    return isEnglish ? this.attendance.departmentNameEn : this.attendance.departmentNameAr;
   }
 }

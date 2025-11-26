@@ -215,7 +215,9 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
   getPermissionLabel(att: AttendanceReport): string {
     let count = 0;
     if (att.attendancePermissionId) count++;
-    if (att.midDayPermissionId) count++;
+    if (att.midDayPermissionIds?.length) {
+      count += att.midDayPermissionIds.length;
+    }
     if (att.leavePermissionId) count++;
 
     const isEnglish = this.isCurrentLanguageEnglish();
