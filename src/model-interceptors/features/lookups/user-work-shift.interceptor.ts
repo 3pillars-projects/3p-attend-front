@@ -11,6 +11,7 @@ export class UserWorkShiftInterceptor implements ModelInterceptorContract<UserWo
     delete model.employeeNameEn;
     delete model.shiftNameAr;
     delete model.shiftNameEn;
+    delete (model as any).isFlexibleShift;
     model.startDate = toDateOnly(model.startDate);
     if (model.endDate) model.endDate = toDateOnly(model.endDate);
     return model;

@@ -58,18 +58,18 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
     width: '100%',
     maxWidth: '800px',
   };
-  dialogSize2 = {
+  permissionRequestsdialogSize = {
     width: '100%',
     maxWidth: '1024px',
   };
 
-  openDialog2(model?: any) {
+  openPermissionRequestsDialog(model?: any) {
     let dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       model: model,
     };
-    dialogConfig.width = this.dialogSize.width;
-    dialogConfig.maxWidth = this.dialogSize.maxWidth;
+    dialogConfig.width = this.permissionRequestsdialogSize.width;
+    dialogConfig.maxWidth = this.permissionRequestsdialogSize.maxWidth;
     const dialogRef = this.matDialog.open(PermissionRequestPopupComponent as any, dialogConfig);
 
     return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
@@ -155,8 +155,7 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
   }
   formatTime(date: Date | null | undefined): string {
     if (!date) return '-';
-    const locale = this.isCurrentLanguageEnglish() ? 'en-US' : 'ar-EG';
-    return formatDateTo12Hour(date, locale);
+    return formatDateTo12Hour(date, this.translateService.currentLang as LANGUAGE_ENUM);
   }
   override exportExcel(fileName: string = 'AttendanceReports.xlsx'): void {
     const allDataParams = {
@@ -212,12 +211,18 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH;
   }
 
-  getPermissionLabel(att: AttendanceReport): string {
+  getPermissionCount(att: AttendanceReport): number {
     let count = 0;
     if (att.attendancePermissionId) count++;
-    if (att.midDayPermissionId) count++;
+    if (att.midDayPermissionIds?.length) {
+      count += att.midDayPermissionIds.length;
+    }
     if (att.leavePermissionId) count++;
+    return count;
+  }
 
+  getPermissionLabel(att: AttendanceReport): string {
+    const count = this.getPermissionCount(att);
     const isEnglish = this.isCurrentLanguageEnglish();
     const text = isEnglish ? 'permission' : 'إذن';
 

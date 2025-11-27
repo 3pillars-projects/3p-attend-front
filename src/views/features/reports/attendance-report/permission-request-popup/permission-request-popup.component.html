@@ -17,17 +17,23 @@
     <div class="bg-[#074d31] p-6 rounded-2xl mb-6">
       <div class="flex items-center gap-4 justify-between pb-4 mb-4 border-b border-[#d2d6db]">
         <div class="flex gap-1 items-center">
-          <span class="text-white text-sm">اسم الموظف:</span>
-          <h5 class="text-white text-base font-medium">محمد أحمد محمود</h5>
+          <span class="text-white text-sm"
+            >{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.EMPLOYEE_NAME' | translate }}:</span
+          >
+          <h5 class="text-white text-base font-medium">{{ employeeName }}</h5>
         </div>
         <div class="flex gap-1 items-center">
-          <span class="text-[#fae996] text-sm">معرف الموظف:</span>
-          <h5 class="text-[#fae996] text-base font-medium">1234</h5>
+          <span class="text-[#fae996] text-sm"
+            >{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.EMPLOYEE_ID' | translate }}:</span
+          >
+          <h5 class="text-[#fae996] text-base font-medium">{{ attendance.nationalId }}</h5>
         </div>
       </div>
       <div class="mt-6">
-        <span class="text-white text-sm"> الادارة</span>
-        <h5 class="text-white text-base font-medium">ادارة الموارد البشرية</h5>
+        <span class="text-white text-sm"
+          >{{ 'ATTENDANCE_REPORT_PERMISSION_POPUP.DEPARTMENT' | translate }}:</span
+        >
+        <h5 class="text-white text-base font-medium">{{ departmentName }}</h5>
       </div>
     </div>
 
