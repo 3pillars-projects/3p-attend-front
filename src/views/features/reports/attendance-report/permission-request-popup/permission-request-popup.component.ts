@@ -22,6 +22,7 @@ export class PermissionRequestPopupComponent implements OnInit {
   limitedTimePermissionService = inject(LimitedTimePermissionService);
   declare direction: LAYOUT_DIRECTION_ENUM;
   languageService = inject(LanguageService);
+  isEnglish = this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { model: AttendanceReport },
@@ -97,20 +98,16 @@ export class PermissionRequestPopupComponent implements OnInit {
   formatDuration(minutes?: number): string {
     if (!minutes && minutes !== 0) return '-';
 
-    const isEnglish = this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
-
-    if (isEnglish) {
+    if (this.isEnglish) {
       return `${minutes} Minutes`;
     } else {
       return `${minutes} دقيقة`;
     }
   }
   get employeeName() {
-    const isEnglish = this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
-    return isEnglish ? this.attendance.fullNameEn : this.attendance.fullNameAr;
+    return this.isEnglish ? this.attendance.fullNameEn : this.attendance.fullNameAr;
   }
   get departmentName() {
-    const isEnglish = this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
-    return isEnglish ? this.attendance.departmentNameEn : this.attendance.departmentNameAr;
+    return this.isEnglish ? this.attendance.departmentNameEn : this.attendance.departmentNameAr;
   }
 }
