@@ -1,6 +1,7 @@
 import { WeekDaysEnum } from '@/enums/week-days-enum';
 import { Visit } from '@/models/features/visit/visit';
 import { FormArray, FormGroup } from '@angular/forms';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
 
 // used in base-crud service for date filtering
 export const genericDateOnlyConvertor = function (model: any) {
@@ -134,8 +135,9 @@ export function changeTimeSuffix<T>(
 }
 
 // Format Date object to 12-hour format (No time zone conversion)
-export function formatDateTo12Hour(date: Date, locale: 'en-US' | 'ar-EG' = 'en-US'): string {
+export function formatDateTo12Hour(date: Date, lang: LANGUAGE_ENUM): string {
   if (!date) return '';
+  const locale = lang == LANGUAGE_ENUM.ENGLISH ? 'en-US' : 'ar-EG';
 
   // Always use 'en-US' to ensure numbers are Latin digits
   const formatted = date.toLocaleTimeString('en-US', {

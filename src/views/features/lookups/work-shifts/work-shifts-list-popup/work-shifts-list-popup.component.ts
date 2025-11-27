@@ -29,6 +29,7 @@ import { dateToTimeString, formatDateTo12Hour, toDateOnly } from '@/utils/genera
 import { ConfirmationService } from '@/services/shared/confirmation.service';
 import { CONFIRMATION_DIALOG_ICONS_ENUM } from '@/enums/confirmation-dialog-icons-enum';
 import { ConfigService } from '@/services/config.service';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
 
 @Component({
   selector: 'app-work-shifts-list-popup',
@@ -523,12 +524,12 @@ export class WorkShiftsListPopupComponent extends BasePopupComponent<Shift> impl
     if (nonShiftMinutes > this.dayBoundaryMinutes * 2) {
       boundaryTime.setMinutes(from.getMinutes() - this.dayBoundaryMinutes);
       this.boundaryTimeControl.setValue(boundaryTime);
-      return formatDateTo12Hour(boundaryTime);
+      return formatDateTo12Hour(boundaryTime, this.translateService.currentLang as LANGUAGE_ENUM);
     }
 
     boundaryTime.setMinutes(from.getMinutes() - beforeFrom - Math.floor(nonShiftMinutes / 2));
 
     this.boundaryTimeControl.setValue(boundaryTime);
-    return formatDateTo12Hour(boundaryTime);
+    return formatDateTo12Hour(boundaryTime, this.translateService.currentLang as LANGUAGE_ENUM);
   }
 }

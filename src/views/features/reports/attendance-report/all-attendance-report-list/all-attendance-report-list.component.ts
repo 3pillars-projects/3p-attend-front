@@ -159,8 +159,7 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
   }
   formatTime(date: Date | null | undefined): string {
     if (!date) return '-';
-    const locale = this.isCurrentLanguageEnglish() ? 'en-US' : 'ar-EG';
-    return formatDateTo12Hour(date, locale);
+    return formatDateTo12Hour(date, this.translateService.currentLang as LANGUAGE_ENUM);
   }
   override exportExcel(fileName: string = 'AttendanceReports.xlsx'): void {
     const allDataParams = {
