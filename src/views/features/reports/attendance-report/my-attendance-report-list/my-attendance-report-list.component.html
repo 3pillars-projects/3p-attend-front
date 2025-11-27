@@ -141,8 +141,9 @@
             <td>{{ attendance.getMissionName() }}</td>
             <td>
               <button
-                (click)="openDialog2(attendance)"
-                class="text-[16px] font-medium text-[#1849a9] min-w-[67px] min-h-[24px] inline-flex justify-center items-center px-3 gap-1 rounded-full border border-[#b2ddff] bg-[#eff8ff] font-semibold"
+                [disabled]="getPermissionCount(attendance) === 0"
+                (click)="openPermissionRequestsDialog(attendance)"
+                class="disabled:cursor-not-allowed! disabled:opacity-70 text-[16px] font-medium text-[#1849a9] min-w-[67px] min-h-[24px] inline-flex justify-center items-center px-3 gap-1 rounded-full border border-[#b2ddff] bg-[#eff8ff] font-semibold"
               >
                 {{ getPermissionLabel(attendance) }}
                 <svg

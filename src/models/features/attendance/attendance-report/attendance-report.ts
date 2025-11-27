@@ -62,7 +62,7 @@ export default class AttendanceReport extends BaseCrudModel<
   declare lastLeaveFingerPrint?: Date | string | null;
 
   declare attendancePermissionId?: number | null;
-  declare midDayPermissionId?: number | null;
+  declare midDayPermissionIds?: number[] | null;
   declare leavePermissionId?: number | null;
 
   declare attendanceStatus: number;
