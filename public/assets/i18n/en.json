@@ -66,7 +66,7 @@
     "CANNOT_BE_DELETE": "The record can't be deleted, because it is related to another data",
     "EXISTING_RECORD_ERROR": "This record already exists",
     "DUPLICATE_RECORD": "This Location already related to another data",
-    "AUTH_INVALID_CREDENTIALS": "National id or password is incorrect",
+    "AUTH_INVALID_CREDENTIALS": "Email or password is incorrect",
     "AUTH_USER_NOT_ACTIVE": "User is not active",
     "AUTH_INVALID_OTP": "Invalid OTP code",
     "AUTH_OTP_EXPIRED": "OTP session has expired",
@@ -159,7 +159,8 @@
     "NATIONAL_ID_LBL": "National ID",
     "USERNAME_LBL": "Username",
     "PASSWORD_LBL": "Password",
-    "LOGIN_BTN": "Login"
+    "LOGIN_BTN": "Login",
+    "EMAIL": "Email Address"
   },
   "NATIONALITIES_PAGE": {
     "NATIONALITIES_LIST": "Nationalities List",
