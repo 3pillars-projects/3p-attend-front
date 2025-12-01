@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { LAYOUT_DIRECTION_ENUM } from '@/enums/layout-direction-enum';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { formatTimeTo12Hour } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-permission-request-popup',
@@ -80,23 +81,35 @@ export class PermissionRequestPopupComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // Helper method to format time from Date/string
-  formatTime(dateTime?: Date | string): string {
-    if (!dateTime) return '-';
-    const date = typeof dateTime === 'string' ? new Date(dateTime) : dateTime;
-    return date.toLocaleTimeString(this.isEnglish ? 'en-US' : 'ar-EG', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true,
-    });
+  // Updated to use formatTimeTo12Hour from general-helper
+  formatTime(timeString?: string): string {
+    if (!timeString) return '-';
+
+    // Determine the locale string expected by the helper ('en-US' or 'ar-EG')
+    const locale = this.isEnglish ? 'en-US' : 'ar-EG';
+
+    // Use the imported helper function
+    return formatTimeTo12Hour(timeString, locale);
   }
 
-  // Helper method to calculate end time based on start time and duration
-  calculateEndTime(startTime?: Date | string, durationMinutes?: number): string {
+  // Updated to calculate time and then use formatTime (which uses the helper)
+  calculateEndTime(startTime?: string, durationMinutes?: number): string {
     if (!startTime || !durationMinutes) return '-';
-    const date = typeof startTime === 'string' ? new Date(startTime) : new Date(startTime);
+
+    // Parse the start time string (Expected format HH:mm:ss or HH:mm)
+    const [hours, minutes] = startTime.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+
+    // Add duration minutes
     date.setMinutes(date.getMinutes() + durationMinutes);
-    return this.formatTime(date);
+
+    // Convert back to time string (HH:mm) to pass to the helper
+    const newHours = date.getHours().toString().padStart(2, '0');
+    const newMinutes = date.getMinutes().toString().padStart(2, '0');
+    const calculatedTimeString = `${newHours}:${newMinutes}`;
+
+    return this.formatTime(calculatedTimeString);
   }
 
   formatDuration(minutes?: number): string {
