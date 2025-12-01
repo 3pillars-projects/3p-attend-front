@@ -84,7 +84,11 @@ export class PermissionRequestPopupComponent implements OnInit {
   formatTime(dateTime?: Date | string): string {
     if (!dateTime) return '-';
     const date = typeof dateTime === 'string' ? new Date(dateTime) : dateTime;
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    return date.toLocaleTimeString(this.isEnglish ? 'en-US' : 'ar-EG', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
   }
 
   // Helper method to calculate end time based on start time and duration
