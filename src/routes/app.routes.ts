@@ -96,36 +96,36 @@ export const routes: Routes = [
           import('@/views/features/employee/employee-list/employee-list.component'),
         data: { roles: [ROLES_ENUM.HR_OFFICER, ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.EMPLOYEES },
       },
-      {
-        path: 'blacklist',
-        canActivate: [authGuard],
-        resolve: { list: blacklistResolver },
-        data: {
-          roles: [ROLES_ENUM.SECURITY_LEADER], // all roles can view the page
-          routeId: RouteIdsEnum.BLACKLIST,
-        },
-        loadComponent: () =>
-          import(
-            '@/views/features/visit/blacklist/blacklisted-container/blacklisted-container.component'
-          ),
-      },
-      {
-        path: 'visit-request',
-        canActivate: [authGuard],
-        resolve: { list: visitResolver },
-        data: {
-          roles: [
-            ROLES_ENUM.SECURITY_LEADER,
-            ROLES_ENUM.DEPARTMENT_MANAGER,
-            ROLES_ENUM.SECURITY_MEMBER,
-          ], // all roles can view the page
-          routeId: RouteIdsEnum.VISIT_REQUEST,
-        },
-        loadComponent: () =>
-          import(
-            '@/views/features/visit/visit-request/visit-request-container/visit-request-container.component'
-          ),
-      },
+      // {
+      //   path: 'blacklist',
+      //   canActivate: [authGuard],
+      //   resolve: { list: blacklistResolver },
+      //   data: {
+      //     roles: [ROLES_ENUM.SECURITY_LEADER], // all roles can view the page
+      //     routeId: RouteIdsEnum.BLACKLIST,
+      //   },
+      //   loadComponent: () =>
+      //     import(
+      //       '@/views/features/visit/blacklist/blacklisted-container/blacklisted-container.component'
+      //     ),
+      // },
+      // {
+      //   path: 'visit-request',
+      //   canActivate: [authGuard],
+      //   resolve: { list: visitResolver },
+      //   data: {
+      //     roles: [
+      //       ROLES_ENUM.SECURITY_LEADER,
+      //       ROLES_ENUM.DEPARTMENT_MANAGER,
+      //       ROLES_ENUM.SECURITY_MEMBER,
+      //     ], // all roles can view the page
+      //     routeId: RouteIdsEnum.VISIT_REQUEST,
+      //   },
+      //   loadComponent: () =>
+      //     import(
+      //       '@/views/features/visit/visit-request/visit-request-container/visit-request-container.component'
+      //     ),
+      // },
       {
         path: 'attendance-logs',
         canActivate: [authGuard],
@@ -197,22 +197,22 @@ export const routes: Routes = [
         loadComponent: () =>
           import('@/views/features/settings/notification-settings/notification-settings.component'),
       },
-      {
-        path: 'devices-configuration',
-        canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.DEVICES_CONFIGURATION },
-        resolve: { list: devicesConfigurationResolver },
-        loadComponent: () =>
-          import('@/views/features/settings/devices-configuration/devices-configuration.component'),
-      },
-      {
-        path: 'devices-location',
-        canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.ACCESS_LOCATIONS },
-        resolve: { list: accessLocationResolver },
-        loadComponent: () =>
-          import('@/views/features/settings/devices-location/devices-location.component'),
-      },
+      // {
+      //   path: 'devices-configuration',
+      //   canActivate: [authGuard],
+      //   data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.DEVICES_CONFIGURATION },
+      //   resolve: { list: devicesConfigurationResolver },
+      //   loadComponent: () =>
+      //     import('@/views/features/settings/devices-configuration/devices-configuration.component'),
+      // },
+      // {
+      //   path: 'devices-location',
+      //   canActivate: [authGuard],
+      //   data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.ACCESS_LOCATIONS },
+      //   resolve: { list: accessLocationResolver },
+      //   loadComponent: () =>
+      //     import('@/views/features/settings/devices-location/devices-location.component'),
+      // },
       {
         path: 'holidays',
         canActivate: [authGuard],
@@ -288,15 +288,15 @@ export const routes: Routes = [
         loadComponent: () =>
           import('@/views/features/lookups/notifiactions/notifiactions.component'),
       },
-      {
-        path: 'presence-inquiries',
-        data: { routeId: RouteIdsEnum.PRESENCE_INQUIRIES },
-        resolve: { list: presenceInquiryResolver },
-        loadComponent: () =>
-          import(
-            '@/views/features/presence-inquiries/presence-inquiries-list/presence-inquiries-list.component'
-          ),
-      },
+      // {
+      //   path: 'presence-inquiries',
+      //   data: { routeId: RouteIdsEnum.PRESENCE_INQUIRIES },
+      //   resolve: { list: presenceInquiryResolver },
+      //   loadComponent: () =>
+      //     import(
+      //       '@/views/features/presence-inquiries/presence-inquiries-list/presence-inquiries-list.component'
+      //     ),
+      // },
       {
         path: 'tasks-list',
         loadComponent: () => import('@/views/features/tasks/tasks-list/tasks-list.component'),

@@ -172,16 +172,16 @@ export class SideBarLinksService {
           routerLink: ['/regions'],
           routeId: RouteIdsEnum.REGIONS,
         },
-        {
-          labelKey: 'MENU.ACCESS_LOCATIONS',
-          routerLink: ['/devices-location'],
-          routeId: RouteIdsEnum.ACCESS_LOCATIONS,
-        },
-        {
-          labelKey: 'MENU.DEVICES_CONFIGURATION',
-          routerLink: ['/devices-configuration'],
-          routeId: RouteIdsEnum.DEVICES_CONFIGURATION,
-        },
+        // {
+        //   labelKey: 'MENU.ACCESS_LOCATIONS',
+        //   routerLink: ['/devices-location'],
+        //   routeId: RouteIdsEnum.ACCESS_LOCATIONS,
+        // },
+        // {
+        //   labelKey: 'MENU.DEVICES_CONFIGURATION',
+        //   routerLink: ['/devices-configuration'],
+        //   routeId: RouteIdsEnum.DEVICES_CONFIGURATION,
+        // },
       ],
     },
   ];
