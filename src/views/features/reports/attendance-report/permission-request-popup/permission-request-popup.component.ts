@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { LAYOUT_DIRECTION_ENUM } from '@/enums/layout-direction-enum';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { formatDateTo12Hour, formatTimeTo12Hour } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-permission-request-popup',
@@ -80,14 +81,21 @@ export class PermissionRequestPopupComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // Helper method to format time from Date/string
-  formatTime(dateTime?: Date | string): string {
-    if (!dateTime) return '-';
-    const date = typeof dateTime === 'string' ? new Date(dateTime) : dateTime;
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+  // Updated to use formatTimeTo12Hour from general-helper
+  formatTime(timeString?: Date): string {
+    if (!timeString) return '-';
+
+    // Determine the locale string expected by the helper ('en-US' or 'ar-EG')
+    // const locale = this.isEnglish ? 'en-US' : 'ar-EG';
+
+    // Use the imported helper function
+    return formatDateTo12Hour(
+      timeString,
+      this.languageService.getCurrentLanguage() as LANGUAGE_ENUM
+    );
   }
 
-  // Helper method to calculate end time based on start time and duration
+  // Updated to calculate time and then use formatTime (which uses the helper)
   calculateEndTime(startTime?: Date | string, durationMinutes?: number): string {
     if (!startTime || !durationMinutes) return '-';
     const date = typeof startTime === 'string' ? new Date(startTime) : new Date(startTime);
