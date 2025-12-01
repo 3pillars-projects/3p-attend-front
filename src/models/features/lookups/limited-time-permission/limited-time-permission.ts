@@ -1,6 +1,4 @@
 import { BaseCrudModel } from '@/abstracts/base-crud-model';
-import { PermissionInterceptor } from '@/model-interceptors/features/lookups/permission.interceptor';
-import { PermissionService } from '@/services/features/lookups/permission.service';
 import { CustomValidators } from '@/validators/custom-validators';
 import { Validators } from '@angular/forms';
 import { InterceptModel } from 'cast-response';
