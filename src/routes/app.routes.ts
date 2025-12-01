@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { authGuard } from '@/guards/auth-guard';
 import { ROLES_ENUM } from '@/enums/roles-enum';
 import { nationalitiesResolver } from '@/resolvers/lookups/nationalities.resolver';
-import { permissionReasonResolver } from '@/resolvers/lookups/permission-reason.resolver';
 import { cityResolver } from '@/resolvers/lookups/city.resolver';
 import { userResolver } from '@/resolvers/user.resolver';
 import { regionResolver } from '@/resolvers/lookups/region.resolver';
@@ -10,7 +9,6 @@ import { notificationSettingResolver } from '@/resolvers/setting/notification-se
 import { RouteIdsEnum } from '@/enums/route-ids-enum';
 import { departmentResolver } from '@/resolvers/lookups/department.resolver';
 import { holidayResolver } from '@/resolvers/lookups/holiday.resolver';
-import { permissionResolver } from '@/resolvers/lookups/permission.resolver';
 import { workShiftResolver } from '@/resolvers/lookups/work-shift.resolver';
 import { attendanceResolver } from '@/resolvers/features/attendance-log.resolver';
 import { loginResolver } from '@/resolvers/login.resolver';
@@ -192,16 +190,6 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'permission-reasons',
-        canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.PERMISSION_REASONS },
-        resolve: { list: permissionReasonResolver },
-        loadComponent: () =>
-          import(
-            '@/views/features/lookups/permission/permission-reason-list/permission-reason-list.component'
-          ),
-      },
-      {
         path: 'general-settings',
         canActivate: [authGuard],
         data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.GENERAL_SETTINGS },
@@ -224,14 +212,6 @@ export const routes: Routes = [
         resolve: { list: accessLocationResolver },
         loadComponent: () =>
           import('@/views/features/settings/devices-location/devices-location.component'),
-      },
-      {
-        path: 'permissions',
-        canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.PERMISSIONS },
-        resolve: { list: permissionResolver },
-        loadComponent: () =>
-          import('@/views/features/permissions/permissions-list/permissions-list.component'),
       },
       {
         path: 'holidays',

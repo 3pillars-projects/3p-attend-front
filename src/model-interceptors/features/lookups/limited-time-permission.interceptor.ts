@@ -1,13 +1,5 @@
 import { LimitedTimePermission } from '@/models/features/lookups/limited-time-permission/limited-time-permission';
-import { Permission } from '@/models/features/lookups/permission/permission';
-import {
-  toDateTime,
-  toDateOnly,
-  timeStringToDate,
-  convertKsaToUtc,
-  dateToTimeString,
-  convertUtcToSystemTimeZone,
-} from '@/utils/general-helper';
+import { toDateTime, toDateOnly, timeStringToDate, dateToTimeString } from '@/utils/general-helper';
 import { ModelInterceptorContract } from 'cast-response';
 
 export class LimitedTimePermissionInterceptor
