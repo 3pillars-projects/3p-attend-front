@@ -53,11 +53,11 @@ export class AuthService extends BaseCrudService<LoggedInUser, string> {
     return this.urlService.URLS.AUTH;
   }
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     return this.http.post<SingleResponseData<LoggedInUser>>(
       this.getUrlSegment() + '/login',
       {
-        username: username,
+        email: email,
         password: password,
       },
       { withCredentials: true }
