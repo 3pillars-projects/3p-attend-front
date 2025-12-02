@@ -50,7 +50,7 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   }
 
   acceptPermission() {
-    this.service.acceptPermission(this.model.id).subscribe(updatedPermission => {
+    this.service.acceptPermission(this.model.id).subscribe((updatedPermission) => {
       this.model = updatedPermission; // optionally update local model
       const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_HAS_BEEN_ACCEPTED'] };
       this.alertService.showSuccessMessage(successObject);
@@ -59,7 +59,7 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   }
 
   rejectPermission() {
-    this.service.rejectPermission(this.model.id).subscribe(updatedPermission => {
+    this.service.rejectPermission(this.model.id).subscribe((updatedPermission) => {
       this.model = updatedPermission; // optionally update local model
       const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_HAS_REJECTED'] };
       this.alertService.showSuccessMessage(successObject);
@@ -68,27 +68,33 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   }
 
   requestCancel() {
-    this.service.requestCancel(this.model.id).subscribe(updatedPermission => {
+    this.service.requestCancel(this.model.id).subscribe((updatedPermission) => {
       this.model = updatedPermission; // optionally update local model
-      const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED'] };
+      const successObject = {
+        messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED'],
+      };
       this.alertService.showSuccessMessage(successObject);
       this.dialogRef.close(DIALOG_ENUM.OK);
-    })
+    });
   }
 
   approveCancel() {
-    this.service.approveCancel(this.model.id).subscribe(updatedPermission => {
+    this.service.approveCancel(this.model.id).subscribe((updatedPermission) => {
       this.model = updatedPermission; // optionally update local model
-      const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED'] };
+      const successObject = {
+        messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED'],
+      };
       this.alertService.showSuccessMessage(successObject);
       this.dialogRef.close(DIALOG_ENUM.OK);
     });
   }
 
   rejectCancel() {
-    this.service.rejectCancel(this.model.id).subscribe(updatedPermission => {
+    this.service.rejectCancel(this.model.id).subscribe((updatedPermission) => {
       this.model = updatedPermission; // optionally update local model
-      const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REJECTED'] };
+      const successObject = {
+        messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REJECTED'],
+      };
       this.alertService.showSuccessMessage(successObject);
       this.dialogRef.close(DIALOG_ENUM.OK);
     });
