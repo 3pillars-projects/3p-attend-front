@@ -592,6 +592,7 @@
     "SHIFT_TYPE": "نوع الوردية",
     "FLEXIBLE": "مرنة",
     "FIXED": "ثابتة",
+    "BOUNARY_TIME": "وقت بداية اليوم",
     "OFFICIAL_WORKING_TIME_FROM_TO": "فترة العمل الرسمية (من - إلى)",
     "SHIFT_DETAILS": "التفاصيل",
     "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "مدة السماح قبل الحضور (دق)",

@@ -594,6 +594,7 @@
     "SHIFT_TYPE": "Shift type",
     "FLEXIBLE": "Flexible",
     "FIXED": "Fixed",
+    "BOUNARY_TIME": "Boundary time",
     "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
     "SHIFT_DETAILS": "Details",
     "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "Allowed minutes before attendance",

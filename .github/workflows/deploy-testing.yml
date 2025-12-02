@@ -31,7 +31,7 @@ jobs:
           server: ${{ secrets.ATTEND_FRONT_SERVER_IP }}
           username: ${{ secrets.ATTEND_FRONT_SERVER_USERNAME }}
           password: ${{ secrets.ATTEND_FRONT_SERVER_PASSWORD }}
-          server-dir: /wwwroot/
+          server-dir: /
           local-dir: ./dist/browser/
           protocol: ftp
           port: 21

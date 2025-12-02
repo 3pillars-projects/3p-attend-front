@@ -19,6 +19,12 @@
             {{ (model.isFlexibleShift ? 'MY_SHIFTS.FLEXIBLE' : 'MY_SHIFTS.FIXED') | translate }}
           </h5>
         </div>
+        <div>
+          <p class="text-[#6c737f] text-sm">{{ 'MY_SHIFTS.BOUNARY_TIME' | translate }}</p>
+          <h5 class="text-[#161616] text-base font-medium">
+            {{ formatTime(model.boundaryTime) }}
+          </h5>
+        </div>
       </div>
       <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
         {{ 'MY_SHIFTS.ATTENDANCE' | translate }}
