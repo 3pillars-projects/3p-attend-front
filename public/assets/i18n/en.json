@@ -931,6 +931,11 @@
     "UPDATE_PERMISSION_REQUEST": "Update Permission Request",
     "SUBMISSION_DATE": "Submission Date",
     "CANCELLATION_REQUEST_DATE": "Cancellation request date",
-    "CANCELLATION_DATE": "Cancellation date"
+    "CANCELLATION_DATE": "Cancellation date",
+    "PERMISSION_HAS_BEEN_ACCEPTED": "Permission Has Been Accepted",
+    "PERMISSION_HAS_REJECTED": "Permission Has Been Rejected",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "Permission Cancellation Has Been Requested",
+    "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "Permission Cancellation Has Been Accepted",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "Permission Cancellation Has Been Rejected"
   }
 }
