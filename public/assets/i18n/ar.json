@@ -135,6 +135,9 @@
     "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "لقد تجاوزت الحد المسموح به لعدد الاستئذانات و المدة المسموح بها للاستئذان",
     "EXCEEDED_NUMBER_Of_PERMISSIONS": "لقد تجاوزت الحد المسموح به لعدد الاستئذانات",
     "EXCEEDED_PERMISSIONS_DURATION": "لقد تجاوزت الحد المسموح به للمدة المسموح بها للاستئذان",
+    "EMPLOYEE_EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "لقد تجاوز الموظف الحد المسموح به لعدد الاستئذانات و المدة المسموح بها للاستئذان",
+    "EMPLOYEE_EXCEEDED_NUMBER_Of_PERMISSIONS": "لقد تجاوز الموظف الحد المسموح به لعدد الاستئذانات",
+    "EMPLOYEE_EXCEEDED_PERMISSIONS_DURATION": "لقد تجاوز الموظف الحد المسموح به للمدة المسموح بها للاستئذان",
     "PERMISSION_BOUNDARIES_VIOLATION": "الإذن يقع خارج نطاق فترة الدوام المسموحة.",
     "SHIFT_BEGINNING_PERMISSION_BOUNDARIES_VIOLATION": "لقد قمت بإنشاء إذن بداية الدوام لهذا اليوم بالفعل.",
     "SHIFT_ENDING_PERMISSION_BOUNDARIES_VIOLATION": "لقد قمت بإنشاء إذن نهاية الدوام لهذا اليوم بالفعل.",
@@ -407,7 +410,7 @@
     "ALLOWED_MINUTES_BEFORE_LEAVE": "مدة السماح قبل الانصراف (دق)",
     "ALLOWED_MINUTES_AFTER_LEAVE": "مدة السماح بعد الانصراف (دق)",
     "READ_ONLY_SHIFT_DETAILS": "بيانات الوردية (للعرض فقط)",
-    "DAY_BOUNDARY": "وقت بداية اليوم",
+    "DAY_BOUNDARY": "حد بداية اليوم",
     "SHIFT_DURATION": "مدة الوردية",
     "SHIFT_DURATION_INCLUDING_GRACE_PERIODS": "عدد ساعات العمل شاملة فترات السماح"
   },
@@ -592,7 +595,7 @@
     "SHIFT_TYPE": "نوع الوردية",
     "FLEXIBLE": "مرنة",
     "FIXED": "ثابتة",
-    "BOUNARY_TIME": "وقت بداية اليوم",
+    "BOUNDARY_TIME": "حد بداية اليوم",
     "OFFICIAL_WORKING_TIME_FROM_TO": "فترة العمل الرسمية (من - إلى)",
     "SHIFT_DETAILS": "التفاصيل",
     "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "مدة السماح قبل الحضور (دق)",
@@ -929,6 +932,11 @@
     "UPDATE_PERMISSION_REQUEST": "تعديل طلب الاستئذان",
     "SUBMISSION_DATE": "تاريخ تقديم الطلب",
     "CANCELLATION_REQUEST_DATE": "تاريخ تقديم طلب الإلغاء",
-    "CANCELLATION_DATE": "تاريخ الإلغاء"
+    "CANCELLATION_DATE": "تاريخ الإلغاء",
+    "PERMISSION_HAS_BEEN_ACCEPTED": "تم قبول الإذن",
+    "PERMISSION_HAS_REJECTED": "تم رفض الإذن",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "تم تقديم طلب الإلغاء",
+    "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "تم قبول طلب الإلغاء",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "تم رفض طلب الإلغاء"
   }
 }
