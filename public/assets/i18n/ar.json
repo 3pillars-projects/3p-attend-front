@@ -932,6 +932,11 @@
     "UPDATE_PERMISSION_REQUEST": "تعديل طلب الاستئذان",
     "SUBMISSION_DATE": "تاريخ تقديم الطلب",
     "CANCELLATION_REQUEST_DATE": "تاريخ تقديم طلب الإلغاء",
-    "CANCELLATION_DATE": "تاريخ الإلغاء"
+    "CANCELLATION_DATE": "تاريخ الإلغاء",
+    "PERMISSION_HAS_BEEN_ACCEPTED": "تم قبول الإذن",
+    "PERMISSION_HAS_REJECTED": "تم رفض الإذن",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "تم تقديم طلب الإلغاء",
+    "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "تم قبول طلب الإلغاء",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "تم رفض طلب الإلغاء"
   }
 }
