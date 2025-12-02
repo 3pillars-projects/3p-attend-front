@@ -1,14 +1,14 @@
 {
   "ENVIRONMENTS_URLS": {
     "DEV": "https://localhost:7107/api",
-    "TESTING": "http://attendance-testing.dev3pillars.org/api",
+    "TESTING": "https://attendance-testing-api.dev3pillars.org/api",
     "PRE_PRODUCTION": "http://localhost:7107/api",
     "PRE_PRODUCTION_IMAGE": "http://localhost:7107/api",
     "PRODUCTION": ""
   },
   "API_VERSION": "",
   "DEPLOY_VERSION": "2.0.0",
-  "BASE_ENVIRONMENT": "DEV",
+  "BASE_ENVIRONMENT": "TESTING",
   "MIN_BEFORE_BUFFER": 10,
   "MIN_AFTER_BUFFER": 10,
   "MAX_BEFORE_BUFFER": 180,
