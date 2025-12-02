@@ -4,7 +4,7 @@
     "TESTING": "https://attendance-testing-api.dev3pillars.org/api",
     "PRE_PRODUCTION": "http://localhost:7107/api",
     "PRE_PRODUCTION_IMAGE": "http://localhost:7107/api",
-    "PRODUCTION": ""
+    "PRODUCTION": "https://attendance-api.dev3pillars.org/api"
   },
   "API_VERSION": "",
   "DEPLOY_VERSION": "2.0.0",
