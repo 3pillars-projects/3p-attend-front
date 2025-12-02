@@ -409,7 +409,7 @@
     "ALLOWED_MINUTES_BEFORE_LEAVE": "Allowed minutes before leave",
     "ALLOWED_MINUTES_AFTER_LEAVE": "Allowed minutes after leave",
     "READ_ONLY_SHIFT_DETAILS": "Shift details (read only)",
-    "DAY_BOUNDARY": "Day boundary time",
+    "DAY_BOUNDARY": "Day Start Boundary",
     "SHIFT_DURATION": "Shift duration",
     "SHIFT_DURATION_INCLUDING_GRACE_PERIODS": "Shift duration including grace periods"
   },
@@ -594,7 +594,7 @@
     "SHIFT_TYPE": "Shift type",
     "FLEXIBLE": "Flexible",
     "FIXED": "Fixed",
-    "BOUNARY_TIME": "Boundary time",
+    "BOUNDARY_TIME": "Day Start Boundary",
     "OFFICIAL_WORKING_TIME_FROM_TO": "Official working hours (from - to)",
     "SHIFT_DETAILS": "Details",
     "ALLOWED_MINUTES_BEFORE_ATTENDANCE": "Allowed minutes before attendance",
