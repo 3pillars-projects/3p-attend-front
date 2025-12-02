@@ -24,8 +24,8 @@
       </div>
     </div>
     <ul class="menu-list px-4 m-0 list-none">
-      <li *ngFor="let item of menuItems">
-        <div (click)="toggleSubmenu(item)" class="menu-item flex items-center gap-3 cursor-pointer">
+      <li [routerLink]="item.routerLink" *ngFor="let item of menuItems">
+        <div routerLinkActive="active" (click)="toggleSubmenu(item)" class="menu-item flex items-center gap-3 cursor-pointer">
           <img
             *ngIf="item.iconUrl"
             [src]="item.iconUrl"
@@ -35,7 +35,6 @@
           <a
             [title]="item.label"
             *ngIf="!item.children"
-            [routerLink]="item.routerLink"
             class="flex-1 truncate block"
             >{{ item.label }}</a
           >
@@ -76,11 +75,10 @@
 
         <ul *ngIf="item.children && isSubmenuOpen(item)" class="submenu list-none pl-6">
           @for (child of item.children; track child.label) {
-            <li class="p-2 cursor-pointer flex items-center gap-3 sub-links">
+            <li routerLinkActive="active" [routerLink]="child.routerLink" class="p-2 cursor-pointer flex items-center gap-3 sub-links">
               <!-- <img *ngIf="child.iconUrl" [src]="child.iconUrl" alt="{{child.label}} icon" class="w-4 h-4" /> -->
               <a
                 [title]="child.label"
-                [routerLink]="child.routerLink"
                 class="flex-1 truncate block"
                 >{{ child.label }}</a
               >

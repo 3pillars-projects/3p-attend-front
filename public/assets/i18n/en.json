@@ -135,6 +135,9 @@
     "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "You have exceeded both the allowed number of permissions and the total allowed duration.",
     "EXCEEDED_NUMBER_Of_PERMISSIONS": "You have exceeded the allowed number of permissions.",
     "EXCEEDED_PERMISSIONS_DURATION": "You have exceeded the allowed permissions duration.",
+    "EMPLOYEE_EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "Employee has exceeded both the allowed number of permissions and the total allowed duration.",
+    "EMPLOYEE_EXCEEDED_NUMBER_Of_PERMISSIONS": "Employee has exceeded the allowed number of permissions.",
+    "EMPLOYEE_EXCEEDED_PERMISSIONS_DURATION": "Employee has exceeded the allowed permissions duration.",
     "PERMISSION_BOUNDARIES_VIOLATION": "Permission lies outside the allowed full shift window.",
     "SHIFT_BEGINNING_PERMISSION_BOUNDARIES_VIOLATION": "You already created a Shift Beginning permission for this day.",
     "SHIFT_ENDING_PERMISSION_BOUNDARIES_VIOLATION": "You already created a Shift Ending permission for this day.",
@@ -931,6 +934,11 @@
     "UPDATE_PERMISSION_REQUEST": "Update Permission Request",
     "SUBMISSION_DATE": "Submission Date",
     "CANCELLATION_REQUEST_DATE": "Cancellation request date",
-    "CANCELLATION_DATE": "Cancellation date"
+    "CANCELLATION_DATE": "Cancellation date",
+    "PERMISSION_HAS_BEEN_ACCEPTED": "Permission Has Been Accepted",
+    "PERMISSION_HAS_REJECTED": "Permission Has Been Rejected",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "Permission Cancellation Has Been Requested",
+    "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "Permission Cancellation Has Been Accepted",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "Permission Cancellation Has Been Rejected"
   }
 }

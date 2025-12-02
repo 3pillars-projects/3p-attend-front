@@ -135,6 +135,9 @@
     "EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "لقد تجاوزت الحد المسموح به لعدد الاستئذانات و المدة المسموح بها للاستئذان",
     "EXCEEDED_NUMBER_Of_PERMISSIONS": "لقد تجاوزت الحد المسموح به لعدد الاستئذانات",
     "EXCEEDED_PERMISSIONS_DURATION": "لقد تجاوزت الحد المسموح به للمدة المسموح بها للاستئذان",
+    "EMPLOYEE_EXCEEDED_NUMBER_Of_PERMISSIONS_AND_DURATION": "لقد تجاوز الموظف الحد المسموح به لعدد الاستئذانات و المدة المسموح بها للاستئذان",
+    "EMPLOYEE_EXCEEDED_NUMBER_Of_PERMISSIONS": "لقد تجاوز الموظف الحد المسموح به لعدد الاستئذانات",
+    "EMPLOYEE_EXCEEDED_PERMISSIONS_DURATION": "لقد تجاوز الموظف الحد المسموح به للمدة المسموح بها للاستئذان",
     "PERMISSION_BOUNDARIES_VIOLATION": "الإذن يقع خارج نطاق فترة الدوام المسموحة.",
     "SHIFT_BEGINNING_PERMISSION_BOUNDARIES_VIOLATION": "لقد قمت بإنشاء إذن بداية الدوام لهذا اليوم بالفعل.",
     "SHIFT_ENDING_PERMISSION_BOUNDARIES_VIOLATION": "لقد قمت بإنشاء إذن نهاية الدوام لهذا اليوم بالفعل.",
@@ -929,6 +932,11 @@
     "UPDATE_PERMISSION_REQUEST": "تعديل طلب الاستئذان",
     "SUBMISSION_DATE": "تاريخ تقديم الطلب",
     "CANCELLATION_REQUEST_DATE": "تاريخ تقديم طلب الإلغاء",
-    "CANCELLATION_DATE": "تاريخ الإلغاء"
+    "CANCELLATION_DATE": "تاريخ الإلغاء",
+    "PERMISSION_HAS_BEEN_ACCEPTED": "تم قبول الإذن",
+    "PERMISSION_HAS_REJECTED": "تم رفض الإذن",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "تم تقديم طلب الإلغاء",
+    "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "تم قبول طلب الإلغاء",
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "تم رفض طلب الإلغاء"
   }
 }
