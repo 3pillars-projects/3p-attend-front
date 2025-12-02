@@ -326,6 +326,12 @@ export default class MyShiftsComponent extends BaseListComponent<
     return options;
   }
 
+  formatTime(timestamp?: string) {
+    if (!timestamp) return '-';
+    const locale = this.isCurrentLanguageEnglish() ? 'en-US' : 'ar-EG';
+    return formatTimeTo12Hour(timestamp, locale);
+  }
+
   // Additional utility methods
   getTotalRecords(): number {
     return this.paginationInfo?.totalItems || 0;

@@ -6,8 +6,9 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { WeekDaysEnum } from '@/enums/week-days-enum';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import EmployeeShift from '@/models/features/lookups/work-shifts/employee-shift';
-import { weekDays } from '@/utils/general-helper';
+import { formatTimeTo12Hour, weekDays } from '@/utils/general-helper';
 import { WorkDaysSetting } from '@/models/features/setting/work-days-setting';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
 
 @Component({
   selector: 'app-work-days-popup',
@@ -48,6 +49,16 @@ export class WorkDaysPopupComponent extends BasePopupComponent<EmployeeShift> im
   saveFail(error: Error): void {}
 
   afterSave(model: EmployeeShift, dialogRef: any): void {}
+
+  isCurrentLanguageEnglish() {
+    return this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
+  }
+
+  formatTime(timestamp?: string) {
+    if (!timestamp) return '-';
+    const locale = this.isCurrentLanguageEnglish() ? 'en-US' : 'ar-EG';
+    return formatTimeTo12Hour(timestamp, locale);
+  }
 
   private prepareDisplayDays(): void {
     let workingDayValues: number[] = [];

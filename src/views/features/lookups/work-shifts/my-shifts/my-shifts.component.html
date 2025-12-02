@@ -47,6 +47,12 @@
                     }}
                   </h5>
                 </div>
+                <div>
+                  <p class="text-sm text-white mb-2">{{ 'MY_SHIFTS.BOUNARY_TIME' | translate }}</p>
+                  <h5 class="text-base font-semibold text-white">
+                    {{ formatTime(currentShift?.boundaryTime) }}
+                  </h5>
+                </div>
               </div>
               <div
                 class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-4 bg-[#ffffff19] rounded-lg p-4"
