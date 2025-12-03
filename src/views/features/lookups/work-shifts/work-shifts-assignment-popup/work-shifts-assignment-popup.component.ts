@@ -8,17 +8,13 @@ import {
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
-  Validators,
 } from '@angular/forms';
-import { LAYOUT_DIRECTION_ENUM } from '@/enums/layout-direction-enum';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
-import { DialogRef } from '@angular/cdk/dialog';
 import { Select } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import UserWorkShift from '@/models/features/lookups/work-shifts/user-work-shifts';
-import { M } from '@angular/material/dialog.d-B5HZULyo';
 import { Observable } from 'rxjs';
 import { AlertService } from '@/services/shared/alert.service';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
@@ -33,7 +29,6 @@ import { WeekDaysEnum } from '@/enums/week-days-enum';
 import { weekDays } from '@/utils/general-helper';
 import { WorkDaysSetting } from '@/models/features/setting/work-days-setting';
 import { UserWorkShiftService } from '@/services/features/lookups/user-workshift.service';
-import { PaginationParams } from '@/models/shared/pagination-params';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 
 @Component({
@@ -68,16 +63,19 @@ export class WorkShiftsAssignmentPopupComponent
   isCreateMode = false;
   selectedWorkingDays: number[] = [];
   userWorkShiftService = inject(UserWorkShiftService);
+
   // Date constraints
   minEndDate: Date | null = null;
   maxStartDate: Date | null = null;
+
+  // ✅ cache allowed weekdays for the current range (Fix 1 support + performance)
+  allowedWeekDaysInRange: number[] = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     super();
   }
 
   override initPopup(): void {
-    // Initialize model - either from data or create new instance
     this.model = this.data.model || new UserWorkShift();
     this.usersProfiles = this.data.lookups?.usersProfiles || [];
     this.departments = this.data.lookups?.departments || [];
@@ -91,29 +89,23 @@ export class WorkShiftsAssignmentPopupComponent
     this.shifts = this.sortByName(this.shifts, this.optionLabel);
 
     if (this.isCreateMode) {
-      // Initialize selected working days
       this.workDays = this.data.lookups?.defaultWorkDays[0]!;
       this.initializeSelectedWorkingDays();
     } else {
-      // For edit mode, initialize working days from model
       this.initializeSelectedWorkingDays();
-      // Pre-filter employees if we have department info
       this.preFilterEmployeesForEditMode();
     }
   }
 
   private initializeSelectedWorkingDays(): void {
-    // Reset
     this.selectedWorkingDays = [];
 
     if (this.model.employeeWorkingDays) {
-      // Priority 1: Parse from model string
       this.selectedWorkingDays = this.model.employeeWorkingDays
         .split(',')
         .map((day) => parseInt(day.trim(), 10))
         .filter((day) => !isNaN(day));
     } else if (this.workDays) {
-      // Priority 2: Map boolean flags to enum values
       const mapping: { [key: string]: WeekDaysEnum } = {
         saturday: WeekDaysEnum.SATURDAY,
         sunday: WeekDaysEnum.SUNDAY,
@@ -135,27 +127,24 @@ export class WorkShiftsAssignmentPopupComponent
   override buildForm(): void {
     this.form = this.fb.group({
       ...this.model.buildForm(),
-      employeeWorkingDays: [
-        this.selectedWorkingDays.join(','),
-        [this.validateWorkingDays()], // Use array syntax for validators
-      ],
+      employeeWorkingDays: [this.selectedWorkingDays.join(','), [this.validateWorkingDays()]],
       departmentId: [null],
     });
 
-    // Set the correct values for dropdowns after form is built
     this.setDropdownValues();
     this.updateDateConstraints();
+
+    // ✅ initialize cache once form is ready
+    this.refreshAllowedWeekDays(
+      (this.form.get('startDate')?.value as Date | null) ?? null,
+      (this.form.get('endDate')?.value as Date | null) ?? null
+    );
   }
 
-  // Update this method in initPopup()
   private preFilterEmployeesForEditMode(): void {
     if (!this.isCreateMode && this.model.fkAssignedUserId) {
-      // Find the selected employee to get their department
-      const selectedEmployee = this.usersProfiles.find(
-        (emp) => emp.id === this.model.fkAssignedUserId
-      );
-      if (selectedEmployee && selectedEmployee.departmentId) {
-        // Just filter the employees, don't do form operations here
+      const selectedEmployee = this.usersProfiles.find((emp) => emp.id === this.model.fkAssignedUserId);
+      if (selectedEmployee?.departmentId) {
         this.filteredUsersProfiles = this.usersProfiles.filter(
           (emp) => emp.departmentId === selectedEmployee.departmentId
         );
@@ -163,31 +152,24 @@ export class WorkShiftsAssignmentPopupComponent
     }
   }
 
-  // Update setDropdownValues to handle the department filtering after form is built
   private setDropdownValues(): void {
     if (!this.isCreateMode) {
-      // Set shift
       if (this.model.fkShiftId) {
         this.form.get('fkShiftId')?.setValue(this.model.fkShiftId);
       }
 
-      // Set employee
       if (this.model.fkAssignedUserId) {
-        const selectedEmployee = this.usersProfiles.find(
-          (emp) => emp.id === this.model.fkAssignedUserId
-        );
+        const selectedEmployee = this.usersProfiles.find((emp) => emp.id === this.model.fkAssignedUserId);
         if (selectedEmployee) {
           this.form.get('fkAssignedUserId')?.setValue(selectedEmployee.id);
-          // 👇 auto-set department if found
+
           if (selectedEmployee.departmentId) {
             this.form.get('departmentId')?.setValue(selectedEmployee.departmentId);
-            // 👇 Now it's safe to call filterEmployeesByDepartment since form is built
             this.filterEmployeesByDepartment(selectedEmployee.departmentId);
           }
         }
       }
 
-      // Set dates
       if (this.model.startDate) {
         const startDate =
           typeof this.model.startDate === 'string'
@@ -195,6 +177,7 @@ export class WorkShiftsAssignmentPopupComponent
             : this.model.startDate;
         this.form.get('startDate')?.setValue(startDate);
       }
+
       if (this.model.endDate) {
         const endDate =
           typeof this.model.endDate === 'string'
@@ -202,6 +185,12 @@ export class WorkShiftsAssignmentPopupComponent
             : this.model.endDate;
         this.form.get('endDate')?.setValue(endDate);
       }
+
+      // ✅ refresh cache after setting edit-mode values
+      this.refreshAllowedWeekDays(
+        (this.form.get('startDate')?.value as Date | null) ?? null,
+        (this.form.get('endDate')?.value as Date | null) ?? null
+      );
     }
   }
 
@@ -209,17 +198,13 @@ export class WorkShiftsAssignmentPopupComponent
     const isChecked = (event.target as HTMLInputElement).checked;
 
     if (isChecked) {
-      if (!this.selectedWorkingDays.includes(dayValue)) {
-        this.selectedWorkingDays.push(dayValue);
-      }
+      if (!this.selectedWorkingDays.includes(dayValue)) this.selectedWorkingDays.push(dayValue);
     } else {
       this.selectedWorkingDays = this.selectedWorkingDays.filter((day) => day !== dayValue);
     }
 
-    this.selectedWorkingDays.sort();
+    this.selectedWorkingDays.sort((a, b) => a - b);
     this.updateEmployeeWorkingDaysInForm();
-
-    // Mark the field as touched so validation messages appear
     this.form.get('employeeWorkingDays')?.markAsTouched();
   }
 
@@ -227,12 +212,7 @@ export class WorkShiftsAssignmentPopupComponent
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value || '';
       const selectedDays = value.split(',').filter((day: string) => day.trim() !== '');
-
-      if (selectedDays.length === 0) {
-        return { required: true }; // This should match your ValidationErrorKeyEnum.REQUIRED
-      }
-
-      return null;
+      return selectedDays.length === 0 ? { required: true } : null;
     };
   }
 
@@ -241,8 +221,8 @@ export class WorkShiftsAssignmentPopupComponent
     this.form.get('employeeWorkingDays')?.setValue(workingDaysString);
     this.form.get('employeeWorkingDays')?.updateValueAndValidity();
   }
+
   onSaveClick(): void {
-    // Mark all fields as touched to show validation errors
     Object.keys(this.form.controls).forEach((key) => {
       const control = this.form.get(key);
       if (control) {
@@ -255,24 +235,14 @@ export class WorkShiftsAssignmentPopupComponent
       this.prepareModel(this.model, this.form);
 
       if (this.model.id) {
-        // Update existing shift
         this.userWorkShiftService.update(this.model).subscribe({
-          next: () => {
-            this.dialogRef.close(DIALOG_ENUM.OK);
-          },
-          error: (err) => {
-            this.save$.error(err);
-          },
+          next: () => this.dialogRef.close(DIALOG_ENUM.OK),
+          error: (err) => this.save$.error(err),
         });
       } else {
-        // Assign new shift
         this.userWorkShiftService.assignUserShift(this.model).subscribe({
-          next: () => {
-            this.dialogRef.close(DIALOG_ENUM.OK);
-          },
-          error: (err) => {
-            this.save$.error(err);
-          },
+          next: () => this.dialogRef.close(DIALOG_ENUM.OK),
+          error: (err) => this.save$.error(err),
         });
       }
     }
@@ -282,39 +252,33 @@ export class WorkShiftsAssignmentPopupComponent
     return this.selectedWorkingDays.includes(dayValue);
   }
 
-  // NEW METHOD: Check if a weekday should be disabled based on date range
+  // ✅ FIX 1: now this only checks cached days (no form reads, no range calc)
   isWeekDayDisabled(dayValue: number): boolean {
-    const startDate = this.form.get('startDate')?.value;
-    const endDate = this.form.get('endDate')?.value;
-
-    // If only start date is selected or no dates selected, don't disable any days
-    if (!startDate || !endDate) {
-      return false;
-    }
-
-    // Get the allowed weekdays for the date range
-    const allowedDays = this.getAllowedWeekDaysInRange(startDate, endDate);
-
-    // Disable if the day is not in the allowed range
-    return !allowedDays.includes(dayValue);
+    if (!this.allowedWeekDaysInRange.length) return false;
+    return !this.allowedWeekDaysInRange.includes(dayValue);
   }
 
-  // NEW METHOD: Get all weekdays that fall within the date range
+  // ✅ called by your (onSelect) handlers using the NEW selected date + other control
+  private refreshAllowedWeekDays(startDate: Date | null, endDate: Date | null): void {
+    if (!startDate || !endDate) {
+      this.allowedWeekDaysInRange = [];
+      return;
+    }
+    this.allowedWeekDaysInRange = this.getAllowedWeekDaysInRange(startDate, endDate);
+  }
+
   private getAllowedWeekDaysInRange(startDate: Date, endDate: Date): number[] {
     const allowedDays = new Set<number>();
+
     const currentDate = new Date(startDate);
     const end = new Date(endDate);
 
-    // Iterate through each day in the range
+    // ✅ normalize to date-only (midnight)
+    currentDate.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
     while (currentDate <= end) {
-      // JavaScript's getDay() returns 0 for Sunday, 1 for Monday, etc.
-      // Your WeekDaysEnum: SUNDAY = 0, MONDAY = 1, TUESDAY = 2, WEDNESDAY = 3, THURSDAY = 4, FRIDAY = 5, SATURDAY = 6
-      const jsDay = currentDate.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
-
-      // Your enum matches JavaScript's getDay() exactly, so no conversion needed
-      allowedDays.add(jsDay);
-
-      // Move to next day
+      allowedDays.add(currentDate.getDay());
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
@@ -336,10 +300,8 @@ export class WorkShiftsAssignmentPopupComponent
     model: UserWorkShift,
     form: FormGroup
   ): UserWorkShift | Observable<UserWorkShift> {
-    // Only update the specific fields that should be sent to the API
     const formValue = form.value;
 
-    // Update only the necessary properties
     this.model.startDate = formValue.startDate;
     this.model.endDate = formValue.endDate;
     this.model.employeeWorkingDays = formValue.employeeWorkingDays;
@@ -371,29 +333,24 @@ export class WorkShiftsAssignmentPopupComponent
     if (departmentId) {
       this.filterEmployeesByDepartment(departmentId);
     } else {
-      // If no department selected, show all employees
       this.filteredUsersProfiles = [...this.usersProfiles];
     }
   }
+
   filterEmployeesByDepartment(departmentId: number | any) {
-    // Handle the case where departmentId might be an event object or the ID directly
     const actualDepartmentId =
       typeof departmentId === 'object' && departmentId?.id ? departmentId.id : departmentId;
 
-    // Filter employees by the selected department
     this.filteredUsersProfiles = this.usersProfiles.filter(
       (emp) => emp.departmentId === actualDepartmentId
     );
 
-    // Only check form if it's initialized
     if (this.form) {
-      // Check if the currently selected employee belongs to the new department
       const selectedEmployeeId = this.form.get('fkAssignedUserId')?.value;
 
       if (selectedEmployeeId) {
         const selectedEmployee = this.usersProfiles.find((emp) => emp.id === selectedEmployeeId);
 
-        // If the selected employee doesn't belong to the new department, clear the selection
         if (selectedEmployee && selectedEmployee.departmentId !== actualDepartmentId) {
           this.form.get('fkAssignedUserId')?.setValue(null);
           this.form.get('fkAssignedUserId')?.markAsTouched();
@@ -401,66 +358,70 @@ export class WorkShiftsAssignmentPopupComponent
       }
     }
   }
+
+  // ✅ FIX 1: treat selectedDate as the NEW value (don’t read startDate from form here)
   onStartDateSelect(selectedDate: Date): void {
-    if (selectedDate) {
-      this.minEndDate = new Date(selectedDate);
+    const newStartDate = selectedDate ?? null;
 
-      const currentEndDate = this.form.get('endDate')?.value;
-      if (currentEndDate && new Date(currentEndDate) < selectedDate) {
-        this.form.get('endDate')?.setValue(null);
-      }
-    } else {
-      this.minEndDate = null;
+    this.minEndDate = newStartDate ? new Date(newStartDate) : null;
+
+    const endDate = (this.form.get('endDate')?.value as Date | null) ?? null;
+
+    // if end is before new start -> clear end
+    if (newStartDate && endDate && new Date(endDate) < newStartDate) {
+      this.form.get('endDate')?.setValue(null);
     }
 
-    // Clear selected working days that are no longer valid
-    this.validateAndUpdateWorkingDays();
+    const effectiveEndDate =
+      newStartDate && endDate && new Date(endDate) < newStartDate ? null : endDate;
+
+    // ✅ compute allowed days using NEW start + current end (or null if cleared)
+    this.refreshAllowedWeekDays(newStartDate, effectiveEndDate);
+
+    // ✅ remove invalid selected working days using the same effective range
+    this.validateAndUpdateWorkingDays_WithDates(newStartDate, effectiveEndDate);
   }
 
+  // ✅ FIX 1: treat selectedDate as the NEW value (don’t read endDate from form here)
   onEndDateSelect(selectedDate: Date): void {
-    if (selectedDate) {
-      this.maxStartDate = new Date(selectedDate);
+    const newEndDate = selectedDate ?? null;
 
-      const currentStartDate = this.form.get('startDate')?.value;
-      if (currentStartDate && new Date(currentStartDate) > selectedDate) {
-        this.form.get('startDate')?.setValue(null);
-      }
-    } else {
-      this.maxStartDate = null;
+    this.maxStartDate = newEndDate ? new Date(newEndDate) : null;
+
+    const startDate = (this.form.get('startDate')?.value as Date | null) ?? null;
+
+    // if start is after new end -> clear start
+    if (newEndDate && startDate && new Date(startDate) > newEndDate) {
+      this.form.get('startDate')?.setValue(null);
     }
 
-    // Clear selected working days that are no longer valid
-    this.validateAndUpdateWorkingDays();
+    const effectiveStartDate =
+      newEndDate && startDate && new Date(startDate) > newEndDate ? null : startDate;
+
+    // ✅ compute allowed days using current start (or null if cleared) + NEW end
+    this.refreshAllowedWeekDays(effectiveStartDate, newEndDate);
+
+    // ✅ remove invalid selected working days using the same effective range
+    this.validateAndUpdateWorkingDays_WithDates(effectiveStartDate, newEndDate);
   }
 
-  // NEW METHOD: Remove selected working days that are not allowed in the new date range
-  private validateAndUpdateWorkingDays(): void {
-    const startDate = this.form.get('startDate')?.value;
-    const endDate = this.form.get('endDate')?.value;
+  // ✅ Fix 1 safe: don’t re-read form inside same tick; use passed dates
+  private validateAndUpdateWorkingDays_WithDates(startDate: Date | null, endDate: Date | null): void {
+    if (!startDate || !endDate) return;
 
-    if (startDate && endDate) {
-      const allowedDays = this.getAllowedWeekDaysInRange(startDate, endDate);
+    const allowedDays = this.getAllowedWeekDaysInRange(startDate, endDate);
 
-      // Remove any selected days that are not allowed in the new range
-      this.selectedWorkingDays = this.selectedWorkingDays.filter((day) =>
-        allowedDays.includes(day)
-      );
+    this.selectedWorkingDays = this.selectedWorkingDays.filter((day) => allowedDays.includes(day));
 
-      this.updateEmployeeWorkingDaysInForm();
-    }
+    this.updateEmployeeWorkingDaysInForm();
   }
 
   private updateDateConstraints(): void {
-    const startDate = this.form.get('startDate')?.value;
-    const endDate = this.form.get('endDate')?.value;
+    const startDate = (this.form.get('startDate')?.value as Date | null) ?? null;
+    const endDate = (this.form.get('endDate')?.value as Date | null) ?? null;
 
-    if (startDate) {
-      this.minEndDate = new Date(startDate);
-    }
-
-    if (endDate) {
-      this.maxStartDate = new Date(endDate);
-    }
+    this.minEndDate = startDate ? new Date(startDate) : null;
+    this.maxStartDate = endDate ? new Date(endDate) : null;
   }
 
   get fkShiftIdControl() {
