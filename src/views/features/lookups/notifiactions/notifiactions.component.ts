@@ -70,16 +70,30 @@ export default class NotifiactionsComponent extends BaseListComponent<
   override openDialog(model: Notification): void {}
 
   protected override mapModelToExcelRow(model: Notification): { [key: string]: any } {
+    // Check if the current language is English
+    const isEnglish = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
+
+    // Create a Date object from the creationDate
+    const dateObj = new Date(model.creationDate);
+
     return {
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TITLE_ARABIC')]:
-        model.notificationType.arabicTitle,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TITLE_ENGLISH')]:
-        model.notificationType.englishTitle,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_CONTENT_ARABIC')]:
-        model.contentAr,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_CONTENT_ENGLISH')]:
-        model.contentEn,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_DATE')]: model.creationDate,
+      // Conditionally render Title based on language
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TITLE')]: isEnglish
+        ? model.notificationType.englishTitle
+        : model.notificationType.arabicTitle,
+
+      // Conditionally render Content based on language
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_CONTENT')]: isEnglish
+        ? model.contentEn
+        : model.contentAr,
+
+      // Render Date only (e.g., "12/03/2025")
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_DATE')]:
+        dateObj.toLocaleDateString('en-GB'), // You can change 'en-GB' to your preferred locale
+
+      // Render Time only (e.g., "04:30 PM")
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TIME')]:
+        dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
   }
   set dateFrom(value: Date | null) {

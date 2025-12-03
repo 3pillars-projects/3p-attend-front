@@ -134,7 +134,7 @@ export default class LimitedTimePermissionContainerComponent
     });
   }
 
-  formatTime12HourFromDate(value: Date | string): string {
+  formatTime12HourFromDate(value: Date | string | undefined): string {
     if (!value) return '';
     const date = value instanceof Date ? value : new Date(value);
     const hours = date.getHours();
@@ -179,6 +179,8 @@ export default class LimitedTimePermissionContainerComponent
         model.limitedTimePermissionDate,
       [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DURATION')]:
         model.limitedTimePermissionDuration || '-',
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_START_TIME')]:
+        this.formatTime12HourFromDate(model.limitedTimePermissionTimeFrom) || '-',
 
       [this.translateService.instant('LIMITED_TIME_PERMISSION.REQUEST_STATUS')]:
         model.getStatusName(),
