@@ -410,7 +410,7 @@ export const validationPatterns: any = {
   HAS_LETTERS: new RegExp(
     /^[\u0621-\u064A0-9\u0660-\u0669\u0621-\u064Aa-zA-Z0-9]*[\u0621-\u064Aa-zA-Z ]/
   ),
-  NATIONAL_ID: new RegExp(/^\d{14}$/),
+  NATIONAL_ID: new RegExp(/^(?=.*[1-9])\d{1,6}$/),
 };
 
 export function strongPassword(): ValidatorFn {
