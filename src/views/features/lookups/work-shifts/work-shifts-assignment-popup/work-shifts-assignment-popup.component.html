@@ -3,15 +3,17 @@
     <button (click)="close()" class="block ms-auto">
       <i class="pi pi-times close-popup"></i>
     </button>
+
     <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
       {{ 'USER_WORK_SHIFT_ASSIGNMENT.TEMP_SHIFT_ASSIGNMENT' | translate }}
     </h3>
+
     <form [formGroup]="form" class="mt-6">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
         <div class="lg:col-span-2">
           <label class="label" for="shift-select">{{
-            'USER_WORK_SHIFT_ASSIGNMENT.SHIFT_NAME' | translate
-          }}</label>
+              'USER_WORK_SHIFT_ASSIGNMENT.SHIFT_NAME' | translate
+            }}</label>
           <div class="relative">
             <p-select
               [options]="shifts"
@@ -28,6 +30,7 @@
           </div>
           <app-validation-messages [control]="fkShiftIdControl"></app-validation-messages>
         </div>
+
         <div class="lg:col-span-2">
           <label class="label">{{ 'USER_WORK_SHIFT_ASSIGNMENT.DEPARTMENT' | translate }}</label>
           <div class="relative">
@@ -48,8 +51,8 @@
 
         <div class="lg:col-span-2">
           <label class="label" for="employee-select">{{
-            'USER_WORK_SHIFT_ASSIGNMENT.EMPLOYEE_NAME' | translate
-          }}</label>
+              'USER_WORK_SHIFT_ASSIGNMENT.EMPLOYEE_NAME' | translate
+            }}</label>
           <div class="relative">
             <p-select
               [options]="filteredUsersProfiles"
@@ -71,8 +74,8 @@
 
         <div class="lg:col-span-2">
           <label class="label" for="date-from">{{
-            'USER_WORK_SHIFT_ASSIGNMENT.START_DATE' | translate
-          }}</label>
+              'USER_WORK_SHIFT_ASSIGNMENT.START_DATE' | translate
+            }}</label>
           <div class="relative">
             <p-datepicker
               [iconDisplay]="'input'"
@@ -98,8 +101,8 @@
 
         <div class="lg:col-span-2">
           <label class="label" for="date-to">{{
-            'USER_WORK_SHIFT_ASSIGNMENT.END_DATE' | translate
-          }}</label>
+              'USER_WORK_SHIFT_ASSIGNMENT.END_DATE' | translate
+            }}</label>
           <div class="relative">
             <p-datepicker
               [iconDisplay]="'input'"
@@ -176,7 +179,7 @@
         <button type="button" (click)="close()" class="btn gray-btn">
           {{ 'COMMON.CANCEL' | translate }}
         </button>
-        <!-- Update save button to use the new method -->
+
         <button type="button" (click)="onSaveClick()" class="btn green-btn">
           {{ 'COMMON.SAVE' | translate }}
         </button>

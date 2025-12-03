@@ -24,21 +24,32 @@
       </div>
     </div>
     <ul class="menu-list px-4 m-0 list-none">
-      <li [routerLink]="item.routerLink" *ngFor="let item of menuItems">
+      <li *ngFor="let item of menuItems">
         <div
           routerLinkActive="active"
           (click)="toggleSubmenu(item)"
           class="menu-item flex items-center gap-3 cursor-pointer"
+          [ngClass]="!item.children ? '!p-0' : ''"
         >
-          <img
-            *ngIf="item.iconUrl"
-            [src]="item.iconUrl"
-            alt="{{ item.label }} icon"
-            class="w-5 h-5"
-          />
-          <a [title]="item.label" *ngIf="!item.children" class="flex-1 truncate block">{{
+          @if(item.children) {
+            <img
+              *ngIf="item.iconUrl"
+              [src]="item.iconUrl"
+              alt="{{ item.label }} icon"
+              class="w-5 h-5"
+            />
+          }
+          <a [routerLink]="item.routerLink" [title]="item.label" *ngIf="!item.children" class="flex-1 truncate block flex gap-3 items-center px-4 py-2">
+            <img
+              *ngIf="item.iconUrl"
+              [src]="item.iconUrl"
+              alt="{{ item.label }} icon"
+              class="w-5 h-5"
+            />
+            {{
             item.label
-          }}</a>
+          }}
+          </a>
           <span [title]="item.label" *ngIf="item.children" class="flex-1 truncate block">{{
             item.label
           }}</span>
@@ -73,16 +84,14 @@
             />
           </svg>
         </div>
-
         <ul *ngIf="item.children && isSubmenuOpen(item)" class="submenu list-none pl-6">
           @for (child of item.children; track child.label) {
             <li
               routerLinkActive="active"
-              [routerLink]="child.routerLink"
-              class="p-2 cursor-pointer flex items-center gap-3 sub-links"
+              class="!p-0 cursor-pointer flex items-center gap-3 sub-links"
             >
-              <!-- <img *ngIf="child.iconUrl" [src]="child.iconUrl" alt="{{child.label}} icon" class="w-4 h-4" /> -->
-              <a [title]="child.label" class="flex-1 truncate block">{{ child.label }}</a>
+               <img *ngIf="child.iconUrl" [src]="child.iconUrl" alt="{{child.label}} icon" class="w-4 h-4" />
+              <a [routerLink]="child.routerLink" [title]="child.label" class="flex-1 truncate block p-2 ps-8">{{ child.label }}</a>
             </li>
           }
         </ul>
