@@ -21,6 +21,7 @@ import { Select } from 'primeng/select';
 import { NotificationTypeService } from '@/services/features/setting/notification-type.service';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { formatDateOnly, formatDateTo12Hour } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-notifiactions',
@@ -89,13 +90,14 @@ export default class NotifiactionsComponent extends BaseListComponent<
 
       // Render Date only (e.g., "12/03/2025")
       [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_DATE')]:
-        dateObj.toLocaleDateString('en-GB'), // You can change 'en-GB' to your preferred locale
+        this.formatDate(dateObj), // You can change 'en-GB' to your preferred locale
 
       // Render Time only (e.g., "04:30 PM")
       [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TIME')]:
-        dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        this.formatTime(dateObj),
     };
   }
+
   set dateFrom(value: Date | null) {
     this.filterModel.dateFrom = value;
 
@@ -109,5 +111,12 @@ export default class NotifiactionsComponent extends BaseListComponent<
   }
   getPropertyName() {
     return this.langService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH ? 'nameEn' : 'nameAr';
+  }
+  formatDate(date: Date) {
+    return formatDateOnly(date);
+  }
+  formatTime(date: Date) {
+    const lang = this.translateService.currentLang as LANGUAGE_ENUM;
+    return formatDateTo12Hour(date, lang);
   }
 }
