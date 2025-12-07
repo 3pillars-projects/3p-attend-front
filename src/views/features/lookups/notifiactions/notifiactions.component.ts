@@ -21,6 +21,7 @@ import { Select } from 'primeng/select';
 import { NotificationTypeService } from '@/services/features/setting/notification-type.service';
 import { LanguageService } from '@/services/shared/language.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { formatDateOnly, formatDateTo12Hour } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-notifiactions',
@@ -70,18 +71,33 @@ export default class NotifiactionsComponent extends BaseListComponent<
   override openDialog(model: Notification): void {}
 
   protected override mapModelToExcelRow(model: Notification): { [key: string]: any } {
+    // Check if the current language is English
+    const isEnglish = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
+
+    // Create a Date object from the creationDate
+    const dateObj = new Date(model.creationDate);
+
     return {
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TITLE_ARABIC')]:
-        model.notificationType.arabicTitle,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TITLE_ENGLISH')]:
-        model.notificationType.englishTitle,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_CONTENT_ARABIC')]:
-        model.contentAr,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_CONTENT_ENGLISH')]:
-        model.contentEn,
-      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_DATE')]: model.creationDate,
+      // Conditionally render Title based on language
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TITLE')]: isEnglish
+        ? model.notificationType.englishTitle
+        : model.notificationType.arabicTitle,
+
+      // Conditionally render Content based on language
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_CONTENT')]: isEnglish
+        ? model.contentEn
+        : model.contentAr,
+
+      // Render Date only (e.g., "12/03/2025")
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_DATE')]:
+        this.formatDate(dateObj), // You can change 'en-GB' to your preferred locale
+
+      // Render Time only (e.g., "04:30 PM")
+      [this.translateService.instant('NOTIFICATIONS_PAGE.NOTIFICATION_TIME')]:
+        this.formatTime(dateObj),
     };
   }
+
   set dateFrom(value: Date | null) {
     this.filterModel.dateFrom = value;
 
@@ -95,5 +111,12 @@ export default class NotifiactionsComponent extends BaseListComponent<
   }
   getPropertyName() {
     return this.langService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH ? 'nameEn' : 'nameAr';
+  }
+  formatDate(date: Date) {
+    return formatDateOnly(date);
+  }
+  formatTime(date: Date) {
+    const lang = this.translateService.currentLang as LANGUAGE_ENUM;
+    return formatDateTo12Hour(date, lang);
   }
 }

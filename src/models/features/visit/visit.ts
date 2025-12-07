@@ -77,8 +77,8 @@ export class Visit extends BaseCrudModel<Visit, VisitService> {
         phoneNumber,
         [
           Validators.required,
-          Validators.maxLength(CustomValidators.defaultLengths.PHONE_NUMBER_MAX),
-          Validators.minLength(CustomValidators.defaultLengths.PHONE_NUMBER_MAX),
+          // Validators.maxLength(CustomValidators.defaultLengths.PHONE_NUMBER_MAX),
+          // Validators.minLength(CustomValidators.defaultLengths.PHONE_NUMBER_MAX),
           CustomValidators.pattern('PHONE_NUMBER'),
         ],
       ],

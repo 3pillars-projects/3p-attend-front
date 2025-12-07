@@ -1,0 +1,40 @@
+name: Deploy Angular production to SmarterASP.NET via FTP
+
+on:
+  push:
+    branches:
+      - production # Trigger when code is merged to testing branch
+
+jobs:
+  build_and_deploy:
+    runs-on: windows-latest
+    environment: attendance-front
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular app
+        run: npm run build
+
+      - name: Deploy to SmarterASP.NET via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.ATTEND_FRONT_SERVER_IP }}
+          username: attendance_prod
+          password: ${{ secrets.ATTEND_FRONT_SERVER_PASSWORD }}
+          server-dir: /
+          local-dir: ./dist/browser/
+          protocol: ftp
+          port: 21
+          exclude: |
+            **/.git*
+            **/.github*

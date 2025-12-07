@@ -2,6 +2,7 @@ import { WeekDaysEnum } from '@/enums/week-days-enum';
 import { Visit } from '@/models/features/visit/visit';
 import { FormArray, FormGroup } from '@angular/forms';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { MAX_EMPLOYEE_CODE_DIGITS } from '@/validators/custom-validators';
 
 // used in base-crud service for date filtering
 export const genericDateOnlyConvertor = function (model: any) {
@@ -277,4 +278,17 @@ export function minutesToTimeString(totalMinutes: number): string {
   const hh = hours.toString().padStart(2, '0');
   const mm = minutes.toString().padStart(2, '0');
   return `${hh}:${mm}`;
+}
+
+export function getEmployeeCodeWithLeadingZeros(employeeCode: string) {
+  if(employeeCode.length < MAX_EMPLOYEE_CODE_DIGITS) {
+    const missingDigits = MAX_EMPLOYEE_CODE_DIGITS - employeeCode.length;
+    let leadingZeros = '';
+    for (let x = 1; x <= missingDigits; x++) {
+      leadingZeros += '0';
+    }
+    return leadingZeros + employeeCode;
+  } else {
+    return employeeCode;
+  }
 }

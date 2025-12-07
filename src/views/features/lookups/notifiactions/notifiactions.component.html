@@ -227,8 +227,8 @@
               <tr>
                 <td>{{ notification.getnotificationTypeTitle() }}</td>
                 <td [title]="notification.getContent()">{{ notification.getContent() }}</td>
-                <td>{{ notification.creationDate | date: 'dd-MM-yyyy' }}</td>
-                <td>{{ notification.creationDate | date: 'HH:mm:ss' }}</td>
+                <td>{{ formatDate(notification.creationDate) }}</td>
+                <td>{{ formatTime(notification.creationDate) }}</td>
               </tr>
             </ng-template>
           </p-table>
