@@ -904,6 +904,7 @@
   },
   "LIMITED_TIME_PERMISSION": {
     "LIMITED_TIME_PERMISSION": "الاستئذانات الزمنية المحدودة",
+    "PERMISSION": "الاستئذانات",
     "MY_REQUESTS": "سجل طلباتي",
     "INCOMING_REQUESTS": "طلبات الاستئذان الواردة",
     "PERMISSION_TYPE": "نوع الاستئذان",

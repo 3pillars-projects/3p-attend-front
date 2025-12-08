@@ -906,6 +906,7 @@
   },
   "LIMITED_TIME_PERMISSION": {
     "LIMITED_TIME_PERMISSION": "Limited Time Permissions",
+    "PERMISSION": "Permissions",
     "MY_REQUESTS": "My Requests",
     "INCOMING_REQUESTS": "Incoming Permission Requests",
     "PERMISSION_TYPE": "Permission Type",

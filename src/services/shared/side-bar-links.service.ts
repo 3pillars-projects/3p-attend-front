@@ -62,7 +62,7 @@ export class SideBarLinksService {
     //   routerLink: ['/dashboard'],
     // },
     {
-      labelKey: 'MENU.LIMITED_TIME_PERMISSION',
+      labelKey: 'MENU.PERMISSIONS',
       iconUrl: 'assets/icons/menu-icons/permissions.svg',
       routerLink: ['/limited-time-permission'],
     },
