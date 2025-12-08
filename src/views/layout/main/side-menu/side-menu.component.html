@@ -13,7 +13,7 @@
     <div
       class="sidebar-header p-3 border-bottom-1 surface-border flex justify-between items-center"
     >
-      <img alt="" src="assets/shared/gov-logo-gam-light.png" />
+      <img alt="" src="/assets/shared/logo-horizontal.svg" />
       <div>
         <button
           (click)="closeSidebar()"
@@ -31,7 +31,7 @@
           class="menu-item flex items-center gap-3 cursor-pointer"
           [ngClass]="!item.children ? '!p-0' : ''"
         >
-          @if(item.children) {
+          @if (item.children) {
             <img
               *ngIf="item.iconUrl"
               [src]="item.iconUrl"
@@ -39,16 +39,19 @@
               class="w-5 h-5"
             />
           }
-          <a [routerLink]="item.routerLink" [title]="item.label" *ngIf="!item.children" class="flex-1 truncate block flex gap-3 items-center px-4 py-2">
+          <a
+            [routerLink]="item.routerLink"
+            [title]="item.label"
+            *ngIf="!item.children"
+            class="flex-1 truncate block flex gap-3 items-center px-4 py-2"
+          >
             <img
               *ngIf="item.iconUrl"
               [src]="item.iconUrl"
               alt="{{ item.label }} icon"
               class="w-5 h-5"
             />
-            {{
-            item.label
-          }}
+            {{ item.label }}
           </a>
           <span [title]="item.label" *ngIf="item.children" class="flex-1 truncate block">{{
             item.label
@@ -90,8 +93,18 @@
               routerLinkActive="active"
               class="!p-0 cursor-pointer flex items-center gap-3 sub-links"
             >
-               <img *ngIf="child.iconUrl" [src]="child.iconUrl" alt="{{child.label}} icon" class="w-4 h-4" />
-              <a [routerLink]="child.routerLink" [title]="child.label" class="flex-1 truncate block p-2 ps-8">{{ child.label }}</a>
+              <img
+                *ngIf="child.iconUrl"
+                [src]="child.iconUrl"
+                alt="{{ child.label }} icon"
+                class="w-4 h-4"
+              />
+              <a
+                [routerLink]="child.routerLink"
+                [title]="child.label"
+                class="flex-1 truncate block p-2 ps-8"
+                >{{ child.label }}</a
+              >
             </li>
           }
         </ul>

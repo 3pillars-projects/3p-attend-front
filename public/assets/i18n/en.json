@@ -26,7 +26,7 @@
     "ARABIC_ONLY": "This field must contain Arabic characters only",
     "ENGLISH_ONLY": "This field must contain English characters only",
     "EMAIL_VALIDATION": "Please enter a valid email address",
-    "PHONE_NUMBER_VALIDATION": "Please enter a valid phone number that starts with 0",
+    "PHONE_NUMBER_VALIDATION": "Please enter a valid phone number that starts with 0 and contains 11 digits",
     "FAX_VALIDATION": "Please enter a valid fax number",
     "SEARCH": "Search",
     "RESET_SEARCH": "Reset",
@@ -906,6 +906,7 @@
   },
   "LIMITED_TIME_PERMISSION": {
     "LIMITED_TIME_PERMISSION": "Limited Time Permissions",
+    "PERMISSION": "Permissions",
     "MY_REQUESTS": "My Requests",
     "INCOMING_REQUESTS": "Incoming Permission Requests",
     "PERMISSION_TYPE": "Permission Type",
