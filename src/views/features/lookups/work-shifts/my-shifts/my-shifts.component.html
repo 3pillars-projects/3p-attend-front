@@ -163,14 +163,16 @@
               ></span>
             </div>
             <div class="relative xl:col-span-3">
-              <label class="label" for="shiftType">{{ 'MY_SHIFTS.SHIFT_TYPE' | translate }}</label>
+              <label class="label" for="shiftType">{{
+                'MY_SHIFTS.NAME_ENGLISH' | translate
+              }}</label>
               <input
                 [(ngModel)]="filterOptions.nameEn"
                 class="peer"
                 fluid="true"
                 id="shiftType"
                 pInputText
-                [placeholder]="'MY_SHIFTS.SHIFT_TYPE' | translate"
+                [placeholder]="'MY_SHIFTS.NAME_ENGLISH' | translate"
                 type="text"
               />
               <span
