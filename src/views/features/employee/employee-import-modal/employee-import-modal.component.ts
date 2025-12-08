@@ -32,7 +32,7 @@ export class EmployeeImportModalComponent implements OnInit {
     'Password',
     'FullNameEn',
     'FullNameAr',
-    'NationalId',
+    'EmployeeCode',
     'PhoneNumber',
     'FkRegionId',
     'FkCityId',
