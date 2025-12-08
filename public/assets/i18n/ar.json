@@ -150,7 +150,10 @@
     "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن بداية الدوام.",
     "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن نهاية الدوام.",
     "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "إذن بداية/نهاية الدوام يتداخل مع إذن وسط الدوام.",
-    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل"
+    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل",
+    "AUTH_ADMIN_ROLE_CANNOT_BE_DELETED": "لا يمكن إزالة دور مسؤول النظام لهذا المستخدم",
+    "AUTH_HR_ROLE_CANNOT_BE_DELETED": "لا يمكن إزالة دور الموارد البشرية لهذا المستخدم",
+    "AUTH_CANNOT_DEACTIVATE_THIS_USER": "لا يمكن تغيير حاله حساب هذا المستخدم"
   },
   "FOOTER": {
     "ALL_RIGHTS": "جميع الحقوق محفوظة للإدارة العامة للمجاهدين © 2025"
