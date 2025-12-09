@@ -157,11 +157,11 @@ export class SideBarLinksService {
           routerLink: ['/general-settings'],
           routeId: RouteIdsEnum.GENERAL_SETTINGS,
         },
-        {
-          labelKey: 'MENU.NATIONALITIES',
-          routerLink: ['/nationalities'],
-          routeId: RouteIdsEnum.NATIONALITIES,
-        },
+        // {
+        //   labelKey: 'MENU.NATIONALITIES',
+        //   routerLink: ['/nationalities'],
+        //   routeId: RouteIdsEnum.NATIONALITIES,
+        // },
         {
           labelKey: 'MENU.CITIES',
           routerLink: ['/cities'],
