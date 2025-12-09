@@ -89,7 +89,7 @@ export class WorkShiftsAssignmentPopupComponent
     this.shifts = this.sortByName(this.shifts, this.optionLabel);
 
     if (this.isCreateMode) {
-      this.workDays = this.data.lookups?.defaultWorkDays[0]!;
+      // this.workDays = this.data.lookups?.defaultWorkDays[0]!;
       this.initializeSelectedWorkingDays();
     } else {
       this.initializeSelectedWorkingDays();
