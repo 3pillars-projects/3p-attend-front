@@ -162,16 +162,16 @@ export const routes: Routes = [
             '@/views/features/reports/attendance-report/attendance-report-container/attendance-report-container.component'
           ),
       },
-      {
-        path: 'nationalities',
-        canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.NATIONALITIES },
-        resolve: { list: nationalitiesResolver },
-        loadComponent: () =>
-          import(
-            '@/views/features/lookups/nationality/nationality-list/nationality-list.component'
-          ),
-      },
+      // {
+      //   path: 'nationalities',
+      //   canActivate: [authGuard],
+      //   data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.NATIONALITIES },
+      //   resolve: { list: nationalitiesResolver },
+      //   loadComponent: () =>
+      //     import(
+      //       '@/views/features/lookups/nationality/nationality-list/nationality-list.component'
+      //     ),
+      // },
       {
         path: 'cities',
         canActivate: [authGuard],
