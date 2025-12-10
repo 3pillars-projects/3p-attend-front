@@ -143,7 +143,9 @@ export class WorkShiftsAssignmentPopupComponent
 
   private preFilterEmployeesForEditMode(): void {
     if (!this.isCreateMode && this.model.fkAssignedUserId) {
-      const selectedEmployee = this.usersProfiles.find((emp) => emp.id === this.model.fkAssignedUserId);
+      const selectedEmployee = this.usersProfiles.find(
+        (emp) => emp.id === this.model.fkAssignedUserId
+      );
       if (selectedEmployee?.departmentId) {
         this.filteredUsersProfiles = this.usersProfiles.filter(
           (emp) => emp.departmentId === selectedEmployee.departmentId
@@ -159,7 +161,9 @@ export class WorkShiftsAssignmentPopupComponent
       }
 
       if (this.model.fkAssignedUserId) {
-        const selectedEmployee = this.usersProfiles.find((emp) => emp.id === this.model.fkAssignedUserId);
+        const selectedEmployee = this.usersProfiles.find(
+          (emp) => emp.id === this.model.fkAssignedUserId
+        );
         if (selectedEmployee) {
           this.form.get('fkAssignedUserId')?.setValue(selectedEmployee.id);
 
@@ -406,7 +410,10 @@ export class WorkShiftsAssignmentPopupComponent
   }
 
   // ✅ Fix 1 safe: don’t re-read form inside same tick; use passed dates
-  private validateAndUpdateWorkingDays_WithDates(startDate: Date | null, endDate: Date | null): void {
+  private validateAndUpdateWorkingDays_WithDates(
+    startDate: Date | null,
+    endDate: Date | null
+  ): void {
     if (!startDate || !endDate) return;
 
     const allowedDays = this.getAllowedWeekDaysInRange(startDate, endDate);

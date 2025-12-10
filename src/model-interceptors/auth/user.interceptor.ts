@@ -9,7 +9,9 @@ export class UserInterceptor implements ModelInterceptorContract<User> {
   }
 
   send(model: Partial<User>): Partial<User> {
-    model.nationalId = model.nationalId ? getEmployeeCodeWithLeadingZeros(model.nationalId) : model.nationalId;
+    model.nationalId = model.nationalId
+      ? getEmployeeCodeWithLeadingZeros(model.nationalId)
+      : model.nationalId;
     model.joinDate = toDateOnly(model.joinDate);
     delete model.city;
     delete model.region;

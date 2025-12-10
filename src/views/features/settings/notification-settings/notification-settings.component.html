@@ -15,18 +15,15 @@
 
     <p-tabs [(value)]="activeTab">
       <p-tablist class="my-6">
-        <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.NOTIFICATIONS_TAB">{{
-            'NOTIFICATION.NOTIFICATION' | translate
-          }}
+        <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.NOTIFICATIONS_TAB"
+          >{{ 'NOTIFICATION.NOTIFICATION' | translate }}
         </p-tab>
-        <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.WORK_DAYS_TAB">{{
-            'NOTIFICATION.WORKING_DAYS' | translate
-          }}
+        <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.WORK_DAYS_TAB"
+          >{{ 'NOTIFICATION.WORKING_DAYS' | translate }}
         </p-tab>
         <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.START_DAY_TAB">
           {{ 'NOTIFICATION.GENERAL_SETTINGS' | translate }}
-        </p-tab
-        >
+        </p-tab>
       </p-tablist>
 
       <p-tabpanels>

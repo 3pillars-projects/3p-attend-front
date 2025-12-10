@@ -281,7 +281,7 @@ export function minutesToTimeString(totalMinutes: number): string {
 }
 
 export function getEmployeeCodeWithLeadingZeros(employeeCode: string) {
-  if(employeeCode.length < MAX_EMPLOYEE_CODE_DIGITS) {
+  if (employeeCode.length < MAX_EMPLOYEE_CODE_DIGITS) {
     const missingDigits = MAX_EMPLOYEE_CODE_DIGITS - employeeCode.length;
     let leadingZeros = '';
     for (let x = 1; x <= missingDigits; x++) {
