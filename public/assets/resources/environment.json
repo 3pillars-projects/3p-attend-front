@@ -7,8 +7,8 @@
     "PRODUCTION": "https://attendance-api.dev3pillars.org/api"
   },
   "API_VERSION": "",
-  "DEPLOY_VERSION": "3.0.0",
-  "BASE_ENVIRONMENT": "TESTING",
+  "DEPLOY_VERSION": "4.0.0",
+  "BASE_ENVIRONMENT": "PRODUCTION",
   "MIN_BEFORE_BUFFER": 10,
   "MIN_AFTER_BUFFER": 10,
   "MAX_BEFORE_BUFFER": 180,
