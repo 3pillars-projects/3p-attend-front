@@ -16,13 +16,16 @@
     <p-tabs [(value)]="activeTab">
       <p-tablist class="my-6">
         <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.NOTIFICATIONS_TAB">{{
-          'NOTIFICATION.NOTIFICATION' | translate
-        }}</p-tab>
+            'NOTIFICATION.NOTIFICATION' | translate
+          }}
+        </p-tab>
         <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.WORK_DAYS_TAB">{{
-          'NOTIFICATION.WORKING_DAYS' | translate
-        }}</p-tab>
+            'NOTIFICATION.WORKING_DAYS' | translate
+          }}
+        </p-tab>
         <p-tab [value]="NOTIFICATIONS_SETTINGS_TABS_ENUM.START_DAY_TAB">
-          {{ 'NOTIFICATION.GENERAL_SETTINGS' | translate }}</p-tab
+          {{ 'NOTIFICATION.GENERAL_SETTINGS' | translate }}
+        </p-tab
         >
       </p-tablist>
 
@@ -142,20 +145,21 @@
               <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-6 pb-6 border-b">
                 {{ 'NOTIFICATION.START_DAY_OF_MONTH' | translate }}
               </h4>
-
-              <label class="label" for="startDaySelect">
-                {{ 'NOTIFICATION.START_DAY_OF_MONTH' | translate }}</label
-              >
-              <div class="relative">
-                <p-select
-                  id="startDaySelect"
-                  class="w-[70px] peer"
-                  formControlName="dayOfMonth"
-                  [options]="daysOfMonth"
-                  optionLabel="name"
-                  optionValue="id"
-                  placeholder="1"
-                ></p-select>
+              <div>
+                <label class="label" for="startDaySelect">
+                  {{ 'NOTIFICATION.START_DAY_OF_MONTH' | translate }}</label
+                >
+                <div class="relative">
+                  <p-select
+                    id="startDaySelect"
+                    class="peer"
+                    formControlName="dayOfMonth"
+                    [options]="daysOfMonth"
+                    optionLabel="name"
+                    optionValue="id"
+                    placeholder="1"
+                  ></p-select>
+                </div>
               </div>
             </div>
 
