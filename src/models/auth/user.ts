@@ -117,7 +117,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
         [
           Validators.required,
           Validators.maxLength(CustomValidators.defaultLengths.ENGLISH_NAME_MAX),
-          CustomValidators.pattern('ENG_NUM'),
+          // CustomValidators.pattern('ENG_NUM'),
         ],
       ],
       jobTitleAr: [
@@ -125,7 +125,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
         [
           Validators.required,
           Validators.maxLength(CustomValidators.defaultLengths.ARABIC_NAME_MAX),
-          CustomValidators.pattern('AR_NUM'),
+          // CustomValidators.pattern('AR_NUM'),
         ],
       ],
       activeDirectoryUsername: [

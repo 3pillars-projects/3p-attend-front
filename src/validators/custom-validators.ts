@@ -361,6 +361,7 @@ function getMonthsDifference(startDate: Date, endDate: Date): number {
 export type customValidationTypes =
   | 'ENG_NUM'
   | 'AR_NUM'
+  | 'ENG_AR_NUM'
   | 'ENG_ONLY'
   | 'AR_ONLY'
   | 'ENG_NUM_ONLY'
@@ -385,8 +386,9 @@ export type customValidationTypes =
 export const MAX_EMPLOYEE_CODE_DIGITS = 6;
 
 export const validationPatterns: any = {
-  ENG_NUM: new RegExp(/^[a-zA-Z0-9\- ]+$/),
-  AR_NUM: new RegExp(/^[\u0621-\u064A0-9\u0660-\u0669\- ]+$/),
+  ENG_NUM: new RegExp(/^[a-zA-Z0-9\- .,]+$/),
+  AR_NUM: new RegExp(/^[\u0621-\u064A0-9\u0660-\u0669\- .,]+$/),
+  ENG_AR_NUM: new RegExp(/^[a-zA-Z\u0621-\u064A0-9\u0660-\u0669\- .,]+$/),
   ENG_ONLY: new RegExp(/^[a-zA-Z ]+$/),
   AR_ONLY: new RegExp(/^[\u0621-\u064A ]+$/),
   ENG_NUM_ONLY: new RegExp(/^[a-zA-Z0-9]+$/),
@@ -412,7 +414,7 @@ export const validationPatterns: any = {
   HAS_LETTERS: new RegExp(
     /^[\u0621-\u064A0-9\u0660-\u0669\u0621-\u064Aa-zA-Z0-9]*[\u0621-\u064Aa-zA-Z ]/
   ),
-  NATIONAL_ID: new RegExp(`^(?=.*[1-9])\\d{1,${MAX_EMPLOYEE_CODE_DIGITS}}$`),
+  NATIONAL_ID: new RegExp(`^(?=.*[0-9])\\d{1,${MAX_EMPLOYEE_CODE_DIGITS}}$`),
 };
 
 export function strongPassword(): ValidatorFn {
