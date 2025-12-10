@@ -153,7 +153,7 @@
     "MID_SHIFT_SUBMIT_CONFIRMATION": "Please note that a mid-shift permission requires having a check-in fingerprint at the beginning of the shift and a check-out fingerprint at the end of the shift, and that the mid-shift permission will not affect the total working hours."
   },
   "FOOTER": {
-    "ALL_RIGHTS": "All rights reserved to Three Pillars Digitalization company © 2026"
+    "ALL_RIGHTS": "All rights reserved to Three Pillars Digitalization company © 2026."
   },
   "LOGIN_PAGE": {
     "LOGIN_LBL": "Login",
