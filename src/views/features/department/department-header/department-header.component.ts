@@ -11,6 +11,7 @@ import { Component, effect, EventEmitter, inject, Input, Output, Signal } from '
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DepartmentPopupComponent } from '../department-popup/department-popup.component';
+import { AuthService } from '@/services/auth/auth.service';
 
 @Component({
   selector: 'app-department-header',
@@ -29,6 +30,7 @@ export class DepartmentHeaderComponent {
   PERMISSION_APPROVAL_LEVELS = PERMISSION_APPROVAL_LEVELS;
   languageService = inject(LanguageService);
   departmentService = inject(DepartmentService);
+  authService = inject(AuthService);
   matDialog = inject(MatDialog);
   dialogSize = {
     width: '100%',
@@ -44,6 +46,10 @@ export class DepartmentHeaderComponent {
 
   delete(departmentId: number | undefined): void {
     this.departmentDeleted.emit(departmentId);
+  }
+
+  get isAdmin() {
+    return this.authService.isAdmin;
   }
 
   private readonly selectedDepartmentEffect = effect(() => {
