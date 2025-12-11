@@ -11,20 +11,22 @@
       {{ isCurrentLanguageEnglish() ? departmentData?.nameEn : departmentData?.nameAr }}
     </h4>
     <div class="actions flex items-center gap-4 ms-auto pb-4">
-      <button
-        (click)="openDialog()"
-        class="flex items-center justify-center gap-1 p-2 rounded border border-white/40 w-[40px]"
-      >
-        <img alt="" class="w-[21.5px] h-[21.5px]" src="assets/icons/edit.png" />
-      </button>
-      @if (departmentData?.fkParentDepartmentId != null) {
+      @if (isAdmin) {
         <button
-          (click)="delete(departmentData?.id)"
-          [disabled]="departmentData?.fkParentDepartmentId == null"
-          class="flex items-center justify-center gap-1 p-2 rounded border border-[#fecdca] w-[40px]"
+          (click)="openDialog()"
+          class="flex items-center justify-center gap-1 p-2 rounded border border-white/40 w-[40px]"
         >
-          <img alt="" class="w-[21.5px] h-[21.5px]" src="assets/icons/delete.png" />
+          <img alt="" class="w-[21.5px] h-[21.5px]" src="assets/icons/edit.png" />
         </button>
+        @if (departmentData?.fkParentDepartmentId != null) {
+          <button
+            (click)="delete(departmentData?.id)"
+            [disabled]="departmentData?.fkParentDepartmentId == null"
+            class="flex items-center justify-center gap-1 p-2 rounded border border-[#fecdca] w-[40px]"
+          >
+            <img alt="" class="w-[21.5px] h-[21.5px]" src="assets/icons/delete.png" />
+          </button>
+        }
       }
     </div>
   </div>
@@ -70,16 +72,18 @@
       <p class="text-sm text-white mb-2">{{ 'DEPARTMENT_POPUP.FAX' | translate }}</p>
       <h5 class="text-base font-semibold text-white">{{ departmentData?.fax }}</h5>
     </div>
-    <div>
-      <p class="text-sm text-white mb-2">
-        {{ 'DEPARTMENTS_HEADER_PAGE.PERMISSION_REQUEST' | translate }}
-      </p>
-      <span
-        class="min-w-[109px] min-h-[24px] inline-flex items-center justify-center font-medium text-[#1f2a37] px-4 rounded-full bg-[#f9fafb]"
-      >
-        {{ 'DEPARTMENTS_HEADER_PAGE.' + getApprovalLevelText() | translate }}</span
-      >
-    </div>
+    @if (isAdmin) {
+      <div>
+        <p class="text-sm text-white mb-2">
+          {{ 'DEPARTMENTS_HEADER_PAGE.PERMISSION_REQUEST' | translate }}
+        </p>
+        <span
+          class="min-w-[109px] min-h-[24px] inline-flex items-center justify-center font-medium text-[#1f2a37] px-4 rounded-full bg-[#f9fafb]"
+        >
+          {{ 'DEPARTMENTS_HEADER_PAGE.' + getApprovalLevelText() | translate }}</span
+        >
+      </div>
+    }
     <div>
       <p class="text-sm text-white mb-2">
         {{ 'DEPARTMENTS_HEADER_PAGE.MANAGER_NAME' | translate }}

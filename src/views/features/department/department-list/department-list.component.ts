@@ -28,6 +28,7 @@ import { filter, switchMap, tap } from 'rxjs';
 import { Department } from '@/models/features/lookups/department/department';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { ImportLogPopupComponent } from '../import-log-popup/import-log-popup.component';
+import { AuthService } from '@/services/auth/auth.service';
 
 @Component({
   selector: 'app-department-list',
@@ -74,6 +75,7 @@ export default class DepartmentListComponent extends BaseListComponent<
   languageService = inject(LanguageService);
   departmentService = inject(DepartmentService);
   confirmationService = inject(ConfirmationService);
+  authService = inject(AuthService);
   selectedDepartmentSignal = signal<Department | null>(null);
   rootDepartment: Department | null = null;
   showTree = true;

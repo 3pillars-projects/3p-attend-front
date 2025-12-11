@@ -153,24 +153,26 @@
                     : selectedDepartment?.nameAr
                 }}
               </h4>
-              <div class="actions flex items-center gap-4 ms-auto">
-                <button
-                  class="table-head-action-btn min-w-[40px]"
-                  (click)="exportExcel(getTranslatedDepartmentLabel() + '.xlsx')"
-                >
-                  <img alt="" src="assets/icons/excel.svg" />
-                </button>
-                <!-- <button>
+              @if (this.authService.isAdmin) {
+                <div class="actions flex items-center gap-4 ms-auto">
+                  <button
+                    class="table-head-action-btn min-w-[40px]"
+                    (click)="exportExcel(getTranslatedDepartmentLabel() + '.xlsx')"
+                  >
+                    <img alt="" src="assets/icons/excel.svg" />
+                  </button>
+                  <!-- <button>
                   <img src="assets/icons/print.svg" alt="" />
                 </button> -->
-                <button
-                  (click)="addOrEditModel(selectedDepartment?.id ?? 0)"
-                  class="btn green-btn flex items-center min-w-[175px] whitespace-nowrap"
-                >
-                  <img alt="" src="assets/icons/plus.svg" />
-                  <span>{{ 'DEPARTMENTS_LIST_PAGE.ADD_NEW_DEPARTMENT' | translate }}</span>
-                </button>
-              </div>
+                  <button
+                    (click)="addOrEditModel(selectedDepartment?.id ?? 0)"
+                    class="btn green-btn flex items-center min-w-[175px] whitespace-nowrap"
+                  >
+                    <img alt="" src="assets/icons/plus.svg" />
+                    <span>{{ 'DEPARTMENTS_LIST_PAGE.ADD_NEW_DEPARTMENT' | translate }}</span>
+                  </button>
+                </div>
+              }
             </div>
             @if (childDepartments.list && childDepartments.list.length > 0) {
               <p-table [value]="childDepartments.list">
@@ -178,24 +180,30 @@
                   <tr>
                     <th>{{ 'DEPARTMENT_POPUP.DEPARTMENT_NAME_ARABIC' | translate }}</th>
                     <th>{{ 'DEPARTMENT_POPUP.DEPARTMENT_NAME_ENGLISH' | translate }}</th>
-                    <th>{{ 'DEPARTMENTS_LIST_PAGE.PERMISSION_REQUEST' | translate }}</th>
+                    @if (this.authService.isAdmin) {
+                      <th>{{ 'DEPARTMENTS_LIST_PAGE.PERMISSION_REQUEST' | translate }}</th>
+                    }
                     <th>{{ 'DEPARTMENTS_HEADER_PAGE.MANAGER_NAME' | translate }}</th>
-                    <th class="w-[36px] whitespace-nowrap">
-                      {{ 'DEPARTMENTS_LIST_PAGE.ACTIONS' | translate }}
-                    </th>
+                    @if (this.authService.isAdmin) {
+                      <th class="w-[36px] whitespace-nowrap">
+                        {{ 'DEPARTMENTS_LIST_PAGE.ACTIONS' | translate }}
+                      </th>
+                    }
                   </tr>
                 </ng-template>
                 <ng-template #body let-row>
                   <tr>
                     <td>{{ row?.nameAr }}</td>
                     <td>{{ row?.nameEn }}</td>
-                    <td>
-                      <span
-                        class="inline-block text-[12px] font-medium text-[#1f2a37] px-2 rounded-full border border-[#e5e7eb] bg-[#f9fafb]"
-                      >
-                        {{ getApprovalLevelText(row.isOneLevelApproval) | translate }}
-                      </span>
-                    </td>
+                    @if (this.authService.isAdmin) {
+                      <td>
+                        <span
+                          class="inline-block text-[12px] font-medium text-[#1f2a37] px-2 rounded-full border border-[#e5e7eb] bg-[#f9fafb]"
+                        >
+                          {{ getApprovalLevelText(row.isOneLevelApproval) | translate }}
+                        </span>
+                      </td>
+                    }
                     @if (isCurrentLanguageEnglish()) {
                       <td>
                         {{ row.manager?.fullNameEn }}
@@ -205,26 +213,30 @@
                         {{ row.manager?.fullNameAr }}
                       </td>
                     }
-                    <td>
-                      <div class="actions flex gap-2">
-                        <button
-                          class="btn black-btn flex items-center min-w-[230px] flex justify-center"
-                          (click)="addOrEditModel(row.id ?? 0)"
-                        >
-                          <img src="assets/icons/plus.svg" alt="" />
-                          <span>{{ 'DEPARTMENTS_LIST_PAGE.ADD_SUB_DEPARTMENT' | translate }}</span>
-                        </button>
-                        <button class="table-action-gray-btn" (click)="addOrEditModel(0, row)">
-                          <img src="assets/icons/edit-action.svg" alt="update" />
-                        </button>
-                        <button
-                          class="bg-[#fef3f2] rounded p-2 w-[32px]"
-                          (click)="openConfirmation(row.id)"
-                        >
-                          <img src="assets/icons/delete-action.svg" alt="delete" />
-                        </button>
-                      </div>
-                    </td>
+                    @if (this.authService.isAdmin) {
+                      <td>
+                        <div class="actions flex gap-2">
+                          <button
+                            class="btn black-btn flex items-center min-w-[230px] flex justify-center"
+                            (click)="addOrEditModel(row.id ?? 0)"
+                          >
+                            <img src="assets/icons/plus.svg" alt="" />
+                            <span>{{
+                              'DEPARTMENTS_LIST_PAGE.ADD_SUB_DEPARTMENT' | translate
+                            }}</span>
+                          </button>
+                          <button class="table-action-gray-btn" (click)="addOrEditModel(0, row)">
+                            <img src="assets/icons/edit-action.svg" alt="update" />
+                          </button>
+                          <button
+                            class="bg-[#fef3f2] rounded p-2 w-[32px]"
+                            (click)="openConfirmation(row.id)"
+                          >
+                            <img src="assets/icons/delete-action.svg" alt="delete" />
+                          </button>
+                        </div>
+                      </td>
+                    }
                   </tr>
                 </ng-template>
               </p-table>

@@ -229,7 +229,7 @@ export const routes: Routes = [
       {
         path: 'departments',
         canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.ADMIN], routeId: RouteIdsEnum.DEPARTMENTS },
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.DEPARTMENTS },
         resolve: { list: departmentResolver },
         loadComponent: () =>
           import('@/views/features/department/department-list/department-list.component'),
