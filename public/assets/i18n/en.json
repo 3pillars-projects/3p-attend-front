@@ -918,7 +918,7 @@
     "DEPARTMENT": "Department",
     "EMPLOYEE_NAME": "Employee Name",
     "ACCEPTED_PENDING_CANCELLATION": "Accepted - Pending Cancellation",
-    "FIRST_ACCEPTED_PENDING_CANCELLATION": "First Accepted - Pending Cancellation",
+    "FIRST_ACCEPTED_PENDING_CANCELLATION": "First Level Approval - Pending Cancellation",
     "REQUEST_DATA": "Request Data",
     "APPROVAL_DATE": "Approval Date",
     "REJECTION_DATE": "Rejection Date",
