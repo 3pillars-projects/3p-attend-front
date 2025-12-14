@@ -127,6 +127,7 @@
                     >
                     <p-select
                       [(ngModel)]="filterModel.fkStatusId"
+                      (ngModelChange)="onStatusChange($event)"
                       [optionLabel]="getPropertyName()"
                       [options]="limitedTimeprmissionStatuses"
                       placeholder="{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}"
@@ -460,7 +461,8 @@
                         {{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}</label
                       >
                       <p-select
-                        [(ngModel)]="filterModel.fkStatusId"
+                        [(ngModel)]="selectedStatusId"
+                        (ngModelChange)="onStatusChange($event)"
                         [optionLabel]="getPropertyName()"
                         [options]="limitedTimeprmissionStatuses"
                         placeholder="{{ 'LIMITED_TIME_PERMISSION.REQUEST_STATUS' | translate }}"

@@ -77,6 +77,9 @@ export default class LimitedTimePermissionContainerComponent
   viewMode = ViewModeEnum;
   isIncomingPermissions: boolean = false;
   authService = inject(AuthService);
+  FIRST_LEVEL_APPROVAL_ID = 4;
+  ACCEPTED_ID = 2;
+  selectedStatusId: number | null = null;
 
   dialogSize = {
     width: '100%',
@@ -120,6 +123,22 @@ export default class LimitedTimePermissionContainerComponent
 
     this.permissionStatusService.getLookup().subscribe((statuses) => {
       this.limitedTimeprmissionStatuses = statuses || [];
+
+      // Add "First Level Approval (Pending Cancelation)"
+      // Maps to: fkStatusId = 4 AND isCancelRequested = true
+      this.limitedTimeprmissionStatuses.push({
+        id: 6, // Virtual ID
+        nameAr: 'موافقة أولية - بانتظار الإلغاء',
+        nameEn: 'First Level Approval (Pending Cancelation)',
+      } as BaseLookupModel);
+
+      // Add "Accepted (Pending Cancelation)"
+      // Maps to: fkStatusId = 2 AND isCancelRequested = true
+      this.limitedTimeprmissionStatuses.push({
+        id: 7, // Virtual ID
+        nameAr: 'موافقة - بانتظار الإلغاء',
+        nameEn: 'Accepted (Pending Cancelation)',
+      } as BaseLookupModel);
     });
 
     this.userService.getMyDepartmentUsersLookup().subscribe((users) => {
@@ -132,6 +151,35 @@ export default class LimitedTimePermissionContainerComponent
         value: t,
       }));
     });
+  }
+
+  onStatusChange(selectedId: number) {
+    // 1. Keep the UI value consistent
+    this.selectedStatusId = selectedId;
+
+    // 2. Reset the cancel flag default
+    this.filterModel.isCancelRequested = undefined;
+
+    // 3. Handle Virtual IDs
+    if (selectedId === 6) {
+      // Virtual: First Level Approval (Pending Cancelation)
+      this.filterModel.fkStatusId = this.FIRST_LEVEL_APPROVAL_ID; // Sets to 4
+      this.filterModel.isCancelRequested = true;
+    } else if (selectedId === 7) {
+      // Virtual: Accepted (Pending Cancelation)
+      this.filterModel.fkStatusId = this.ACCEPTED_ID; // Sets to 2
+      this.filterModel.isCancelRequested = true;
+    }
+    // 4. Handle Standard IDs
+    else {
+      this.filterModel.fkStatusId = selectedId;
+
+      // Explicitly set isCancelRequested to false if selecting the standard versions
+      // of Accepted (2) or First Level (4) so it filters out the cancel requests.
+      if (selectedId === this.ACCEPTED_ID || selectedId === this.FIRST_LEVEL_APPROVAL_ID) {
+        this.filterModel.isCancelRequested = false;
+      }
+    }
   }
 
   formatTime12HourFromDate(value: Date | string | undefined): string {
@@ -152,6 +200,7 @@ export default class LimitedTimePermissionContainerComponent
   isCurrentLanguageEnglish() {
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH;
   }
+
   override openDialog(model: LimitedTimePermission, viewMode?: ViewModeEnum): void {
     const lookups = {
       permissionTypes: this.limitedTimepermissionTypes,

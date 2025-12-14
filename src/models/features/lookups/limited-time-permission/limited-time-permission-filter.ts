@@ -6,4 +6,5 @@ export class LimitedTimePermissionFilter {
   declare fkStatusId?: number;
   declare dateFrom?: Date | string;
   declare dateTo?: Date | string;
+  declare isCancelRequested?: boolean;
 }
