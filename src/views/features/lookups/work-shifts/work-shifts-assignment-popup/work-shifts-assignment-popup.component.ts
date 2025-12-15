@@ -240,12 +240,22 @@ export class WorkShiftsAssignmentPopupComponent
 
       if (this.model.id) {
         this.userWorkShiftService.update(this.model).subscribe({
-          next: () => this.dialogRef.close(DIALOG_ENUM.OK),
+          next: () => {
+            this.alertService.showSuccessMessage({
+              messages: ['COMMON.SAVED_SUCCESSFULLY'],
+            });
+            this.dialogRef.close(DIALOG_ENUM.OK);
+          },
           error: (err) => this.save$.error(err),
         });
       } else {
         this.userWorkShiftService.assignUserShift(this.model).subscribe({
-          next: () => this.dialogRef.close(DIALOG_ENUM.OK),
+          next: () => {
+            this.alertService.showSuccessMessage({
+              messages: ['COMMON.SAVED_SUCCESSFULLY'],
+            });
+            this.dialogRef.close(DIALOG_ENUM.OK);
+          },
           error: (err) => this.save$.error(err),
         });
       }
