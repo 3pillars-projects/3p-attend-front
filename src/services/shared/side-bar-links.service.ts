@@ -140,7 +140,7 @@ export class SideBarLinksService {
     },
     {
       labelKey: 'MENU.NOTIFICATIONS',
-      iconUrl: 'assets/icons/menu-icons/settings.svg',
+      iconUrl: 'assets/icons/menu-icons/notification-icon.svg',
       routerLink: ['/notifications'],
       routeId: RouteIdsEnum.NOTIFICATIONS,
     },
