@@ -42,6 +42,10 @@ export const routes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full',
   },
+  {
+    path: 'privacy-policy',
+    loadComponent: () => import('@/views/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
+  },
 
   // ✅ Auth layout and login
   {
