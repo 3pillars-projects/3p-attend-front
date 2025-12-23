@@ -316,9 +316,7 @@
     "ACTIVE_DIRECTORY_USERNAME": "رقم الموظف (اسم المستخدم في Active Directory)",
     "EMPLOYEE_NUMBER": "رقم الموظف",
     "BIRTHDATE": "تاريخ الميلاد",
-    "GENDER": "الجنس",
-    "MALE": "ذكر",
-    "FEMALE": "أنثى"
+    "GENDER": "الجنس"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "قائمة الإجازات والأعياد",
