@@ -139,6 +139,12 @@ export class SideBarLinksService {
       ],
     },
     {
+      labelKey: 'MENU.NOTIFICATIONS',
+      iconUrl: 'assets/icons/menu-icons/notification-icon.svg',
+      routerLink: ['/notifications'],
+      routeId: RouteIdsEnum.NOTIFICATIONS,
+    },
+    {
       labelKey: 'MENU.SETTINGS',
       iconUrl: 'assets/icons/menu-icons/settings.svg',
       children: [
@@ -147,11 +153,7 @@ export class SideBarLinksService {
         //   routerLink: ['/permission-reasons'],
         //   routeId: RouteIdsEnum.PERMISSION_REASONS,
         // },
-        {
-          labelKey: 'MENU.NOTIFICATIONS',
-          routerLink: ['/notifications'],
-          routeId: RouteIdsEnum.NOTIFICATIONS,
-        },
+
         {
           labelKey: 'MENU.GENERAL_SETTINGS',
           routerLink: ['/general-settings'],
