@@ -1,10 +1,10 @@
 <app-header></app-header>
 <section class="bg-[#f3f4f6]">
   <div class="custom-container py-[24px]">
-    <header class="p-[24px] rounded-[16px] bg-white border border-[#d2d6db] mb-6">
-      <h1 class="text-xl sm:text-2xl md:text-[30px] font-semibold">Privacy Policy</h1>
-    </header>
     @if (currentLang === LANGUAGE_ENUM.ENGLISH) {
+      <header class="p-[24px] rounded-[16px] bg-white border border-[#d2d6db] mb-6">
+        <h1 class="text-xl sm:text-2xl md:text-[30px] font-semibold">Privacy Policy</h1>
+      </header>
       <article class="p-[24px] rounded-[16px] bg-white border border-[#d2d6db]">
         <div class="bg-[#074d31] p-[24px] rounded-[16px] mb-10">
           <div class="flex items-center justify-between flex-wrap gap-2 border-b border-white/30">
@@ -338,6 +338,9 @@
         </div>
       </article>
     } @else {
+      <header class="p-[24px] rounded-[16px] bg-white border border-[#d2d6db] mb-6">
+        <h1 class="text-xl sm:text-2xl md:text-[30px] font-semibold">سياسة الخصوصية</h1>
+      </header>
       <article class="p-[24px] rounded-[16px] bg-white border border-[#d2d6db]" dir="rtl" lang="ar">
         <div class="bg-[#074d31] p-[24px] rounded-[16px] mb-10">
           <div class="flex items-center justify-between flex-wrap gap-2 border-b border-white/30">
