@@ -226,6 +226,13 @@ export const routes: Routes = [
           import('@/views/features/lookups/holidays/holidays-list/holidays-list.component'),
       },
       {
+        path: 'leaves-list',
+        loadComponent: () =>
+          import('@/views/features/leaves/leaves-list/leaves-list.component').then(
+            (m) => m.LeavesListComponent
+          ),
+      },
+      {
         path: 'employee-holidays',
         loadComponent: () =>
           import('@/views/features/lookups/holidays/employee-holidays/employee-holidays.component'),
