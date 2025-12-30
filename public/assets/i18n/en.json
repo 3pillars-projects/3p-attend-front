@@ -317,7 +317,9 @@
     "DELETE_EMPLOYEE": "Delete Employee",
     "MAX_LENGTH_NAME": "Name cannot exceed 100 characters",
     "ACTIVE_DIRECTORY_USERNAME": "Employee Number (Active Directory Username)",
-    "EMPLOYEE_NUMBER": "Employee Number"
+    "EMPLOYEE_NUMBER": "Employee Number",
+    "BIRTHDATE": "Birthdate",
+    "GENDER": "Gender"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "Holidays",
