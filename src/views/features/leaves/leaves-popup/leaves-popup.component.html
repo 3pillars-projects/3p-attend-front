@@ -40,38 +40,6 @@
             </div>
 
             <div class="mt-6 pt-6 border-t border-[#d2d6db]">
-                <div class="mb-6">
-                    <label class="label mb-3 block">
-                        <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
-                            هل يسمح بالتقديم بالتقديم بطلب إجازة امدة نصف يوم ؟
-                        </strong>
-                    </label>
-                    <div class="flex flex-wrap gap-8">
-                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-                            for="countHolidays-yes">
-                            نعم
-                            <input type="radio" id="countHolidays-yes" name="countHolidaysAndWeekends" [value]="true"
-                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
-                            <span
-                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
-                            </span>
-                        </label>
-
-                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-                            for="countHolidays-no">
-                            لا
-                            <input type="radio" id="countHolidays-no" name="countHolidaysAndWeekends" [value]="false"
-                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
-                            <span
-                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
-                            </span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-6 pt-6 border-t border-[#d2d6db]">
                 <label class="label mb-3 block">
                     <span class="text-[#b42318] font-[600]">*</span>
                     <strong class="font-medium text-[17px]">
@@ -226,6 +194,40 @@
                                 <span class="pi pi-minus"></span>
                             </ng-template>
                         </p-inputnumber>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+                <div class="mb-6">
+                    <label class="label mb-3 block">
+                        <span class="text-[#b42318] font-[600]">*</span>
+                        <strong class="font-medium text-[17px]">
+                            هل يسمح بالتقديم بالتقديم بطلب إجازة امدة نصف يوم ؟
+                        </strong>
+                    </label>
+                    <div class="flex flex-wrap gap-8">
+                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                            for="countHolidays-yes">
+                            نعم
+                            <input type="radio" id="countHolidays-yes" name="countHolidaysAndWeekends" [value]="true"
+                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
+                            <span
+                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
+                            </span>
+                        </label>
+
+                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                            for="countHolidays-no">
+                            لا
+                            <input type="radio" id="countHolidays-no" name="countHolidaysAndWeekends" [value]="false"
+                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
+                            <span
+                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
+                            </span>
+                        </label>
                     </div>
                 </div>
             </div>
