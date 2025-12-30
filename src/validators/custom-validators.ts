@@ -357,6 +357,20 @@ function getMonthsDifference(startDate: Date, endDate: Date): number {
 
   return totalMonths;
 }
+export function dateNotInFuture(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+
+    const inputDate = new Date(control.value);
+    const today = new Date();
+
+    // Normalize both dates (ignore time)
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return inputDate > today ? { dateInFuture: true } : null;
+  };
+}
 
 export type customValidationTypes =
   | 'ENG_NUM'
@@ -461,4 +475,5 @@ export const CustomValidators = {
   timeFromBeforeTimeTo,
   crossDateTimeValidator,
   crossDateShiftEndNotPassNextDayStart,
+  dateNotInFuture,
 };

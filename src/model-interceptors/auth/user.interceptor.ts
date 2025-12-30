@@ -5,6 +5,7 @@ import { getEmployeeCodeWithLeadingZeros, toDateOnly, toDateTime } from '@/utils
 export class UserInterceptor implements ModelInterceptorContract<User> {
   receive(model: User): User {
     model.joinDate = toDateTime(model.joinDate);
+    model.birthDate = toDateTime(model.birthDate);
     return model;
   }
 
@@ -13,6 +14,7 @@ export class UserInterceptor implements ModelInterceptorContract<User> {
       ? getEmployeeCodeWithLeadingZeros(model.nationalId)
       : model.nationalId;
     model.joinDate = toDateOnly(model.joinDate);
+    model.birthDate = toDateOnly(model.birthDate);
     delete model.city;
     delete model.region;
     delete model.department;
