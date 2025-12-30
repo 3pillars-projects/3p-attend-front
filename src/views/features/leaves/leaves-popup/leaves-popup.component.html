@@ -12,7 +12,7 @@
             }}
         </h3>
         <form class="mt-6">
-            <div class="grid md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
                     <label class="label" for="nameAr-popup">
                         <span class="text-[#b42318] font-[600]">*</span>
@@ -42,7 +42,7 @@
             <div class="mt-6 pt-6 border-t border-[#d2d6db]">
                 <label class="label mb-3 block">
                     <span class="text-[#b42318] font-[600]">*</span>
-                    <strong class="font-medium text-[17px]">
+                    <strong class="font-bolc text-lg">
                         هل تتطلب هذه الإجازة موافقة؟
                     </strong>
                 </label>
@@ -77,7 +77,7 @@
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             هل لهذه الإجازة رصيد سنوي؟
                         </strong>
                     </label>
@@ -122,7 +122,7 @@
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             هل يمكن ترحيل الإجازة من سنة لاخري؟
                         </strong>
                     </label>
@@ -154,7 +154,7 @@
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             هل يمكن التقديم عليها أكثر من مرة خلال فترة الخدمة (لها عدد محدود) ؟
                         </strong>
                     </label>
@@ -204,7 +204,7 @@
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             هل يسمح بالتقديم بالتقديم بطلب إجازة امدة نصف يوم ؟
                         </strong>
                     </label>
@@ -231,12 +231,56 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+                <label class="label mb-3 block">
+                    <span class="text-[#b42318] font-[600]">*</span>
+                    <strong class="font-bolc text-lg">
+                        ما نطاق فترة التقديم المتاحة له>ه الاجازة؟
+                    </strong>
+                </label>
+                <div class="flex flex-wrap gap-8">
+                    <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+                        <input
+                            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+                            type="checkbox" />
+                        <svg class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="3" viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ سابق</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+                        <input
+                            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+                            type="checkbox" />
+                        <svg class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="3" viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ اليوم</span>
+                    </label>
+                    <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+                        <input
+                            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+                            type="checkbox" />
+                        <svg class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="3" viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ في المستقبل</span>
+                    </label>
+                </div>
+            </div>
 
             <div class="mt-6 pt-6 border-t border-[#d2d6db]">
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             هل يمكن التقديم على هذه الإجازة بتاريخ سابق في الماضي؟
                         </strong>
                     </label>
@@ -268,7 +312,7 @@
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             من يمكنه التقديم على هذه الإجازة؟
                         </strong>
                     </label>
@@ -357,7 +401,7 @@
                 <div class="mb-6">
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
                             هل تُحتسب العطلات الرسمية ونهاية الأسبوع ضمن أيام الإجازة في حال وقوعها أثناء فترة الإجازة؟
                         </strong>
                     </label>
@@ -400,12 +444,51 @@
                     </div>
                 </div>
             </div>
+            <div class=" mt-6 pt-6 border-t border-[#d2d6db] grid grid-cols-1 lg:grid-cols-2 لشح)6">
 
-            <div class="mt-6 pt-6 border-t border-[#d2d6db]">
-                <div class="mb-6">
+                <div>
                     <label class="label mb-3 block">
                         <span class="text-[#b42318] font-[600]">*</span>
-                        <strong class="font-medium text-[17px]">
+                        <strong class="font-bolc text-lg">
+                            ما هي الفئة الدينية المتسحقة لهذه الاجازة
+                        </strong>
+                    </label>
+                    <div class="flex flex-wrap gap-8">
+                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                            for="countHolidays-yes6">
+                            مسلم
+                            <input type="radio" id="countHolidays-yes6" name="countHolidaysAndWeekends6" [value]="true"
+                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
+                            <span
+                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
+                            </span>
+                        </label>
+
+                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                            for="countHolidays-no6">
+                            مسيحي
+                            <input type="radio" id="countHolidays-no6" name="countHolidaysAndWeekends6" [value]="false"
+                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
+                            <span
+                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
+                            </span>
+                        </label>
+
+                        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                            for="countHolidays-no6">
+                            الجميع
+                            <input type="radio" id="countHolidays-no6" name="countHolidaysAndWeekends6" [value]="false"
+                                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
+                            <span
+                                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label class="label mb-3 block">
+                        <span class="text-[#b42318] font-[600]">*</span>
+                        <strong class="font-bolc text-lg">
                             هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟
                         </strong>
                     </label>
@@ -450,7 +533,7 @@
             <div class="actions mt-6 flex items-center justify-end gap-4">
                 <button (click)="close()" class="btn gray-btn">إلغاء</button>
                 <button (click)="save()" class="btn green-btn">
-                    حفظ
+                    اضافة
                 </button>
             </div>
         </form>
