@@ -139,7 +139,52 @@
           </div>
           <app-validation-messages [control]="phoneNumberControl"></app-validation-messages>
         </div>
+        <div>
+          <label class="label" for="gender">{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</label>
+          <div class="relative">
+            <p-select
+              [options]="genderOptions"
+              [optionLabel]="langOptionLabel"
+              optionValue="id"
+              formControlName="fkGenderId"
+              id="gender"
+              class="w-full peer"
+              placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"
+            ></p-select>
 
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+
+          <app-validation-messages [control]="genderControl"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label" for="birthDate-popup">{{
+            'EMPLOYEES_PAGE.BIRTHDATE' | translate
+          }}</label>
+          <div class="relative">
+            <p-datepicker
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              class="peer block w-full"
+              formControlName="birthDate"
+              id="birthDate-popup"
+              inputId="birthDate"
+              name="birthDate"
+              placeholder="{{ 'EMPLOYEES_PAGE.BIRTHDATE' | translate }}"
+              [maxDate]="today"
+            >
+              <ng-template pTemplate="inputicon">
+                <img alt="" src="assets/icons/calender-icon.svg" />
+              </ng-template>
+            </p-datepicker>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+          <app-validation-messages [control]="birthDateControl"></app-validation-messages>
+        </div>
         <div>
           <label class="label" for="jobAr-popup">{{
             'EMPLOYEES_PAGE.JOB_TITLE_ARABIC' | translate

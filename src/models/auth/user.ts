@@ -24,6 +24,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
   declare fkRegionId?: number;
   declare fkCityId?: number;
   declare fkGenderId?: number;
+  declare birthDate?: Date | string;
   declare fkDepartmentId?: number;
   declare jobTitleEn?: string;
   declare jobTitleAr?: string;
@@ -55,6 +56,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
       fkRegionId,
       fkCityId,
       fkGenderId,
+      birthDate,
       fkDepartmentId,
       jobTitleEn,
       jobTitleAr,
@@ -110,7 +112,8 @@ export class User extends BaseCrudModel<User, UserService, string> {
       ],
       fkRegionId: [fkRegionId, [Validators.required]],
       fkCityId: [fkCityId, [Validators.required]],
-      // fkGenderId: [fkGenderId, [Validators.required]],
+      fkGenderId: [fkGenderId, [Validators.required]],
+      birthDate: [birthDate, [Validators.required, CustomValidators.dateNotInFuture()]],
       fkDepartmentId: [fkDepartmentId, [Validators.required]],
       jobTitleEn: [
         jobTitleEn,

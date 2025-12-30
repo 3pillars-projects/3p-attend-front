@@ -28,6 +28,7 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { ROLES_ENUM } from '@/enums/roles-enum';
 import { BooleanOptionModel } from '@/models/shared/boolean-option';
 import { PasswordModule } from 'primeng/password';
+import { GENDER_ENUM } from '@/enums/gender-enum';
 
 @Component({
   selector: 'app-add-new-employee-popup',
@@ -54,7 +55,7 @@ export class AddNewEmployeePopupComponent extends BasePopupComponent<User> imple
   service = inject(UserService);
   fb = inject(FormBuilder);
   isCreateMode = false;
-
+  today = new Date();
   departments: BaseLookupModel[] = [];
   cities: CityLookup[] = [];
   regions: BaseLookupModel[] = [];
@@ -124,6 +125,9 @@ export class AddNewEmployeePopupComponent extends BasePopupComponent<User> imple
   get joinDateControl() {
     return this.form.get('joinDate') as FormControl;
   }
+  get birthDateControl() {
+    return this.form.get('birthDate') as FormControl;
+  }
 
   get accountStatusControl() {
     return this.form.get('isActive') as FormControl;
@@ -140,7 +144,9 @@ export class AddNewEmployeePopupComponent extends BasePopupComponent<User> imple
   get passwordControl() {
     return this.form.get('password') as FormControl;
   }
-
+  get genderControl() {
+    return this.form.get('fkGenderId') as FormControl;
+  }
   override initPopup() {
     this.model = this.data.model;
     this.cities = this.data.lookups.cities;
@@ -153,8 +159,13 @@ export class AddNewEmployeePopupComponent extends BasePopupComponent<User> imple
 
     // Initialize role states
     this.initializeRoleStates();
+    this.today.setHours(0, 0, 0, 0);
   }
 
+  genderOptions = [
+    { id: GENDER_ENUM.MALE, nameEn: 'Male', nameAr: 'ذكر' },
+    { id: GENDER_ENUM.FEMALE, nameEn: 'Female', nameAr: 'أنثى' },
+  ];
   override prepareModel(model: User, form: FormGroup): User | Observable<User> {
     // Map the boolean values correctly
     const formValue = form.value;
