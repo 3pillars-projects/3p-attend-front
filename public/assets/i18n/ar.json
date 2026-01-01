@@ -153,6 +153,7 @@
     "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل"
   },
   "FOOTER": {
+    "PRIVACY_POLICY": "سياسة الخصوصية",
     "ALL_RIGHTS": "جميع الحقوق محفوظة لشركة الأسس الثلاثة لنظم المعلومات © 2026"
   },
   "LOGIN_PAGE": {
@@ -314,7 +315,9 @@
     "DELETE_EMPLOYEE": "حذف الموظف",
     "MAX_LENGTH_NAME": "الاسم لا يمكن أن يتجاوز 100 حرف",
     "ACTIVE_DIRECTORY_USERNAME": "رقم الموظف (اسم المستخدم في Active Directory)",
-    "EMPLOYEE_NUMBER": "رقم الموظف"
+    "EMPLOYEE_NUMBER": "رقم الموظف",
+    "BIRTHDATE": "تاريخ الميلاد",
+    "GENDER": "الجنس"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "قائمة الإجازات والأعياد",
