@@ -5,8 +5,8 @@
     </button>
     <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
       {{
-        (isCreateMode ? 'EMPLOYEES_PAGE.ADD_NEW_EMPLOYEE' : 'EMPLOYEES_PAGE.EDIT_EMPLOYEE')
-          | translate
+      (isCreateMode ? 'EMPLOYEES_PAGE.ADD_NEW_EMPLOYEE' : 'EMPLOYEES_PAGE.EDIT_EMPLOYEE')
+      | translate
       }}
     </h3>
 
@@ -15,21 +15,13 @@
         <div>
           <label class="label" for="department-popup">{{
             'EMPLOYEES_PAGE.DEPARTMENT' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <p-select
-              [optionLabel]="langOptionLabel"
-              [options]="departments"
-              class="w-full peer"
-              formControlName="fkDepartmentId"
-              id="department-popup"
-              name="selectedDepartment"
-              optionValue="id"
-              placeholder="{{ 'EMPLOYEES_PAGE.DEPARTMENT' | translate }}"
-            ></p-select>
+            <p-select [optionLabel]="langOptionLabel" [options]="departments" class="w-full peer"
+              formControlName="fkDepartmentId" id="department-popup" name="selectedDepartment" optionValue="id"
+              placeholder="{{ 'EMPLOYEES_PAGE.DEPARTMENT' | translate }}"></p-select>
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <!-- @if (departmentControl.touched && departmentControl.errors?.['required']) {
             <span class="validation-message">{{ 'COMMON.REQUIRED_FIELD' | translate }}</span>
@@ -39,20 +31,12 @@
         <div>
           <label class="label" for="employeeNameAr-popup">{{
             'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="fullNameAr"
-              id="employeeNameAr-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}"
-              type="text"
-            />
+            <input class="peer" fluid="true" formControlName="fullNameAr" id="employeeNameAr-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}" type="text" />
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <app-validation-messages [control]="fullNameArControl"></app-validation-messages>
         </div>
@@ -60,101 +44,24 @@
         <div>
           <label class="label" for="employeeNameEn-popup">{{
             'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="fullNameEn"
-              id="employeeNameEn-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}"
-              type="text"
-            />
+            <input class="peer" fluid="true" formControlName="fullNameEn" id="employeeNameEn-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}" type="text" />
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <app-validation-messages [control]="fullNameEnControl"></app-validation-messages>
-        </div>
-
-        <div>
-          <label class="label" for="region">{{ 'EMPLOYEES_PAGE.REGION' | translate }}</label>
-          <div class="relative">
-            <p-select
-              [optionLabel]="langOptionLabel"
-              [options]="regions"
-              class="w-full peer"
-              formControlName="fkRegionId"
-              id="region"
-              name="region"
-              optionValue="id"
-              placeholder="{{ 'EMPLOYEES_PAGE.REGION' | translate }}"
-            ></p-select>
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
-          </div>
-          <app-validation-messages [control]="regionControl"></app-validation-messages>
-        </div>
-
-        <div>
-          <label class="label" for="add-employee-city">{{
-            'EMPLOYEES_PAGE.CITY' | translate
-          }}</label>
-          <div class="relative">
-            <p-select
-              [optionLabel]="langOptionLabel"
-              [options]="filteredCities"
-              class="w-full peer"
-              formControlName="fkCityId"
-              id="add-employee-city"
-              name="city"
-              optionValue="id"
-              placeholder="{{ 'EMPLOYEES_PAGE.CITY' | translate }}"
-            ></p-select>
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
-          </div>
-          <app-validation-messages [control]="cityControl"></app-validation-messages>
-        </div>
-        <div>
-          <label class="label" for="mobile-popup">{{
-            'EMPLOYEES_PAGE.PHONE_NUMBER' | translate
-          }}</label>
-          <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="phoneNumber"
-              id="mobile-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.PHONE_NUMBER' | translate }}"
-              type="text"
-            />
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
-          </div>
-          <app-validation-messages [control]="phoneNumberControl"></app-validation-messages>
         </div>
         <div>
           <label class="label" for="gender">{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</label>
           <div class="relative">
-            <p-select
-              [options]="genderOptions"
-              [optionLabel]="langOptionLabel"
-              optionValue="id"
-              formControlName="fkGenderId"
-              id="gender"
-              class="w-full peer"
-              placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"
-            ></p-select>
+            <p-select [options]="genderOptions" [optionLabel]="langOptionLabel" optionValue="id"
+              formControlName="fkGenderId" id="gender" class="w-full peer"
+              placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"></p-select>
 
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
 
           <app-validation-messages [control]="genderControl"></app-validation-messages>
@@ -162,46 +69,130 @@
         <div>
           <label class="label" for="birthDate-popup">{{
             'EMPLOYEES_PAGE.BIRTHDATE' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <p-datepicker
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              class="peer block w-full"
-              formControlName="birthDate"
-              id="birthDate-popup"
-              inputId="birthDate"
-              name="birthDate"
-              placeholder="{{ 'EMPLOYEES_PAGE.BIRTHDATE' | translate }}"
-              [maxDate]="today"
-            >
+            <p-datepicker [iconDisplay]="'input'" [showIcon]="true" class="peer block w-full"
+              formControlName="birthDate" id="birthDate-popup" inputId="birthDate" name="birthDate"
+              placeholder="{{ 'EMPLOYEES_PAGE.BIRTHDATE' | translate }}" [maxDate]="today">
               <ng-template pTemplate="inputicon">
                 <img alt="" src="assets/icons/calender-icon.svg" />
               </ng-template>
             </p-datepicker>
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <app-validation-messages [control]="birthDateControl"></app-validation-messages>
         </div>
         <div>
+          <label class="label" for="gender">الفئة الدينية (الديانة)</label>
+          <div class="relative">
+            <p-select [options]="genderOptions" [optionLabel]="langOptionLabel" optionValue="id"
+              formControlName="fkGenderId" id="gender" class="w-full peer"
+              placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"></p-select>
+
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+
+          <app-validation-messages [control]="genderControl"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label" for="mobile-popup">{{
+            'EMPLOYEES_PAGE.PHONE_NUMBER' | translate
+            }}</label>
+          <div class="relative">
+            <input class="peer" fluid="true" formControlName="phoneNumber" id="mobile-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.PHONE_NUMBER' | translate }}" type="text" />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="phoneNumberControl"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label" for="email-popup">{{ 'EMPLOYEES_PAGE.EMAIL' | translate }}</label>
+          <div class="relative">
+            <input class="peer" fluid="true" formControlName="email" id="email-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.EMAIL' | translate }}" type="text" />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="emailControl"></app-validation-messages>
+        </div>
+
+        <div>
+          <label class="label" for="region">{{ 'EMPLOYEES_PAGE.REGION' | translate }}</label>
+          <div class="relative">
+            <p-select [optionLabel]="langOptionLabel" [options]="regions" class="w-full peer"
+              formControlName="fkRegionId" id="region" name="region" optionValue="id"
+              placeholder="{{ 'EMPLOYEES_PAGE.REGION' | translate }}"></p-select>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="regionControl"></app-validation-messages>
+        </div>
+
+        <div>
+          <label class="label" for="add-employee-city">{{
+            'EMPLOYEES_PAGE.CITY' | translate
+            }}</label>
+          <div class="relative">
+            <p-select [optionLabel]="langOptionLabel" [options]="filteredCities" class="w-full peer"
+              formControlName="fkCityId" id="add-employee-city" name="city" optionValue="id"
+              placeholder="{{ 'EMPLOYEES_PAGE.CITY' | translate }}"></p-select>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="cityControl"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label" for="mobile-popup">رقم الهوية</label>
+          <div class="relative">
+            <input class="peer" fluid="true" formControlName="phoneNumber" id="mobile-popup" pInputText
+              placeholder="رقم الهوية" type="text" />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="phoneNumberControl"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label" for="before-attendance-time">
+            <span class="text-[#b42318] font-[600]">*</span> الخدمة التامينية (عدد السنوات)
+          </label>
+          <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true" buttonLayout="horizontal"
+            spinnerMode="horizontal">
+            <ng-template #incrementbuttonicon>
+              <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+              <span class="pi pi-minus"></span>
+            </ng-template>
+          </p-inputnumber>
+        </div>
+        <div>
+          <label class="label" for="before-attendance-time">
+            <span class="text-[#b42318] font-[600]">*</span> الخدمة التامينية (عدد الشهور)
+          </label>
+          <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true" buttonLayout="horizontal"
+            spinnerMode="horizontal">
+            <ng-template #incrementbuttonicon>
+              <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+              <span class="pi pi-minus"></span>
+            </ng-template>
+          </p-inputnumber>
+        </div>
+
+
+        <div>
           <label class="label" for="jobAr-popup">{{
             'EMPLOYEES_PAGE.JOB_TITLE_ARABIC' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="jobTitleAr"
-              id="jobAr-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.JOB_TITLE_ARABIC' | translate }}"
-              type="text"
-            />
+            <input class="peer" fluid="true" formControlName="jobTitleAr" id="jobAr-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.JOB_TITLE_ARABIC' | translate }}" type="text" />
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <app-validation-messages [control]="jobTitleArControl"></app-validation-messages>
         </div>
@@ -209,155 +200,88 @@
         <div>
           <label class="label" for="jobEn-popup">{{
             'EMPLOYEES_PAGE.JOB_TITLE_ENGLISH' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="jobTitleEn"
-              id="jobEn-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.JOB_TITLE_ENGLISH' | translate }}"
-              type="text"
-            />
+            <input class="peer" fluid="true" formControlName="jobTitleEn" id="jobEn-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.JOB_TITLE_ENGLISH' | translate }}" type="text" />
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <app-validation-messages [control]="jobTitleEnControl"></app-validation-messages>
         </div>
 
-        <div>
-          <label class="label" for="email-popup">{{ 'EMPLOYEES_PAGE.EMAIL' | translate }}</label>
-          <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="email"
-              id="email-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.EMAIL' | translate }}"
-              type="text"
-            />
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
-          </div>
-          <app-validation-messages [control]="emailControl"></app-validation-messages>
-        </div>
-        <div>
-          <label class="label" for="accountStatus-popup">{{
-            'EMPLOYEES_PAGE.ACCOUNT_STATUS' | translate
-          }}</label>
-          <div class="relative">
-            <p-select
-              [options]="accountStatusOptions"
-              class="w-full peer"
-              formControlName="isActive"
-              id="accountStatus-popup"
-              name="accountStatus"
-              [optionLabel]="langOptionLabel"
-              optionValue="id"
-              placeholder="{{ 'EMPLOYEES_PAGE.ACCOUNT_STATUS' | translate }}"
-            ></p-select>
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
-          </div>
-          <app-validation-messages [control]="accountStatusControl"></app-validation-messages>
-        </div>
+
+
 
         <div>
           <label class="label" for="joinDate-popup">{{
             'EMPLOYEES_PAGE.JOIN_DATE' | translate
-          }}</label>
+            }}</label>
           <div class="relative">
-            <p-datepicker
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              class="peer block w-full"
-              formControlName="joinDate"
-              id="joinDate-popup"
-              inputId="joinDate"
-              name="joinDate"
-              placeholder="{{ 'EMPLOYEES_PAGE.JOIN_DATE' | translate }}"
-            >
+            <p-datepicker [iconDisplay]="'input'" [showIcon]="true" class="peer block w-full" formControlName="joinDate"
+              id="joinDate-popup" inputId="joinDate" name="joinDate"
+              placeholder="{{ 'EMPLOYEES_PAGE.JOIN_DATE' | translate }}">
               <ng-template pTemplate="inputicon">
                 <img alt="" src="assets/icons/calender-icon.svg" />
               </ng-template>
             </p-datepicker>
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
           <app-validation-messages [control]="joinDateControl"></app-validation-messages>
         </div>
-
         <div>
-          <label class="label" for="nationalId-popup">{{
-            'EMPLOYEES_PAGE.NATIONAL_ID' | translate
-          }}</label>
+          <label class="label" for="accountStatus-popup">{{
+            'EMPLOYEES_PAGE.ACCOUNT_STATUS' | translate
+            }}</label>
           <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="nationalId"
-              id="nationalId-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.NATIONAL_ID' | translate }}"
-              type="text"
-            />
+            <p-select [options]="accountStatusOptions" class="w-full peer" formControlName="isActive"
+              id="accountStatus-popup" name="accountStatus" [optionLabel]="langOptionLabel" optionValue="id"
+              placeholder="{{ 'EMPLOYEES_PAGE.ACCOUNT_STATUS' | translate }}"></p-select>
             <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
-          <app-validation-messages [control]="nationalIdControl"></app-validation-messages>
+          <app-validation-messages [control]="accountStatusControl"></app-validation-messages>
         </div>
         <div>
           <label class="label" for="employeeNumber-popup">{{
             'EMPLOYEES_PAGE.ACTIVE_DIRECTORY_USERNAME' | translate
-          }}</label>
-          <div class="relative">
-            <input
-              class="peer"
-              fluid="true"
-              formControlName="activeDirectoryUsername"
-              id="employeeNumber-popup"
-              pInputText
-              placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NUMBER' | translate }}"
-              type="text"
-            />
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-            ></span>
-          </div>
-          <app-validation-messages
-            [control]="activeDirectoryUsernameControl"
-          ></app-validation-messages>
-        </div>
-        @if (isCreateMode) {
-          <div>
-            <label for="password-popup" class="label">{{
-              'EMPLOYEES_PAGE.PASSWORD' | translate
             }}</label>
-            <div class="relative">
-              <p-password
-                autocomplete="new-password"
-                [toggleMask]="true"
-                id="password-popup"
-                placeholder="{{ 'EMPLOYEES_PAGE.PASSWORD' | translate }}"
-                formControlName="password"
-                type="password"
-                class="peer"
-                fluid="true"
-                [feedback]="false"
-              />
-              <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
-            </div>
-            <app-validation-messages [control]="passwordControl"></app-validation-messages>
+          <div class="relative">
+            <input class="peer" fluid="true" formControlName="activeDirectoryUsername" id="employeeNumber-popup"
+              pInputText placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NUMBER' | translate }}" type="text" />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
           </div>
+          <app-validation-messages [control]="activeDirectoryUsernameControl"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label" for="nationalId-popup">{{
+            'EMPLOYEES_PAGE.NATIONAL_ID' | translate
+            }}</label>
+          <div class="relative">
+            <input class="peer" fluid="true" formControlName="nationalId" id="nationalId-popup" pInputText
+              placeholder="{{ 'EMPLOYEES_PAGE.NATIONAL_ID' | translate }}" type="text" />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="nationalIdControl"></app-validation-messages>
+        </div>
+
+        @if (isCreateMode) {
+        <div>
+          <label for="password-popup" class="label">{{
+            'EMPLOYEES_PAGE.PASSWORD' | translate
+            }}</label>
+          <div class="relative">
+            <p-password autocomplete="new-password" [toggleMask]="true" id="password-popup"
+              placeholder="{{ 'EMPLOYEES_PAGE.PASSWORD' | translate }}" formControlName="password" type="password"
+              class="peer" fluid="true" [feedback]="false" />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+          </div>
+          <app-validation-messages [control]="passwordControl"></app-validation-messages>
+        </div>
         }
       </div>
 
@@ -368,89 +292,60 @@
           </h3>
           <div class="flex flex-wrap gap-8 mt-3 rounded p-6 dimmed-form">
             <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
-              <input
-                checked
+              <input checked
                 class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
-                disabled
-                type="checkbox"
-              />
+                disabled type="checkbox" />
               <svg
                 class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                viewBox="0 0 24 24"
-              >
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               <span class="text-base font-medium text-[#1f2a37]">{{
                 'EMPLOYEES_PAGE.ROLE_EMPLOYEE' | translate
-              }}</span>
+                }}</span>
             </label>
             <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
-              <input
-                [checked]="roleStates.isSysAdmin"
+              <input [checked]="roleStates.isSysAdmin"
                 class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
-                type="checkbox"
-              />
+                type="checkbox" />
               <svg
                 class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                viewBox="0 0 24 24"
-              >
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               <span class="text-base font-medium text-[#1f2a37]">{{
                 'EMPLOYEES_PAGE.ROLE_SYS_ADMIN' | translate
-              }}</span>
+                }}</span>
             </label>
             <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
-              <input
-                [checked]="roleStates.isDeptManager"
+              <input [checked]="roleStates.isDeptManager"
                 class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
-                type="checkbox"
-              />
+                type="checkbox" />
               <svg
                 class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                viewBox="0 0 24 24"
-              >
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               <span class="text-base font-medium text-[#1f2a37]">{{
                 'EMPLOYEES_PAGE.ROLE_DEPT_MANAGER' | translate
-              }}</span>
+                }}</span>
             </label>
             <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
-              <input
-                [checked]="roleStates.isHR"
+              <input [checked]="roleStates.isHR"
                 class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
-                type="checkbox"
-              />
+                type="checkbox" />
               <svg
                 class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                viewBox="0 0 24 24"
-              >
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                viewBox="0 0 24 24">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               <span class="text-base font-medium text-[#1f2a37]">{{
                 'EMPLOYEES_PAGE.ROLE_HR' | translate
-              }}</span>
+                }}</span>
             </label>
           </div>
         </div>
@@ -461,23 +356,16 @@
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
             <input
               class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
-              formControlName="canLeaveWithoutFingerPrint"
-              type="checkbox"
-            />
+              formControlName="canLeaveWithoutFingerPrint" type="checkbox" />
             <svg
               class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="3"
-              viewBox="0 0 24 24"
-            >
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+              viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
             </svg>
             <span class="text-base font-medium text-[#1f2a37]">{{
               'EMPLOYEES_PAGE.FINGERPRINT_EXEMPTION' | translate
-            }}</span>
+              }}</span>
           </label>
         </div>
       </div>

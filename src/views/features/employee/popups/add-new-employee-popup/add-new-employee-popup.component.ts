@@ -29,6 +29,7 @@ import { ROLES_ENUM } from '@/enums/roles-enum';
 import { BooleanOptionModel } from '@/models/shared/boolean-option';
 import { PasswordModule } from 'primeng/password';
 import { GENDER_ENUM } from '@/enums/gender-enum';
+import { InputNumber } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-add-new-employee-popup',
@@ -43,6 +44,7 @@ import { GENDER_ENUM } from '@/enums/gender-enum';
     TranslatePipe,
     ValidationMessagesComponent,
     PasswordModule,
+    InputNumber
   ],
   templateUrl: './add-new-employee-popup.component.html',
   styleUrl: './add-new-employee-popup.component.scss',

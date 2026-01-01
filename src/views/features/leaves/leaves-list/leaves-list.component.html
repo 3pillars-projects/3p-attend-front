@@ -1,0 +1,130 @@
+<div #employeeContainer class="bg-white">
+    <div class="bg-[#f9fafb] p-3 sm:p-6">
+        <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+            <p-breadcrumb [home]="home" [model]="breadcrumbs" class="max-w-full">
+                <ng-template let-item pTemplate="item">
+                    <span>لوحة المعلومات</span>
+                </ng-template>
+            </p-breadcrumb>
+            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+                أنواع الاجازات الرسمية
+            </h3>
+        </div>
+        <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+            <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+                <div class="flex items-center justify-between">
+                    <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+                        تصفية البحث
+                    </h5>
+                </div>
+                <div class="pt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <div class="relative">
+                            <label class="label" for="jobTitleAr">اسم نوع الاجازة بالعربية</label>
+                            <input [(ngModel)]="filterModel.jobTitleAr" placeholder="اسم نوع الاجازة بالعربية"
+                                class="peer" fluid="true" id="jobTitleAr" pInputText type="text" />
+                            <span
+                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                        </div>
+
+                        <div class="relative">
+                            <label class="label" for="jobTitleEn">اسم نوع الاجازة بالانجليزية</label>
+                            <input placeholder="اسم نوع الاجازة بالانجليزية" class="peer" fluid="true" id="jobTitleEn"
+                                pInputText type="text" />
+                            <span
+                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                        </div>
+                        <div class="relative">
+                            <label class="label" for="accountStatus">
+                                حالة التفعيل
+                            </label>
+                            <p-select [(ngModel)]="filterModel.isActive" [optionLabel]="optionLabel"
+                                [options]="accountStatusOptions"
+                                [placeholder]="'EMPLOYEES_PAGE.ACCOUNT_STATUS' | translate" [showClear]="true"
+                                class="w-full peer" id="accountStatus" name="accountStatus" optionValue="id"></p-select>
+                            <span
+                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                        </div>
+                    </div>
+
+                    <div class="actions flex items-center gap-4 pt-6">
+                        <button class="btn black-btn">
+                            بحث
+                        </button>
+                        <button class="btn gray-btn border border-[#d2d6db]">
+                            إعادة تعيين
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <div
+                    class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+                    <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+                        قائمة أنواع الاجازات الرسمية
+                    </h4>
+                    <div class="actions flex items-center gap-4 ms-auto">
+                        <button (click)="exportExcel('employees.xlsx')" class="table-head-action-btn min-w-[40px]">
+                            <img alt="" src="assets/icons/excel.svg" />
+                        </button>
+
+                        <button (click)="openDialog()" class="btn green-btn flex items-center">
+                            <img alt="" src="assets/icons/plus.svg" />
+                            <span>إضافة نوع اجازة جديد</span>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <p-table [value]="list">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>اسم نوع الاجازة بالعربية</th>
+                                <th>اسم نوع الاجازة بالانجليزية</th>
+                                <th>عدد أيام الرصيد</th>
+                                <th>الحد الاقصى لعدد الايام المتتالية</th>
+                                <th>حالة التفعيل</th>
+                                <th class="w-[36px] whitespace-nowrap">
+                                    اجراء
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-user>
+                            <tr>
+                                <td [title]="user.jobTitleAr"
+                                    class="max-w-[400px] whitespace-nowrap overflow-hidden text-ellipsis">
+                                    {{ user.jobTitleAr }}
+                                </td>
+                                <td [title]="user.jobTitleEn"
+                                    class="max-w-[400px] whitespace-nowrap overflow-hidden text-ellipsis">
+                                    {{ user.jobTitleEn }}
+                                </td>
+                                <td>{{ user.nationalId }}</td>
+                                <td [title]="user.fullNameAr"
+                                    class="max-w-[400px] whitespace-nowrap overflow-hidden text-ellipsis">
+                                    {{ user.fullNameAr }}
+                                </td>
+                                <td>
+                                    <div class="flex justify-center gap-2">
+                                        <img *ngIf="user.isActive" src="assets/icons/right-icon.svg" alt="" />
+                                        <img *ngIf="!user.isActive" src="assets/icons/wrong-icon.svg" alt="" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex gap-4">
+                                        <button class="table-action-gray-btn flex align-items gap-4">
+                                            <img src="assets/icons/edit-action.svg" alt="" />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first"
+                        [rowsPerPageOptions]="[10, 20, 30]" [rows]="rows" [showCurrentPageReport]="false"
+                        [totalRecords]="paginationInfo.totalItems" class="mt-6" />
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
