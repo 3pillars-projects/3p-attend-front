@@ -36,6 +36,7 @@ export const EndPoints = {
   ATTENDANCE_REPORT: '/attendancereports',
   MANUAL_PROCESSING: '/ManualProcessing',
   IMPORT: '/ImportSheet',
+  LEAVE_TYPE: '/LeaveType',
 };
 
 export type EndpointsType = typeof EndPoints;
