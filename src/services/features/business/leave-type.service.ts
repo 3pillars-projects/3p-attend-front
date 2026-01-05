@@ -1,5 +1,5 @@
 import { BaseCrudService } from '@/abstracts/base-crud-service';
-import { LeaveType } from '@/models/features/business/leave-type';
+import { LeaveType } from '@/models/features/business/leave-types/leave-type';
 import { PaginatedList } from '@/models/shared/response/paginated-list';
 import { Injectable } from '@angular/core';
 import { CastResponseContainer } from 'cast-response';
@@ -18,7 +18,7 @@ import { CastResponseContainer } from 'cast-response';
   providedIn: 'root',
 })
 export class LeaveTypeService extends BaseCrudService<LeaveType> {
-  serviceName: string = 'LeaveService';
+  serviceName: string = 'LeaveTypeService';
 
   override getUrlSegment(): string {
     return this.urlService.URLS.LEAVE_TYPE;

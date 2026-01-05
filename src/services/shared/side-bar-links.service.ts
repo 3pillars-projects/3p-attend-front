@@ -95,6 +95,12 @@ export class SideBarLinksService {
       routerLink: ['/holidays'],
       routeId: RouteIdsEnum.HOLIDAYS,
     },
+    {
+      labelKey: 'MENU.LEAVE_TYPES',
+      iconUrl: 'assets/icons/menu-icons/vacations.svg',
+      routerLink: ['/leaves-list'],
+      routeId: RouteIdsEnum.LEAVE_TYPES,
+    },
     // {
     //   labelKey: 'MENU.VISITS',
     //   iconUrl: 'assets/icons/menu-icons/visits.svg',

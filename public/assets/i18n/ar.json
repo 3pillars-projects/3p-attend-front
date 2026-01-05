@@ -487,7 +487,8 @@
     "ACCESS_LOCATIONS": "مواقع أجهزة البصمة",
     "DEVICES_CONFIGURATION": "إعدادات أجهزة البصمة",
     "ATTENDANCE_REPORT_PROCESSING": "معالجة بيانات تقارير الموظفين",
-    "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود"
+    "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود",
+    "LEAVE_TYPES": "أنواع الإجازات"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",

@@ -25,6 +25,7 @@ import { accessLocationResolver } from '@/resolvers/business/access-location.res
 import { devicesConfigurationResolver } from '@/resolvers/business/devices-configuration.resolver';
 import { attendanceReportResolver } from '@/resolvers/business/attendance-report.resolver';
 import { limitedTimePermissionResolver } from '@/resolvers/lookups/limited-timepermission.resolver';
+import { leaveTypesResolver } from '@/resolvers/business/leave-types.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -44,7 +45,10 @@ export const routes: Routes = [
   },
   {
     path: 'privacy-policy',
-    loadComponent: () => import('@/views/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
+    loadComponent: () =>
+      import('@/views/privacy-policy/privacy-policy.component').then(
+        (m) => m.PrivacyPolicyComponent
+      ),
   },
 
   // ✅ Auth layout and login
@@ -227,8 +231,11 @@ export const routes: Routes = [
       },
       {
         path: 'leaves-list',
+        canActivate: [authGuard],
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVE_TYPES },
+        resolve: { list: leaveTypesResolver },
         loadComponent: () =>
-          import('@/views/features/leaves/leaves-list/leaves-list.component').then(
+          import('@/views/features/leaves/leave-types-list/leave-types-list.component').then(
             (m) => m.LeavesListComponent
           ),
       },

@@ -52,7 +52,7 @@ export class HolidaysPopupComponent extends BasePopupComponent<Holiday> implemen
     super();
   }
 
-  get nameArControl() {
+  get   nameArControl() {
     return this.form.get('nameAr') as FormControl;
   }
 

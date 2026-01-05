@@ -1,0 +1,799 @@
+<div [dir]="direction">
+  <div class="p-6">
+    <button (click)="close()" class="block ms-auto">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+
+    <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
+      {{ isCreateMode ? 'إضافة نوع اجازة جديد' : 'تعديل نوع الاجازة' }}
+    </h3>
+
+    <form class="mt-6" [formGroup]="form" (ngSubmit)="save$.next()">
+      <!-- Names -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label class="label" for="nameAr-popup">
+            <span class="text-[#b42318] font-[600]">*</span>
+            اسم نوع الاجازة بالعربية
+          </label>
+          <div class="relative">
+            <input
+              formControlName="nameAr"
+              class="peer w-full"
+              fluid="true"
+              id="nameAr-popup"
+              pInputText
+              placeholder="اسم نوع الاجازة بالعربية"
+              type="text"
+            />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+        </div>
+
+        <div>
+          <label class="label" for="nameEn-popup">
+            <span class="text-[#b42318] font-[600]">*</span>
+            اسم نوع الاجازة بالانجليزية
+          </label>
+          <div class="relative">
+            <input
+              formControlName="nameEn"
+              class="peer w-full"
+              fluid="true"
+              id="nameEn-popup"
+              pInputText
+              placeholder="اسم نوع الاجازة بالانجليزية"
+              type="text"
+            />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approvals -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <label class="label mb-3 block">
+          <span class="text-[#b42318] font-[600]">*</span>
+          <strong class="font-bolc text-lg"> هل تتطلب هذه الإجازة موافقة؟ </strong>
+        </label>
+
+        <div class="flex flex-wrap gap-8">
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="needManagerApproval"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]">مدير الادارة</span>
+          </label>
+
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="needHRApproval"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]">الموارد البشرية</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Annual balance + transferable -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <div class="mb-6">
+          <label class="label mb-3 block">
+            <span class="text-[#b42318] font-[600]">*</span>
+            <strong class="font-bolc text-lg"> هل لهذه الإجازة رصيد سنوي؟ </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="hasAnnualBalance-yes"
+            >
+              نعم
+              <input
+                formControlName="hasAnnualBalance"
+                type="radio"
+                id="hasAnnualBalance-yes"
+                name="hasAnnualBalance"
+                [value]="true"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="hasAnnualBalance-no"
+            >
+              لا
+              <input
+                formControlName="hasAnnualBalance"
+                type="radio"
+                id="hasAnnualBalance-no"
+                name="hasAnnualBalance"
+                [value]="false"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+          </div>
+        </div>
+        <fieldset
+          [disabled]="!isAnnualLeave()"
+          [class.opacity-60]="form.get('hasAnnualBalance')?.value !== true"
+        >
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div>
+              <label class="label" for="annualBalance">
+                <span class="text-[#b42318] font-[600]">*</span> الرصيد السنوي
+              </label>
+
+              <p-inputnumber
+                inputId="annualBalance"
+                formControlName="annualBalance"
+                [inputStyle]="{ width: '3rem' }"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                spinnerMode="horizontal"
+              >
+                <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+                </ng-template>
+              </p-inputnumber>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="label mb-3 block">
+              <span class="text-[#b42318] font-[600]">*</span>
+              <strong class="font-bolc text-lg"> هل يمكن ترحيل الإجازة من سنة لاخري؟ </strong>
+            </label>
+
+            <div class="flex flex-wrap gap-8">
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="isBalanceTransferrable-yes"
+              >
+                نعم
+                <input
+                  formControlName="isBalanceTransferrable"
+                  type="radio"
+                  id="isBalanceTransferrable-yes"
+                  name="isBalanceTransferrable"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+                >
+                </span>
+              </label>
+
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="isBalanceTransferrable-no"
+              >
+                لا
+                <input
+                  formControlName="isBalanceTransferrable"
+                  type="radio"
+                  id="isBalanceTransferrable-no"
+                  name="isBalanceTransferrable"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+                >
+                </span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Limited times during service -->
+      <fieldset
+        [disabled]="isAnnualLeave()"
+        [class.opacity-60]="form.get('hasAnnualBalance')?.value === true"
+      >
+        <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+          <div class="mb-6">
+            <label class="label mb-3 block">
+              <span class="text-[#b42318] font-[600]">*</span>
+              <strong class="font-bolc text-lg">
+                هل يمكن التقديم عليها أكثر من مرة خلال فترة الخدمة (لها عدد محدود) ؟
+              </strong>
+            </label>
+
+            <div class="flex flex-wrap gap-8">
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="hasLimitedTimes-yes"
+              >
+                نعم
+                <input
+                  formControlName="hasLimitedTimesDuringServicePeriod"
+                  type="radio"
+                  id="hasLimitedTimes-yes"
+                  name="hasLimitedTimesDuringServicePeriod"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+                >
+                </span>
+              </label>
+
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="hasLimitedTimes-no"
+              >
+                لا
+                <input
+                  formControlName="hasLimitedTimesDuringServicePeriod"
+                  type="radio"
+                  id="hasLimitedTimes-no"
+                  name="hasLimitedTimesDuringServicePeriod"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+                >
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4 mb-6">
+            <div>
+              <label class="label" for="availableTimesDuringServicePeriod">
+                <span class="text-[#b42318] font-[600]">*</span> عدد مرات القيام بها في مدة الخدمة
+              </label>
+
+              <p-inputnumber
+                inputId="availableTimesDuringServicePeriod"
+                formControlName="availableTimesDuringServicePeriod"
+                [inputStyle]="{ width: '3rem' }"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                spinnerMode="horizontal"
+              >
+                <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+                </ng-template>
+              </p-inputnumber>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Half day -->
+      <fieldset
+        [disabled]="hasLimitedTimeLeave()"
+        [class.opacity-60]="form.get('hasLimitedTimesDuringServicePeriod')?.value === true"
+      >
+        <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+          <div class="mb-6">
+            <label class="label mb-3 block">
+              <span class="text-[#b42318] font-[600]">*</span>
+              <strong class="font-bolc text-lg">
+                هل يسمح بالتقديم بالتقديم بطلب إجازة امدة نصف يوم ؟
+              </strong>
+            </label>
+
+            <div class="flex flex-wrap gap-8">
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="canApplyOnHalfDay-yes"
+              >
+                نعم
+                <input
+                  formControlName="canApplyOnHalfDay"
+                  type="radio"
+                  id="canApplyOnHalfDay-yes"
+                  name="canApplyOnHalfDay"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+                >
+                </span>
+              </label>
+
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="canApplyOnHalfDay-no"
+              >
+                لا
+                <input
+                  formControlName="canApplyOnHalfDay"
+                  type="radio"
+                  id="canApplyOnHalfDay-no"
+                  name="canApplyOnHalfDay"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+                >
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Application period scope -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <label class="label mb-3 block">
+          <span class="text-[#b42318] font-[600]">*</span>
+          <strong class="font-bolc text-lg"> ما نطاق فترة التقديم المتاحة لهذه الاجازة؟ </strong>
+        </label>
+
+        <div class="flex flex-wrap gap-8">
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="canApplyInPastOnly"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ سابق</span>
+          </label>
+
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="canApplyInPresentOnly"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ اليوم</span>
+          </label>
+
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="canApplyInFutureOnly"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ في المستقبل</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <div class="mb-6">
+          <label class="label mb-3 block">
+            <span class="text-[#b42318] font-[600]">*</span>
+            <strong class="font-bolc text-lg"> من يمكنه التقديم على هذه الإجازة؟ </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="gender-male"
+            >
+              الذكور
+              <input
+                formControlName="genderType"
+                type="radio"
+                id="gender-male"
+                name="genderType"
+                [value]="genderEnum.MALE"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="gender-female"
+            >
+              الإناث
+              <input
+                formControlName="genderType"
+                type="radio"
+                id="gender-female"
+                name="genderType"
+                [value]="genderEnum.FEMALE"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="gender-both"
+            >
+              كلاهما (الذكور و الإناث)
+              <input
+                formControlName="genderType"
+                type="radio"
+                id="gender-both"
+                name="genderType"
+                [value]="genderEnum.BOTH"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="label" for="yearsExperience">
+              <span class="text-[#b42318] font-[600]">*</span> الحد الأدنى للخبرة المطلوبة للاجازة
+              (عدد السنين)
+            </label>
+            <p-inputnumber
+              inputId="yearsExperience"
+              formControlName="years"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+          </div>
+
+          <div>
+            <label class="label" for="monthsExperience">
+              <span class="text-[#b42318] font-[600]">*</span> الحد الأدنى للخبرة المطلوبة للاجازة
+              (عدد الشهور)
+            </label>
+            <p-inputnumber
+              inputId="monthsExperience"
+              formControlName="months"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+          </div>
+
+          <div>
+            <label class="label" for="minAge">
+              <span class="text-[#b42318] font-[600]">*</span> الحد الادنى للعمر
+            </label>
+            <p-inputnumber
+              inputId="minAge"
+              formControlName="minAge"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+          </div>
+        </div>
+      </div>
+
+      <!-- Holidays included + continuous days limit -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <div class="mb-6">
+          <label class="label mb-3 block">
+            <span class="text-[#b42318] font-[600]">*</span>
+            <strong class="font-bolc text-lg">
+              هل تُحتسب العطلات الرسمية ونهاية الأسبوع ضمن أيام الإجازة في حال وقوعها أثناء فترة
+              الإجازة؟
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="holidaysIncluded-yes"
+            >
+              نعم
+              <input
+                formControlName="areHolidaysAndWeekendsIncludedInLeave"
+                type="radio"
+                id="holidaysIncluded-yes"
+                name="areHolidaysAndWeekendsIncludedInLeave"
+                [value]="true"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="holidaysIncluded-no"
+            >
+              لا
+              <input
+                formControlName="areHolidaysAndWeekendsIncludedInLeave"
+                type="radio"
+                id="holidaysIncluded-no"
+                name="areHolidaysAndWeekendsIncludedInLeave"
+                [value]="false"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="label" for="continuousDaysLimit">
+              <span class="text-[#b42318] font-[600]">*</span> الحد الاقصى لعدد الايام المتتالية
+              للاجازة
+            </label>
+
+            <p-inputnumber
+              inputId="continuousDaysLimit"
+              formControlName="continuousDaysLimit"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+          </div>
+        </div>
+      </div>
+
+      <!-- Require attachment -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db] grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+          <label class="label mb-3 block">
+            <span class="text-[#b42318] font-[600]">*</span>
+            <strong class="font-bolc text-lg"> ما هي الفئة الدينية المتسحقة لهذه الاجازة </strong>
+          </label>
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="countHolidays-yes6"
+            >
+              مسلم
+              <input
+                formControlName="religion"
+                type="radio"
+                id="religion-1"
+                name="religion"
+                [value]="religionEnum.MUSLIM"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="countHolidays-no6"
+            >
+              مسيحي
+              <input
+                formControlName="religion"
+                type="radio"
+                id="religion-2"
+                name="religion"
+                [value]="religionEnum.CHRISTIAN"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="countHolidays-no6"
+            >
+              الجميع
+              <input
+                formControlName="religion"
+                type="radio"
+                id="religion-null"
+                name="religion"
+                [value]="null"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+          </div>
+        </div>
+        <div>
+          <label class="label mb-3 block">
+            <span class="text-[#b42318] font-[600]">*</span>
+            <strong class="font-bolc text-lg"> هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟ </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="requireAttachment-yes"
+            >
+              نعم
+              <input
+                formControlName="requireAttachment"
+                type="radio"
+                id="requireAttachment-yes"
+                name="requireAttachment"
+                [value]="true"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="requireAttachment-no"
+            >
+              لا
+              <input
+                formControlName="requireAttachment"
+                type="radio"
+                id="requireAttachment-no"
+                name="requireAttachment"
+                [value]="false"
+                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+              />
+              <span
+                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+              >
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+          <input
+            formControlName="isActive"
+            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+            type="checkbox"
+          />
+          <svg
+            class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span class="text-base text-[#1f2a37]">مفعل</span>
+        </label>
+      </div>
+
+      <div class="actions mt-6 flex items-center justify-end gap-4">
+        <button (click)="close()" class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
+        <button (click)="save$.next()" class="btn green-btn">
+          {{ 'COMMON.SAVE' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

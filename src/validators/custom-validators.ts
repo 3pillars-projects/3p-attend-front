@@ -462,6 +462,15 @@ export function strongPassword(): ValidatorFn {
   };
 }
 
+export function atLeastOneTrue(keys: string[], errorKey: string = 'atLeastOneTrue'): ValidatorFn {
+  return (form: AbstractControl): ValidationErrors | null => {
+    if (!form) return null;
+
+    const hasOne = keys.some((k) => !!form.get(k)?.value);
+    return hasOne ? null : { [errorKey]: true };
+  };
+}
+
 export const CustomValidators = {
   defaultLengths,
   pattern,
@@ -476,4 +485,5 @@ export const CustomValidators = {
   crossDateTimeValidator,
   crossDateShiftEndNotPassNextDayStart,
   dateNotInFuture,
+  atLeastOneTrue,
 };
