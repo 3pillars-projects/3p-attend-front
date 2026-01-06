@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GENDER_ENUM } from '@/enums/gender-enum';
 import { RELIGION_ENUM } from '@/enums/religion-enum';
+import { RequiredMarkerDirective } from '../../../../directives/required-marker.directive';
 
 @Component({
   selector: 'app-leave-types-popup',
@@ -32,6 +33,7 @@ import { RELIGION_ENUM } from '@/enums/religion-enum';
     InputNumberModule,
     TranslatePipe,
     FormsModule,
+    RequiredMarkerDirective,
   ],
   templateUrl: './leave-types-popup.component.html',
   styleUrl: './leave-types-popup.component.scss',
@@ -63,7 +65,6 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
   }
 
   beforeSave(model: LeaveType, form: FormGroup) {
-    // manipulation before save
     return form.valid;
   }
 
@@ -140,7 +141,6 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
       this.canApplyOnHalfDayControl.disable();
     } else {
       this.canApplyOnHalfDayControl.enable();
-
     }
 
     return hasLimitedTime;

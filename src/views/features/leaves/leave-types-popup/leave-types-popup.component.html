@@ -5,7 +5,11 @@
     </button>
 
     <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
-      {{ isCreateMode ? 'إضافة نوع اجازة جديد' : 'تعديل نوع الاجازة' }}
+      {{
+        isCreateMode
+          ? ('LEAVE_TYPES_PAGE.ADD_NEW_LEAVE_TYPE' | translate)
+          : ('LEAVE_TYPES_PAGE.EDIT_LEAVE_TYPE' | translate)
+      }}
     </h3>
 
     <form class="mt-6" [formGroup]="form" (ngSubmit)="save$.next()">
@@ -13,8 +17,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
           <label class="label" for="nameAr-popup">
-            <span class="text-[#b42318] font-[600]">*</span>
-            اسم نوع الاجازة بالعربية
+            {{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate }}
           </label>
           <div class="relative">
             <input
@@ -23,7 +26,7 @@
               fluid="true"
               id="nameAr-popup"
               pInputText
-              placeholder="اسم نوع الاجازة بالعربية"
+              placeholder="{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate }}"
               type="text"
             />
             <span
@@ -34,8 +37,7 @@
 
         <div>
           <label class="label" for="nameEn-popup">
-            <span class="text-[#b42318] font-[600]">*</span>
-            اسم نوع الاجازة بالانجليزية
+            {{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate }}
           </label>
           <div class="relative">
             <input
@@ -44,7 +46,7 @@
               fluid="true"
               id="nameEn-popup"
               pInputText
-              placeholder="اسم نوع الاجازة بالانجليزية"
+              placeholder="{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate }}"
               type="text"
             />
             <span
@@ -57,8 +59,9 @@
       <!-- Approvals -->
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
         <label class="label mb-3 block">
-          <span class="text-[#b42318] font-[600]">*</span>
-          <strong class="font-bolc text-lg"> هل تتطلب هذه الإجازة موافقة؟ </strong>
+          <strong class="font-bolc text-lg">
+            {{ 'LEAVE_TYPES_PAGE.REQUIRES_APPROVAL' | translate }}
+          </strong>
         </label>
 
         <div class="flex flex-wrap gap-8">
@@ -79,7 +82,9 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span class="text-base text-[#1f2a37]">مدير الادارة</span>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.DEPARTMENT_MANAGER' | translate }}
+            </span>
           </label>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
@@ -99,7 +104,9 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span class="text-base text-[#1f2a37]">الموارد البشرية</span>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.HUMAN_RESOURCES' | translate }}
+            </span>
           </label>
         </div>
       </div>
@@ -108,8 +115,9 @@
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
         <div class="mb-6">
           <label class="label mb-3 block">
-            <span class="text-[#b42318] font-[600]">*</span>
-            <strong class="font-bolc text-lg"> هل لهذه الإجازة رصيد سنوي؟ </strong>
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.HAS_ANNUAL_BALANCE' | translate }}
+            </strong>
           </label>
 
           <div class="flex flex-wrap gap-8">
@@ -117,38 +125,42 @@
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="hasAnnualBalance-yes"
             >
-              نعم
-              <input
-                formControlName="hasAnnualBalance"
-                type="radio"
-                id="hasAnnualBalance-yes"
-                name="hasAnnualBalance"
-                [value]="true"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="hasAnnualBalance"
+                  type="radio"
+                  id="hasAnnualBalance-yes"
+                  name="hasAnnualBalance"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="hasAnnualBalance-no"
             >
-              لا
-              <input
-                formControlName="hasAnnualBalance"
-                type="radio"
-                id="hasAnnualBalance-no"
-                name="hasAnnualBalance"
-                [value]="false"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="hasAnnualBalance"
+                  type="radio"
+                  id="hasAnnualBalance-no"
+                  name="hasAnnualBalance"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
           </div>
         </div>
@@ -159,7 +171,7 @@
           <div class="grid md:grid-cols-3 gap-4 mb-6">
             <div>
               <label class="label" for="annualBalance">
-                <span class="text-[#b42318] font-[600]">*</span> الرصيد السنوي
+                {{ 'LEAVE_TYPES_PAGE.ANNUAL_BALANCE' | translate }}
               </label>
 
               <p-inputnumber
@@ -182,8 +194,9 @@
 
           <div class="mb-6">
             <label class="label mb-3 block">
-              <span class="text-[#b42318] font-[600]">*</span>
-              <strong class="font-bolc text-lg"> هل يمكن ترحيل الإجازة من سنة لاخري؟ </strong>
+              <strong class="font-bolc text-lg">
+                {{ 'LEAVE_TYPES_PAGE.CAN_CARRY_FORWARD' | translate }}
+              </strong>
             </label>
 
             <div class="flex flex-wrap gap-8">
@@ -191,38 +204,42 @@
                 class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                 for="isBalanceTransferrable-yes"
               >
-                نعم
-                <input
-                  formControlName="isBalanceTransferrable"
-                  type="radio"
-                  id="isBalanceTransferrable-yes"
-                  name="isBalanceTransferrable"
-                  [value]="true"
-                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                />
-                <span
-                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-                >
-                </span>
+                {{ 'COMMON.YES' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="isBalanceTransferrable"
+                    type="radio"
+                    id="isBalanceTransferrable-yes"
+                    name="isBalanceTransferrable"
+                    [value]="true"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
               </label>
 
               <label
                 class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                 for="isBalanceTransferrable-no"
               >
-                لا
-                <input
-                  formControlName="isBalanceTransferrable"
-                  type="radio"
-                  id="isBalanceTransferrable-no"
-                  name="isBalanceTransferrable"
-                  [value]="false"
-                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                />
-                <span
-                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-                >
-                </span>
+                {{ 'COMMON.NO' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="isBalanceTransferrable"
+                    type="radio"
+                    id="isBalanceTransferrable-no"
+                    name="isBalanceTransferrable"
+                    [value]="false"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
               </label>
             </div>
           </div>
@@ -237,9 +254,8 @@
         <div class="mt-6 pt-6 border-t border-[#d2d6db]">
           <div class="mb-6">
             <label class="label mb-3 block">
-              <span class="text-[#b42318] font-[600]">*</span>
               <strong class="font-bolc text-lg">
-                هل يمكن التقديم عليها أكثر من مرة خلال فترة الخدمة (لها عدد محدود) ؟
+                {{ 'LEAVE_TYPES_PAGE.MULTIPLE_APPLICATIONS_LIMITED' | translate }}
               </strong>
             </label>
 
@@ -248,38 +264,42 @@
                 class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                 for="hasLimitedTimes-yes"
               >
-                نعم
-                <input
-                  formControlName="hasLimitedTimesDuringServicePeriod"
-                  type="radio"
-                  id="hasLimitedTimes-yes"
-                  name="hasLimitedTimesDuringServicePeriod"
-                  [value]="true"
-                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                />
-                <span
-                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-                >
-                </span>
+                {{ 'COMMON.YES' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="hasLimitedTimesDuringServicePeriod"
+                    type="radio"
+                    id="hasLimitedTimes-yes"
+                    name="hasLimitedTimesDuringServicePeriod"
+                    [value]="true"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
               </label>
 
               <label
                 class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                 for="hasLimitedTimes-no"
               >
-                لا
-                <input
-                  formControlName="hasLimitedTimesDuringServicePeriod"
-                  type="radio"
-                  id="hasLimitedTimes-no"
-                  name="hasLimitedTimesDuringServicePeriod"
-                  [value]="false"
-                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                />
-                <span
-                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-                >
-                </span>
+                {{ 'COMMON.NO' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="hasLimitedTimesDuringServicePeriod"
+                    type="radio"
+                    id="hasLimitedTimes-no"
+                    name="hasLimitedTimesDuringServicePeriod"
+                    [value]="false"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
               </label>
             </div>
           </div>
@@ -287,7 +307,7 @@
           <div class="grid md:grid-cols-3 gap-4 mb-6">
             <div>
               <label class="label" for="availableTimesDuringServicePeriod">
-                <span class="text-[#b42318] font-[600]">*</span> عدد مرات القيام بها في مدة الخدمة
+                {{ 'LEAVE_TYPES_PAGE.APPLICATION_COUNT_DURING_SERVICE' | translate }}
               </label>
 
               <p-inputnumber
@@ -318,9 +338,8 @@
         <div class="mt-6 pt-6 border-t border-[#d2d6db]">
           <div class="mb-6">
             <label class="label mb-3 block">
-              <span class="text-[#b42318] font-[600]">*</span>
               <strong class="font-bolc text-lg">
-                هل يسمح بالتقديم بالتقديم بطلب إجازة امدة نصف يوم ؟
+                {{ 'LEAVE_TYPES_PAGE.ALLOW_HALF_DAY_LEAVE' | translate }}
               </strong>
             </label>
 
@@ -329,38 +348,42 @@
                 class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                 for="canApplyOnHalfDay-yes"
               >
-                نعم
-                <input
-                  formControlName="canApplyOnHalfDay"
-                  type="radio"
-                  id="canApplyOnHalfDay-yes"
-                  name="canApplyOnHalfDay"
-                  [value]="true"
-                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                />
-                <span
-                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-                >
-                </span>
+                {{ 'COMMON.YES' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="canApplyOnHalfDay"
+                    type="radio"
+                    id="canApplyOnHalfDay-yes"
+                    name="canApplyOnHalfDay"
+                    [value]="true"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
               </label>
 
               <label
                 class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                 for="canApplyOnHalfDay-no"
               >
-                لا
-                <input
-                  formControlName="canApplyOnHalfDay"
-                  type="radio"
-                  id="canApplyOnHalfDay-no"
-                  name="canApplyOnHalfDay"
-                  [value]="false"
-                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                />
-                <span
-                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-                >
-                </span>
+                {{ 'COMMON.NO' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="canApplyOnHalfDay"
+                    type="radio"
+                    id="canApplyOnHalfDay-no"
+                    name="canApplyOnHalfDay"
+                    [value]="false"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
               </label>
             </div>
           </div>
@@ -370,8 +393,9 @@
       <!-- Application period scope -->
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
         <label class="label mb-3 block">
-          <span class="text-[#b42318] font-[600]">*</span>
-          <strong class="font-bolc text-lg"> ما نطاق فترة التقديم المتاحة لهذه الاجازة؟ </strong>
+          <strong class="font-bolc text-lg">
+            {{ 'LEAVE_TYPES_PAGE.APPLICATION_PERIOD_RANGE' | translate }}
+          </strong>
         </label>
 
         <div class="flex flex-wrap gap-8">
@@ -392,7 +416,9 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ سابق</span>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.ALLOW_PAST_DATE_APPLICATION' | translate }}
+            </span>
           </label>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
@@ -412,7 +438,9 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ اليوم</span>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.ALLOW_TODAY_APPLICATION' | translate }}
+            </span>
           </label>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
@@ -432,7 +460,9 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span class="text-base text-[#1f2a37]">يمكن التقديم بتاريخ في المستقبل</span>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.ALLOW_FUTURE_DATE_APPLICATION' | translate }}
+            </span>
           </label>
         </div>
       </div>
@@ -441,8 +471,9 @@
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
         <div class="mb-6">
           <label class="label mb-3 block">
-            <span class="text-[#b42318] font-[600]">*</span>
-            <strong class="font-bolc text-lg"> من يمكنه التقديم على هذه الإجازة؟ </strong>
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.ELIGIBLE_APPLICANTS' | translate }}
+            </strong>
           </label>
 
           <div class="flex flex-wrap gap-8">
@@ -450,57 +481,63 @@
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="gender-male"
             >
-              الذكور
-              <input
-                formControlName="genderType"
-                type="radio"
-                id="gender-male"
-                name="genderType"
-                [value]="genderEnum.MALE"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'LEAVE_TYPES_PAGE.MALE' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="genderType"
+                  type="radio"
+                  id="gender-male"
+                  name="genderType"
+                  [value]="genderEnum.MALE"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="gender-female"
             >
-              الإناث
-              <input
-                formControlName="genderType"
-                type="radio"
-                id="gender-female"
-                name="genderType"
-                [value]="genderEnum.FEMALE"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'LEAVE_TYPES_PAGE.FEMALE' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="genderType"
+                  type="radio"
+                  id="gender-female"
+                  name="genderType"
+                  [value]="genderEnum.FEMALE"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="gender-both"
             >
-              كلاهما (الذكور و الإناث)
-              <input
-                formControlName="genderType"
-                type="radio"
-                id="gender-both"
-                name="genderType"
-                [value]="genderEnum.BOTH"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'LEAVE_TYPES_PAGE.BOTH' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="genderType"
+                  type="radio"
+                  id="gender-both"
+                  name="genderType"
+                  [value]="genderEnum.BOTH"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
           </div>
         </div>
@@ -508,8 +545,7 @@
         <div class="grid md:grid-cols-3 gap-4 mb-6">
           <div>
             <label class="label" for="yearsExperience">
-              <span class="text-[#b42318] font-[600]">*</span> الحد الأدنى للخبرة المطلوبة للاجازة
-              (عدد السنين)
+              {{ 'LEAVE_TYPES_PAGE.MIN_REQUIRED_EXPERIENCE_YEARS' | translate }}
             </label>
             <p-inputnumber
               inputId="yearsExperience"
@@ -530,8 +566,7 @@
 
           <div>
             <label class="label" for="monthsExperience">
-              <span class="text-[#b42318] font-[600]">*</span> الحد الأدنى للخبرة المطلوبة للاجازة
-              (عدد الشهور)
+              {{ 'LEAVE_TYPES_PAGE.MIN_REQUIRED_EXPERIENCE_MONTHS' | translate }}
             </label>
             <p-inputnumber
               inputId="monthsExperience"
@@ -550,25 +585,25 @@
             </p-inputnumber>
           </div>
 
-          <div>
-            <label class="label" for="minAge">
-              <span class="text-[#b42318] font-[600]">*</span> الحد الادنى للعمر
-            </label>
-            <p-inputnumber
-              inputId="minAge"
-              formControlName="minAge"
-              [inputStyle]="{ width: '3rem' }"
-              [showButtons]="true"
-              buttonLayout="horizontal"
-              spinnerMode="horizontal"
-            >
-              <ng-template #incrementbuttonicon>
-                <span class="pi pi-plus"></span>
-              </ng-template>
-              <ng-template #decrementbuttonicon>
-                <span class="pi pi-minus"></span>
-              </ng-template>
-            </p-inputnumber>
+          <div class="flex flex-col">
+            <label class="label" for="minAge"> {{ 'LEAVE_TYPES_PAGE.MIN_AGE' | translate }} </label>
+            <div class="mt-auto">
+              <p-inputnumber
+                inputId="minAge"
+                formControlName="minAge"
+                [inputStyle]="{ width: '3rem' }"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                spinnerMode="horizontal"
+              >
+                <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+                </ng-template>
+              </p-inputnumber>
+            </div>
           </div>
         </div>
       </div>
@@ -577,10 +612,8 @@
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
         <div class="mb-6">
           <label class="label mb-3 block">
-            <span class="text-[#b42318] font-[600]">*</span>
             <strong class="font-bolc text-lg">
-              هل تُحتسب العطلات الرسمية ونهاية الأسبوع ضمن أيام الإجازة في حال وقوعها أثناء فترة
-              الإجازة؟
+              {{ 'LEAVE_TYPES_PAGE.INCLUDE_HOLIDAYS_AND_WEEKENDS' | translate }}
             </strong>
           </label>
 
@@ -589,38 +622,42 @@
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="holidaysIncluded-yes"
             >
-              نعم
-              <input
-                formControlName="areHolidaysAndWeekendsIncludedInLeave"
-                type="radio"
-                id="holidaysIncluded-yes"
-                name="areHolidaysAndWeekendsIncludedInLeave"
-                [value]="true"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="areHolidaysAndWeekendsIncludedInLeave"
+                  type="radio"
+                  id="holidaysIncluded-yes"
+                  name="areHolidaysAndWeekendsIncludedInLeave"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="holidaysIncluded-no"
             >
-              لا
-              <input
-                formControlName="areHolidaysAndWeekendsIncludedInLeave"
-                type="radio"
-                id="holidaysIncluded-no"
-                name="areHolidaysAndWeekendsIncludedInLeave"
-                [value]="false"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="areHolidaysAndWeekendsIncludedInLeave"
+                  type="radio"
+                  id="holidaysIncluded-no"
+                  name="areHolidaysAndWeekendsIncludedInLeave"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
           </div>
         </div>
@@ -628,8 +665,7 @@
         <div class="grid md:grid-cols-3 gap-4 mb-6">
           <div>
             <label class="label" for="continuousDaysLimit">
-              <span class="text-[#b42318] font-[600]">*</span> الحد الاقصى لعدد الايام المتتالية
-              للاجازة
+              {{ 'LEAVE_TYPES_PAGE.MAX_CONSECUTIVE_LEAVE_DAYS' | translate }}
             </label>
 
             <p-inputnumber
@@ -655,72 +691,80 @@
       <div class="mt-6 pt-6 border-t border-[#d2d6db] grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <label class="label mb-3 block">
-            <span class="text-[#b42318] font-[600]">*</span>
-            <strong class="font-bolc text-lg"> ما هي الفئة الدينية المتسحقة لهذه الاجازة </strong>
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.ELIGIBLE_RELIGION' | translate }}
+            </strong>
           </label>
           <div class="flex flex-wrap gap-8">
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-              for="countHolidays-yes6"
+              for="religion-1"
             >
-              مسلم
-              <input
-                formControlName="religion"
-                type="radio"
-                id="religion-1"
-                name="religion"
-                [value]="religionEnum.MUSLIM"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'LEAVE_TYPES_PAGE.RELIGION_MUSLIM' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="religion"
+                  type="radio"
+                  id="religion-1"
+                  name="religion"
+                  [value]="religionEnum.MUSLIM"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-              for="countHolidays-no6"
+              for="religion-2"
             >
-              مسيحي
-              <input
-                formControlName="religion"
-                type="radio"
-                id="religion-2"
-                name="religion"
-                [value]="religionEnum.CHRISTIAN"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'LEAVE_TYPES_PAGE.RELIGION_CHRISTIAN' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="religion"
+                  type="radio"
+                  id="religion-2"
+                  name="religion"
+                  [value]="religionEnum.CHRISTIAN"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-              for="countHolidays-no6"
+              for="religion-null"
             >
-              الجميع
-              <input
-                formControlName="religion"
-                type="radio"
-                id="religion-null"
-                name="religion"
-                [value]="null"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'LEAVE_TYPES_PAGE.RELIGION_ALL' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="religion"
+                  type="radio"
+                  id="religion-null"
+                  name="religion"
+                  [value]="null"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
           </div>
         </div>
         <div>
           <label class="label mb-3 block">
-            <span class="text-[#b42318] font-[600]">*</span>
-            <strong class="font-bolc text-lg"> هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟ </strong>
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.REQUIRES_ATTACHMENT' | translate }}
+            </strong>
           </label>
 
           <div class="flex flex-wrap gap-8">
@@ -728,38 +772,42 @@
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="requireAttachment-yes"
             >
-              نعم
-              <input
-                formControlName="requireAttachment"
-                type="radio"
-                id="requireAttachment-yes"
-                name="requireAttachment"
-                [value]="true"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="requireAttachment"
+                  type="radio"
+                  id="requireAttachment-yes"
+                  name="requireAttachment"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
 
             <label
               class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
               for="requireAttachment-no"
             >
-              لا
-              <input
-                formControlName="requireAttachment"
-                type="radio"
-                id="requireAttachment-no"
-                name="requireAttachment"
-                [value]="false"
-                class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-              />
-              <span
-                class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-              >
-              </span>
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="requireAttachment"
+                  type="radio"
+                  id="requireAttachment-no"
+                  name="requireAttachment"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
             </label>
           </div>
         </div>
@@ -784,7 +832,7 @@
           >
             <polyline points="20 6 9 17 4 12" />
           </svg>
-          <span class="text-base text-[#1f2a37]">مفعل</span>
+          <span class="text-base text-[#1f2a37]">{{ 'LEAVE_TYPES_PAGE.ACTIVE' | translate }}</span>
         </label>
       </div>
 

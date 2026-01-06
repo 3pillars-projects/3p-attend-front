@@ -123,3 +123,12 @@
 .p-tieredmenu-item-link {
   justify-content: flex-start !important;
 }
+
+form {
+  &.ng-touched.ng-invalid {
+    label {
+      color: #161616 !important;
+    
+    }
+  }
+}

@@ -9,21 +9,25 @@
         </ng-template>
       </p-breadcrumb>
       <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
-        أنواع الاجازات الرسمية
+        {{ 'LEAVE_TYPES_PAGE.LEAVE_TYPES' | translate }}
       </h3>
     </div>
     <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
       <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
         <div class="flex items-center justify-between">
-          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+            {{ 'COMMON.SEARCH_FILTERS' | translate }}
+          </h5>
         </div>
         <div class="pt-6">
           <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             <div class="relative">
-              <label class="label" for="nameAr">اسم نوع الاجازة بالعربية</label>
+              <label class="label" for="nameAr">{{
+                'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate
+              }}</label>
               <input
                 [(ngModel)]="filterModel.nameAr"
-                placeholder="اسم نوع الاجازة بالعربية"
+                placeholder="{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate }}"
                 class="peer"
                 fluid="true"
                 id="nameAr"
@@ -36,9 +40,11 @@
             </div>
 
             <div class="relative">
-              <label class="label" for="nameEn">اسم نوع الاجازة بالانجليزية</label>
+              <label class="label" for="nameEn">{{
+                'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate
+              }}</label>
               <input
-                placeholder="اسم نوع الاجازة بالانجليزية"
+                placeholder="{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate }}"
                 class="peer"
                 fluid="true"
                 id="nameEn"
@@ -51,12 +57,14 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="leaveStatus"> حالة التفعيل </label>
+              <label class="label" for="leaveStatus">
+                {{ 'LEAVE_TYPES_PAGE.ACTIVATION_STATUS' | translate }}</label
+              >
               <p-select
                 [(ngModel)]="filterModel.isActive"
                 [optionLabel]="optionLabel"
                 [options]="leaveTypeStatusOptions"
-                [placeholder]="'LEAVE_TYPES_PAGE.LEAVE_STATUS' | translate"
+                [placeholder]="'LEAVE_TYPES_PAGE.ACTIVATION_STATUS' | translate"
                 [showClear]="true"
                 class="w-full peer"
                 id="leaveStatus"
@@ -84,7 +92,7 @@
           class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
         >
           <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-            قائمة أنواع الاجازات الرسمية
+            {{ 'LEAVE_TYPES_PAGE.LEAVE_TYPES' | translate }}
           </h4>
           <div class="actions flex items-center gap-4 ms-auto">
             <button
@@ -96,7 +104,7 @@
 
             <button (click)="addOrEditModel()" class="btn green-btn flex items-center">
               <img alt="" src="assets/icons/plus.svg" />
-              <span>إضافة نوع اجازة جديد</span>
+              <span>{{ 'LEAVE_TYPES_PAGE.ADD_NEW_LEAVE_TYPE' | translate }}</span>
             </button>
           </div>
         </div>
@@ -109,12 +117,12 @@
             >
               <ng-template pTemplate="header">
                 <tr>
-                  <th>اسم نوع الاجازة بالعربية</th>
-                  <th>اسم نوع الاجازة بالانجليزية</th>
-                  <th>عدد أيام الرصيد</th>
-                  <th>الحد الاقصى لعدد الايام المتتالية</th>
-                  <th>حالة التفعيل</th>
-                  <th class="w-[36px] whitespace-nowrap">اجراء</th>
+                  <th>{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate }}</th>
+                  <th>{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate }}</th>
+                  <th>{{ 'LEAVE_TYPES_PAGE.BALANCE_DAYS_COUNT' | translate }}</th>
+                  <th>{{ 'LEAVE_TYPES_PAGE.MAX_CONSECUTIVE_DAYS' | translate }}</th>
+                  <th>{{ 'LEAVE_TYPES_PAGE.ACTIVATION_STATUS' | translate }}</th>
+                  <th class="w-[36px] whitespace-nowrap">{{ 'COMMON.ACTION' | translate }}</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-leave let-rowIndex="rowIndex">
@@ -146,7 +154,10 @@
                   </td>
                   <td>
                     <div class="flex gap-4">
-                      <button (click)="openDialog(leave)" class="table-action-gray-btn flex align-items gap-4">
+                      <button
+                        (click)="openDialog(leave)"
+                        class="table-action-gray-btn flex align-items gap-4"
+                      >
                         <img src="assets/icons/edit-action.svg" alt="" />
                       </button>
                     </div>
