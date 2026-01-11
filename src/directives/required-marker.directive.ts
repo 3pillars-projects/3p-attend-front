@@ -18,7 +18,8 @@ export class RequiredMarkerDirective implements OnInit {
     if (nativeEl.hasAttribute('noAsterisk')) return;
 
     // ⛔ Skip if not inside a form
-    if (!nativeEl.closest('form')) return;
+    const form = nativeEl.closest('form');
+    if (!form) return;
 
     const formControl = this.control.control;
     if (!formControl || !formControl.validator) return;
@@ -26,11 +27,43 @@ export class RequiredMarkerDirective implements OnInit {
     const validator = formControl.validator({} as any);
     const isRequired = validator && validator['required'] === true;
 
+    if (!isRequired) return;
+
+    // ✅ Special handling for radio buttons
+    if (nativeEl.getAttribute('type') === 'radio') {
+      const formControlName = nativeEl.getAttribute('formControlName');
+
+      // Only process the first radio button in the group
+      const allRadiosInGroup = form.querySelectorAll(
+        `input[type="radio"][formControlName="${formControlName}"]`
+      );
+
+      if (allRadiosInGroup[0] !== nativeEl) {
+        return; // Skip if this is not the first radio
+      }
+
+      // Find the question label by data attribute
+      const questionLabel = form.querySelector(`[radio-label-for="${formControlName}"]`);
+
+      if (questionLabel) {
+        questionLabel.classList.add('required');
+      }
+
+      return;
+    }
+
+    // ✅ Regular input/select/textarea handling
+    let label: Element | null = null;
     const id = nativeEl.getAttribute('id');
-    if (isRequired && id) {
-      // ✅ Scoped label lookup
-      const label = nativeEl.closest('form')?.querySelector(`label[for="${id}"]`);
-      label?.classList.add('required');
+
+    // Case 1: Input has an id, find label with for="id"
+    if (id) {
+      label = form.querySelector(`label[for="${id}"]`);
+    }
+
+    // Apply the required class
+    if (label) {
+      label.classList.add('required');
     }
   }
 }

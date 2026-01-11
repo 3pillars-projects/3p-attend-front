@@ -117,6 +117,7 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
   enableLimitedTimesDuringServiceRelatedControls() {
     this.hasLimitedTimesDuringServicePeriodControl.enable();
     this.availableTimesDuringServicePeriodControl.enable();
+    
   }
 
   disableAnnualBalanceRelatedControls() {

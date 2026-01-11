@@ -150,7 +150,15 @@
     "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن بداية الدوام.",
     "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن نهاية الدوام.",
     "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "إذن بداية/نهاية الدوام يتداخل مع إذن وسط الدوام.",
-    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل"
+    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل",
+    "LEAVE_TYPE_ANNUAL_BALANCE_REQUIRED": "الرصيد السنوي مطلوب.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_MUST_BE_GREATER_THAN_ZERO": "يجب أن يكون الرصيد السنوي أكبر من صفر.",
+    "LEAVE_TYPE_AVAILABLE_TIMES_MUST_BE_GREATER_THAN_ZERO": "يجب أن يكون عدد المرات المتاحة خلال فترة الخدمة أكبر من صفر.",
+    "LEAVE_TYPE_CONTINUOUS_DAYS_LIMIT_MUST_BE_GREATER_THAN_ZERO": "يجب أن يكون حد الأيام المتتالية أكبر من صفر.",
+    "LEAVE_TYPE_INVALID_GENDER_TYPE": "قيمة النوع (الجنس) غير صحيحة.",
+    "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "لا يمكن أن تكون أشهر الخبرة المطلوبة قيمة سالبة.",
+    "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "لا يمكن أن يكون الحد الأدنى للعمر قيمة سالبة.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "لا يمكن الجمع بين الرصيد السنوي وخيار عدد المرات المحدودة خلال فترة الخدمة."
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
