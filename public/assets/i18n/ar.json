@@ -158,7 +158,8 @@
     "LEAVE_TYPE_INVALID_GENDER_TYPE": "قيمة النوع (الجنس) غير صحيحة.",
     "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "لا يمكن أن تكون أشهر الخبرة المطلوبة قيمة سالبة.",
     "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "لا يمكن أن يكون الحد الأدنى للعمر قيمة سالبة.",
-    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "لا يمكن الجمع بين الرصيد السنوي وخيار عدد المرات المحدودة خلال فترة الخدمة."
+    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "لا يمكن الجمع بين الرصيد السنوي وخيار عدد المرات المحدودة خلال فترة الخدمة.",
+    "AT_LEAST_ONE_TRUE":"يجب أن يتم اختيار نطاق فترة تقديم"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
@@ -986,6 +987,7 @@
     "RELIGION_ALL": "الجميع",
     "REQUIRES_ATTACHMENT": "هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟",
     "ACTIVE": "مفعلة",
+    "NOT_ACTIVE": "غير مفعلة",
     "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة"
   }
 }

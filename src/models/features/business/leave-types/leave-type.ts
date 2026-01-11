@@ -73,21 +73,40 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
 
       isActive: [isActive ?? true, [Validators.required]],
       canApplyOnHalfDay: [canApplyOnHalfDay ?? false, [Validators.required]],
-      isBalanceTransferrable: [isBalanceTransferrable ?? null, [Validators.required]],
+      isBalanceTransferrable: [isBalanceTransferrable ?? true, [Validators.required]],
       needManagerApproval: [needManagerApproval ?? false, [Validators.required]],
       needHRApproval: [needHRApproval ?? false, [Validators.required]],
 
-      hasAnnualBalance: [hasAnnualBalance ?? null, [Validators.required]],
-      annualBalance: [annualBalance, []], // add conditional validators when hasAnnualBalance = true
+      hasAnnualBalance: [hasAnnualBalance ?? true, [Validators.required]],
+      annualBalance: [
+        annualBalance,
+        [
+          Validators.min(CustomValidators.defaultLengths.ANNUAL_BALANCE_MIN),
+          Validators.max(CustomValidators.defaultLengths.ANNUAL_BALANCE_MAX),
+        ],
+      ], // add conditional validators when hasAnnualBalance = true
       hasLimitedTimesDuringServicePeriod: [
         hasLimitedTimesDuringServicePeriod ?? null,
         [Validators.required],
       ],
-      availableTimesDuringServicePeriod: [availableTimesDuringServicePeriod, []], // conditional validators when hasLimitedTimesDuringServicePeriod = true
+      availableTimesDuringServicePeriod: [
+        availableTimesDuringServicePeriod,
+        [
+          Validators.min(CustomValidators.defaultLengths.AVAILABLE_TIMES_DURING_SERVICE_PERIOD_MIN),
+          Validators.max(CustomValidators.defaultLengths.AVAILABLE_TIMES_DURING_SERVICE_PERIOD_MAX),
+        ],
+      ], // conditional validators when hasLimitedTimesDuringServicePeriod = true
 
-      continuousDaysLimit: [continuousDaysLimit, [Validators.required]],
+      continuousDaysLimit: [
+        continuousDaysLimit,
+        [
+          Validators.required,
+          Validators.min(CustomValidators.defaultLengths.CONTINUOUS_DAYS_LIMIT_MIN),
+          Validators.max(CustomValidators.defaultLengths.CONTINUOUS_DAYS_LIMIT_MAX),
+        ],
+      ],
       areHolidaysAndWeekendsIncludedInLeave: [
-        areHolidaysAndWeekendsIncludedInLeave ?? null,
+        areHolidaysAndWeekendsIncludedInLeave ?? false,
         [Validators.required],
       ],
 
@@ -97,9 +116,27 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
 
       genderType: [genderType ?? GENDER_ENUM.BOTH /* Both */, [Validators.required]],
 
-      minAge: [minAge, []],
-      months: [months, []],
-      years: [years, []],
+      minAge: [
+        minAge,
+        [
+          Validators.min(CustomValidators.defaultLengths.MIN_AGE),
+          Validators.max(CustomValidators.defaultLengths.MAX_AGE),
+        ],
+      ],
+      months: [
+        months,
+        [
+          Validators.min(CustomValidators.defaultLengths.MONTHS_MIN),
+          Validators.max(CustomValidators.defaultLengths.MONTHS_MAX),
+        ],
+      ],
+      years: [
+        years,
+        [
+          Validators.min(CustomValidators.defaultLengths.YEARS_MIN),
+          Validators.max(CustomValidators.defaultLengths.YEARS_MAX),
+        ],
+      ],
       requireAttachment: [requireAttachment ?? false, [Validators.required]],
       religion: [religion, []],
     };

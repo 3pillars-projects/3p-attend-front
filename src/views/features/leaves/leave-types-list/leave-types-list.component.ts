@@ -64,17 +64,30 @@ export class LeavesListComponent
   }
 
   protected override getBreadcrumbKeys() {
-    return [{ labelKey: 'LEAVE_TYPES_PAGE.NATIONALITIES_LIST' }];
+    return [{ labelKey: 'LEAVE_TYPES_PAGE.LEAVE_TYPES' }];
   }
 
   protected override mapModelToExcelRow(model: LeaveType): { [key: string]: any } {
     return {
-      [this.translateService.instant('LEAVE_TYPES_PAGE.NAME_AR')]: model.nameAr,
-      [this.translateService.instant('LEAVE_TYPES_PAGE.NAME_EN')]: model.nameEn,
+      [this.translateService.instant('LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR')]: model.nameAr,
+      [this.translateService.instant('LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN')]: model.nameEn,
+      [this.translateService.instant('LEAVE_TYPES_PAGE.BALANCE_DAYS_COUNT')]: model.annualBalance,
+      [this.translateService.instant('LEAVE_TYPES_PAGE.MAX_CONSECUTIVE_DAYS')]:
+        model.continuousDaysLimit,
+      [this.translateService.instant('LEAVE_TYPES_PAGE.ACTIVATION_STATUS')]: this.formatBoolean(
+        model.isActive
+      ),
     };
   }
   get optionLabel(): string {
     const lang = this.langService.getCurrentLanguage();
     return lang === LANGUAGE_ENUM.ARABIC ? 'nameAr' : 'nameEn';
+  }
+
+  formatBoolean(value: boolean | undefined): string {
+    if (value === undefined || value === null) return '';
+    return value
+      ? this.translateService.instant('LEAVE_TYPES_PAGE.ACTIVE')
+      : this.translateService.instant('LEAVE_TYPES_PAGE.NOT_ACTIVE');
   }
 }

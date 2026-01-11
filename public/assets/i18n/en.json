@@ -158,7 +158,8 @@
     "LEAVE_TYPE_INVALID_GENDER_TYPE": "Invalid gender value.",
     "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "Months of experience required cannot be negative.",
     "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "Minimum age cannot be negative.",
-    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "Annual balance cannot be combined with limited times during service period."
+    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "Annual balance cannot be combined with limited times during service period.",
+    "AT_LEAST_ONE_TRUE": "One application period range should be selected"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -988,6 +989,7 @@
     "RELIGION_ALL": "All",
     "REQUIRES_ATTACHMENT": "Does this leave require an attachment/document?",
     "ACTIVE": "Active",
+    "NOT_ACTIVE": "Not Active",
     "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days"
   }
 }

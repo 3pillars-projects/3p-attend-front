@@ -12,7 +12,6 @@ export class LeaveTypeInterceptor implements ModelInterceptorContract<LeaveType>
       model.years = years;
       model.months = months;
     }
-    console.log(model);
     return model;
   }
 

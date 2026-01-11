@@ -54,9 +54,9 @@ export class RequiredMarkerDirective implements OnInit {
 
     // ✅ Regular input/select/textarea handling
     let label: Element | null = null;
-    const id = nativeEl.getAttribute('id');
+    const id = nativeEl.getAttribute('id') || nativeEl.getAttribute('inputId');
 
-    // Case 1: Input has an id, find label with for="id"
+    // Case 1: Input has an id (or inputId), find label with for="id"
     if (id) {
       label = form.querySelector(`label[for="${id}"]`);
     }

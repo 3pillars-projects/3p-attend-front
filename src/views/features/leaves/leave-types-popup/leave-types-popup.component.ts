@@ -6,6 +6,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { ValidationMessagesComponent } from '@/views/shared/validation-messages/validation-messages.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { AlertService } from '@/services/shared/alert.service';
@@ -23,6 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { GENDER_ENUM } from '@/enums/gender-enum';
 import { RELIGION_ENUM } from '@/enums/religion-enum';
 import { RequiredMarkerDirective } from '../../../../directives/required-marker.directive';
+import { atLeastOneTrue } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-leave-types-popup',
@@ -34,6 +36,7 @@ import { RequiredMarkerDirective } from '../../../../directives/required-marker.
     TranslatePipe,
     FormsModule,
     RequiredMarkerDirective,
+    ValidationMessagesComponent,
   ],
   templateUrl: './leave-types-popup.component.html',
   styleUrl: './leave-types-popup.component.scss',
@@ -61,7 +64,13 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
     this.isCreateMode = this.viewMode == ViewModeEnum.CREATE;
   }
   override buildForm() {
-    this.form = this.fb.group(this.model.buildForm(), {});
+    this.form = this.fb.group(this.model.buildForm(), {
+      validators: atLeastOneTrue([
+        'canApplyInPastOnly',
+        'canApplyInFutureOnly',
+        'canApplyInPresentOnly',
+      ]),
+    });
   }
 
   beforeSave(model: LeaveType, form: FormGroup) {
@@ -95,6 +104,54 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
   get canApplyOnHalfDayControl() {
     return this.form.get('canApplyOnHalfDay') as FormControl;
   }
+  get canApplyInPastOnlyControl() {
+    return this.form.get('canApplyInPastOnly') as FormControl;
+  }
+  get canApplyInPresentOnlyControl() {
+    return this.form.get('canApplyInPresentOnly') as FormControl;
+  }
+  get canApplyInFutureOnlyControl() {
+    return this.form.get('canApplyInFutureOnly') as FormControl;
+  }
+  get nameArControl() {
+    return this.form.get('nameAr') as FormControl;
+  }
+  get nameEnControl() {
+    return this.form.get('nameEn') as FormControl;
+  }
+  get isActiveControl() {
+    return this.form.get('isActive') as FormControl;
+  }
+  get needManagerApprovalControl() {
+    return this.form.get('needManagerApproval') as FormControl;
+  }
+  get needHRApprovalControl() {
+    return this.form.get('needHRApproval') as FormControl;
+  }
+  get continuousDaysLimitControl() {
+    return this.form.get('continuousDaysLimit') as FormControl;
+  }
+  get areHolidaysAndWeekendsIncludedInLeaveControl() {
+    return this.form.get('areHolidaysAndWeekendsIncludedInLeave') as FormControl;
+  }
+  get genderTypeControl() {
+    return this.form.get('genderType') as FormControl;
+  }
+  get minAgeControl() {
+    return this.form.get('minAge') as FormControl;
+  }
+  get monthsControl() {
+    return this.form.get('months') as FormControl;
+  }
+  get yearsControl() {
+    return this.form.get('years') as FormControl;
+  }
+  get requireAttachmentControl() {
+    return this.form.get('requireAttachment') as FormControl;
+  }
+  get religionControl() {
+    return this.form.get('religion') as FormControl;
+  }
 
   isAnnualLeave() {
     const isAnnual = this.hasAnnualBalanceControl.value;
@@ -117,7 +174,6 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
   enableLimitedTimesDuringServiceRelatedControls() {
     this.hasLimitedTimesDuringServicePeriodControl.enable();
     this.availableTimesDuringServicePeriodControl.enable();
-    
   }
 
   disableAnnualBalanceRelatedControls() {
@@ -140,8 +196,11 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
     if (hasLimitedTime) {
       this.canApplyOnHalfDayControl.patchValue(false);
       this.canApplyOnHalfDayControl.disable();
+      this.availableTimesDuringServicePeriodControl.enable();
     } else {
       this.canApplyOnHalfDayControl.enable();
+      this.availableTimesDuringServicePeriodControl.patchValue(null);
+      this.availableTimesDuringServicePeriodControl.disable();
     }
 
     return hasLimitedTime;

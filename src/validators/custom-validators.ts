@@ -23,6 +23,18 @@ const defaultLengths = {
   NUMBERS_MAXLENGTH: 4,
   INQUIRY_MAX_BUFFER: 60,
   INQUIRY_MIN_BUFFER: 10,
+  ANNUAL_BALANCE_MAX: 365,
+  ANNUAL_BALANCE_MIN: 0,
+  MONTHS_MAX: 11,
+  MONTHS_MIN: 0,
+  MIN_AGE: 14,
+  MAX_AGE: 46,
+  YEARS_MAX: 50,
+  YEARS_MIN: 0,
+  CONTINUOUS_DAYS_LIMIT_MAX: 365,
+  CONTINUOUS_DAYS_LIMIT_MIN: 1,
+  AVAILABLE_TIMES_DURING_SERVICE_PERIOD_MIN: 1,
+  AVAILABLE_TIMES_DURING_SERVICE_PERIOD_MAX: 50,
   DECIMAL_PLACES: 2,
   EXPLANATIONS: 1333,
   _500: 500,
@@ -462,11 +474,11 @@ export function strongPassword(): ValidatorFn {
   };
 }
 
-export function atLeastOneTrue(keys: string[], errorKey: string = 'atLeastOneTrue'): ValidatorFn {
+export function atLeastOneTrue(keys: string[], errorKey = 'atLeastOneTrue'): ValidatorFn {
   return (form: AbstractControl): ValidationErrors | null => {
     if (!form) return null;
 
-    const hasOne = keys.some((k) => !!form.get(k)?.value);
+    const hasOne = keys.some((k) => form.get(k)?.value === true);
     return hasOne ? null : { [errorKey]: true };
   };
 }
