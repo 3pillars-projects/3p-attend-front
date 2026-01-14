@@ -332,6 +332,14 @@ export const routes: Routes = [
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
           ),
       },
+      {
+        path: 'holidays-balance',
+     
+        loadComponent: () =>
+          import(
+            '@/views/features/lookups/holidays/holidays-balance/holidays-balance-list/holidays-balance-list.component'
+          ),
+      },
     ],
   },
 
