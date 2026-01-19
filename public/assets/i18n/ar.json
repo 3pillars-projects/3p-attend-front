@@ -150,7 +150,16 @@
     "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن بداية الدوام.",
     "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "إذن وسط الدوام يتقاطع مع إذن نهاية الدوام.",
     "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "إذن بداية/نهاية الدوام يتداخل مع إذن وسط الدوام.",
-    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل"
+    "MID_SHIFT_SUBMIT_CONFIRMATION": "برجاء العلم ان إذن منتصف اليوم يستوجب وجود بصمة حضور في بداية الورديه و بصمة إنصراف في نهايتها و أن إذن منتصف اليوم لن يؤثر علي عدد ساعات العمل",
+    "LEAVE_TYPE_ANNUAL_BALANCE_REQUIRED": "الرصيد السنوي مطلوب.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_MUST_BE_GREATER_THAN_ZERO": "يجب أن يكون الرصيد السنوي أكبر من صفر.",
+    "LEAVE_TYPE_AVAILABLE_TIMES_MUST_BE_GREATER_THAN_ZERO": "يجب أن يكون عدد المرات المتاحة خلال فترة الخدمة أكبر من صفر.",
+    "LEAVE_TYPE_CONTINUOUS_DAYS_LIMIT_MUST_BE_GREATER_THAN_ZERO": "يجب أن يكون حد الأيام المتتالية أكبر من صفر.",
+    "LEAVE_TYPE_INVALID_GENDER_TYPE": "قيمة النوع (الجنس) غير صحيحة.",
+    "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "لا يمكن أن تكون أشهر الخبرة المطلوبة قيمة سالبة.",
+    "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "لا يمكن أن يكون الحد الأدنى للعمر قيمة سالبة.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "لا يمكن الجمع بين الرصيد السنوي وخيار عدد المرات المحدودة خلال فترة الخدمة.",
+    "AT_LEAST_ONE_TRUE":"يجب أن يتم اختيار نطاق فترة تقديم"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
@@ -487,7 +496,8 @@
     "ACCESS_LOCATIONS": "مواقع أجهزة البصمة",
     "DEVICES_CONFIGURATION": "إعدادات أجهزة البصمة",
     "ATTENDANCE_REPORT_PROCESSING": "معالجة بيانات تقارير الموظفين",
-    "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود"
+    "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود",
+    "LEAVE_TYPES": "أنواع الإجازات"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",
@@ -940,5 +950,44 @@
     "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "تم تقديم طلب الإلغاء",
     "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "تم قبول طلب الإلغاء",
     "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "تم رفض طلب الإلغاء"
+  },
+  "LEAVE_TYPES_PAGE": {
+    "LEAVE_TYPES": "أنواع الإجازات",
+    "LEAVE_TYPE_NAME_AR": "اسم نوع الإجازة بالعربية",
+    "LEAVE_TYPE_NAME_EN": "اسم نوع الإجازة بالإنجليزية",
+    "ACTIVATION_STATUS": "حالة التفعيل",
+    "ADD_NEW_LEAVE_TYPE": "إضافة نوع إجازة جديد",
+    "BALANCE_DAYS_COUNT": "عدد أيام الرصيد",
+    "MAX_CONSECUTIVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية",
+    "EDIT_LEAVE_TYPE": "تعديل نوع الإجازة",
+    "REQUIRES_APPROVAL": "هل تتطلب هذه الإجازة موافقة؟",
+    "DEPARTMENT_MANAGER": "مدير الإدارة",
+    "HUMAN_RESOURCES": "الموارد البشرية",
+    "HAS_ANNUAL_BALANCE": "هل لهذه الإجازة رصيد سنوي؟",
+    "ANNUAL_BALANCE": "الرصيد السنوي",
+    "CAN_CARRY_FORWARD": "هل يمكن ترحيل الإجازة من سنة لأخرى؟",
+    "MULTIPLE_APPLICATIONS_LIMITED": "هل يمكن التقديم عليها أكثر من مرة خلال فترة الخدمة (لها عدد محدود)؟",
+    "APPLICATION_COUNT_DURING_SERVICE": "عدد مرات الاستفادة منها خلال مدة الخدمة",
+    "APPLICATION_PERIOD_RANGE": "نطاق فترة التقديم",
+    "ALLOW_HALF_DAY_LEAVE": "هل يسمح بالتقديم بطلب إجازة لمدة نصف يوم؟",
+    "ALLOW_PAST_DATE_APPLICATION": "السماح بالتقديم بتاريخ سابق",
+    "ALLOW_TODAY_APPLICATION": "السماح بالتقديم بتاريخ اليوم",
+    "ALLOW_FUTURE_DATE_APPLICATION": "السماح بالتقديم بتاريخ مستقبلي",
+    "ELIGIBLE_APPLICANTS": "من يمكنه التقديم على هذه الإجازة؟",
+    "MALE": "الذكور",
+    "FEMALE": "الإناث",
+    "BOTH": "كلاهما",
+    "MIN_REQUIRED_EXPERIENCE_YEARS": "الحد الأدنى للخبرة المطلوبة للإجازة (بالسنوات)",
+    "MIN_REQUIRED_EXPERIENCE_MONTHS": "الحد الأدنى للخبرة المطلوبة للإجازة (عدد الشهور)",
+    "MIN_AGE": "الحد الأدنى للعمر",
+    "INCLUDE_HOLIDAYS_AND_WEEKENDS": "هل تُحتسب العطلات الرسمية ونهاية الأسبوع ضمن أيام الإجازة في حال وقوعها أثناء فترة الإجازة؟",
+    "ELIGIBLE_RELIGION": "ما هي الديانة المستحقة لهذه الإجازة؟",
+    "RELIGION_MUSLIM": "مسلم",
+    "RELIGION_CHRISTIAN": "مسيحي",
+    "RELIGION_ALL": "الجميع",
+    "REQUIRES_ATTACHMENT": "هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟",
+    "ACTIVE": "مفعلة",
+    "NOT_ACTIVE": "غير مفعلة",
+    "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة"
   }
 }

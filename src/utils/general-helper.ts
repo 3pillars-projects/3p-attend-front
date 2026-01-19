@@ -292,3 +292,24 @@ export function getEmployeeCodeWithLeadingZeros(employeeCode: string) {
     return employeeCode;
   }
 }
+
+  export function convertMonthsToYearsAndMonths(totalMonths: number): { years: number; months: number } {
+  if (totalMonths < 0) {
+    throw new Error('Months cannot be negative');
+  }
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  return { years, months };
+}
+
+export function convertYearsAndMonthsToMonths(years: number, months: number): number {
+  if (years < 0 || months < 0 || months > 11) {
+    throw new Error('Invalid years or months value');
+  }
+
+  return (years * 12) + months;
+}
+
+

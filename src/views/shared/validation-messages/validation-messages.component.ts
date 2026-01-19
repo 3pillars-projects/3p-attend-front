@@ -96,5 +96,6 @@ export class ValidationMessagesComponent implements OnInit {
     [ValidationErrorKeyEnum.PASSWORD_MISMATCH]: 'USER_PROFILE.PASSWORD_MISMATCH',
     [ValidationErrorKeyEnum.DATE_MAX_RANGE_EXCEEDED]:
       'ATTENDANCE_REPORT_PROCESSING_PAGE.DATE_MAX_RANGE_EXCEEDED',
+    [ValidationErrorKeyEnum.AT_LEAST_ONE_TRUE]: 'COMMON.AT_LEAST_ONE_TRUE',
   };
 }

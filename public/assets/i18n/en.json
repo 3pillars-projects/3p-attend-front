@@ -150,7 +150,16 @@
     "MIDSHIFT_INTERSECTION_SHIFTBEGINNING_ISSUE": "Mid-shift intersects with existing Shift Beginning.",
     "MIDSHIFT_INTERSECTION_SHIFTENDING_ISSUE": "Mid-shift intersects with existing Shift Ending.",
     "SHIFT_BEGINNING_ENDING_OVERLAP_MIDPERMISSION": "Shift Beginning/Ending overlaps with mid-shift permission.",
-    "MID_SHIFT_SUBMIT_CONFIRMATION": "Please note that a mid-shift permission requires having a check-in fingerprint at the beginning of the shift and a check-out fingerprint at the end of the shift, and that the mid-shift permission will not affect the total working hours."
+    "MID_SHIFT_SUBMIT_CONFIRMATION": "Please note that a mid-shift permission requires having a check-in fingerprint at the beginning of the shift and a check-out fingerprint at the end of the shift, and that the mid-shift permission will not affect the total working hours.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_REQUIRED": "Annual balance is required.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_MUST_BE_GREATER_THAN_ZERO": "Annual balance must be greater than zero.",
+    "LEAVE_TYPE_AVAILABLE_TIMES_MUST_BE_GREATER_THAN_ZERO": "Available times during service period must be greater than zero.",
+    "LEAVE_TYPE_CONTINUOUS_DAYS_LIMIT_MUST_BE_GREATER_THAN_ZERO": "Continuous days limit must be greater than zero.",
+    "LEAVE_TYPE_INVALID_GENDER_TYPE": "Invalid gender value.",
+    "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "Months of experience required cannot be negative.",
+    "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "Minimum age cannot be negative.",
+    "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "Annual balance cannot be combined with limited times during service period.",
+    "AT_LEAST_ONE_TRUE": "One application period range should be selected"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -489,7 +498,8 @@
     "ACCESS_LOCATIONS": "Access Locations",
     "DEVICES_CONFIGURATION": "Devices Configuration",
     "ATTENDANCE_REPORT_PROCESSING": "Attendance Report Processing",
-    "LIMITED_TIME_PERMISSION": "Limited Time Permission"
+    "LIMITED_TIME_PERMISSION": "Limited Time Permission",
+    "LEAVE_TYPES": "Leave Types"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "General Settings",
@@ -942,5 +952,44 @@
     "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "Permission Cancellation Has Been Requested",
     "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "Permission Cancellation Has Been Accepted",
     "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "Permission Cancellation Has Been Rejected"
+  },
+  "LEAVE_TYPES_PAGE": {
+    "LEAVE_TYPES": "Leave types",
+    "LEAVE_TYPE_NAME_AR": "Leave type name (Arabic)",
+    "LEAVE_TYPE_NAME_EN": "Leave type name (English)",
+    "ACTIVATION_STATUS": "Activation status",
+    "ADD_NEW_LEAVE_TYPE": "Add new leave type",
+    "BALANCE_DAYS_COUNT": "Balance days count",
+    "MAX_CONSECUTIVE_DAYS": "Maximum consecutive days",
+    "EDIT_LEAVE_TYPE": "Edit leave type",
+    "REQUIRES_APPROVAL": "Does this leave require approval?",
+    "DEPARTMENT_MANAGER": "Department manager",
+    "HUMAN_RESOURCES": "Human Resources",
+    "HAS_ANNUAL_BALANCE": "Does this leave have an annual balance?",
+    "ANNUAL_BALANCE": "Annual balance",
+    "CAN_CARRY_FORWARD": "Can the leave be carried forward to another year?",
+    "MULTIPLE_APPLICATIONS_LIMITED": "Can it be applied for more than once during the service period (limited number)?",
+    "APPLICATION_COUNT_DURING_SERVICE": "Number of times during the service period",
+    "APPLICATION_PERIOD_RANGE": "Application period range",
+    "ALLOW_HALF_DAY_LEAVE": "Is applying for a half-day leave allowed?",
+    "ALLOW_PAST_DATE_APPLICATION": "Allow past date application",
+    "ALLOW_TODAY_APPLICATION": "Allow today application",
+    "ALLOW_FUTURE_DATE_APPLICATION": "Allow future date application",
+    "ELIGIBLE_APPLICANTS": "Who can apply for this leave?",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "BOTH": "Both",
+    "MIN_REQUIRED_EXPERIENCE_YEARS": "Minimum required experience for the leave (years)",
+    "MIN_REQUIRED_EXPERIENCE_MONTHS": "Minimum required experience for the leave (months)",
+    "MIN_AGE": "Minimum age",
+    "INCLUDE_HOLIDAYS_AND_WEEKENDS": "Are official holidays and weekends counted as leave days if they fall within the leave period?",
+    "ELIGIBLE_RELIGION": "Which religion is eligible for this leave?",
+    "RELIGION_MUSLIM": "Muslim",
+    "RELIGION_CHRISTIAN": "Christian",
+    "RELIGION_ALL": "All",
+    "REQUIRES_ATTACHMENT": "Does this leave require an attachment/document?",
+    "ACTIVE": "Active",
+    "NOT_ACTIVE": "Not Active",
+    "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days"
   }
 }
