@@ -11,12 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { TabsModule } from 'primeng/tabs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { EditEmployeeHolidaysBalancePopupComponent } from '../holidays-balance-popups/edit-employee-holidays-balance-popup/edit-employee-holidays-balance-popup.component';
+import { EditEmployeeLeavesBalancesPopupComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/edit-employee-leaves-balances-popup/edit-employee-leaves-balances-popup.component';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
-import { EditMultibleEmployeesHolidaysBalancePopupComponent } from '../holidays-balance-popups/edit-multible-employees-holidays-balance-popup/edit-multible-employees-holidays-balance-popup.component';
+import { EditMultipleEmployeeLeavesBalancesPopupComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/edit-multiple-employee-leaves-balances-popup/edit-multiple-employee-leaves-balances-popup.component';
 
 @Component({
-  selector: 'app-holidays-balance-list',
+  selector: 'app-leaves-balances-list',
   imports: [
     Breadcrumb,
     InputTextModule,
@@ -30,10 +30,10 @@ import { EditMultibleEmployeesHolidaysBalancePopupComponent } from '../holidays-
     Select,
     TabsModule,
   ],
-  templateUrl: './holidays-balance-list.component.html',
-  styleUrl: './holidays-balance-list.component.scss',
+  templateUrl: './leaves-balances-list.component.html',
+  styleUrl: './leaves-balances-list.component.scss',
 })
-export default class HolidaysBalanceListComponent {
+export class LeavesBalancesListComponent {
   first: number = 0;
   rows: number = 10;
   date2: Date | undefined;
@@ -74,7 +74,7 @@ export default class HolidaysBalanceListComponent {
     dialogConfig.width = this.dialogSize.width;
     dialogConfig.maxWidth = this.dialogSize.maxWidth;
     const dialogRef = this.matDialog.open(
-      EditEmployeeHolidaysBalancePopupComponent as any,
+      EditEmployeeLeavesBalancesPopupComponent as any,
       dialogConfig
     );
 
@@ -90,7 +90,7 @@ export default class HolidaysBalanceListComponent {
     dialogConfig.width = this.dialogSize.width;
     dialogConfig.maxWidth = this.dialogSize.maxWidth;
     const dialogRef = this.matDialog.open(
-      EditMultibleEmployeesHolidaysBalancePopupComponent as any,
+      EditMultipleEmployeeLeavesBalancesPopupComponent as any,
       dialogConfig
     );
 

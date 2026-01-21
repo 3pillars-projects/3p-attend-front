@@ -5,11 +5,11 @@ import { Select } from 'primeng/select';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
-  selector: 'app-edit-employee-holidays-balance-popup',
+  selector: 'app-edit-employee-leaves-balances-popup',
   imports: [TabsModule, Select, InputNumber, FormsModule],
-  templateUrl: './edit-employee-holidays-balance-popup.component.html',
-  styleUrl: './edit-employee-holidays-balance-popup.component.scss',
+  templateUrl: './edit-employee-leaves-balances-popup.component.html',
+  styleUrl: './edit-employee-leaves-balances-popup.component.scss',
 })
-export class EditEmployeeHolidaysBalancePopupComponent {
+export class EditEmployeeLeavesBalancesPopupComponent {
   value1: number = 50;
 }

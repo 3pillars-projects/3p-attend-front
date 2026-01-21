@@ -235,8 +235,18 @@ export const routes: Routes = [
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVE_TYPES },
         resolve: { list: leaveTypesResolver },
         loadComponent: () =>
-          import('@/views/features/leaves/leave-types-list/leave-types-list.component').then(
+          import('@/views/features/leaves/leaves-types/leave-types-list/leave-types-list.component').then(
             (m) => m.LeavesListComponent
+          ),
+      },
+      {
+        path: 'leaves-balances',
+        canActivate: [authGuard],
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVES_BALANCES },
+        resolve: { list: leaveTypesResolver },
+        loadComponent: () =>
+          import('@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component').then(
+            (m) => m.LeavesBalancesListComponent
           ),
       },
       {
@@ -337,14 +347,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import(
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
-          ),
-      },
-      {
-        path: 'holidays-balance',
-     
-        loadComponent: () =>
-          import(
-            '@/views/features/lookups/holidays/holidays-balance/holidays-balance-list/holidays-balance-list.component'
           ),
       },
     ],
