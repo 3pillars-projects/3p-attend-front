@@ -33,7 +33,7 @@
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
           </div>
-          <app-validation-messages [control]="nameArControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('nameAr')"></app-validation-messages>
         </div>
 
         <div>
@@ -54,7 +54,7 @@
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
           </div>
-          <app-validation-messages [control]="nameEnControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('nameEn')"></app-validation-messages>
         </div>
       </div>
 
@@ -88,7 +88,7 @@
               >{{ 'LEAVE_TYPES_PAGE.DEPARTMENT_MANAGER' | translate }}
             </span>
           </label>
-          <app-validation-messages [control]="needManagerApprovalControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('needManagerApproval')"></app-validation-messages>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
             <input
@@ -111,7 +111,7 @@
               >{{ 'LEAVE_TYPES_PAGE.HUMAN_RESOURCES' | translate }}
             </span>
           </label>
-          <app-validation-messages [control]="needHRApprovalControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('needHRApproval')"></app-validation-messages>
         </div>
       </div>
 
@@ -167,7 +167,7 @@
               </div>
             </label>
           </div>
-          <app-validation-messages [control]="hasAnnualBalanceControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('hasAnnualBalance')"></app-validation-messages>
         </div>
         <fieldset
           [disabled]="!isAnnualLeave()"
@@ -194,7 +194,7 @@
                   <span class="pi pi-minus"></span>
                 </ng-template>
               </p-inputnumber>
-              <app-validation-messages [control]="annualBalanceControl"></app-validation-messages>
+              <app-validation-messages [control]="getControl('annualBalance')"></app-validation-messages>
             </div>
           </div>
 
@@ -249,7 +249,7 @@
               </label>
             </div>
             <app-validation-messages
-              [control]="isBalanceTransferrableControl"
+              [control]="getControl('isBalanceTransferrable')"
             ></app-validation-messages>
           </div>
         </fieldset>
@@ -312,7 +312,7 @@
               </label>
             </div>
             <app-validation-messages
-              [control]="hasLimitedTimesDuringServicePeriodControl"
+              [control]="getControl('hasLimitedTimesDuringServicePeriod')"
             ></app-validation-messages>
           </div>
 
@@ -338,7 +338,7 @@
                 </ng-template>
               </p-inputnumber>
               <app-validation-messages
-                [control]="availableTimesDuringServicePeriodControl"
+                [control]="getControl('availableTimesDuringServicePeriod')"
               ></app-validation-messages>
             </div>
           </div>
@@ -401,7 +401,7 @@
                 </div>
               </label>
             </div>
-            <app-validation-messages [control]="canApplyOnHalfDayControl"></app-validation-messages>
+            <app-validation-messages [control]="getControl('canApplyOnHalfDay')"></app-validation-messages>
           </div>
         </div>
       </fieldset>
@@ -437,7 +437,7 @@
               >{{ 'LEAVE_TYPES_PAGE.ALLOW_PAST_DATE_APPLICATION' | translate }}
             </span>
           </label>
-          <app-validation-messages [control]="canApplyInPastOnlyControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('canApplyInPastOnly')"></app-validation-messages>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
             <input
@@ -461,7 +461,7 @@
             </span>
           </label>
           <app-validation-messages
-            [control]="canApplyInPresentOnlyControl"
+            [control]="getControl('canApplyInPresentOnly')"
           ></app-validation-messages>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
@@ -486,7 +486,7 @@
             </span>
           </label>
         </div>
-        <app-validation-messages [control]="canApplyInFutureOnlyControl"></app-validation-messages>
+        <app-validation-messages [control]="getControl('canApplyInFutureOnly')"></app-validation-messages>
         <app-validation-messages [control]="form"></app-validation-messages>
       </div>
 
@@ -563,7 +563,7 @@
               </div>
             </label>
           </div>
-          <app-validation-messages [control]="genderTypeControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('genderType')"></app-validation-messages>
         </div>
 
         <div class="grid md:grid-cols-3 gap-4 mb-6">
@@ -586,7 +586,7 @@
                 <span class="pi pi-minus"></span>
               </ng-template>
             </p-inputnumber>
-            <app-validation-messages [control]="yearsControl"></app-validation-messages>
+            <app-validation-messages [control]="getControl('years')"></app-validation-messages>
           </div>
 
           <div>
@@ -608,7 +608,7 @@
                 <span class="pi pi-minus"></span>
               </ng-template>
             </p-inputnumber>
-            <app-validation-messages [control]="monthsControl"></app-validation-messages>
+            <app-validation-messages [control]="getControl('months')"></app-validation-messages>
           </div>
 
           <div class="flex flex-col">
@@ -630,7 +630,7 @@
                 </ng-template>
               </p-inputnumber>
             </div>
-            <app-validation-messages [control]="minAgeControl"></app-validation-messages>
+            <app-validation-messages [control]="getControl('minAge')"></app-validation-messages>
           </div>
         </div>
       </div>
@@ -688,7 +688,7 @@
             </label>
           </div>
           <app-validation-messages
-            [control]="areHolidaysAndWeekendsIncludedInLeaveControl"
+            [control]="getControl('areHolidaysAndWeekendsIncludedInLeave')"
           ></app-validation-messages>
         </div>
 
@@ -714,7 +714,7 @@
               </ng-template>
             </p-inputnumber>
             <app-validation-messages
-              [control]="continuousDaysLimitControl"
+              [control]="getControl('continuousDaysLimit')"
             ></app-validation-messages>
           </div>
         </div>
@@ -793,7 +793,7 @@
               </div>
             </label>
           </div>
-          <app-validation-messages [control]="religionControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('religion')"></app-validation-messages>
         </div>
         <div>
           <label class="label mb-3 block" radio-label-for="requireAttachment">
@@ -845,7 +845,7 @@
               </div>
             </label>
           </div>
-          <app-validation-messages [control]="requireAttachmentControl"></app-validation-messages>
+          <app-validation-messages [control]="getControl('requireAttachment')"></app-validation-messages>
         </div>
       </div>
 

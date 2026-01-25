@@ -1,18 +1,22 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, NgControl, Validators } from '@angular/forms';
+import { merge, Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: '[formControlName]',
   standalone: true,
 })
-export class RequiredMarkerDirective implements OnInit {
+export class RequiredMarkerDirective implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+
   constructor(
-    private el: ElementRef,
-    private control: NgControl
+    private el: ElementRef<HTMLElement>,
+    private controlDir: NgControl
   ) {}
 
   ngOnInit(): void {
-    const nativeEl = this.el.nativeElement as HTMLElement;
+    const nativeEl = this.el.nativeElement;
 
     // ⛔ Skip if marked with noAsterisk
     if (nativeEl.hasAttribute('noAsterisk')) return;
@@ -21,17 +25,27 @@ export class RequiredMarkerDirective implements OnInit {
     const form = nativeEl.closest('form');
     if (!form) return;
 
-    const formControl = this.control.control;
-    if (!formControl || !formControl.validator) return;
+    const ctrl = this.controlDir.control;
+    if (!ctrl) return;
 
-    const validator = formControl.validator({} as any);
-    const isRequired = validator && validator['required'] === true;
+    // Re-evaluate on init + whenever control state changes
+    merge(ctrl.statusChanges ?? [], ctrl.valueChanges ?? [])
+      .pipe(startWith(null), takeUntil(this.destroy$))
+      .subscribe(() => this.applyRequiredClass(form, nativeEl, ctrl));
+  }
 
-    if (!isRequired) return;
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private applyRequiredClass(form: Element, nativeEl: HTMLElement, ctrl: AbstractControl) {
+    const isRequired = this.isControlRequired(ctrl);
 
     // ✅ Special handling for radio buttons
     if (nativeEl.getAttribute('type') === 'radio') {
       const formControlName = nativeEl.getAttribute('formControlName');
+      if (!formControlName) return;
 
       // Only process the first radio button in the group
       const allRadiosInGroup = form.querySelectorAll(
@@ -46,24 +60,35 @@ export class RequiredMarkerDirective implements OnInit {
       const questionLabel = form.querySelector(`[radio-label-for="${formControlName}"]`);
 
       if (questionLabel) {
-        questionLabel.classList.add('required');
+        questionLabel.classList.toggle('required', isRequired);
       }
 
       return;
     }
 
     // ✅ Regular input/select/textarea handling
-    let label: Element | null = null;
     const id = nativeEl.getAttribute('id') || nativeEl.getAttribute('inputId');
+    if (!id) return;
 
-    // Case 1: Input has an id (or inputId), find label with for="id"
-    if (id) {
-      label = form.querySelector(`label[for="${id}"]`);
+    const label = form.querySelector(`label[for="${id}"]`);
+    if (!label) return;
+
+    label.classList.toggle('required', isRequired);
+  }
+
+  private isControlRequired(ctrl: AbstractControl): boolean {
+    // If it's disabled, treat as not required for UI marker
+    if (ctrl.disabled) return false;
+
+    // Angular 14+ has hasValidator
+    const anyCtrl = ctrl as any;
+    if (typeof anyCtrl.hasValidator === 'function') {
+      return anyCtrl.hasValidator(Validators.required);
     }
 
-    // Apply the required class
-    if (label) {
-      label.classList.add('required');
-    }
+    // Fallback for older versions: probe by setting empty value
+    // (still not perfect with complex composed validators, but workable)
+    const v = ctrl.validator ? ctrl.validator({ ...ctrl, value: null } as any) : null;
+    return !!v?.['required'];
   }
 }

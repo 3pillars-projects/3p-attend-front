@@ -80,7 +80,7 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
       hasAnnualBalance: [hasAnnualBalance ?? true, [Validators.required]],
       annualBalance: [
         annualBalance,
-        [
+        [ 
           Validators.min(CustomValidators.defaultLengths.ANNUAL_BALANCE_MIN),
           Validators.max(CustomValidators.defaultLengths.ANNUAL_BALANCE_MAX),
         ],
