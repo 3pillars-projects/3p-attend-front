@@ -27,6 +27,7 @@ import { attendanceReportResolver } from '@/resolvers/business/attendance-report
 import { limitedTimePermissionResolver } from '@/resolvers/lookups/limited-timepermission.resolver';
 import { leaveTypesResolver } from '@/resolvers/business/leave-types.resolver';
 import { employeesLeavesBalancesResolver } from '@/resolvers/business/employees-leaves-balances.resolver';
+import { employeesLeavesBalancesPagedResolver } from '@/resolvers/business/employees-leaves-balances-paged.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -236,19 +237,22 @@ export const routes: Routes = [
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVE_TYPES },
         resolve: { list: leaveTypesResolver },
         loadComponent: () =>
-          import('@/views/features/leaves/leaves-types/leave-types-list/leave-types-list.component').then(
-            (m) => m.LeavesListComponent
-          ),
+          import(
+            '@/views/features/leaves/leaves-types/leave-types-list/leave-types-list.component'
+          ).then((m) => m.LeavesListComponent),
       },
       {
         path: 'leaves-balances',
         canActivate: [authGuard],
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVES_BALANCES },
-        resolve: { leavesBalance: employeesLeavesBalancesResolver },
+        resolve: {
+          leavesBalance: employeesLeavesBalancesResolver,
+          list: employeesLeavesBalancesPagedResolver,
+        },
         loadComponent: () =>
-          import('@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component').then(
-            (m) => m.LeavesBalancesListComponent
-          ),
+          import(
+            '@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component'
+          ).then((m) => m.LeavesBalancesListComponent),
       },
       {
         path: 'employee-holidays',

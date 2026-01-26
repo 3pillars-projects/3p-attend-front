@@ -328,7 +328,8 @@
     "ACTIVE_DIRECTORY_USERNAME": "Employee Number (Active Directory Username)",
     "EMPLOYEE_NUMBER": "Employee Number",
     "BIRTHDATE": "Birthdate",
-    "GENDER": "Gender"
+    "GENDER": "Gender",
+    "RELIGION": "Religion"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "Holidays",

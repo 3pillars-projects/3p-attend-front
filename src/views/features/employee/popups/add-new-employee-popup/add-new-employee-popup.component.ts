@@ -30,6 +30,7 @@ import { BooleanOptionModel } from '@/models/shared/boolean-option';
 import { PasswordModule } from 'primeng/password';
 import { GENDER_ENUM } from '@/enums/gender-enum';
 import { InputNumber } from 'primeng/inputnumber';
+import { RELIGION_ENUM } from '@/enums/religion-enum';
 
 @Component({
   selector: 'app-add-new-employee-popup',
@@ -44,7 +45,7 @@ import { InputNumber } from 'primeng/inputnumber';
     TranslatePipe,
     ValidationMessagesComponent,
     PasswordModule,
-    InputNumber
+    InputNumber,
   ],
   templateUrl: './add-new-employee-popup.component.html',
   styleUrl: './add-new-employee-popup.component.scss',
@@ -90,7 +91,19 @@ export class AddNewEmployeePopupComponent extends BasePopupComponent<User> imple
     const lang = this.languageService.getCurrentLanguage();
     return lang === LANGUAGE_ENUM.ARABIC ? 'nameAr' : 'nameEn';
   }
+  religionOptions = [
+    { id: RELIGION_ENUM.MUSLIM, nameAr: 'مسلم', nameEn: 'Muslim' },
+    { id: RELIGION_ENUM.CHRISTIAN, nameAr: 'مسيحي', nameEn: 'Christian' },
+  ];
 
+  getReligionName(id?: number | null): string {
+    if (id == null) return '';
+
+    const religion = this.religionOptions.find((r) => r.id === id);
+    return this.languageService?.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH
+      ? (religion?.nameEn ?? '')
+      : (religion?.nameAr ?? '');
+  }
   // Form control getters
   get regionControl() {
     return this.form.get('fkRegionId') as FormControl;

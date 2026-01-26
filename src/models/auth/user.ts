@@ -39,6 +39,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
   declare concurrencyUpdateVersion?: string;
   declare activeDirectoryUsername?: string;
   private languageService?: LanguageService;
+  declare religion?: number;
 
   constructor() {
     super();
@@ -65,6 +66,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
       joinDate,
       canLeaveWithoutFingerPrint,
       isActive,
+      religion
     } = this;
 
     return {
@@ -139,6 +141,7 @@ export class User extends BaseCrudModel<User, UserService, string> {
       joinDate: [joinDate, [Validators.required]],
       canLeaveWithoutFingerPrint: [canLeaveWithoutFingerPrint],
       isActive: [isActive, [Validators.required]],
+      religion: [religion, [Validators.required]],
     };
   }
 
