@@ -6,6 +6,6 @@ import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 
 export const leaveTypesResolver: ResolveFn<PaginatedList<LeaveType>> = () => {
-  const leavetypeService = inject(LeaveTypeService);
-  return leavetypeService.loadPaginated(new PaginationParams());
+  const leaveTypeService = inject(LeaveTypeService);
+  return leaveTypeService.loadPaginated(new PaginationParams());
 };

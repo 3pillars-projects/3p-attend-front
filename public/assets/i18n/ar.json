@@ -497,7 +497,9 @@
     "DEVICES_CONFIGURATION": "إعدادات أجهزة البصمة",
     "ATTENDANCE_REPORT_PROCESSING": "معالجة بيانات تقارير الموظفين",
     "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود",
-    "LEAVE_TYPES": "أنواع الإجازات"
+    "LEAVE_TYPES": "أنواع الإجازات",
+    "LEAVES": "الاجازات",
+    "EDIT_BALANCES": "أرصدة الاجازات"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",
