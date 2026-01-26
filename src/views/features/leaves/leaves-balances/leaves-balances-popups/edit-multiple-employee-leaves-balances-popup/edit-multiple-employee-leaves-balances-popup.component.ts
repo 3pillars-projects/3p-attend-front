@@ -5,7 +5,7 @@ import { Select } from 'primeng/select';
 import { TabsModule } from 'primeng/tabs';
 @Component({
   selector: 'app-edit-multiple-employee-leaves-balances-popup',
-  imports: [TabsModule, Select, InputNumber, FormsModule],
+  imports: [TabsModule, InputNumber, FormsModule],
   templateUrl: './edit-multiple-employee-leaves-balances-popup.component.html',
   styleUrl: './edit-multiple-employee-leaves-balances-popup.component.scss',
 })

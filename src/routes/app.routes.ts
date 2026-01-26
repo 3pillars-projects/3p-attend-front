@@ -26,6 +26,7 @@ import { devicesConfigurationResolver } from '@/resolvers/business/devices-confi
 import { attendanceReportResolver } from '@/resolvers/business/attendance-report.resolver';
 import { limitedTimePermissionResolver } from '@/resolvers/lookups/limited-timepermission.resolver';
 import { leaveTypesResolver } from '@/resolvers/business/leave-types.resolver';
+import { employeesLeavesBalancesResolver } from '@/resolvers/business/employees-leaves-balances.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -243,7 +244,7 @@ export const routes: Routes = [
         path: 'leaves-balances',
         canActivate: [authGuard],
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVES_BALANCES },
-        resolve: { list: leaveTypesResolver },
+        resolve: { leavesBalance: employeesLeavesBalancesResolver },
         loadComponent: () =>
           import('@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component').then(
             (m) => m.LeavesBalancesListComponent
