@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
-import { LeaveTypesPopupComponent } from '../leave-types-popup/leave-types-popup.component';
+import { LeaveTypesPopupComponent } from '@/views/features/leaves/leaves-types/leave-types-popup/leave-types-popup.component';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { BaseListComponent } from '@/abstracts/base-components/base-list/base-list.component';
 import { LeaveTypeFilter } from '@/models/features/business/leave-types/leave-type-filter';

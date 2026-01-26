@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GENDER_ENUM } from '@/enums/gender-enum';
 import { RELIGION_ENUM } from '@/enums/religion-enum';
-import { RequiredMarkerDirective } from '../../../../directives/required-marker.directive';
+import { RequiredMarkerDirective } from '../../../../../directives/required-marker.directive';
 import { atLeastOneTrue } from '@/validators/custom-validators';
 
 @Component({

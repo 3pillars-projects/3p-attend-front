@@ -96,10 +96,20 @@ export class SideBarLinksService {
       routeId: RouteIdsEnum.HOLIDAYS,
     },
     {
-      labelKey: 'MENU.LEAVE_TYPES',
+      labelKey: 'MENU.LEAVES',
       iconUrl: 'assets/icons/menu-icons/vacations.svg',
-      routerLink: ['/leaves-list'],
-      routeId: RouteIdsEnum.LEAVE_TYPES,
+      children: [
+        {
+          labelKey: 'MENU.LEAVE_TYPES',
+          routerLink: ['/leaves-list'],
+          routeId: RouteIdsEnum.LEAVE_TYPES,
+        },
+        {
+          labelKey: 'MENU.EDIT_BALANCES',
+          routerLink: ['/leaves-balances'],
+          routeId: RouteIdsEnum.LEAVES_BALANCES,
+        },
+      ],
     },
     // {
     //   labelKey: 'MENU.VISITS',
