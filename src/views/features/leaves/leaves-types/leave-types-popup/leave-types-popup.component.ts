@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { ValidationMessagesComponent } from '@/views/shared/validation-messages/validation-messages.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -81,80 +82,14 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
     const successObject = { messages: ['COMMON.SAVED_SUCCESSFULLY'] };
     this.alertService.showSuccessMessage(successObject);
   }
-  override saveFail(error: Error): void {
-    throw new Error('Method not implemented.');
-  }
+  override saveFail(error: Error): void {}
 
-  get hasAnnualBalanceControl() {
-    return this.form.get('hasAnnualBalance') as FormControl;
-  }
-
-  get annualBalanceControl() {
-    return this.form.get('annualBalance') as FormControl;
-  }
-  get hasLimitedTimesDuringServicePeriodControl() {
-    return this.form.get('hasLimitedTimesDuringServicePeriod') as FormControl;
-  }
-  get availableTimesDuringServicePeriodControl() {
-    return this.form.get('availableTimesDuringServicePeriod') as FormControl;
-  }
-  get isBalanceTransferrableControl() {
-    return this.form.get('isBalanceTransferrable') as FormControl;
-  }
-  get canApplyOnHalfDayControl() {
-    return this.form.get('canApplyOnHalfDay') as FormControl;
-  }
-  get canApplyInPastOnlyControl() {
-    return this.form.get('canApplyInPastOnly') as FormControl;
-  }
-  get canApplyInPresentOnlyControl() {
-    return this.form.get('canApplyInPresentOnly') as FormControl;
-  }
-  get canApplyInFutureOnlyControl() {
-    return this.form.get('canApplyInFutureOnly') as FormControl;
-  }
-  get nameArControl() {
-    return this.form.get('nameAr') as FormControl;
-  }
-  get nameEnControl() {
-    return this.form.get('nameEn') as FormControl;
-  }
-  get isActiveControl() {
-    return this.form.get('isActive') as FormControl;
-  }
-  get needManagerApprovalControl() {
-    return this.form.get('needManagerApproval') as FormControl;
-  }
-  get needHRApprovalControl() {
-    return this.form.get('needHRApproval') as FormControl;
-  }
-  get continuousDaysLimitControl() {
-    return this.form.get('continuousDaysLimit') as FormControl;
-  }
-  get areHolidaysAndWeekendsIncludedInLeaveControl() {
-    return this.form.get('areHolidaysAndWeekendsIncludedInLeave') as FormControl;
-  }
-  get genderTypeControl() {
-    return this.form.get('genderType') as FormControl;
-  }
-  get minAgeControl() {
-    return this.form.get('minAge') as FormControl;
-  }
-  get monthsControl() {
-    return this.form.get('months') as FormControl;
-  }
-  get yearsControl() {
-    return this.form.get('years') as FormControl;
-  }
-  get requireAttachmentControl() {
-    return this.form.get('requireAttachment') as FormControl;
-  }
-  get religionControl() {
-    return this.form.get('religion') as FormControl;
+  getControl(controlName: string) {
+    return this.form.get(controlName) as FormControl;
   }
 
   isAnnualLeave() {
-    const isAnnual = this.hasAnnualBalanceControl.value;
+    const isAnnual = this.getControl('hasAnnualBalance').value;
     if (isAnnual) {
       this.enableAnnualBalanceRelatedControls();
       this.disableLimitedTimesDuringServiceRelatedControls();
@@ -167,40 +102,54 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
   }
 
   enableAnnualBalanceRelatedControls() {
-    this.annualBalanceControl.enable();
-    this.isBalanceTransferrableControl.enable();
-    this.hasLimitedTimesDuringServicePeriodControl;
-  }
-  enableLimitedTimesDuringServiceRelatedControls() {
-    this.hasLimitedTimesDuringServicePeriodControl.enable();
-    this.availableTimesDuringServicePeriodControl.enable();
+    const annualBalance = this.getControl('annualBalance');
+    const isBalanceTransferrable = this.getControl('isBalanceTransferrable');
+
+    annualBalance.setValidators([Validators.required]);
+    annualBalance.enable(); // emitEvent defaults to true
+    annualBalance.updateValueAndValidity(); // important
+
+    isBalanceTransferrable.enable();
   }
 
   disableAnnualBalanceRelatedControls() {
-    this.annualBalanceControl.patchValue(null);
-    this.annualBalanceControl.disable();
+    const annualBalance = this.getControl('annualBalance');
+    const isBalanceTransferrable = this.getControl('isBalanceTransferrable');
 
-    this.isBalanceTransferrableControl.patchValue(false);
-    this.isBalanceTransferrableControl.disable();
+    annualBalance.patchValue(null); // emitEvent true
+    annualBalance.clearValidators();
+    annualBalance.setErrors(null);
+    annualBalance.disable();
+    annualBalance.updateValueAndValidity(); // important
+
+    isBalanceTransferrable.patchValue(false);
+    isBalanceTransferrable.disable();
   }
-  disableLimitedTimesDuringServiceRelatedControls() {
-    this.availableTimesDuringServicePeriodControl.patchValue(null);
-    this.availableTimesDuringServicePeriodControl.disable();
 
-    this.hasLimitedTimesDuringServicePeriodControl.patchValue(false);
-    this.hasLimitedTimesDuringServicePeriodControl.disable();
+  enableLimitedTimesDuringServiceRelatedControls() {
+    this.getControl('hasLimitedTimesDuringServicePeriod').enable();
+    this.getControl('availableTimesDuringServicePeriod').enable();
+  }
+
+
+  disableLimitedTimesDuringServiceRelatedControls() {
+    this.getControl('availableTimesDuringServicePeriod').patchValue(null);
+    this.getControl('availableTimesDuringServicePeriod').disable();
+
+    this.getControl('hasLimitedTimesDuringServicePeriod').patchValue(false);
+    this.getControl('hasLimitedTimesDuringServicePeriod').disable();
   }
 
   hasLimitedTimeLeave() {
-    const hasLimitedTime = this.hasLimitedTimesDuringServicePeriodControl.value;
+    const hasLimitedTime = this.getControl('hasLimitedTimesDuringServicePeriod').value;
     if (hasLimitedTime) {
-      this.canApplyOnHalfDayControl.patchValue(false);
-      this.canApplyOnHalfDayControl.disable();
-      this.availableTimesDuringServicePeriodControl.enable();
+      this.getControl('canApplyOnHalfDay').patchValue(false);
+      this.getControl('canApplyOnHalfDay').disable();
+      this.getControl('availableTimesDuringServicePeriod').enable();
     } else {
-      this.canApplyOnHalfDayControl.enable();
-      this.availableTimesDuringServicePeriodControl.patchValue(null);
-      this.availableTimesDuringServicePeriodControl.disable();
+      this.getControl('canApplyOnHalfDay').enable();
+      this.getControl('availableTimesDuringServicePeriod').patchValue(null);
+      this.getControl('availableTimesDuringServicePeriod').disable();
     }
 
     return hasLimitedTime;

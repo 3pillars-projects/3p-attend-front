@@ -92,6 +92,7 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
       availableTimesDuringServicePeriod: [
         availableTimesDuringServicePeriod,
         [
+          Validators.required,
           Validators.min(CustomValidators.defaultLengths.AVAILABLE_TIMES_DURING_SERVICE_PERIOD_MIN),
           Validators.max(CustomValidators.defaultLengths.AVAILABLE_TIMES_DURING_SERVICE_PERIOD_MAX),
         ],
