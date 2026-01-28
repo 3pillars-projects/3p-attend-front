@@ -36,8 +36,8 @@
           {{ 'COMMON.ADD' | translate }}
           <input
             type="radio"
-            formControlName="operation"
-            value="ADD"
+            formControlName="operationType"
+            [value]="operationTypes.ADD"
             class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
           />
           <span
@@ -52,8 +52,8 @@
           {{ 'COMMON.DEDUCT' | translate }}
           <input
             type="radio"
-            formControlName="operation"
-            value="DEDUCT"
+            formControlName="operationType"
+            [value]="operationTypes.SUBTRACT"
             class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
           />
           <span
@@ -62,7 +62,7 @@
           </span>
         </label>
       </div>
-      <app-validation-messages [control]="getControl('operation')"></app-validation-messages>
+      <app-validation-messages [control]="getControl('operationType')"></app-validation-messages>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-6">
         <div>
@@ -71,7 +71,7 @@
             <!-- Value -->
           </label>
           <p-inputnumber
-            formControlName="value"
+            formControlName="amount"
             [inputStyle]="{ width: '100%' }"
             [showButtons]="true"
             buttonLayout="horizontal"
@@ -85,24 +85,42 @@
               <span class="pi pi-minus"></span>
             </ng-template>
           </p-inputnumber>
-          <app-validation-messages [control]="getControl('value')"></app-validation-messages>
+          <app-validation-messages [control]="getControl('amount')"></app-validation-messages>
         </div>
       </div>
 
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
-        <div class="text-[#6c737f] text-sm mb-4">
-          {{ 'MENU.EMPLOYEES' | translate }} (<span class="text-[#1f2a37] font-bold">{{
-            employees.length
-          }}</span
-          >)
-        </div>
-        <div class="flex gap-4 flex-wrap mt-4 max-h-[150px] overflow-y-auto">
-          @for (emp of employees; track $index) {
-            <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-full px-3 py-1 text-sm">
-              {{ lang === 'ar' ? emp.fullNameAr : emp.fullNameEn }}
-            </div>
-          }
-        </div>
+
+        <section class="border-t border-[#d2d6db] pt-8 mt-8">
+          <h3 class="text-[14px] font-normal text-[#6c737f] mb-6">
+            {{ 'MENU.EMPLOYEES' | translate }} ({{ selectedEmployees.length }})
+          </h3>
+          <ul class="flex flex-wrap gap-4 max-h-[150px] overflow-y-auto">
+            @for (emp of selectedEmployees; track emp.employee.id) {
+              <li
+                class="min-w-[142px] min-h-[21px] flex flex-row justify-center items-center gap-1 px-3 py-1 rounded-full bg-[#f3f4f6] text-[#161616] font-medium"
+              >
+                <span>{{ getUserName(emp) }}</span>
+                <button type="button" (click)="toggleEmployeeSelection(emp.employee.id)">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M3.352 3.352c.22-.22.576-.22.796 0L9 8.205l4.852-4.853a.562.562 0 1 1 .796.796L9.795 9l4.853 4.852a.562.562 0 1 1-.796.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.796-.796L8.205 9 3.351 4.148a.563.563 0 0 1 0-.796z"
+                      fill="#161616"
+                    />
+                  </svg>
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
       </div>
 
       <div class="actions mt-6 flex items-center justify-between gap-4">

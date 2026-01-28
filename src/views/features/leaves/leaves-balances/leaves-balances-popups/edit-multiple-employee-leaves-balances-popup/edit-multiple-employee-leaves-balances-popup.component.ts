@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TableModule } from 'primeng/table';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,12 @@ import { ValidationMessagesComponent } from '@/views/shared/validation-messages/
 import { catchError, exhaustMap, filter, isObservable, of, switchMap } from 'rxjs';
 import { markFormGroupTouched } from '@/utils/general-helper';
 import { EmployeeBalanceService } from '@/services/features/business/employee-balance.service';
+import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
+import {
+  LeaveTypeEmployeeBalancesModel,
+  EmployeeWithBalanceDetailModel,
+} from '@/models/features/business/leaves-balances/LeaveTypeEmployeeBalancesModel';
+import { BalanceOperationType } from '@/enums/balance-operation-type-enum';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 
 @Component({
@@ -29,6 +36,7 @@ import { DIALOG_ENUM } from '@/enums/dialog-enum';
     CommonModule,
     TranslatePipe,
     ValidationMessagesComponent,
+    TableModule,
   ],
   templateUrl: './edit-multiple-employee-leaves-balances-popup.component.html',
   styleUrl: './edit-multiple-employee-leaves-balances-popup.component.scss',
@@ -44,12 +52,26 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
   alertService = inject(AlertService);
   translateService = inject(TranslateService);
   employeeBalanceService = inject(EmployeeBalanceService);
-  employees: any[] = [];
+  allEmployees: EmployeeWithBalanceDetailModel[] = [];
+  selectedEmployees: EmployeeWithBalanceDetailModel[] = [];
   lang!: string;
+  leaveType!: BaseLookupModel;
+  operationTypes = BalanceOperationType;
 
   override initPopup(): void {
     if (this.data) {
-      this.employees = this.data.employees || [];
+      this.leaveType = this.data.leaveType;
+      const filter = this.data.filter || {};
+
+      this.employeeBalanceService
+        .getEmployeeBalancesByLeaveType(this.leaveType.id!, filter)
+        .subscribe((res: LeaveTypeEmployeeBalancesModel) => {
+          this.allEmployees = res.employees;
+          this.selectedEmployees = [...this.allEmployees];
+          if (res.year) {
+            this.form.patchValue({ year: res.year });
+          }
+        });
     }
     this.lang = this.translateService.currentLang;
     this.translateService.onLangChange.subscribe((event) => {
@@ -101,8 +123,8 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
 
   override buildForm(): void {
     this.form = this.fb.group({
-      operation: ['ADD', [Validators.required]], // ADD or DEDUCT
-      value: [null, [Validators.required, Validators.min(1)]],
+      operationType: [BalanceOperationType.ADD, [Validators.required]], // ADD or DEDUCT
+      amount: [null, [Validators.required, Validators.min(1)]],
       year: [new Date().getFullYear(), [Validators.required]],
     });
   }
@@ -124,11 +146,48 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
   override prepareModel(model: any, form: FormGroup): any {
     return {
       ...form.getRawValue(),
-      employeeIds: this.employees.map((e) => e.id),
+      fkLeaveTypeId: this.leaveType.id,
+      userIds: this.selectedEmployees.map((e) => e.employee.id),
     };
   }
 
   override close() {
     this.dialogRef.close();
+  }
+
+  getUserName(empDetail: EmployeeWithBalanceDetailModel) {
+    return this.lang === 'ar' ? empDetail.employee.nameAr : empDetail.employee.nameEn;
+  }
+
+  toggleEmployeeSelection(employeeId: number | undefined) {
+    if (employeeId === undefined) return;
+    const index = this.selectedEmployees.findIndex((e) => e.employee.id === employeeId);
+    if (index > -1) {
+      this.selectedEmployees.splice(index, 1);
+    } else {
+      const emp = this.allEmployees.find((e) => e.employee.id === employeeId);
+      if (emp) {
+        this.selectedEmployees.push(emp);
+      }
+    }
+  }
+
+  isEmployeeSelected(employeeId: number | undefined): boolean {
+    if (employeeId === undefined) return false;
+    return this.selectedEmployees.some((e) => e.employee.id === employeeId);
+  }
+
+  toggleAll(checked: boolean): void {
+    if (checked) {
+      this.selectedEmployees = [...this.allEmployees];
+    } else {
+      this.selectedEmployees = [];
+    }
+  }
+
+  returnCheckAllStatus() {
+    return (
+      this.allEmployees.length > 0 && this.selectedEmployees.length === this.allEmployees.length
+    );
   }
 }

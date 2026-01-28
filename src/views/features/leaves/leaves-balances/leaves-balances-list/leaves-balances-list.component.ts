@@ -153,10 +153,11 @@ export class LeavesBalancesListComponent extends BaseListComponent<
       }
     });
   }
-  openEmployeesDialog(model?: any) {
+  openEmployeesDialog(leaveType: BaseLookupModel) {
     let dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      model: model,
+      leaveType: leaveType,
+      filter: this.filterModel,
     };
     dialogConfig.width = this.dialogSize.width;
     dialogConfig.maxWidth = this.dialogSize.maxWidth;
