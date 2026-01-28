@@ -107,9 +107,22 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
   }
 
   override loadList() {
-    return this.service.loadMyAttendanceReportsPaginated(this.paginationParams, {
+    const response = this.service.loadMyAttendanceReportsPaginated(this.paginationParams, {
       ...this.appliedFilterModel!,
     });
+    // calculate total over time and total missing
+    var totalOverTime = 0;
+    var totalMissing = 0;
+    response.subscribe((res) => {
+      res.list.forEach((item: AttendanceReport) => {
+        totalOverTime += item.totalOvertimeMinutes;
+        totalMissing += item.totalMissingMinutes;
+      });
+      console.log('total over time: ', totalOverTime);
+      console.log('total missing: -', totalMissing);
+      console.log('total: ', totalOverTime - totalMissing);
+    });
+    return response;
   }
 
   protected override mapModelToExcelRow(model: AttendanceReport): { [key: string]: any } {
