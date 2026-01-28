@@ -35,6 +35,25 @@
         <p-tabpanels>
           <!-- Annual Leaves Tab -->
           <p-tabpanel value="0">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="relative">
+                <label class="label" for="year">
+                  {{ 'COMMON.YEAR' | translate }}
+                </label>
+                <p-select
+                  [options]="years"
+                  placeholder="{{ 'COMMON.YEAR' | translate }}"
+                  class="w-full peer"
+                  id="year"
+                  formControlName="year"
+                  [virtualScroll]="true"
+                  [virtualScrollItemSize]="38"
+                ></p-select>
+                <span
+                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                ></span>
+              </div>
+            </div>
             <div class="max-h-[400px] overflow-auto holidays mt-4" formArrayName="annualLeaves">
               @for (item of getAnnualLeavesArray().controls; track $index) {
                 <ng-container [formGroupName]="$index">

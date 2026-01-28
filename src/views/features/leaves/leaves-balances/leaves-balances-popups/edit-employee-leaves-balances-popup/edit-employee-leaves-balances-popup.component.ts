@@ -7,6 +7,7 @@ import {
   of,
   distinctUntilChanged,
   switchMap,
+  Observable,
 } from 'rxjs';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { markFormGroupTouched } from '@/utils/general-helper';
@@ -61,6 +62,7 @@ export class EditEmployeeLeavesBalancesPopupComponent
   employeeBalanceService = inject(EmployeeBalanceService);
   viewMode!: ViewModeEnum;
   lang!: string;
+  years: number[] = [];
 
   override initPopup(): void {
     if (this.data.model instanceof EmployeeLeaveBalance) {
@@ -73,6 +75,7 @@ export class EditEmployeeLeavesBalancesPopupComponent
     this.translateService.onLangChange.subscribe((event) => {
       this.lang = event.lang;
     });
+    this.years = this.data.years;
   }
 
   override listenToSave() {
@@ -84,17 +87,18 @@ export class EditEmployeeLeavesBalancesPopupComponent
           return isObservable(result) ? result : of(result);
         })
       )
-      .pipe(filter((value) => !!value))
+      .pipe(filter((value): value is any => !!value))
       .pipe(
-        switchMap((_) => {
+        switchMap((_): Observable<EmployeeLeaveBalance> => {
           const result = this.prepareModel(this.model, this.form);
-          return isObservable(result) ? result : of(result);
+          return isObservable(result) ? (result as Observable<EmployeeLeaveBalance>) : of(result);
         })
       )
       .pipe(
-        exhaustMap((model: any) => {
+        exhaustMap((model: EmployeeLeaveBalance) => {
           const payload: BulkUpdateBalancesRequest = {
             fkUserId: model.employeeId,
+            year: model.year,
             annualLeaves: model.annualLeaves,
             limitedTimesLeaves: model.limitedTimesLeaves,
           };
@@ -190,11 +194,8 @@ export class EditEmployeeLeavesBalancesPopupComponent
     const updatedModel = new EmployeeLeaveBalance();
     Object.assign(updatedModel, model);
 
-    // Update inner lists
-    // Note: The backend likely expects the full object or specific DTOs.
-    // BaseCrudService usually sends what prepareModel returns.
-    // For nested arrays, we should make sure we merge correctly if needed.
-    // Here we just replace the arrays with form values as they map 1:1.
+    // Update inner lists and year
+    updatedModel.year = formValue.year;
     updatedModel.annualLeaves = formValue.annualLeaves;
     updatedModel.limitedTimesLeaves = formValue.limitedTimesLeaves;
 

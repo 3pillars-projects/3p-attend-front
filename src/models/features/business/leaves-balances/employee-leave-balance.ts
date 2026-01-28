@@ -20,11 +20,13 @@ export class EmployeeLeaveBalance extends BaseCrudModel<
   fkGenderId!: number;
   religion!: number;
   monthsOfExperience!: number;
+  year?: number;
   annualLeaves: AnnualLeaveBalanceModel[] = [];
   limitedTimesLeaves: LimitedTimesLeaveBalanceModel[] = [];
 
   buildForm(fb: FormBuilder): FormGroup {
     return fb.group({
+      year: [this.year ?? new Date().getFullYear()],
       annualLeaves: fb.array(this.getAnnualLeavesFormGroups(fb)),
       limitedTimesLeaves: fb.array(this.getLimitedTimesLeavesFormGroups(fb)),
     });

@@ -9,7 +9,6 @@ export class AnnualLeaveBalanceModel {
 
   // Update fields
   fkLeaveTypeId?: number; // Required for update
-  year?: number; // Required for both GET and UPDATE
   totalBalance?: number;
   usedBalance?: number;
   remainingBalance?: number;
@@ -20,7 +19,6 @@ export class AnnualLeaveBalanceModel {
       id: [this.id],
       fkLeaveTypeId: [this.fkLeaveTypeId],
       leaveType: [this.leaveType],
-      year: [this.year],
       totalBalance: [this.totalBalance, [Validators.required, Validators.min(0)]],
       usedBalance: [{ value: this.usedBalance, disabled: true }],
       remainingBalance: [{ value: this.remainingBalance, disabled: true }],

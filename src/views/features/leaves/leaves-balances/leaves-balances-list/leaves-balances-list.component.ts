@@ -138,6 +138,7 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     let dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       model: model,
+      years: this.years,
     };
     dialogConfig.width = this.dialogSize.width;
     dialogConfig.maxWidth = this.dialogSize.maxWidth;
