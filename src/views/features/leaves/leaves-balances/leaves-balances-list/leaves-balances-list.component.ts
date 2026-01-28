@@ -56,6 +56,7 @@ export class LeavesBalancesListComponent extends BaseListComponent<
   EmployeeBalanceFilter
 > {
   departments: BaseLookupModel[] = [];
+  years: number[] = [];
 
   departmentService = inject(DepartmentService);
   genderOptions = [
@@ -90,28 +91,14 @@ export class LeavesBalancesListComponent extends BaseListComponent<
   override get service(): EmployeeBalanceService {
     return this.employeeBalanceService;
   }
-  override openDialog(nationality: EmployeeLeaveBalance): void {}
+  override openDialog(employeeLeaveBalance: EmployeeLeaveBalance): void {}
   override initListComponent(): void {
+    this.filterModel.year = new Date().getFullYear();
     this.leavesBalance = this.activatedRoute.snapshot.data['leavesBalance'];
+    this.years = this.activatedRoute.snapshot.data['years'];
     this.departmentService.getLookup().subscribe((res) => {
       this.departments = res;
     });
-    console.log('================');
-    console.log(this.leavesBalance);
-    console.log('================');
-    this.items = [{ label: 'لوحة المعلومات' }, { label: 'تحديث أرصدة الاجازات' }];
-    // Updated dummy data to match your Arabic table structure
-    this.attendance = [
-      {
-        serialNumber: 1,
-        PermanentType: 'دوام كلي',
-        startDate: '12/12/2024',
-        endDate: '24/12/2024',
-        timeRange: '10:00 - 17:00',
-        maxAttendanceTime: '09:30',
-        maxwithdrawalTime: '19:00',
-      },
-    ];
   }
   getPropertyName() {
     return this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH ? 'nameEn' : 'nameAr';
@@ -131,14 +118,17 @@ export class LeavesBalancesListComponent extends BaseListComponent<
       [this.translateService.instant('LEAVE_TYPES_PAGE.MAX_CONSECUTIVE_DAYS')]: '',
     };
   }
-  date2: Date | undefined;
-  attendance!: any[];
-  items: MenuItem[] | undefined;
   dialogSize = {
     width: '100%',
     maxWidth: '1024px',
   };
 
+  loadEmployeeBalancesList() {
+    this.loadList().subscribe({
+      next: (response) => this.handleLoadListSuccess(response),
+      error: this.handleLoadListError,
+    });
+  }
   leavesBalance?: LeaveTypesLookup;
 
   selectedAnnualLeaves?: BaseLookupModel[] = [];
@@ -157,7 +147,9 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     );
 
     return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      console.log('closed');
+      if (result === DIALOG_ENUM.OK) {
+        this.loadEmployeeBalancesList();
+      }
     });
   }
   openEmployeesDialog(model?: any) {
@@ -173,7 +165,9 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     );
 
     return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      console.log('closed');
+      if (result === DIALOG_ENUM.OK) {
+        this.loadEmployeeBalancesList();
+      }
     });
   }
 
@@ -273,5 +267,13 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     if (months > 0) parts.push(`${months} ${this.monthWord(months)}`);
 
     return parts.join(sep);
+  }
+  override resetSearch() {
+    this.filterModel = new EmployeeBalanceFilter();
+    this.appliedFilterModel = new EmployeeBalanceFilter();
+    this.paginationParams.pageNumber = 1;
+    this.paginationParams.pageSize = 10;
+    this.first = 0;
+    this.loadEmployeeBalancesList();
   }
 }

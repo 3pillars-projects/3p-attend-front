@@ -1,18 +1,30 @@
 <div class="bg-white">
   <div class="bg-[#f9fafb] p-3 sm:p-6">
     <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
-      <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
-      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">تحديث أرصدة الاجازات</h3>
+      <p-breadcrumb [home]="home" [model]="breadcrumbs" class="max-w-full">
+        <ng-template let-item pTemplate="item">
+          <a [routerLink]="item.url" class="cursor-pointer">
+            <span>{{ item.label | translate }}</span>
+          </a>
+        </ng-template>
+      </p-breadcrumb>
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+        {{ 'LEAVES_BALANCES.UPDATE_LEAVES_BALANCES' | translate }}
+      </h3>
     </div>
     <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
       <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
         <div class="flex items-center justify-between">
-          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+            {{ 'COMMON.SEARCH_FILTERS' | translate }}
+          </h5>
         </div>
         <div class="pt-6">
           <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
             <div class="relative">
-              <label class="label" for="department">الإدارة</label>
+              <label class="label" for="department">
+                {{ 'DEPARTMENTS_LIST_PAGE.DEPARTMENT_NAME' | translate }}
+              </label>
               <p-select
                 [options]="departments"
                 [(ngModel)]="filterModel.fkDepartmentId"
@@ -30,10 +42,12 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="employeeNameAr">اسم الموظف عربي</label>
+              <label class="label" for="employeeNameAr">
+                {{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}
+              </label>
               <input
                 [(ngModel)]="filterModel.fullNameAr"
-                placeholder="اسم الموظف"
+                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}"
                 class="peer"
                 fluid="true"
                 id="employeeNameAr"
@@ -45,10 +59,12 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="employeeNameEn">اسم الموظف إنجليزي</label>
+              <label class="label" for="employeeNameEn">
+                {{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}
+              </label>
               <input
                 [(ngModel)]="filterModel.fullNameEn"
-                placeholder="اسم الموظف"
+                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}"
                 class="peer"
                 fluid="true"
                 id="employeeNameEn"
@@ -60,7 +76,9 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="type">النوع</label>
+              <label class="label" for="type">
+                {{ 'EMPLOYEES_PAGE.GENDER' | translate }}
+              </label>
 
               <p-select
                 [options]="genderOptions"
@@ -77,7 +95,9 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="religion">الديانة</label>
+              <label class="label" for="religion">
+                {{ 'EMPLOYEES_PAGE.RELIGION' | translate }}
+              </label>
               <p-select
                 [options]="religionOptions"
                 [optionLabel]="getPropertyName()"
@@ -93,13 +113,15 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="year">السنة</label>
+              <label class="label" for="year">
+                {{ 'COMMON.YEAR' | translate }}
+              </label>
               <p-select
-                placeholder="السنة"
+                [options]="years"
+                placeholder="{{ 'COMMON.YEAR' | translate }}"
                 class="w-full peer"
                 id="year"
-                optionValue="id"
-                [showClear]="true"
+                [(ngModel)]="filterModel.year"
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="38"
               ></p-select>
@@ -108,10 +130,12 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="yearCountLessThan">عدد سنين الخدمة بالشركة (أقل من)</label>
+              <label class="label" for="yearCountLessThan">{{
+                'LEAVES_BALANCES.YEARS_OF_SERVICE_LESS_THAN' | translate
+              }}</label>
               <input
                 [(ngModel)]="filterModel.maxYearsOfExperience"
-                placeholder="أقل من"
+                placeholder="{{ 'COMMON.LESS_THAN' | translate }}"
                 class="peer"
                 fluid="true"
                 id="yearCountLessThan"
@@ -123,12 +147,12 @@
               ></span>
             </div>
             <div class="relative">
-              <label class="label" for="yearCountGreaterThan"
-                >عدد سنين الخدمة بالشركة (أكبر من)</label
-              >
+              <label class="label" for="yearCountGreaterThan">{{
+                'LEAVES_BALANCES.YEARS_OF_SERVICE_GREATER_THAN' | translate
+              }}</label>
               <input
                 [(ngModel)]="filterModel.minYearsOfExperience"
-                placeholder="أكبر من"
+                placeholder="{{ 'COMMON.GREATER_THAN' | translate }}"
                 class="peer"
                 fluid="true"
                 id="yearCountGreaterThan"
@@ -153,21 +177,24 @@
       <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] mt-10">
         <div class="flex items-center justify-between">
           <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
-            خيارات عرض الاجازات
+            {{ 'LEAVES_BALANCES.LEAVES_DISPLAY_OPTIONS' | translate }}
           </h5>
         </div>
         <div class="pt-6">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="relative">
               <label class="label" for="hasYearlyBalance"
-                >لها رصيد سنوي ({{ leavesBalance?.annualLeaves?.length }} )</label
+                >{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
+                  leavesBalance?.annualLeaves?.length
+                }}
+                )</label
               >
               <p-multi-select
                 [selectedItemsLabel]="getSelectedLeavesLabel(selectedAnnualLeaves)"
                 [maxSelectedLabels]="0"
                 [options]="leavesBalance?.annualLeaves"
                 [optionLabel]="getLookupLabelKey()"
-                placeholder="لها رصيد سنوي"
+                placeholder="{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }}"
                 class="w-full peer"
                 id="hasYearlyBalance"
                 [showClear]="true"
@@ -181,7 +208,7 @@
             </div>
             <div class="relative">
               <label class="label" for="hasLimitedBalance"
-                >لها مرات محدودة خلال فترة الخدمة ({{
+                >{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
                   leavesBalance?.limitedLeaves?.length
                 }})</label
               >
@@ -190,7 +217,7 @@
                 [maxSelectedLabels]="0"
                 [options]="leavesBalance?.limitedLeaves"
                 [optionLabel]="getLookupLabelKey()"
-                placeholder="لها مرات محدودة خلال فترة الخدمة"
+                placeholder="{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }}"
                 class="w-full peer"
                 id="hasLimitedBalance"
                 [showClear]="true"
@@ -206,14 +233,20 @@
           <p-tabs value="0">
             <p-tablist class="my-6 justify-between">
               <div class="flex">
-                <p-tab value="0"> لها رصيد سنوي ({{ selectedAnnualLeaves?.length }}) </p-tab>
+                <p-tab value="0">
+                  {{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
+                    selectedAnnualLeaves?.length
+                  }})
+                </p-tab>
                 <p-tab value="1">
-                  لها مرات محدودة خلال فترة الخدمة ({{ selectedLimitedTimesLeaves?.length }})
+                  {{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
+                    selectedLimitedTimesLeaves?.length
+                  }})
                 </p-tab>
               </div>
               <button class="ms-auto btn !text-[#d92d20]" (click)="resetSelectedLeaveTypes()">
                 <img src="/assets/icons/delete.svg" alt="" />
-                إعادة تعيين
+                {{ 'COMMON.RESET' | translate }}
               </button>
             </p-tablist>
             <p-tabpanels>
@@ -276,7 +309,7 @@
           class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
         >
           <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-            أرصدة الاجازات (المتبقي من الاجازات)
+            {{ 'LEAVES_BALANCES.LEAVES_BALANCES_REMAINING' | translate }}
           </h4>
           <div class="actions flex items-center gap-4 ms-auto">
             <button class="table-head-action-btn">
@@ -292,10 +325,10 @@
           >
             <ng-template pTemplate="header">
               <tr>
-                <th>اسم الموظف</th>
-                <th>النوع</th>
-                <th>الديانة</th>
-                <th>عدد سنين الخدمة بالشركة</th>
+                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</th>
+                <th>{{ 'LEAVES_BALANCES.YEARS_OF_SERVICE' | translate }}</th>
                 @for (item of selectedAnnualLeaves; track $index) {
                   <th>
                     <div class="flex items-center gap-2">
@@ -322,7 +355,7 @@
                     </div>
                   </th>
                 }
-                <th>اجراء</th>
+                <th>{{ 'COMMON.ACTION' | translate }}</th>
               </tr>
             </ng-template>
             <ng-template #body let-employeeBalance>
@@ -342,9 +375,9 @@
                   <td>{{ getEmployeeLimitedLeaveBalance(employeeBalance, limitedLeave.id!) }}</td>
                 }
                 <td>
-                  <button class="btn black-btn" (click)="openEmployeeDialog()">
+                  <button class="btn black-btn" (click)="openEmployeeDialog(employeeBalance)">
                     <img class="!w-[20px]" src="/assets/icons/edit.png" alt="" />
-                    تحديث الرصيد
+                    {{ 'LEAVES_BALANCES.UPDATE_BALANCE' | translate }}
                   </button>
                 </td>
               </tr>

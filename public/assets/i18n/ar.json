@@ -159,7 +159,13 @@
     "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "لا يمكن أن تكون أشهر الخبرة المطلوبة قيمة سالبة.",
     "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "لا يمكن أن يكون الحد الأدنى للعمر قيمة سالبة.",
     "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "لا يمكن الجمع بين الرصيد السنوي وخيار عدد المرات المحدودة خلال فترة الخدمة.",
-    "AT_LEAST_ONE_TRUE": "يجب أن يتم اختيار نطاق فترة تقديم"
+    "AT_LEAST_ONE_TRUE": "يجب أن يتم اختيار نطاق فترة تقديم",
+    "YEAR": "السنة",
+    "LESS_THAN": "أقل من",
+    "GREATER_THAN": "أكبر من",
+    "RESET": "إعادة تعيين",
+    "TYPE": "النوع",
+    "DEDUCT": "خصم"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
@@ -991,6 +997,23 @@
     "REQUIRES_ATTACHMENT": "هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟",
     "ACTIVE": "مفعلة",
     "NOT_ACTIVE": "غير مفعلة",
-    "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة"
+    "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة",
+    "UPDATE_TYPE": "نوع التحديث"
+  },
+  "LEAVES_BALANCES": {
+    "UPDATE_LEAVES_BALANCES": "تحديث أرصدة الاجازات",
+    "YEARS_OF_SERVICE_LESS_THAN": "عدد سنين الخدمة بالشركة (أقل من)",
+    "YEARS_OF_SERVICE_GREATER_THAN": "عدد سنين الخدمة بالشركة (أكبر من)",
+    "LEAVES_DISPLAY_OPTIONS": "خيارات عرض الاجازات",
+    "HAS_ANNUAL_BALANCE": "لها رصيد سنوي",
+    "HAS_LIMITED_BALANCE": "لها مرات محدودة خلال فترة الخدمة",
+    "LEAVES_BALANCES_REMAINING": "أرصدة الاجازات (المتبقي من الاجازات)",
+    "YEARS_OF_SERVICE": "عدد سنين الخدمة بالشركة",
+    "UPDATE_BALANCE": "تحديث الرصيد",
+    "USED_BALANCE": "الرصيد المستهلك",
+    "REMAINING_BALANCE": "الرصيد المتاح",
+    "TOTAL_TIMES_AVAILABLE": "الإجمالي المتوفر",
+    "TIMES_USED": "الإجمالي المستخدم",
+    "REMAINING_TIMES": "الإجمالي المتاح"
   }
 }

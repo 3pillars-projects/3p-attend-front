@@ -6,5 +6,5 @@ export class EmployeeBalanceFilter {
   religion?: number;
   minYearsOfExperience?: number;
   maxYearsOfExperience?: number;
-  year?: number; 
+  year: number = new Date().getFullYear();
 }

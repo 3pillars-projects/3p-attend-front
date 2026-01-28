@@ -28,6 +28,7 @@ import { limitedTimePermissionResolver } from '@/resolvers/lookups/limited-timep
 import { leaveTypesResolver } from '@/resolvers/business/leave-types.resolver';
 import { employeesLeavesBalancesResolver } from '@/resolvers/business/employees-leaves-balances.resolver';
 import { employeesLeavesBalancesPagedResolver } from '@/resolvers/business/employees-leaves-balances-paged.resolver';
+import { employeesLeavesBalancesYearsResolver } from '@/resolvers/business/employees-leaves-balances-years.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -248,6 +249,7 @@ export const routes: Routes = [
         resolve: {
           leavesBalance: employeesLeavesBalancesResolver,
           list: employeesLeavesBalancesPagedResolver,
+          years: employeesLeavesBalancesYearsResolver,
         },
         loadComponent: () =>
           import(

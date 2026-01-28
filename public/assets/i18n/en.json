@@ -159,7 +159,13 @@
     "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "Months of experience required cannot be negative.",
     "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "Minimum age cannot be negative.",
     "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "Annual balance cannot be combined with limited times during service period.",
-    "AT_LEAST_ONE_TRUE": "One application period range should be selected"
+    "AT_LEAST_ONE_TRUE": "One application period range should be selected",
+    "YEAR": "Year",
+    "LESS_THAN": "Less than",
+    "GREATER_THAN": "Greater than",
+    "RESET": "Reset",
+    "TYPE": "Type",
+    "DEDUCT": "Deduct"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -993,6 +999,24 @@
     "REQUIRES_ATTACHMENT": "Does this leave require an attachment/document?",
     "ACTIVE": "Active",
     "NOT_ACTIVE": "Not Active",
-    "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days"
+    "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days",
+    "UPDATE_TYPE": "Update Type"
+  },
+  "LEAVES_BALANCES": {
+    "UPDATE_LEAVES_BALANCES": "Update Leaves Balances",
+    "YEARS_OF_SERVICE_LESS_THAN": "Years of service (Less than)",
+    "YEARS_OF_SERVICE_GREATER_THAN": "Years of service (Greater than)",
+    "LEAVES_DISPLAY_OPTIONS": "Leaves display options",
+    "HAS_ANNUAL_BALANCE": "Has annual balance",
+    "HAS_LIMITED_BALANCE": "Limited times during service",
+    "LEAVES_BALANCES_REMAINING": "Leaves Balances (Remaining)",
+    "YEARS_OF_SERVICE": "Years of service",
+    "UPDATE_BALANCE": "Update Balance",
+    "USED_BALANCE": "Used Balance",
+    "REMAINING_BALANCE": "Remaining Balance",
+    "ANNUAL_BALANCE": "Annual Balance",
+    "TOTAL_TIMES_AVAILABLE": "Total times available",
+    "TIMES_USED": "Times used",
+    "REMAINING_TIMES": "Times remaining"
   }
 }
