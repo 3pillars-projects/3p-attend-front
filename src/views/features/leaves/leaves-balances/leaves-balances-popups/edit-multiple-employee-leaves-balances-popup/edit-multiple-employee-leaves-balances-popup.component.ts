@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ChipModule } from 'primeng/chip';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -26,6 +28,7 @@ import {
 } from '@/models/features/business/leaves-balances/LeaveTypeEmployeeBalancesModel';
 import { BalanceOperationType } from '@/enums/balance-operation-type-enum';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
 
 @Component({
   selector: 'app-edit-multiple-employee-leaves-balances-popup',
@@ -37,6 +40,8 @@ import { DIALOG_ENUM } from '@/enums/dialog-enum';
     TranslatePipe,
     ValidationMessagesComponent,
     TableModule,
+    RadioButtonModule,
+    ChipModule,
   ],
   templateUrl: './edit-multiple-employee-leaves-balances-popup.component.html',
   styleUrl: './edit-multiple-employee-leaves-balances-popup.component.scss',
@@ -57,10 +62,12 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
   lang!: string;
   leaveType!: BaseLookupModel;
   operationTypes = BalanceOperationType;
-
+  languageEnum = LANGUAGE_ENUM;
+  isAnnualLeave!: boolean;
   override initPopup(): void {
     if (this.data) {
       this.leaveType = this.data.leaveType;
+      this.isAnnualLeave = this.data.isAnnualLeave;
       const filter = this.data.filter || {};
 
       this.employeeBalanceService
@@ -189,5 +196,9 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
     return (
       this.allEmployees.length > 0 && this.selectedEmployees.length === this.allEmployees.length
     );
+  }
+
+  getLanguage() {
+    return this.languageService.getCurrentLanguage();
   }
 }

@@ -998,7 +998,7 @@
     "ACTIVE": "مفعلة",
     "NOT_ACTIVE": "غير مفعلة",
     "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة",
-    "UPDATE_TYPE": "نوع التحديث"
+    "UPDATE_TYPE_NOTE": "نوع التحديث (سيتم إضافة/خصم هذه القيمة من رصيد الأجازة لكل الموظفين المحددين)"
   },
   "LEAVES_BALANCES": {
     "UPDATE_LEAVES_BALANCES": "تحديث أرصدة الاجازات",
@@ -1014,6 +1014,11 @@
     "REMAINING_BALANCE": "الرصيد المتاح",
     "TOTAL_TIMES_AVAILABLE": "الإجمالي المتوفر",
     "TIMES_USED": "الإجمالي المستخدم",
-    "REMAINING_TIMES": "الإجمالي المتاح"
+    "REMAINING_TIMES": "الإجمالي المتاح",
+    "VALUE_TO_ADD_OR_SUBTRACT_FROM_BALANCE": "القيمة المطلوب إضافتها / خصمها (بعدد الأيام أو المرات)",
+    "LEAVE_NAME": "اسم الأجازة",
+    "EMPLOYEE": "موظف",
+    "ANNUAL_BALANCE": "رصيد سنوي",
+    "TIMES_BALANCE": "عدد مرات"
   }
 }

@@ -325,7 +325,8 @@
           >
             <ng-template pTemplate="header">
               <tr>
-                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}</th>
                 <th>{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</th>
                 <th>{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</th>
                 <th>{{ 'LEAVES_BALANCES.YEARS_OF_SERVICE' | translate }}</th>
@@ -335,7 +336,7 @@
                       {{ getNameBasedOnLanguage(item) }}
                       <button
                         class="btn black-btn !p-2 !w-[24px] h-[24px]"
-                        (click)="openEmployeesDialog(item)"
+                        (click)="openEmployeesDialog(item, true)"
                       >
                         <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
                       </button>
@@ -348,7 +349,7 @@
                       {{ getNameBasedOnLanguage(item) }}
                       <button
                         class="btn black-btn !p-2 !w-[24px] h-[24px]"
-                        (click)="openEmployeesDialog(item)"
+                        (click)="openEmployeesDialog(item, false)"
                       >
                         <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
                       </button>
@@ -361,6 +362,7 @@
             <ng-template #body let-employeeBalance>
               <tr>
                 <td>{{ employeeBalance.fullNameAr }}</td>
+                <td>{{ employeeBalance.fullNameEn }}</td>
                 <td>{{ getGenderName(employeeBalance.fkGenderId) }}</td>
                 <td>{{ getReligionName(employeeBalance.religion) }}</td>
                 <td>

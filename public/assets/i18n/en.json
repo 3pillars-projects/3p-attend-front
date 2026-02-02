@@ -1000,7 +1000,7 @@
     "ACTIVE": "Active",
     "NOT_ACTIVE": "Not Active",
     "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days",
-    "UPDATE_TYPE": "Update Type"
+    "UPDATE_TYPE_NOTE": "Update Type (This value will be added/deducted from the leave balance for all selected employees)"
   },
   "LEAVES_BALANCES": {
     "UPDATE_LEAVES_BALANCES": "Update Leaves Balances",
@@ -1014,9 +1014,13 @@
     "UPDATE_BALANCE": "Update Balance",
     "USED_BALANCE": "Used Balance",
     "REMAINING_BALANCE": "Remaining Balance",
-    "ANNUAL_BALANCE": "Annual Balance",
     "TOTAL_TIMES_AVAILABLE": "Total times available",
     "TIMES_USED": "Times used",
-    "REMAINING_TIMES": "Times remaining"
+    "REMAINING_TIMES": "Times remaining",
+    "VALUE_TO_ADD_OR_SUBTRACT_FROM_BALANCE": "Value to add / deduct (in days or times)",
+    "LEAVE_NAME": "Leave Name",
+    "EMPLOYEE": "Employee",
+    "ANNUAL_BALANCE": "Annual Balance",
+    "TIMES_BALANCE": "Times Balance"
   }
 }
