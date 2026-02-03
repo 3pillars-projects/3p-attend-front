@@ -164,8 +164,7 @@
     "LESS_THAN": "Less than",
     "GREATER_THAN": "Greater than",
     "RESET": "Reset",
-    "TYPE": "Type",
-    "DEDUCT": "Deduct"
+    "TYPE": "Type"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",

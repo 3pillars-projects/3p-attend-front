@@ -1,9 +1,9 @@
 import { AnnualLeaveBalanceModel } from './AnnualLeaveBalanceModel';
 import { LimitedTimesLeaveBalanceModel } from './LimitedTimesLeaveBalanceModel';
 
-export interface BulkUpdateBalancesRequest {
-  fkUserId: number;
-  year?: number;
-  annualLeaves: AnnualLeaveBalanceModel[];
-  limitedTimesLeaves: LimitedTimesLeaveBalanceModel[];
+export class BulkUpdateBalancesRequest {
+  declare fkUserId: number;
+  declare year?: number;
+  declare annualLeaves: AnnualLeaveBalanceModel[];
+  declare limitedTimesLeaves: LimitedTimesLeaveBalanceModel[];
 }
