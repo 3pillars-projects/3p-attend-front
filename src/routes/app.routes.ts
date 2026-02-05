@@ -236,9 +236,9 @@ export const routes: Routes = [
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVE_TYPES },
         resolve: { list: leaveTypesResolver },
         loadComponent: () =>
-          import('@/views/features/leaves/leaves-types/leave-types-list/leave-types-list.component').then(
-            (m) => m.LeavesListComponent
-          ),
+          import(
+            '@/views/features/leaves/leaves-types/leave-types-list/leave-types-list.component'
+          ).then((m) => m.LeavesListComponent),
       },
       {
         path: 'leaves-balances',
@@ -246,9 +246,9 @@ export const routes: Routes = [
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVES_BALANCES },
         resolve: { leavesBalance: employeesLeavesBalancesResolver },
         loadComponent: () =>
-          import('@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component').then(
-            (m) => m.LeavesBalancesListComponent
-          ),
+          import(
+            '@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component'
+          ).then((m) => m.LeavesBalancesListComponent),
       },
       {
         path: 'employee-holidays',
@@ -348,6 +348,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import(
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
+          ),
+      },
+      {
+        path: 'transfer-leaves-balances',
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/transfer-balances/transfer-leaves-balances/transfer-leaves-balances.component'
           ),
       },
     ],
