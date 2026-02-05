@@ -1,0 +1,24 @@
+::ng-deep {
+    .p-inputtext {
+        padding-inline-start: 36px;
+    }
+}
+
+.black-btn {
+    .disabled-icon {
+        display: none;
+    }
+}
+
+.black-btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9da4ae !important;
+
+    .disabled-icon {
+        display: block;
+    }
+
+    .normal-icon {
+        display: none;
+    }
+}
