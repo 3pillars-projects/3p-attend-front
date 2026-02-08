@@ -356,6 +356,13 @@ export const routes: Routes = [
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
           ),
       },
+      {
+        path: 'transfer-leaves-balances',
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/transfer-balances/transfer-leaves-balances/transfer-leaves-balances.component'
+          ),
+      },
     ],
   },
 
