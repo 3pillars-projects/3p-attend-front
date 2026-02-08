@@ -179,24 +179,6 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
     }
   }
 
-  isEmployeeSelected(employeeId: number | undefined): boolean {
-    if (employeeId === undefined) return false;
-    return this.selectedEmployees.some((e) => e.employee.id === employeeId);
-  }
-
-  toggleAll(checked: boolean): void {
-    if (checked) {
-      this.selectedEmployees = [...this.allEmployees];
-    } else {
-      this.selectedEmployees = [];
-    }
-  }
-
-  returnCheckAllStatus() {
-    return (
-      this.allEmployees.length > 0 && this.selectedEmployees.length === this.allEmployees.length
-    );
-  }
 
   getLanguage() {
     return this.languageService.getCurrentLanguage();
