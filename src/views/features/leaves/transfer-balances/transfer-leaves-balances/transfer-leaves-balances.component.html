@@ -1,225 +1,300 @@
 <div class="bg-white">
-    <div class="bg-[#f9fafb] p-3 sm:p-6">
-        <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
-            <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
-            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">تحديث أرصدة الاجازات</h3>
-        </div>
-        <div class="bg-white rounded-2xl p-4 sm:p-8 ">
-            <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
-                <div class="flex items-center justify-between">
-                    <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
-                </div>
-                <div class="pt-6">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="relative">
-                            <label class="label" for="department">الإدارة</label>
-                            <p-select placeholder="الإدارة" class="w-full peer" id="department" optionValue="id"
-                                [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
-                            <span
-                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                        </div>
-                        <div class="relative">
-                            <label class="label" for="department">نوع الأجازة</label>
-                            <p-select placeholder="الإدارة" class="w-full peer" id="department" optionValue="id"
-                                [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
-                            <span
-                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                        </div>
-                    </div>
-                    <div class="actions flex items-center gap-4 pt-6">
-                        <button class="btn black-btn">بحث</button>
-                        <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
-                    </div>
-                </div>
-            </div>
-            <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] mt-10">
-                <div class="flex items-center justify-between">
-                    <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">نوع العملية على الرصيد</h5>
-                </div>
-                <div class="pt-6">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="relative">
-                            <label class="label" for="department">نوع العملية</label>
-                            <p-select placeholder="الإدارة" class="w-full peer" id="department" optionValue="id"
-                                [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
-                            <span
-                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                        </div>
-                        <div class="relative">
-                            <label class="label" for="department">السنة</label>
-                            <p-select placeholder="الإدارة" class="w-full peer" id="department" optionValue="id"
-                                [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
-                            <span
-                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="flex flex-col  xl:flex-row  gap-6 mt-6 max-w-full">
-                <div class="flex-1">
-                    <div class=" bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
-                        <h4 class="text-normal sm:text-lg xl:text-xl font-bold text-[#161616]">
-                            قائمة الموظفين <span class="font-normal">(2000)</span></h4>
-                    </div>
-                    <div class="relative w-full mb-4">
-                        <img class="absolute start-2 top-1/2 -translate-y-1/2" src="/assets/icons/search-icon.svg"
-                            alt="">
-                        <input class="peer" type="text" pInputText placeholder="بحث عن موظف" fluid="true" />
-                        <img class="absolute end-2 top-1/2 -translate-y-1/2" src="/assets/icons/close-icon.svg" alt="">
-                        <span
-                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"></span>
-                    </div>
-                    <div>
-                        <p-table [value]="attendance">
-                            <ng-template #header>
-                                <tr>
-                                    <th>اسم الموظف</th>
-                                    <th>الرصيد المتبقي 2025</th>
-                                    <th>الرصيد المرحَّل 2026</th>
-                                    <th>اجراء</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template #body let-attendance>
-                                <tr>
-                                    <td>محمد أحمد علي طه</td>
-                                    <td>20</td>
-                                    <td>5</td>
-                                    <td>
-                                        <button class="table-action-gray-btn ltr:rotate-180">
-                                            <img src="/assets/icons/move-icon.svg" alt="">
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>محمد أحمد علي طه</td>
-                                    <td>20</td>
-                                    <td>5</td>
-                                    <td>
-                                        <button class="table-action-gray-btn ltr:rotate-180">
-                                            <img src="/assets/icons/move-icon.svg" alt="">
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>محمد أحمد علي طه</td>
-                                    <td>20</td>
-                                    <td>5</td>
-                                    <td>
-                                        <button class="table-action-gray-btn ltr:rotate-180">
-                                            <img src="/assets/icons/move-icon.svg" alt="">
-                                        </button>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                        <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-                            [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-                    </div>
-                </div>
-                <div class="flex items-center justify-center flex-col gap-4 rotate-90 xl:rotate-0">
-                    <button class="btn black-btn ">
-                        الكل
-                        <img class="ltr:rotate-180 normal-icon" src="/assets/icons/move-all.svg" alt="">
-                        <img class="ltr:rotate-180 disabled-icon" src="/assets/icons/move-all-disapled-icon.svg" alt="">
-                    </button>
-                    <button class="btn black-btn" disabled>
-                        <img class="ltr:rotate-180 ltr:rotate-0 normal-icon" src="/assets/icons/move-all.svg" alt="">
-                        <img class="ltr:rotate-180 disabled-icon" src="/assets/icons/move-all-disapled-icon.svg" alt="">
-                        الكل
-                    </button>
-                </div>
-                <div class="flex-1">
-                    <div class=" bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
-                        <h4 class="text-normal sm:text-lg md:text-xl font-bold text-[#161616]">
-                            الموظفون المعنيون بترحيل الرصيد <span class="font-normal">(100)</span></h4>
-                    </div>
-                    <div class="relative w-full mb-4">
-                        <img class="absolute start-2 top-1/2 -translate-y-1/2" src="/assets/icons/search-icon.svg"
-                            alt="">
-                        <input class="peer" type="text" pInputText placeholder="بحث عن موظف" fluid="true" />
-                        <img class="absolute end-2 top-1/2 -translate-y-1/2" src="/assets/icons/close-icon.svg" alt="">
-                        <span
-                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"></span>
-                    </div>
-                    <div>
-
-                        <p-table [value]="attendance">
-                            <ng-template #header>
-                                <tr>
-                                    <th>اجراء</th>
-                                    <th>اسم الموظف</th>
-                                    <th>الرصيد المتبقي 2025</th>
-                                    <th>الرصيد المرحَّل 2026</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template #body let-attendance>
-                                <tr>
-                                    <td>
-                                        <button class="table-action-gray-btn rotate-180 ltr:rotate-0">
-                                            <img src="/assets/icons/move-icon.svg" alt="">
-                                        </button>
-                                    </td>
-                                    <td>محمد أحمد علي طه</td>
-                                    <td>20</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button class="table-action-gray-btn rotate-180 ltr:rotate-0">
-                                            <img src="/assets/icons/move-icon.svg" alt="">
-                                        </button>
-                                    </td>
-                                    <td>محمد أحمد علي طه</td>
-                                    <td>20</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button class="table-action-gray-btn rotate-180 ltr:rotate-0">
-                                            <img src="/assets/icons/move-icon.svg" alt="">
-                                        </button>
-                                    </td>
-                                    <td>محمد أحمد علي طه</td>
-                                    <td>20</td>
-                                    <td>5</td>
-                                </tr>
-
-                            </ng-template>
-                        </p-table>
-                        <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-                            [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-                    </div>
-                    @if(false)
-                    {
-                    <p-table [value]="attendance">
-                        <ng-template #header>
-                            <tr>
-                                <th>اجراء</th>
-                                <th>اسم الموظف</th>
-                                <th>الرصيد المتبقي 2025</th>
-                                <th>الرصيد المرحَّل 2026</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template #body let-attendance>
-                            <tr>
-                                <td colspan="4" class="text-center">
-                                    <div class="max-w-[210px] flex justify-center items-center flex-col mx-auto">
-                                        <img src="/assets/icons/not-found.svg" alt="">
-                                        <h3 class="text-lg text-[#384250] font-bold mt-2">لم يتم اختيار موظفين بعد</h3>
-                                        <p class="text-xs text-[#6c737f] font-[500] text-wrap text-center">يرجى تحديد
-                                            الموظفين
-                                            المطلوب ترحيل
-                                            رصيد
-                                            الإجازة لهم لاستكمال الإجراء.</p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    }
-                </div>
-            </div>
-        </div>
+  <div class="bg-[#f9fafb] p-3 sm:p-6">
+    <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+      <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">تحديث أرصدة الاجازات</h3>
     </div>
+    <div class="bg-white rounded-2xl p-4 sm:p-8">
+      <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+        <div class="flex items-center justify-between">
+          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+        </div>
+        <div class="pt-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="relative">
+              <label class="label" for="department">الإدارة</label>
+              <p-select
+                placeholder="الإدارة"
+                class="w-full peer"
+                id="department"
+                optionValue="id"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="department">نوع الأجازة</label>
+              <p-select
+                placeholder="الإدارة"
+                class="w-full peer"
+                id="department"
+                optionValue="id"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+          </div>
+          <div class="actions flex items-center gap-4 pt-6">
+            <button class="btn black-btn">بحث</button>
+            <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
+          </div>
+        </div>
+      </div>
+      <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] mt-10">
+        <div class="flex items-center justify-between">
+          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+            نوع العملية على الرصيد
+          </h5>
+        </div>
+        <div class="pt-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="relative">
+              <label class="label" for="department">نوع العملية</label>
+              <p-select
+                placeholder="الإدارة"
+                class="w-full peer"
+                id="department"
+                optionValue="id"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="department">السنة</label>
+              <p-select
+                placeholder="الإدارة"
+                class="w-full peer"
+                id="department"
+                optionValue="id"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div>
+              <label class="label" for="annualBalance"> عدد الأيام </label>
+
+              <p-inputnumber
+                inputId="annualBalance"
+                formControlName="annualBalance"
+                [inputStyle]="{ width: '3rem' }"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                spinnerMode="horizontal"
+              >
+                <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+                </ng-template>
+              </p-inputnumber>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col xl:flex-row gap-6 mt-6 max-w-full">
+        <div class="flex-1">
+          <div class="bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+            <h4 class="text-normal sm:text-lg xl:text-xl font-bold text-[#161616]">
+              قائمة الموظفين <span class="font-normal">(2000)</span>
+            </h4>
+          </div>
+          <div class="relative w-full mb-4">
+            <img
+              class="absolute start-2 top-1/2 -translate-y-1/2"
+              src="/assets/icons/search-icon.svg"
+              alt=""
+            />
+            <input class="peer" type="text" pInputText placeholder="بحث عن موظف" fluid="true" />
+            <img
+              class="absolute end-2 top-1/2 -translate-y-1/2"
+              src="/assets/icons/close-icon.svg"
+              alt=""
+            />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+            ></span>
+          </div>
+          <div class="table-wrapper">
+            <p-table [value]="attendance">
+              <ng-template #header>
+                <tr>
+                  <th>اسم الموظف</th>
+                  <th>الرصيد المتبقي 2025</th>
+                  <th>الرصيد المرحَّل 2026</th>
+                  <th>اجراء</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-attendance>
+                <tr>
+                  <td>محمد أحمد علي طه</td>
+                  <td>20</td>
+                  <td>5</td>
+                  <td>
+                    <button class="table-action-gray-btn ltr:rotate-180">
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>محمد أحمد علي طه</td>
+                  <td>20</td>
+                  <td>5</td>
+                  <td>
+                    <button class="table-action-gray-btn ltr:rotate-180">
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>محمد أحمد علي طه</td>
+                  <td>20</td>
+                  <td>5</td>
+                  <td>
+                    <button class="table-action-gray-btn ltr:rotate-180">
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+        <div class="flex items-center justify-center flex-col gap-4 rotate-90 xl:rotate-0">
+          <button class="btn black-btn">
+            الكل
+            <img class="ltr:rotate-180 normal-icon" src="/assets/icons/move-all.svg" alt="" />
+            <img
+              class="ltr:rotate-180 disabled-icon"
+              src="/assets/icons/move-all-disapled-icon.svg"
+              alt=""
+            />
+          </button>
+          <button class="btn black-btn" disabled>
+            <img
+              class="ltr:rotate-180 ltr:rotate-0 normal-icon"
+              src="/assets/icons/move-all.svg"
+              alt=""
+            />
+            <img
+              class="ltr:rotate-180 disabled-icon"
+              src="/assets/icons/move-all-disapled-icon.svg"
+              alt=""
+            />
+            الكل
+          </button>
+        </div>
+        <div class="flex-1">
+          <div class="bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+            <h4 class="text-normal sm:text-lg md:text-xl font-bold text-[#161616]">
+              الموظفون المعنيون بترحيل الرصيد <span class="font-normal">(100)</span>
+            </h4>
+          </div>
+          <div class="relative w-full mb-4">
+            <img
+              class="absolute start-2 top-1/2 -translate-y-1/2"
+              src="/assets/icons/search-icon.svg"
+              alt=""
+            />
+            <input class="peer" type="text" pInputText placeholder="بحث عن موظف" fluid="true" />
+            <img
+              class="absolute end-2 top-1/2 -translate-y-1/2"
+              src="/assets/icons/close-icon.svg"
+              alt=""
+            />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+            ></span>
+          </div>
+          <div class="table-wrapper">
+            <p-table [value]="attendance">
+              <ng-template #header>
+                <tr>
+                  <th>اجراء</th>
+                  <th>اسم الموظف</th>
+                  <th>الرصيد المتبقي 2025</th>
+                  <th>الرصيد المرحَّل 2026</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-attendance>
+                <tr>
+                  <td>
+                    <button class="table-action-gray-btn rotate-180 ltr:rotate-0">
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                  <td>محمد أحمد علي طه</td>
+                  <td>20</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <button class="table-action-gray-btn rotate-180 ltr:rotate-0">
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                  <td>محمد أحمد علي طه</td>
+                  <td>20</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <button class="table-action-gray-btn rotate-180 ltr:rotate-0">
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                  <td>محمد أحمد علي طه</td>
+                  <td>20</td>
+                  <td>5</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+          @if (false) {
+            <p-table [value]="attendance">
+              <ng-template #header>
+                <tr>
+                  <th>اجراء</th>
+                  <th>اسم الموظف</th>
+                  <th>الرصيد المتبقي 2025</th>
+                  <th>الرصيد المرحَّل 2026</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-attendance>
+                <tr>
+                  <td colspan="4" class="text-center">
+                    <div class="max-w-[210px] flex justify-center items-center flex-col mx-auto">
+                      <img src="/assets/icons/not-found.svg" alt="" />
+                      <h3 class="text-lg text-[#384250] font-bold mt-2">
+                        لم يتم اختيار موظفين بعد
+                      </h3>
+                      <p class="text-xs text-[#6c737f] font-[500] text-wrap text-center">
+                        يرجى تحديد الموظفين المطلوب ترحيل رصيد الإجازة لهم لاستكمال الإجراء.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
