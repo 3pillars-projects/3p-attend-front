@@ -14,6 +14,20 @@
   background-color: #e5e7eb !important;
   color: #9da4ae !important;
 
+  &.first {
+    .normal-icon,
+    .disabled-icon {
+      transform: rotate(180deg) !important;
+    }
+  }
+
+  &.last {
+    .normal-icon,
+    .disabled-icon {
+      transform: rotate(180deg) !important;
+    }
+  }
+
   .disabled-icon {
     display: block;
   }

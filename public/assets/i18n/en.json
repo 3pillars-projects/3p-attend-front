@@ -14,6 +14,8 @@
     "UPDATED_SUCCESSFULLY": "Updated successfully",
     "DELETED_SUCCESSFULLY": "Deleted successfully",
     "DELETION_FAILED": "Failed to delete the item",
+    "CONFIRM_UPDATE_BALANCES": "Are you sure you want to update leaves balances?",
+    "CONFIRM_OPERATION_TYPE_CHANGE": "Please note that changing the operation type will clear the selected employees. Do you want to proceed?",
     "NOT_AUTHORIZED": "Sorry, You do not have permission to access this page",
     "NOT_AUTHORIZED_TITLE": "Unauthorized Access",
     "NOT_AUTHENTICATED": "Your session has been expired",
@@ -159,7 +161,15 @@
     "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "Months of experience required cannot be negative.",
     "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "Minimum age cannot be negative.",
     "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "Annual balance cannot be combined with limited times during service period.",
-    "AT_LEAST_ONE_TRUE": "One application period range should be selected"
+    "AT_LEAST_ONE_TRUE": "One application period range should be selected",
+    "LEAVE_TRANSFER_INVALID_ACTION_TYPE": "Invalid leave transfer action type",
+    "LEAVE_TRANSFER_AMOUNT_REQUIRED": "Transfer amount is required",
+    "LEAVE_TRANSFER_CURRENT_YEAR_BALANCE_MISSING": "Current year balance is missing",
+    "LEAVE_TRANSFER_PREVIOUS_YEAR_BALANCE_MISSING": "Previous year balance is missing",
+    "LEAVE_TRANSFER_ANNUAL_BALANCE_MISSING": "Annual balance is missing",
+    "LEAVE_TRANSFER_LEAVE_TYPE_NOT_ANNUAL": "Selected leave type is not annual",
+    "LEAVE_TRANSFER_EMPLOYEES_DEPARTMENT_MISMATCH": "Employees department mismatch",
+    "LEAVE_TYPE_IS_NOT_TRANSFERABLE": "Leave type is not transferable"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -993,5 +1003,34 @@
     "ACTIVE": "Active",
     "NOT_ACTIVE": "Not Active",
     "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days"
+  },
+  "LEAVES": {
+    "TRANSFER_BALANCES": {
+      "TITLE": "Renew and Transfer Leaves Balances",
+      "FILTER_TITLE": "Search Filters",
+      "DEPARTMENT": "Department",
+      "DEPARTMENT_PLACEHOLDER": "Select Department",
+      "LEAVE_TYPE": "Leave Type",
+      "LEAVE_TYPE_PLACEHOLDER": "Select Leave Type",
+      "SEARCH": "Search",
+      "RESET": "Reset",
+      "OPERATION_TYPE_TITLE": "Balance Operation Type",
+      "OPERATION_TYPE": "Operation Type",
+      "OPERATION_TYPE_PLACEHOLDER": "Select Operation Type",
+      "YEAR": "Year",
+      "YEAR_PLACEHOLDER": "Select Year",
+      "DAYS_COUNT": "Number of Days",
+      "AVAILABLE_EMPLOYEES_TITLE": "Employees List",
+      "SEARCH_EMPLOYEE_PLACEHOLDER": "Search for employee",
+      "EMPLOYEE_NAME": "Employee Name",
+      "REMAINING_BALANCE_PREVIOUS_YEAR": "Remaining Balance Previous Year",
+      "TRANSFERRED_BALANCE_CURRENT_YEAR": "Transferred Balance Current Year",
+      "ACTION": "Action",
+      "ALL": "All",
+      "SELECTED_EMPLOYEES_FOR_TRANSFER_TITLE": "Employees for Balance Transfer",
+      "SELECTED_EMPLOYEES_FOR_REVOKE_TITLE": "Employees for Balance Revoke",
+      "NO_EMPLOYEES_SELECTED_TITLE": "No employees selected yet",
+      "NO_EMPLOYEES_SELECTED_DESC": "Please select employees to proceed with balance transfer."
+    }
   }
 }
