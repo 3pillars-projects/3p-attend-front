@@ -164,7 +164,7 @@
     "AT_LEAST_ONE_TRUE": "One application period range should be selected",
     "LEAVE_TRANSFER_INVALID_ACTION_TYPE": "Invalid leave transfer action type",
     "LEAVE_TRANSFER_AMOUNT_REQUIRED": "Transfer amount is required",
-    "LEAVE_TRANSFER_CURRENT_YEAR_BALANCE_MISSING": "Current year balance is missing",
+    "LEAVE_TRANSFER_CURRENT_YEAR_BALANCE_MISSING": "The operation was canceled, there are some employees who do not have a balance for this leave in this year, you must add a leave balance for the employee first before transferring",
     "LEAVE_TRANSFER_PREVIOUS_YEAR_BALANCE_MISSING": "Previous year balance is missing",
     "LEAVE_TRANSFER_ANNUAL_BALANCE_MISSING": "Annual balance is missing",
     "LEAVE_TRANSFER_LEAVE_TYPE_NOT_ANNUAL": "Selected leave type is not annual",

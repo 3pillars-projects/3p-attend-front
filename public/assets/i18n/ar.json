@@ -164,7 +164,7 @@
     "AT_LEAST_ONE_TRUE": "يجب أن يتم اختيار نطاق فترة تقديم",
     "LEAVE_TRANSFER_INVALID_ACTION_TYPE": "نوع عملية ترحيل الإجازة غير صالح",
     "LEAVE_TRANSFER_AMOUNT_REQUIRED": "رصيد الترحيل مطلوب",
-    "LEAVE_TRANSFER_CURRENT_YEAR_BALANCE_MISSING": "رصيد السنة الحالية مفقود",
+    "LEAVE_TRANSFER_CURRENT_YEAR_BALANCE_MISSING": "تم الغاء العملية, هناك بعض الموظفين ليس لهم رصيد لهذه الاجازة في هذا العام, يجب اضافة رصيد اجازة للموظف اولا قبل الترحيل",
     "LEAVE_TRANSFER_PREVIOUS_YEAR_BALANCE_MISSING": "رصيد السنة السابقة مفقود",
     "LEAVE_TRANSFER_ANNUAL_BALANCE_MISSING": "الرصيد السنوي مفقود",
     "LEAVE_TRANSFER_LEAVE_TYPE_NOT_ANNUAL": "نوع الإجازة المحدد ليس سنوياً",

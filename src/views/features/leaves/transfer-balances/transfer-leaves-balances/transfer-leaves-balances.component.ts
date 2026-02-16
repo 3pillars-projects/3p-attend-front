@@ -156,14 +156,17 @@ export default class TransferLeavesBalancesComponent {
     });
   }
 
-  private generateYearOptions(): void {
+  private generateYearOptions(year?: number): void {
     // Generate years: current year ± 5 years
-    for (let i = -5; i <= 5; i++) {
-      const year = this.currentYear + i;
+    for (let i = 1; i <= 5; i++) {
+      if (!year) {
+        year = this.currentYear;
+      }
       this.yearOptions.push({
         label: year.toString(),
         value: year,
       });
+      year++;
     }
   }
 

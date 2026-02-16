@@ -8,17 +8,17 @@ export interface OperationTypeOption {
 
 export const OPERATION_TYPE_OPTIONS: OperationTypeOption[] = [
   {
-    nameAr: 'إضافة رصيد',
-    nameEn: 'Add Balance',
+    nameAr: 'تجديد الرصيد',
+    nameEn: 'Renew Balance',
     value: LeaveTransferActionType.RenewLeaveBalance,
   },
   {
-    nameAr: 'ترحيل',
+    nameAr: 'ترحيل الرصيد',
     nameEn: 'Transfer Balance',
     value: LeaveTransferActionType.TransferBalance,
   },
   {
-    nameAr: 'ترحيل عكسي',
+    nameAr: 'ترحيل عكسي للرصيد',
     nameEn: 'Reverse Transfer',
     value: LeaveTransferActionType.ReverseTransferBalance,
   },
