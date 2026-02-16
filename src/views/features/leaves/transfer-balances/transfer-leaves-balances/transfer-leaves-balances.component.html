@@ -16,45 +16,49 @@
           </div>
           <div class="pt-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div class="relative">
+              <div>
                 <label class="label" for="filterDepartment">{{
                   'LEAVES.TRANSFER_BALANCES.DEPARTMENT' | translate
                 }}</label>
-                <p-select
-                  formControlName="departmentId"
-                  [options]="departments"
-                  [optionLabel]="getPropertyName()"
-                  [placeholder]="'LEAVES.TRANSFER_BALANCES.DEPARTMENT_PLACEHOLDER' | translate"
-                  class="w-full peer"
-                  id="filterDepartment"
-                  optionValue="id"
-                  [showClear]="true"
-                  [virtualScroll]="true"
-                  [virtualScrollItemSize]="38"
-                ></p-select>
-                <span
-                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-                ></span>
+                <div class="relative">
+                  <p-select
+                    formControlName="departmentId"
+                    [options]="departments"
+                    [optionLabel]="getPropertyName()"
+                    [placeholder]="'LEAVES.TRANSFER_BALANCES.DEPARTMENT_PLACEHOLDER' | translate"
+                    class="w-full peer"
+                    id="filterDepartment"
+                    optionValue="id"
+                    [showClear]="true"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="38"
+                  ></p-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                  ></span>
+                </div>
               </div>
-              <div class="relative">
+              <div>
                 <label class="label" for="filterLeaveType"
                   >{{ 'LEAVES.TRANSFER_BALANCES.LEAVE_TYPE' | translate }}
                   <span class="text-red-500">*</span></label
                 >
-                <p-select
-                  formControlName="leaveTypeId"
-                  [options]="leaveTypes"
-                  [optionLabel]="getPropertyName()"
-                  [placeholder]="'LEAVES.TRANSFER_BALANCES.LEAVE_TYPE_PLACEHOLDER' | translate"
-                  class="w-full peer"
-                  id="filterLeaveType"
-                  optionValue="id"
-                  [virtualScroll]="true"
-                  [virtualScrollItemSize]="38"
-                ></p-select>
-                <span
-                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-                ></span>
+                <div class="relative">
+                  <p-select
+                    formControlName="leaveTypeId"
+                    [options]="leaveTypes"
+                    [optionLabel]="getPropertyName()"
+                    [placeholder]="'LEAVES.TRANSFER_BALANCES.LEAVE_TYPE_PLACEHOLDER' | translate"
+                    class="w-full peer"
+                    id="filterLeaveType"
+                    optionValue="id"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="38"
+                  ></p-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                  ></span>
+                </div>
                 <app-validation-messages [control]="filterForm.get('leaveTypeId')!">
                 </app-validation-messages>
               </div>
@@ -83,71 +87,81 @@
           </div>
           <div class="pt-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div class="relative">
+              <div>
                 <label class="label" for="actionType"
                   >{{ 'LEAVES.TRANSFER_BALANCES.OPERATION_TYPE' | translate }}
                   <span class="text-red-500">*</span></label
                 >
-                <p-select
-                  formControlName="actionType"
-                  [options]="operationTypeOptions"
-                  [optionLabel]="getPropertyName()"
-                  optionValue="value"
-                  [placeholder]="'LEAVES.TRANSFER_BALANCES.OPERATION_TYPE_PLACEHOLDER' | translate"
-                  class="w-full peer"
-                  id="actionType"
-                  (onChange)="onOperationTypeChange()"
-                  [showClear]="true"
-                ></p-select>
-                <span
-                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-                ></span>
-                <app-validation-messages [control]="operationForm.get('actionType')!">
-                </app-validation-messages>
-              </div>
-              @if (shouldShowYearSelect) {
                 <div class="relative">
-                  <label class="label" for="year"
-                    >{{ 'LEAVES.TRANSFER_BALANCES.YEAR' | translate }}
-                    <span class="text-red-500">*</span></label
-                  >
                   <p-select
-                    formControlName="year"
-                    [options]="yearOptions"
-                    optionLabel="label"
+                    formControlName="actionType"
+                    [options]="operationTypeOptions"
+                    [optionLabel]="getPropertyName()"
                     optionValue="value"
-                    [placeholder]="'LEAVES.TRANSFER_BALANCES.YEAR_PLACEHOLDER' | translate"
+                    [placeholder]="
+                      'LEAVES.TRANSFER_BALANCES.OPERATION_TYPE_PLACEHOLDER' | translate
+                    "
                     class="w-full peer"
-                    id="year"
-                    [showClear]="true"
+                    id="actionType"
+                    (onChange)="onOperationTypeChange()"
                   ></p-select>
                   <span
                     class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
                   ></span>
                 </div>
+
+                <app-validation-messages [control]="operationForm.get('actionType')!">
+                </app-validation-messages>
+              </div>
+              @if (shouldShowYearSelect) {
+                <div>
+                  <label class="label" for="year"
+                    >{{ 'LEAVES.TRANSFER_BALANCES.YEAR' | translate }}
+                    <span class="text-red-500">*</span></label
+                  >
+                  <div class="relative">
+                    <p-select
+                      formControlName="year"
+                      [options]="yearOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      [placeholder]="'LEAVES.TRANSFER_BALANCES.YEAR_PLACEHOLDER' | translate"
+                      class="w-full peer"
+                      id="year"
+                      [showClear]="true"
+                    ></p-select>
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+                  <app-validation-messages [control]="operationForm.get('year')!">
+                  </app-validation-messages>
+                </div>
               }
               @if (isForwardOrBackwardTransfer) {
-                <div class="relative">
+                <div>
                   <label class="label" for="transferAmount"
                     >{{ 'LEAVES.TRANSFER_BALANCES.DAYS_COUNT' | translate }}
                     <span class="text-red-500">*</span></label
                   >
-                  <p-inputnumber
-                    inputId="transferAmount"
-                    formControlName="transferAmount"
-                    [inputStyle]="{ width: '3rem' }"
-                    [showButtons]="true"
-                    [min]="1"
-                    buttonLayout="horizontal"
-                    spinnerMode="horizontal"
-                  >
-                    <ng-template #incrementbuttonicon>
-                      <span class="pi pi-plus"></span>
-                    </ng-template>
-                    <ng-template #decrementbuttonicon>
-                      <span class="pi pi-minus"></span>
-                    </ng-template>
-                  </p-inputnumber>
+                  <div class="relative">
+                    <p-inputnumber
+                      inputId="transferAmount"
+                      formControlName="transferAmount"
+                      [inputStyle]="{ width: '3rem' }"
+                      [showButtons]="true"
+                      [min]="1"
+                      buttonLayout="horizontal"
+                      spinnerMode="horizontal"
+                    >
+                      <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                      </ng-template>
+                    </p-inputnumber>
+                  </div>
                   <app-validation-messages [control]="operationForm.get('transferAmount')!">
                   </app-validation-messages>
                 </div>
