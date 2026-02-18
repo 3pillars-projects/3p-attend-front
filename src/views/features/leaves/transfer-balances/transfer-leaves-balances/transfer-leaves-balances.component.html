@@ -220,7 +220,7 @@
               </ng-template>
               <ng-template #body let-employee>
                 <tr>
-                  <td>{{ employee.nameAr }}</td>
+                  <td>{{ isCurrentLanguageEnglish() ? employee.nameEn : employee.nameAr }}</td>
                   <td>{{ employee.remainingBalancePreviousYear ?? '-' }}</td>
                   <td>{{ employee.transferedBalanceCurrentYear ?? '-' }}</td>
                   <td>

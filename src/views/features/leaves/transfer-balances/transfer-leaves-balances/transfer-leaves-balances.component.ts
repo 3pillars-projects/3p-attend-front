@@ -412,4 +412,8 @@ export default class TransferLeavesBalancesComponent {
       ? 'nameEn'
       : 'nameAr';
   }
+
+  isCurrentLanguageEnglish(): boolean {
+    return this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH;
+  }
 }
