@@ -1,33 +1,33 @@
 import { Component, inject } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { RouterModule } from '@angular/router';
+import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { TabsModule } from 'primeng/tabs';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 import { EditEmployeeLeavesBalancesPopupComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/edit-employee-leaves-balances-popup/edit-employee-leaves-balances-popup.component';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { EditMultipleEmployeeLeavesBalancesPopupComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/edit-multiple-employee-leaves-balances-popup/edit-multiple-employee-leaves-balances-popup.component';
 import { LeaveTypesLookup } from '@/models/features/business/leave-types/leave-types-lookup';
 import { MultiSelect } from 'primeng/multiselect';
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LanguageService } from '@/services/shared/language.service';
 import { BaseListComponent } from '@/abstracts/base-components/base-list/base-list.component';
 import { EmployeeLeaveBalance } from '@/models/features/business/leaves-balances/employee-leave-balance';
-import { LeaveTypeService } from '@/services/features/business/leave-type.service';
 import { EmployeeBalanceService } from '@/services/features/business/employee-balance.service';
 import { EmployeeBalanceFilter } from '@/models/features/business/leaves-balances/employee-balance-filter';
 import { DepartmentService } from '@/services/features/lookups/department.service';
 import { GENDER_ENUM } from '@/enums/gender-enum';
 import { RELIGION_ENUM } from '@/enums/religion-enum';
+import { GENDER_OPTIONS } from '@/models/shared/gender-option';
+import { RELIGION_OPTIONS } from '@/models/shared/religion-option';
 
 @Component({
   selector: 'app-leaves-balances-list',
@@ -59,18 +59,13 @@ export class LeavesBalancesListComponent extends BaseListComponent<
   years: number[] = [];
 
   departmentService = inject(DepartmentService);
-  genderOptions = [
-    { id: GENDER_ENUM.MALE, nameEn: 'Male', nameAr: 'ذكر' },
-    { id: GENDER_ENUM.FEMALE, nameEn: 'Female', nameAr: 'أنثى' },
-  ];
-  religionOptions = [
-    { id: RELIGION_ENUM.MUSLIM, nameAr: 'مسلم', nameEn: 'Muslim' },
-    { id: RELIGION_ENUM.CHRISTIAN, nameAr: 'مسيحي', nameEn: 'Christian' },
-  ];
+  genderOptions = GENDER_OPTIONS;
+  religionOptions = RELIGION_OPTIONS;
+
   getGenderName(id?: number | null): string {
     if (id == null) return '';
 
-    const gender = this.genderOptions.find((g) => g.id === id);
+    const gender = GENDER_OPTIONS.find((g) => g.id === id);
     return this.languageService?.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH
       ? (gender?.nameEn ?? '')
       : (gender?.nameAr ?? '');
@@ -79,7 +74,7 @@ export class LeavesBalancesListComponent extends BaseListComponent<
   getReligionName(id?: number | null): string {
     if (id == null) return '';
 
-    const religion = this.religionOptions.find((r) => r.id === id);
+    const religion = RELIGION_OPTIONS.find((r) => r.id === id);
     return this.languageService?.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH
       ? (religion?.nameEn ?? '')
       : (religion?.nameAr ?? '');
@@ -153,12 +148,12 @@ export class LeavesBalancesListComponent extends BaseListComponent<
       }
     });
   }
-  openEmployeesDialog(leaveType: BaseLookupModel,isAnnualLeave:boolean) {
+  openEmployeesDialog(leaveType: BaseLookupModel, isAnnualLeave: boolean) {
     let dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       leaveType: leaveType,
       filter: this.filterModel,
-      isAnnualLeave:isAnnualLeave,
+      isAnnualLeave: isAnnualLeave,
     };
     dialogConfig.width = this.dialogSize.width;
     dialogConfig.maxWidth = this.dialogSize.maxWidth;
