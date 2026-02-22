@@ -34,6 +34,7 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
   declare minAge?: number;
   declare religion?: number;
   declare requireAttachment: boolean;
+  declare notPaid: boolean;
 
   buildForm() {
     const {
@@ -59,6 +60,7 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
       minAge,
       requireAttachment,
       religion,
+      notPaid,
     } = this;
 
     const form = {
@@ -140,6 +142,7 @@ export class LeaveType extends BaseCrudModel<LeaveType, LeaveTypeService> {
       ],
       requireAttachment: [requireAttachment ?? false, [Validators.required]],
       religion: [religion, []],
+      notPaid: [notPaid ?? false, [Validators.required]],
     };
 
     return form;

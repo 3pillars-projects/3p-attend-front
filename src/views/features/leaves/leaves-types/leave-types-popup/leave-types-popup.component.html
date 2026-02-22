@@ -88,7 +88,9 @@
               >{{ 'LEAVE_TYPES_PAGE.DEPARTMENT_MANAGER' | translate }}
             </span>
           </label>
-          <app-validation-messages [control]="getControl('needManagerApproval')"></app-validation-messages>
+          <app-validation-messages
+            [control]="getControl('needManagerApproval')"
+          ></app-validation-messages>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
             <input
@@ -111,7 +113,9 @@
               >{{ 'LEAVE_TYPES_PAGE.HUMAN_RESOURCES' | translate }}
             </span>
           </label>
-          <app-validation-messages [control]="getControl('needHRApproval')"></app-validation-messages>
+          <app-validation-messages
+            [control]="getControl('needHRApproval')"
+          ></app-validation-messages>
         </div>
       </div>
 
@@ -167,7 +171,9 @@
               </div>
             </label>
           </div>
-          <app-validation-messages [control]="getControl('hasAnnualBalance')"></app-validation-messages>
+          <app-validation-messages
+            [control]="getControl('hasAnnualBalance')"
+          ></app-validation-messages>
         </div>
         <fieldset
           [disabled]="!isAnnualLeave()"
@@ -186,6 +192,7 @@
                 [showButtons]="true"
                 buttonLayout="horizontal"
                 spinnerMode="horizontal"
+                [min]="0"
               >
                 <ng-template #incrementbuttonicon>
                   <span class="pi pi-plus"></span>
@@ -194,7 +201,9 @@
                   <span class="pi pi-minus"></span>
                 </ng-template>
               </p-inputnumber>
-              <app-validation-messages [control]="getControl('annualBalance')"></app-validation-messages>
+              <app-validation-messages
+                [control]="getControl('annualBalance')"
+              ></app-validation-messages>
             </div>
           </div>
 
@@ -329,6 +338,8 @@
                 [showButtons]="true"
                 buttonLayout="horizontal"
                 spinnerMode="horizontal"
+                [min]="1"
+
               >
                 <ng-template #incrementbuttonicon>
                   <span class="pi pi-plus"></span>
@@ -401,7 +412,9 @@
                 </div>
               </label>
             </div>
-            <app-validation-messages [control]="getControl('canApplyOnHalfDay')"></app-validation-messages>
+            <app-validation-messages
+              [control]="getControl('canApplyOnHalfDay')"
+            ></app-validation-messages>
           </div>
         </div>
       </fieldset>
@@ -437,7 +450,9 @@
               >{{ 'LEAVE_TYPES_PAGE.ALLOW_PAST_DATE_APPLICATION' | translate }}
             </span>
           </label>
-          <app-validation-messages [control]="getControl('canApplyInPastOnly')"></app-validation-messages>
+          <app-validation-messages
+            [control]="getControl('canApplyInPastOnly')"
+          ></app-validation-messages>
 
           <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
             <input
@@ -486,7 +501,9 @@
             </span>
           </label>
         </div>
-        <app-validation-messages [control]="getControl('canApplyInFutureOnly')"></app-validation-messages>
+        <app-validation-messages
+          [control]="getControl('canApplyInFutureOnly')"
+        ></app-validation-messages>
         <app-validation-messages [control]="form"></app-validation-messages>
       </div>
 
@@ -845,10 +862,35 @@
               </div>
             </label>
           </div>
-          <app-validation-messages [control]="getControl('requireAttachment')"></app-validation-messages>
+          <app-validation-messages
+            [control]="getControl('requireAttachment')"
+          ></app-validation-messages>
         </div>
       </div>
-
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+          <input
+            formControlName="notPaid"
+            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+            type="checkbox"
+          />
+          <svg
+            class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span class="text-base text-[#1f2a37]">
+            {{ 'LEAVE_TYPES_PAGE.NOT_PAID' | translate }}
+          </span>
+        </label>
+        <app-validation-messages [control]="getControl('notPaid')"></app-validation-messages>
+      </div>
       <!-- Active -->
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
         <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">

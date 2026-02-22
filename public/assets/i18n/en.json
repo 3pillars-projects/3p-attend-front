@@ -999,7 +999,8 @@
     "ACTIVE": "Active",
     "NOT_ACTIVE": "Not Active",
     "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days",
-    "UPDATE_TYPE_NOTE": "Update Type (This value will be added/deducted from the leave balance for all selected employees)"
+    "UPDATE_TYPE_NOTE": "Update Type (This value will be added/deducted from the leave balance for all selected employees)",
+    "NOT_PAID": "Not paid leave"
   },
   "LEAVES_BALANCES": {
     "UPDATE_LEAVES_BALANCES": "Update Leaves Balances",
