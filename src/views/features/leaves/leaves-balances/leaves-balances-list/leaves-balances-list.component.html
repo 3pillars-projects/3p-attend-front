@@ -312,7 +312,7 @@
             {{ 'LEAVES_BALANCES.LEAVES_BALANCES_REMAINING' | translate }}
           </h4>
           <div class="actions flex items-center gap-4 ms-auto">
-            <button class="table-head-action-btn">
+            <button (click)="exportExcel(getTranslatedLeavesBalancesLabel() + '.xlsx')" class="table-head-action-btn">
               <img src="assets/icons/excel.svg" alt="" />
             </button>
           </div>

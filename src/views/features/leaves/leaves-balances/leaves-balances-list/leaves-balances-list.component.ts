@@ -106,12 +106,31 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     return [{ labelKey: 'LEAVE_TYPES_PAGE.LEAVE_TYPES' }];
   }
   protected override mapModelToExcelRow(model: EmployeeLeaveBalance): { [key: string]: any } {
-    return {
-      [this.translateService.instant('LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR')]: '',
-      [this.translateService.instant('LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN')]: '',
-      [this.translateService.instant('LEAVE_TYPES_PAGE.BALANCE_DAYS_COUNT')]: '',
-      [this.translateService.instant('LEAVE_TYPES_PAGE.MAX_CONSECUTIVE_DAYS')]: '',
+    const row: { [key: string]: any } = {
+      [this.translateService.instant('EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC')]: model.fullNameAr,
+      [this.translateService.instant('EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH')]: model.fullNameEn,
+      [this.translateService.instant('EMPLOYEES_PAGE.GENDER')]: this.getGenderName(
+        model.fkGenderId
+      ),
+      [this.translateService.instant('EMPLOYEES_PAGE.RELIGION')]: this.getReligionName(
+        model.religion
+      ),
+      [this.translateService.instant('LEAVES_BALANCES.YEARS_OF_SERVICE')]: this.formatExperience(
+        model.monthsOfExperience
+      ),
     };
+
+    for (const annualLeave of this.selectedAnnualLeaves ?? []) {
+      const key = this.getNameBasedOnLanguage(annualLeave) ?? '';
+      row[key] = this.getEmployeeAnnualLeaveBalance(model, annualLeave.id!);
+    }
+
+    for (const limitedLeave of this.selectedLimitedTimesLeaves ?? []) {
+      const key = this.getNameBasedOnLanguage(limitedLeave) ?? '';
+      row[key] = this.getEmployeeLimitedLeaveBalance(model, limitedLeave.id!);
+    }
+
+    return row;
   }
   dialogSize = {
     width: '100%',
@@ -273,5 +292,8 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     this.paginationParams.pageSize = 10;
     this.first = 0;
     this.loadEmployeeBalancesList();
+  }
+  getTranslatedLeavesBalancesLabel(): string {
+    return this.translateService.instant('MENU.LEAVES_BALANCES');
   }
 }

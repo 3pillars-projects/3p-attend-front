@@ -4,7 +4,7 @@
       <i class="pi pi-times"></i>
     </button>
     <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
-      {{ 'MENU.EDIT_BALANCES' | translate }}
+      {{ 'MENU.LEAVES_BALANCES' | translate }}
     </h3>
 
     <form [formGroup]="form" (ngSubmit)="save$.next()">
@@ -99,7 +99,8 @@
       <section class="border-t border-[#d2d6db] pt-8 mt-8">
         <h3 class="text-[14px] font-normal text-[#6c737f] mb-6">
           {{ 'MENU.EMPLOYEES' | translate }}
-          (<span class="font-bold text-[#161616]">{{ selectedEmployees.length }}</span> {{ "LEAVES_BALANCES.EMPLOYEE" | translate }})
+          (<span class="font-bold text-[#161616]">{{ selectedEmployees.length }}</span>
+          {{ 'LEAVES_BALANCES.EMPLOYEE' | translate }})
         </h3>
         <ul class="flex flex-wrap gap-4 max-h-[150px] overflow-y-auto">
           @for (emp of selectedEmployees; track emp.employee.id) {
