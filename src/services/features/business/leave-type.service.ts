@@ -7,6 +7,7 @@ import { catchError, map, Observable } from 'rxjs';
 import { ResponseData } from '@/models/shared/response/response-data';
 import { LeaveTypesLookup } from '@/models/features/business/leave-types/leave-types-lookup';
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
+import { LeaveTypeWithBalance } from '@/models/features/business/leave-types/leave-type-with-balance';
 
 @CastResponseContainer({
   $default: {
@@ -20,8 +21,13 @@ import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
   $categorizedLeaveTypes: {
     model: () => LeaveTypesLookup,
     unwrap: 'data',
-    shape: {'annualLeaves.*': () => BaseLookupModel, 'limitedLeaves.*': () => BaseLookupModel}
-  }
+    shape: { 'annualLeaves.*': () => BaseLookupModel, 'limitedLeaves.*': () => BaseLookupModel },
+  },
+  $withBalances: {
+    model: () => LeaveTypeWithBalance,
+    unwrap: 'data',
+    shape: { '*': () => LeaveTypeWithBalance },
+  },
 })
 @Injectable({
   providedIn: 'root',
@@ -36,12 +42,28 @@ export class LeaveTypeService extends BaseCrudService<LeaveType> {
   @CastResponse(undefined, { fallback: '$categorizedLeaveTypes' })
   getCategorizedLeaveTypesLookup(): Observable<LeaveTypesLookup> {
     return this.http
-      .get<ResponseData<LeaveTypesLookup>>(this.getUrlSegment() + '/LeaveTypesLookup', { withCredentials: true })
+      .get<
+        ResponseData<LeaveTypesLookup>
+      >(this.getUrlSegment() + '/LeaveTypesLookup', { withCredentials: true })
       .pipe(
         map((response) => response.data),
         catchError((err) => {
           throw err;
         })
       );
+  }
+
+  @CastResponse(undefined, { fallback: '$withBalances' })
+  getLeaveTypesWithBalances(year?: number | null): Observable<LeaveTypeWithBalance[]> {
+    const url = this.getUrlSegment() + '/WithBalances';
+
+    const params = year != null ? { year: year.toString() } : undefined;
+
+    return this.http
+      .get<ResponseData<LeaveTypeWithBalance[]>>(url, {
+        withCredentials: true,
+        params,
+      })
+      .pipe(map((res) => res.data));
   }
 }
