@@ -509,7 +509,8 @@
     "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود",
     "LEAVE_TYPES": "أنواع الإجازات",
     "LEAVES": "الاجازات",
-    "EDIT_BALANCES": "أرصدة الاجازات"
+    "EDIT_BALANCES": "أرصدة الاجازات",
+    "LEAVE_TRANSFER": "تجديد وترحيل أرصدة الاجازات"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",
