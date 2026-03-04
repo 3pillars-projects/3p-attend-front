@@ -1,267 +1,210 @@
-<div class="modal-container" dir="rtl">
-    <div class="p-6">
-        <button class="block ms-auto">
-            <i class="pi pi-times"></i>
-        </button>
-        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">تحديث أرصدة الأجازات للموظف</h3>
-        <div class="bg-[#074d31] p-6 rounded-2xl">
-            <div class="flex flex-col gap-2 ">
-                <span class="text-sm text-white">اسم الموظف</span>
-                <span class="font-semibold text-white">محمد أحمد محمود</span>
-            </div>
-        </div>
-        <h3 class="text-[#1f2a37] font-[600] mt-6 text-lg sm:text-xl">الرصيد المطلوب للاجازات</h3>
-        <p-tabs value="0">
-            <p-tablist class="mb-6 justify-between">
-                <div class="flex">
-                    <p-tab value="0">
-                        رصيد سنوي
-                    </p-tab>
-                    <p-tab value="1">
-                        محدودة المرات خلال فترة الخدمة
-                    </p-tab>
-                </div>
-            </p-tablist>
-            <p-tabpanels>
-                <!-- My Visits Tab Panel -->
-                <p-tabpanel value="0">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="relative">
-                            <label class="label" id="year">السنة</label>
-                            <p-select placeholder="2025" ariaLabelledBy="region-label" class="w-full peer" id="year"
-                                [showClear]="true">
-                            </p-select>
-                            <span
-                                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                        </div>
-                    </div>
-                    <div class="max-h-[400px] overflow-auto holidays mt-4">
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة اعتيادية</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mt-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة مرضي</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mt-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة اعتيادية</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mt-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة اعتيادية</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div [dir]="direction">
+  <div class="p-6">
+    <button (click)="close()" class="block ms-auto">
+      <i class="pi pi-times close-popup"></i>
+    </button>
 
-                </p-tabpanel>
-                <!-- All Visits Tab Panel -->
-                <p-tabpanel value="1">
-                    <div class="max-h-[400px] overflow-auto holidays ">
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة حج</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mt-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة زواج</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mt-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة حج</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mt-4">
-                            <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">أجازة زواج</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="label" for="before-attendance-time">الرصيد السنوي</label>
-                                    <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true"
-                                        buttonLayout="horizontal" spinnerMode="horizontal" inputId="horizontal"
-                                        spinnerMode="horizontal">
-                                        <ng-template #incrementbuttonicon>
-                                            <span class="pi pi-plus"></span>
-                                        </ng-template>
-                                        <ng-template #decrementbuttonicon>
-                                            <span class="pi pi-minus"></span>
-                                        </ng-template>
-                                    </p-inputnumber>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">عدد أيام الاجازات المستخدمة</span>
-                                    <h5 class="text-[#161616] font-[600]">5 أيام</h5>
-                                </div>
-                                <div>
-                                    <span class="text-[#6c737f] font-sm">المتبقي</span>
-                                    <h5 class="text-[#161616] font-[600]">10 أيام</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </p-tabpanel>
-            </p-tabpanels>
-        </p-tabs>
-        <div class="actions mt-6 flex items-center justify-between gap-4">
-            <button class="btn gray-btn border border-[#d2d6db] !bg-[#fff] hover:!bg-[#d2d6db]">
-                الغاء
-            </button>
-            <button class="btn green-btn">
-                تحديث رصيد الأجازات للموظف
-            </button>
-        </div>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'MENU.LEAVES_BALANCES' | translate }}
+    </h3>
 
+    <div class="bg-[#074d31] p-6 rounded-2xl mb-6">
+      <div class="flex flex-col gap-2">
+        <span class="text-sm text-white">{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME' | translate }}</span>
+        <span class="font-semibold text-white">
+          {{ lang === 'ar' ? model.fullNameAr : model.fullNameEn }}
+        </span>
+      </div>
     </div>
+
+    <form [formGroup]="form" (ngSubmit)="save$.next()">
+      <h3 class="text-[#1f2a37] font-[600] mt-6 text-lg sm:text-xl">
+        {{ 'MENU.LEAVES_BALANCES' | translate }}
+      </h3>
+
+      <p-tabs value="0">
+        <p-tablist class="mb-6 justify-between">
+          <p-tab value="0">
+            {{ 'LEAVE_TYPES_PAGE.ANNUAL_BALANCE' | translate }}
+          </p-tab>
+          <p-tab value="1">
+            {{ 'LEAVE_TYPES_PAGE.MULTIPLE_APPLICATIONS_LIMITED' | translate }}
+          </p-tab>
+        </p-tablist>
+
+        <p-tabpanels>
+          <!-- Annual Leaves Tab -->
+          <p-tabpanel value="0">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="relative">
+                <label class="label" for="year">
+                  {{ 'COMMON.YEAR' | translate }}
+                </label>
+                <p-select
+                  [options]="years"
+                  placeholder="{{ 'COMMON.YEAR' | translate }}"
+                  class="w-full peer"
+                  id="year"
+                  formControlName="year"
+                  [virtualScroll]="true"
+                  [virtualScrollItemSize]="38"
+                ></p-select>
+                <span
+                  class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                ></span>
+              </div>
+            </div>
+            <div class="max-h-[400px] overflow-auto holidays mt-4" formArrayName="annualLeaves">
+              @for (item of getAnnualLeavesArray().controls; track $index) {
+                <ng-container [formGroupName]="$index">
+                  <div class="bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mb-4">
+                    <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">
+                      {{
+                        lang === 'ar'
+                          ? item.get('leaveType')?.value?.nameAr
+                          : item.get('leaveType')?.value?.nameEn
+                      }}
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div>
+                        <label class="label" [for]="'totalBalance-' + $index">
+                          {{ 'LEAVE_TYPES_PAGE.ANNUAL_BALANCE' | translate }}
+                        </label>
+                        <div class="flex flex-col">
+                          <p-inputnumber
+                            [inputId]="'totalBalance-' + $index"
+                            formControlName="totalBalance"
+                            [inputStyle]="{ width: '100%' }"
+                            [showButtons]="true"
+                            buttonLayout="horizontal"
+                            spinnerMode="horizontal"
+                            [min]="0"
+                          >
+                            <ng-template #incrementbuttonicon>
+                              <span class="pi pi-plus"></span>
+                            </ng-template>
+                            <ng-template #decrementbuttonicon>
+                              <span class="pi pi-minus"></span>
+                            </ng-template>
+                          </p-inputnumber>
+                          <app-validation-messages
+                            [control]="getControl(item, 'totalBalance')"
+                          ></app-validation-messages>
+                        </div>
+                      </div>
+                      <div>
+                        <span class="text-[#6c737f] text-sm block mb-1">
+                          {{ 'LEAVES_BALANCES.USED_BALANCE' | translate }}
+                        </span>
+                        <h5 class="text-[#161616] font-[600]">
+                          {{ item.get('usedBalance')?.value }}
+                        </h5>
+                      </div>
+                      <div>
+                        <span class="text-[#6c737f] text-sm block mb-1">
+                          {{ 'LEAVES_BALANCES.REMAINING_BALANCE' | translate }}
+                        </span>
+                        <h5 class="text-[#161616] font-[600]">
+                          {{ item.get('remainingBalance')?.value }}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              }
+              @if (getAnnualLeavesArray().controls.length === 0) {
+                <div class="text-center p-4 text-gray-500">
+                  {{ 'COMMON.NO_DATA_TO_SHOW' | translate }}
+                </div>
+              }
+            </div>
+          </p-tabpanel>
+
+          <!-- Limited Times Leaves Tab -->
+          <p-tabpanel value="1">
+            <div
+              class="max-h-[400px] overflow-auto holidays mt-4"
+              formArrayName="limitedTimesLeaves"
+            >
+              @for (item of getLimitedTimesLeavesArray().controls; track $index) {
+                <ng-container [formGroupName]="$index">
+                  <div class="bg-[#fcfcfd] border border-[#d2d6db] rounded-2xl p-4 mb-4">
+                    <h3 class="text-[#1f2a37] font-[600] mb-4 text-base">
+                      {{
+                        lang === 'ar'
+                          ? item.get('leaveType')?.value?.nameAr
+                          : item.get('leaveType')?.value?.nameEn
+                      }}
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div>
+                        <label class="label" [for]="'totalTimesAvailable-' + $index">
+                          {{ 'LEAVES_BALANCES.TOTAL_TIMES_AVAILABLE' | translate }}
+                        </label>
+                        <div class="flex flex-col">
+                          <p-inputnumber
+                            [inputId]="'totalTimesAvailable-' + $index"
+                            formControlName="totalTimesAvailable"
+                            [inputStyle]="{ width: '100%' }"
+                            [showButtons]="true"
+                            buttonLayout="horizontal"
+                            spinnerMode="horizontal"
+                            [min]="0"
+                          >
+                            <ng-template #incrementbuttonicon>
+                              <span class="pi pi-plus"></span>
+                            </ng-template>
+                            <ng-template #decrementbuttonicon>
+                              <span class="pi pi-minus"></span>
+                            </ng-template>
+                          </p-inputnumber>
+                          <app-validation-messages
+                            [control]="getControl(item, 'totalTimesAvailable')"
+                          ></app-validation-messages>
+                        </div>
+                      </div>
+                      <div>
+                        <span class="text-[#6c737f] text-sm block mb-1">
+                          {{ 'LEAVES_BALANCES.TIMES_USED' | translate }}
+                        </span>
+                        <h5 class="text-[#161616] font-[600]">
+                          {{ item.get('timesUsed')?.value }}
+                        </h5>
+                      </div>
+                      <div>
+                        <span class="text-[#6c737f] text-sm block mb-1">
+                          {{ 'LEAVES_BALANCES.REMAINING_TIMES' | translate }}
+                        </span>
+                        <h5 class="text-[#161616] font-[600]">
+                          {{ item.get('remainingTimes')?.value }}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              }
+              @if (getLimitedTimesLeavesArray().controls.length === 0) {
+                <div class="text-center p-4 text-gray-500">
+                  {{ 'COMMON.NO_DATA_TO_SHOW' | translate }}
+                </div>
+              }
+            </div>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+
+      <div class="actions mt-6 flex items-center justify-between gap-4">
+        <button
+          type="button"
+          (click)="close()"
+          class="btn gray-btn border border-[#d2d6db] !bg-[#fff] hover:!bg-[#d2d6db]"
+        >
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button type="button" (click)="save$.next()" class="btn green-btn">
+          {{ 'COMMON.SAVE' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
