@@ -357,6 +357,13 @@ export const routes: Routes = [
             '@/views/features/leaves/transfer-balances/transfer-leaves-balances/transfer-leaves-balances.component'
           ),
       },
+      {
+        path: 'leaves-request',
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/leaves-request/leaves-request-list/leaves-request-list.component'
+          ).then((m) => m.LeavesRequestListComponent),
+      },
     ],
   },
 
