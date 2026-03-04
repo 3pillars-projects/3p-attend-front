@@ -1,0 +1,62 @@
+<div dir="rtl">
+    <div class="p-6">
+        <button class="block ms-auto">
+            <i class="pi pi-times close-popup"></i>
+        </button>
+        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+            تقديم طلب الغاء للاجازة
+        </h3>
+
+        <div class="pb-6 mb-6 border-b border-[#d2d6db]">
+            <label class="flex items-center space-x-2  cursor-pointer relative">
+                <input checked
+                    class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+                    disabled type="checkbox" />
+                <svg class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                    viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span class="text-base font-medium text-[#1f2a37]">اجازة نصف يوم</span>
+            </label>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="relative">
+                <label class="label" for="swipeDateFrom">تاريخ بداية الغاء الأجازة</label>
+                <p-datepicker [iconDisplay]="'input'" [placeholder]="'تاريخ بداية الغاء الأجازة'" [showIcon]="true"
+                    class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+                    <ng-template pTemplate="inputicon">
+                        <img alt="" src="assets/icons/calender-icon.svg" />
+                    </ng-template>
+                </p-datepicker>
+                <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+            </div>
+            <div class="relative">
+                <label class="label" for="swipeDateFrom">تاريخ نهاية الغاء الأجازة</label>
+                <p-datepicker [iconDisplay]="'input'" [placeholder]="'تاريخ نهاية الغاء الأجازة'" [showIcon]="true"
+                    class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+                    <ng-template pTemplate="inputicon">
+                        <img alt="" src="assets/icons/calender-icon.svg" />
+                    </ng-template>
+                </p-datepicker>
+                <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+            </div>
+            <div class="md:col-span-2 lg:col-span-3">
+                <label class="label" for="">ملاحظات</label>
+                <div class="relative w-full">
+                    <textarea
+                        class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
+                        cols="30" pTextarea placeholder="ملاحظات" rows="5"></textarea>
+                    <span
+                        class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"></span>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center justify-between gap-4 mt-6">
+            <button class="btn gray-btn">إلغاء</button>
+            <button class="btn green-btn">ارسال الطلب</button>
+        </div>
+    </div>
+</div>

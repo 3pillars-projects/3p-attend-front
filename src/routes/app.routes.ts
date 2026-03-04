@@ -233,7 +233,7 @@ export const routes: Routes = [
           import('@/views/features/lookups/holidays/holidays-list/holidays-list.component'),
       },
       {
-        path: 'cancel-leaves-request-list',
+        path: 'cancel-leaves-request',
         loadComponent: () =>
           import('@/views/features/leaves/cancel-leaves-request/cancel-leaves-request-list/cancel-leaves-request-list.component'),
       },
