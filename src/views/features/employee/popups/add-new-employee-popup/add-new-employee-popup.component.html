@@ -84,11 +84,11 @@
           <app-validation-messages [control]="birthDateControl"></app-validation-messages>
         </div>
         <div>
-          <label class="label" for="gender">الفئة الدينية (الديانة)</label>
+          <label class="label" for="religion">{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</label>
           <div class="relative">
-            <p-select [options]="genderOptions" [optionLabel]="langOptionLabel" optionValue="id"
-              formControlName="fkGenderId" id="gender" class="w-full peer"
-              placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"></p-select>
+            <p-select [options]="religionOptions" [optionLabel]="langOptionLabel" optionValue="id"
+              formControlName="religion" id="religion" class="w-full peer"
+              placeholder="{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}"></p-select>
 
             <span
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>

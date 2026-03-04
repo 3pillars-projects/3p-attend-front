@@ -14,6 +14,8 @@
     "UPDATED_SUCCESSFULLY": "تم التحديث بنجاح",
     "DELETED_SUCCESSFULLY": "تم الحذف بنجاح",
     "DELETION_FAILED": "فشل في حذف العنصر",
+    "CONFIRM_UPDATE_BALANCES": "سيتم تحديث رصيدالإجازة وفقاً للبيانات المدخلة,هل ترغب في المتابعة؟",
+    "CONFIRM_OPERATION_TYPE_CHANGE": "يرجى العلم أن تغيير نوع العملية سيؤدي إلى تصفية الموظفين المختارين حاليًا، وسيستلزم إعادة اختيارهم من جديد مره اخرى",
     "NOT_AUTHORIZED": "عذرًا، لا تملك الصلاحيات اللازمة للوصول إلى هذه الصفحة",
     "NOT_AUTHORIZED_TITLE": "الوصول غير مصرح به",
     "NOT_AUTHENTICATED": "لقد انتهت صلاحية جلسة التصفح",
@@ -159,7 +161,21 @@
     "LEAVE_TYPE_MONTHS_OF_EXPERIENCE_CANNOT_BE_NEGATIVE": "لا يمكن أن تكون أشهر الخبرة المطلوبة قيمة سالبة.",
     "LEAVE_TYPE_MINIMUM_AGE_CANNOT_BE_NEGATIVE": "لا يمكن أن يكون الحد الأدنى للعمر قيمة سالبة.",
     "LEAVE_TYPE_ANNUAL_BALANCE_CANNOT_COMBINE_WITH_LIMITED_TIMES": "لا يمكن الجمع بين الرصيد السنوي وخيار عدد المرات المحدودة خلال فترة الخدمة.",
-    "AT_LEAST_ONE_TRUE":"يجب أن يتم اختيار نطاق فترة تقديم"
+    "AT_LEAST_ONE_TRUE": "يجب أن يتم اختيار نطاق فترة تقديم",
+    "LEAVE_TRANSFER_INVALID_ACTION_TYPE": "نوع عملية ترحيل الإجازة غير صالح",
+    "LEAVE_TRANSFER_AMOUNT_REQUIRED": "رصيد الترحيل مطلوب",
+    "LEAVE_TRANSFER_CURRENT_YEAR_BALANCE_MISSING": "تم الغاء العملية, هناك بعض الموظفين ليس لهم رصيد لهذه الاجازة في هذا العام, يجب اضافة رصيد اجازة للموظف اولا قبل الترحيل",
+    "LEAVE_TRANSFER_PREVIOUS_YEAR_BALANCE_MISSING": "رصيد السنة السابقة مفقود",
+    "LEAVE_TRANSFER_ANNUAL_BALANCE_MISSING": "الرصيد السنوي مفقود",
+    "LEAVE_TRANSFER_LEAVE_TYPE_NOT_ANNUAL": "نوع الإجازة المحدد ليس سنوياً",
+    "LEAVE_TRANSFER_EMPLOYEES_DEPARTMENT_MISMATCH": "عدم تطابق قسم الموظفين",
+    "LEAVE_TYPE_IS_NOT_TRANSFERABLE": "نوع الإجازة غير قابل للتحويل",
+    "YEAR": "السنة",
+    "LESS_THAN": "أقل من",
+    "GREATER_THAN": "أكبر من",
+    "RESET": "إعادة تعيين",
+    "TYPE": "النوع",
+    "DEDUCT": "خصم"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
@@ -326,7 +342,8 @@
     "ACTIVE_DIRECTORY_USERNAME": "رقم الموظف (اسم المستخدم في Active Directory)",
     "EMPLOYEE_NUMBER": "رقم الموظف",
     "BIRTHDATE": "تاريخ الميلاد",
-    "GENDER": "الجنس"
+    "GENDER": "الجنس",
+    "RELIGION": "الديانة"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "قائمة الإجازات والأعياد",
@@ -499,7 +516,8 @@
     "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود",
     "LEAVE_TYPES": "أنواع الإجازات",
     "LEAVES": "الاجازات",
-    "EDIT_BALANCES": "أرصدة الاجازات"
+    "EDIT_BALANCES": "أرصدة الاجازات",
+    "LEAVE_TRANSFER": "تجديد وترحيل أرصدة الاجازات"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",
@@ -990,6 +1008,58 @@
     "REQUIRES_ATTACHMENT": "هل تتطلب هذه الإجازة إرفاق مستند/مرفق؟",
     "ACTIVE": "مفعلة",
     "NOT_ACTIVE": "غير مفعلة",
-    "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة"
+    "MAX_CONSECUTIVE_LEAVE_DAYS": "الحد الأقصى لعدد الأيام المتتالية للإجازة",
+    "UPDATE_TYPE_NOTE": "نوع التحديث (سيتم إضافة/خصم هذه القيمة من رصيد الأجازة لكل الموظفين المحددين)",
+    "NOT_PAID": "إجازة غير مدفوعة الأجر"
+  },
+  "LEAVES": {
+    "TRANSFER_BALANCES": {
+      "TITLE": "تجديد وترحيل أرصدة الاجازات",
+      "FILTER_TITLE": "تصفية البحث",
+      "DEPARTMENT": "الإدارة",
+      "DEPARTMENT_PLACEHOLDER": "اختر الإدارة",
+      "LEAVE_TYPE": "نوع الأجازة",
+      "LEAVE_TYPE_PLACEHOLDER": "اختر نوع الأجازة",
+      "SEARCH": "بحث",
+      "RESET": "إعادة تعيين",
+      "OPERATION_TYPE_TITLE": "نوع العملية على الرصيد",
+      "OPERATION_TYPE": "نوع العملية",
+      "OPERATION_TYPE_PLACEHOLDER": "اختر نوع العملية",
+      "YEAR": "السنة",
+      "YEAR_PLACEHOLDER": "اختر السنة",
+      "DAYS_COUNT": "عدد الأيام",
+      "AVAILABLE_EMPLOYEES_TITLE": "قائمة الموظفين",
+      "SEARCH_EMPLOYEE_PLACEHOLDER": "بحث عن موظف",
+      "EMPLOYEE_NAME": "اسم الموظف",
+      "REMAINING_BALANCE_PREVIOUS_YEAR": "الرصيد المتبقي السنة السابقة",
+      "TRANSFERRED_BALANCE_CURRENT_YEAR": "الرصيد المرحَّل السنة الحالية",
+      "ACTION": "اجراء",
+      "ALL": "الكل",
+      "SELECTED_EMPLOYEES_FOR_TRANSFER_TITLE": "الموظفون المعنيون بترحيل الرصيد",
+      "SELECTED_EMPLOYEES_FOR_REVOKE_TITLE": "الموظفون المعنيون بتنزيل الرصيد",
+      "NO_EMPLOYEES_SELECTED_TITLE": "لم يتم اختيار موظفين بعد",
+      "NO_EMPLOYEES_SELECTED_DESC": "يرجى تحديد الموظفين المطلوب ترحيل رصيد الإجازة لهم لاستكمال الإجراء."
+    }
+  },
+  "LEAVES_BALANCES": {
+    "UPDATE_LEAVES_BALANCES": "تحديث أرصدة الاجازات",
+    "YEARS_OF_SERVICE_LESS_THAN": "عدد سنين الخدمة بالشركة (أقل من)",
+    "YEARS_OF_SERVICE_GREATER_THAN": "عدد سنين الخدمة بالشركة (أكبر من)",
+    "LEAVES_DISPLAY_OPTIONS": "خيارات عرض الاجازات",
+    "HAS_ANNUAL_BALANCE": "لها رصيد سنوي",
+    "HAS_LIMITED_BALANCE": "لها مرات محدودة خلال فترة الخدمة",
+    "LEAVES_BALANCES_REMAINING": "أرصدة الاجازات (المتبقي من الاجازات)",
+    "YEARS_OF_SERVICE": "عدد سنين الخدمة بالشركة",
+    "UPDATE_BALANCE": "تحديث الرصيد",
+    "USED_BALANCE": "الرصيد المستهلك",
+    "REMAINING_BALANCE": "الرصيد المتاح",
+    "TOTAL_TIMES_AVAILABLE": "الإجمالي المتوفر",
+    "TIMES_USED": "الإجمالي المستخدم",
+    "REMAINING_TIMES": "الإجمالي المتاح",
+    "VALUE_TO_ADD_OR_SUBTRACT_FROM_BALANCE": "القيمة المطلوب إضافتها / خصمها (بعدد الأيام أو المرات)",
+    "LEAVE_NAME": "اسم الأجازة",
+    "EMPLOYEE": "موظف",
+    "ANNUAL_BALANCE": "رصيد سنوي",
+    "TIMES_BALANCE": "عدد مرات"
   }
 }
