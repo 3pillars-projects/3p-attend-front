@@ -109,6 +109,11 @@ export class SideBarLinksService {
           routerLink: ['/leaves-balances'],
           routeId: RouteIdsEnum.LEAVES_BALANCES,
         },
+        {
+          labelKey: 'MENU.LEAVE_TRANSFER',
+          routerLink: ['/transfer-leaves-balances'],
+          routeId: RouteIdsEnum.LEAVE_TRANSFER,
+        },
       ],
     },
     // {

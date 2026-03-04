@@ -37,6 +37,8 @@ export const EndPoints = {
   MANUAL_PROCESSING: '/ManualProcessing',
   IMPORT: '/ImportSheet',
   LEAVE_TYPE: '/LeaveType',
+  LEAVE_BALANCE: '/LeaveBalance',
+  LEAVE_TRANSFER: '/leave-transfer',
   EMPLOYEE_LEAVE_BALANCE: '/employee-balance',
 };
 
