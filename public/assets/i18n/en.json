@@ -169,7 +169,12 @@
     "LEAVE_TRANSFER_ANNUAL_BALANCE_MISSING": "Annual balance is missing",
     "LEAVE_TRANSFER_LEAVE_TYPE_NOT_ANNUAL": "Selected leave type is not annual",
     "LEAVE_TRANSFER_EMPLOYEES_DEPARTMENT_MISMATCH": "Employees department mismatch",
-    "LEAVE_TYPE_IS_NOT_TRANSFERABLE": "Leave type is not transferable"
+    "LEAVE_TYPE_IS_NOT_TRANSFERABLE": "Leave type is not transferable",
+    "YEAR": "Year",
+    "LESS_THAN": "Less than",
+    "GREATER_THAN": "Greater than",
+    "RESET": "Reset",
+    "TYPE": "Type"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -338,7 +343,8 @@
     "ACTIVE_DIRECTORY_USERNAME": "Employee Number (Active Directory Username)",
     "EMPLOYEE_NUMBER": "Employee Number",
     "BIRTHDATE": "Birthdate",
-    "GENDER": "Gender"
+    "GENDER": "Gender",
+    "RELIGION": "Religion"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "Holidays",
@@ -512,7 +518,8 @@
     "LEAVE_TYPES": "Leave Types",
     "LEAVES": "Leaves",
     "EDIT_BALANCES": "Leaves Balances",
-    "LEAVE_TRANSFER": "Renew and transfer leaves balances"
+    "LEAVE_TRANSFER": "Renew and transfer leaves balances",
+    "LEAVES_BALANCES": "Leaves Balances"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "General Settings",
@@ -1003,7 +1010,9 @@
     "REQUIRES_ATTACHMENT": "Does this leave require an attachment/document?",
     "ACTIVE": "Active",
     "NOT_ACTIVE": "Not Active",
-    "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days"
+    "MAX_CONSECUTIVE_LEAVE_DAYS": "Maximum consecutive leave days",
+    "UPDATE_TYPE_NOTE": "Update Type (This value will be added/deducted from the leave balance for all selected employees)",
+    "NOT_PAID": "Not paid leave"
   },
   "LEAVES": {
     "TRANSFER_BALANCES": {
@@ -1033,5 +1042,26 @@
       "NO_EMPLOYEES_SELECTED_TITLE": "No employees selected yet",
       "NO_EMPLOYEES_SELECTED_DESC": "Please select employees to proceed with balance transfer."
     }
+  },
+  "LEAVES_BALANCES": {
+    "UPDATE_LEAVES_BALANCES": "Update Leaves Balances",
+    "YEARS_OF_SERVICE_LESS_THAN": "Years of service (Less than)",
+    "YEARS_OF_SERVICE_GREATER_THAN": "Years of service (Greater than)",
+    "LEAVES_DISPLAY_OPTIONS": "Leaves display options",
+    "HAS_ANNUAL_BALANCE": "Has annual balance",
+    "HAS_LIMITED_BALANCE": "Limited times during service",
+    "LEAVES_BALANCES_REMAINING": "Leaves Balances (Remaining)",
+    "YEARS_OF_SERVICE": "Years of service",
+    "UPDATE_BALANCE": "Update Balance",
+    "USED_BALANCE": "Used Balance",
+    "REMAINING_BALANCE": "Remaining Balance",
+    "TOTAL_TIMES_AVAILABLE": "Total times available",
+    "TIMES_USED": "Times used",
+    "REMAINING_TIMES": "Times remaining",
+    "VALUE_TO_ADD_OR_SUBTRACT_FROM_BALANCE": "Value to add / deduct (in days or times)",
+    "LEAVE_NAME": "Leave Name",
+    "EMPLOYEE": "Employee",
+    "ANNUAL_BALANCE": "Annual Balance",
+    "TIMES_BALANCE": "Times Balance"
   }
 }

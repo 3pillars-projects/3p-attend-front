@@ -21,6 +21,6 @@ export class LeaveBalanceService extends BaseCrudService<LeaveBalance> {
   serviceName: string = 'LeaveBalanceService';
 
   override getUrlSegment(): string {
-    return this.urlService.URLS.EMPLOYEE_LEAVE_BALANCE;
+    return this.urlService.URLS.LEAVE_BALANCE;
   }
 }
