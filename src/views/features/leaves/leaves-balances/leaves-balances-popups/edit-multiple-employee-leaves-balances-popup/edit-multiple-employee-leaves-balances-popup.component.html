@@ -1,128 +1,146 @@
-<div class="modal-container" dir="rtl">
-    <div class="p-6">
-        <button class="block ms-auto">
-            <i class="pi pi-times"></i>
+<div [dir]="direction">
+  <div class="p-6">
+    <button (click)="close()" class="block ms-auto">
+      <i class="pi pi-times"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'MENU.LEAVES_BALANCES' | translate }}
+    </h3>
+
+    <form [formGroup]="form" (ngSubmit)="save$.next()">
+      <div class="bg-[#074d31] p-6 rounded-2xl mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-center">
+          <div class="flex flex-col gap-2 lg:col-span-5">
+            <span class="text-sm text-white">{{
+              'LEAVES_BALANCES.LEAVE_NAME' | translate
+            }}</span>
+            <span class="font-semibold text-white">
+              {{ getLanguage() === languageEnum.ARABIC ? leaveType.nameAr : leaveType.nameEn }}
+            </span>
+          </div>
+          <div class="flex flex-col gap-2 lg:col-span-5">
+            <span class="text-sm text-white">{{ 'COMMON.YEAR' | translate }}</span>
+            <span class="font-semibold text-white">{{ form.get('year')?.value }}</span>
+          </div>
+          <div
+            class="bg-[#abefc6] px-3 rounded-full text-[#085d3a] font-[500] text-base ms-auto w-fit lg:col-span-2"
+          >
+            {{ isAnnualLeave ? ('LEAVES_BALANCES.ANNUAL_BALANCE' | translate) : ('LEAVES_BALANCES.TIMES_BALANCE' | translate) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1 mb-4 mt-6">
+        <h3 class="text-[#1f2a37] font-[600]">
+          {{ 'LEAVE_TYPES_PAGE.UPDATE_TYPE_NOTE' | translate }}
+        </h3>
+      </div>
+
+      <div class="flex flex-wrap gap-8 mb-6">
+        <label
+          class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+        >
+          {{ 'COMMON.ADD' | translate }}
+          <input
+            type="radio"
+            formControlName="operationType"
+            [value]="operationTypes.ADD"
+            class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+          />
+          <span
+            class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+          >
+          </span>
+        </label>
+
+        <label
+          class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+        >
+          {{ 'COMMON.DEDUCT' | translate }}
+          <input
+            type="radio"
+            formControlName="operationType"
+            [value]="operationTypes.SUBTRACT"
+            class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+          />
+          <span
+            class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
+          >
+          </span>
+        </label>
+      </div>
+      <app-validation-messages [control]="getControl('operationType')"></app-validation-messages>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-6">
+        <div>
+          <label class="label">
+            {{ 'LEAVES_BALANCES.VALUE_TO_ADD_OR_SUBTRACT_FROM_BALANCE' | translate }}
+            <!-- Value -->
+          </label>
+          <p-inputnumber
+            formControlName="amount"
+            [inputStyle]="{ width: '100%' }"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            spinnerMode="horizontal"
+            [min]="1"
+          >
+            <ng-template #incrementbuttonicon>
+              <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+              <span class="pi pi-minus"></span>
+            </ng-template>
+          </p-inputnumber>
+          <app-validation-messages [control]="getControl('amount')"></app-validation-messages>
+        </div>
+      </div>
+
+      <section class="border-t border-[#d2d6db] pt-8 mt-8">
+        <h3 class="text-[14px] font-normal text-[#6c737f] mb-6">
+          {{ 'MENU.EMPLOYEES' | translate }}
+          (<span class="font-bold text-[#161616]">{{ selectedEmployees.length }}</span>
+          {{ 'LEAVES_BALANCES.EMPLOYEE' | translate }})
+        </h3>
+        <ul class="flex flex-wrap gap-4 max-h-[150px] overflow-y-auto">
+          @for (emp of selectedEmployees; track emp.employee.id) {
+            <li
+              class="flex flex-row justify-center items-center gap-1 px-3 py-1 rounded-full bg-[#f3f4f6] text-[#161616] font-medium"
+            >
+              <span>{{ getUserName(emp) }}</span>
+              <button type="button" (click)="toggleEmployeeSelection(emp.employee.id)">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.352 3.352c.22-.22.576-.22.796 0L9 8.205l4.852-4.853a.562.562 0 1 1 .796.796L9.795 9l4.853 4.852a.562.562 0 1 1-.796.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.796-.796L8.205 9 3.351 4.148a.563.563 0 0 1 0-.796z"
+                    fill="#161616"
+                  />
+                </svg>
+              </button>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <div class="actions mt-6 flex items-center justify-between gap-4">
+        <button
+          type="button"
+          (click)="close()"
+          class="btn gray-btn border border-[#d2d6db] !bg-[#fff] hover:!bg-[#d2d6db]"
+        >
+          {{ 'COMMON.CANCEL' | translate }}
         </button>
-        <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">تحديث أرصدة الأجازة للموظفين</h3>
-        <div class="bg-[#074d31] p-6 rounded-2xl">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-end">
-                <div class="flex flex-col gap-2 lg:col-span-5">
-                    <span class="text-sm text-white">اسم الموظف</span>
-                    <span class="font-semibold text-white">محمد أحمد محمود</span>
-                </div>
-                <div class="flex flex-col gap-2 lg:col-span-5">
-                    <span class="text-sm text-white">السنة</span>
-                    <span class="font-semibold text-white">2025</span>
-                </div>
-                <div
-                    class=" bg-[#abefc6] px-3 rounded-full text-[#085d3a] font-[500] text-sm ms-auto w-fit lg:col-span-2">
-                    رصيد سنوي
-                </div>
-
-            </div>
-        </div>
-        <div class="flex items-center gap-1 mb-4 mt-6">
-            <h3 class="text-[#1f2a37] font-[600]">نوع التحديث </h3>
-            <span class="text-[#384250] text-sm">(سيتم إضافة / خصم هذه القيمة من رصيد الإجازة لكل الموظفين
-                المحددين)</span>
-        </div>
-        <div class="flex flex-wrap gap-8 mb-6">
-            <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-                for="addBalance">
-                اضافة للرصيد
-                <input type="radio" id="addBalance" name="balance"
-                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
-                <span
-                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
-                </span>
-            </label>
-
-            <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-                for="deductFromBalance">
-                خصم من الرصيد
-                <input type="radio" id="deductFromBalance" name="balance"
-                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
-                <span
-                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
-                </span>
-            </label>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            <div>
-                <label class="label" for="before-attendance-time">القيمة المطلوب اضافتها ( بعدد الأيام أو عدد
-                    المرات)</label>
-                <p-inputnumber [inputStyle]="{ width: '3rem' }" [showButtons]="true" buttonLayout="horizontal"
-                    spinnerMode="horizontal" inputId="horizontal" spinnerMode="horizontal">
-                    <ng-template #incrementbuttonicon>
-                        <span class="pi pi-plus"></span>
-                    </ng-template>
-                    <ng-template #decrementbuttonicon>
-                        <span class="pi pi-minus"></span>
-                    </ng-template>
-                </p-inputnumber>
-            </div>
-        </div>
-        <div class="mt-6 pt-6 border-t border-[#d2d6db]">
-            <div class="text-[#6c737f] text-sm">
-                الموظفون المعنيون بتحديث الرصيد للأجازة (<span class="text-[#1f2a37] font-bold">100</span> موظف)
-            </div>
-            <div class="flex gap-4 wrap mt-4">
-                <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-full px-3 py-1">
-                    محمد احمد طه (10) <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                            fill="#161616" />
-                    </svg>
-                </div>
-                <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-full px-3 py-1">
-                    محمد احمد طه (10) <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                            fill="#161616" />
-                    </svg>
-                </div>
-                <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-full px-3 py-1">
-                    محمد احمد طه (10) <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                            fill="#161616" />
-                    </svg>
-                </div>
-                <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-full px-3 py-1">
-                    محمد احمد طه (10) <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                            fill="#161616" />
-                    </svg>
-                </div>
-                <div class="flex items-center gap-1 bg-[#f3f4f6] rounded-full px-3 py-1">
-                    محمد احمد طه (10) <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                            fill="#161616" />
-                    </svg>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-
-        <div class="actions mt-6 flex items-center justify-between gap-4">
-            <button class="btn gray-btn border border-[#d2d6db] !bg-[#fff] hover:!bg-[#d2d6db]">
-                الغاء
-            </button>
-            <button class="btn green-btn">
-                تحديث رصيد الأجازات للموظف
-            </button>
-        </div>
-
-    </div>
+        <button type="submit" class="btn green-btn">
+          {{ 'COMMON.SAVE' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
