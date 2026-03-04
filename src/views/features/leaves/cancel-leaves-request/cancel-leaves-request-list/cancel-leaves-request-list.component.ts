@@ -11,12 +11,13 @@ import { Select } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { TabsModule } from 'primeng/tabs';
+import { ViewLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-leave-request.component';
 interface Adminstration {
   type: string;
 }
 
 @Component({
-  selector: 'app-cancelled-holidays',
+  selector: 'app-cancel-leaves-request-list',
   imports: [
     Breadcrumb,
     InputTextModule,
@@ -30,10 +31,10 @@ interface Adminstration {
     FormsModule,
     TabsModule,
   ],
-  templateUrl: './cancelled-holidays.component.html',
-  styleUrl: './cancelled-holidays.component.scss'
+  templateUrl: './cancel-leaves-request-list.component.html',
+  styleUrl: './cancel-leaves-request-list.component.scss'
 })
-export default class CancelledHolidaysComponent {
+export default class CancelLeavesRequestListComponent {
   breadcrumbs: MenuItem[] | undefined;
   dialogSize = {
     width: '100%',
@@ -72,19 +73,9 @@ export default class CancelledHolidaysComponent {
     this.first = event.first ?? 0;
     this.rows = event.rows ?? 10;
   }
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(AddTaskPopupComponent as any, this.dialogSize);
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ViewLeaveRequestComponent as any, this.dialogSize);
 
-  //   dialogRef.afterClosed().subscribe();
-  // }
-  // openDialog1(): void {
-  //   const dialogRef = this.dialog.open(AssignTaskPopupComponent as any, this.dialogSize);
-
-  //   dialogRef.afterClosed().subscribe();
-  // }
-  // openDialog2(): void {
-  //   const dialogRef = this.dialog.open(TaskDetailsPopupComponent as any, this.dialogSize);
-
-  //   dialogRef.afterClosed().subscribe();
-  // }
+    dialogRef.afterClosed().subscribe();
+  }
 }

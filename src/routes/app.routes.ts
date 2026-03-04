@@ -233,9 +233,9 @@ export const routes: Routes = [
           import('@/views/features/lookups/holidays/holidays-list/holidays-list.component'),
       },
       {
-        path: 'cancelled-holidays',
+        path: 'cancel-leaves-request-list',
         loadComponent: () =>
-          import('@/views/features/cancelled-holidays/cancelled-holidays.component'),
+          import('@/views/features/leaves/cancel-leaves-request/cancel-leaves-request-list/cancel-leaves-request-list.component'),
       },
       {
         path: 'leaves-list',
