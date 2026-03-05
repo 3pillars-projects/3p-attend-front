@@ -365,6 +365,13 @@ export const routes: Routes = [
       },
       {
         path: 'leaves-request',
+        resolve: {
+          myLeavesList: () =>
+            import('@/resolvers/business/my-leaves.resolver').then((m) => m.myLeavesResolver),
+          teamLeavesList: () =>
+            import('@/resolvers/business/team-leaves.resolver').then((m) => m.teamLeavesResolver),
+          leaveTypes: leaveTypesResolver,
+        },
         loadComponent: () =>
           import(
             '@/views/features/leaves/leaves-request/leaves-request-list/leaves-request-list.component'

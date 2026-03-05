@@ -1,41 +1,48 @@
 <div class="bg-white">
   <div class="bg-[#f9fafb] p-3 sm:p-6">
     <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
-      <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
-      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">طلبات الإجازات</h3>
+      <p-breadcrumb class="max-w-full" [model]="breadcrumbs" [home]="home" />
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+        {{ 'LEAVE_REQUEST_PAGE.LEAVE_REQUESTS' | translate }}
+      </h3>
     </div>
-    <p-tabs value="0">
+    <p-tabs [value]="activeTabIndex.toString()" (valueChange)="onTabChange({value: $event})">
       <p-tablist class="mb-6 justify-between">
         <div class="flex">
           <p-tab value="0">
-            سجل طلبات اجازتي
+            {{ 'LEAVE_REQUEST_PAGE.MY_LEAVE_REQUESTS' | translate }}
           </p-tab>
           <p-tab value="1">
-            طلبات الاجازات الواردة
+            {{ 'LEAVE_REQUEST_PAGE.INCOMING_LEAVE_REQUESTS' | translate }}
           </p-tab>
         </div>
       </p-tablist>
       <p-tabpanels>
-        <!-- My Visits Tab Panel -->
+        <!-- My Leaves Tab Panel -->
         <p-tabpanel value="0">
           <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
             <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
               <div class="flex items-center justify-between">
-                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+                  {{ 'COMMON.SEARCH_FILTERS' | translate }}
+                </h5>
               </div>
               <div class="pt-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
                   <div class="relative">
-                    <label class="label" for="leaveType">نوع الاجازة</label>
-                    <p-select placeholder="نوع الاجازة" class="w-full peer" id="leaveType" optionValue="id"
+                    <label class="label" for="leaveType">{{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</label>
+                    <p-select [placeholder]="'LEAVE_REQUEST_PAGE.CHOOSE_LEAVE_TYPE' | translate" class="w-full peer" id="leaveType" 
+                      [(ngModel)]="myLeavesFilter.fkLeaveTypeId" [options]="leaveTypes"
+                      [optionLabel]="langService.getCurrentLanguage() === 'ar' ? 'nameAr' : 'nameEn'" optionValue="id"
                       [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
                     <span
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                   <div class="relative">
-                    <label class="label" for="swipeDateFrom">التاريخ من</label>
-                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ من'" [showIcon]="true"
-                      class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+                    <label class="label" for="dateFrom">{{ 'COMMON.FROM' | translate }}</label>
+                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'COMMON.FROM' | translate" [showIcon]="true"
+                      class="peer block w-full" inputId="dateFrom" [showClear]="true"
+                      [(ngModel)]="myLeavesFilter.dateFrom">
                       <ng-template pTemplate="inputicon">
                         <img alt="" src="assets/icons/calender-icon.svg" />
                       </ng-template>
@@ -44,9 +51,10 @@
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                   <div class="relative">
-                    <label class="label" for="swipeDateFrom">التاريخ الى</label>
-                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ الى'" [showIcon]="true"
-                      class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+                    <label class="label" for="dateTo">{{ 'COMMON.TO' | translate }}</label>
+                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'COMMON.TO' | translate" [showIcon]="true"
+                      class="peer block w-full" inputId="dateTo" [showClear]="true"
+                      [(ngModel)]="myLeavesFilter.dateTo">
                       <ng-template pTemplate="inputicon">
                         <img alt="" src="assets/icons/calender-icon.svg" />
                       </ng-template>
@@ -55,17 +63,28 @@
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                   <div class="relative">
-                    <label class="label" for="leaveType">حالة الطلب</label>
-                    <p-select placeholder="حالة الطلب" class="w-full peer" id="leaveType" optionValue="id"
-                      [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
+                    <label class="label" for="status">{{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}</label>
+                    <p-select [placeholder]="'LEAVE_REQUEST_PAGE.STATUS' | translate" class="w-full peer" id="status" 
+                      [(ngModel)]="myLeavesFilter.status" [options]="statusOptions"
+                      optionLabel="name" optionValue="id"
+                      [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38">
+                      <ng-template #item let-item>
+                        {{ item.name | translate }}
+                      </ng-template>
+                      <ng-template #selecteditem let-item>
+                        <span *ngIf="item">{{ item.name | translate }}</span>
+                      </ng-template>
+                    </p-select>
                     <span
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                 </div>
 
                 <div class="actions flex items-center gap-4 pt-6">
-                  <button class="btn black-btn">بحث</button>
-                  <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
+                  <button class="btn black-btn" (click)="search()">{{ 'COMMON.SEARCH' | translate }}</button>
+                  <button class="btn gray-btn border border-[#d2d6db]" (click)="resetSearch()">
+                    {{ 'COMMON.RESET_SEARCH' | translate }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -73,134 +92,134 @@
               <div
                 class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
                 <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-                  قائمة ورديات العمل المؤقتة
+                  {{ 'LEAVE_REQUEST_PAGE.MY_LEAVE_REQUESTS' | translate }}
                 </h4>
                 <div class="actions flex items-center gap-4 ms-auto">
-                  <button class="table-head-action-btn">
+                  <button class="table-head-action-btn" (click)="exportExcel()">
                     <img src="assets/icons/excel.svg" alt="" />
                   </button>
                   <button class="btn green-btn" (click)="openAddNewLeaveRequestPopup()">
                     <img src="assets/icons/plus.svg" alt="">
-                    إضافة طلب اجازة جديد
+                    {{ 'LEAVE_REQUEST_PAGE.ADD_NEW' | translate }}
                   </button>
                 </div>
               </div>
-              <p-table [value]="attendance">
+              <p-table [value]="list">
                 <ng-template #header>
                   <tr>
-                    <th>نوع الاجازة</th>
-                    <th>تاريخ البداية</th>
-                    <th>تاريخ الانتهاء</th>
-                    <th>عدد أيام الاجازة</th>
-                    <th>حالة الطلب</th>
-                    <th>الإجراءات</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.ACTIONS' | translate }}</th>
                   </tr>
                 </ng-template>
-                <ng-template #body let-attendance>
+                <ng-template #body let-leave>
                   <tr>
-                    <td>اجازة اعتيادي</td>
-                    <td>12/12/2024</td>
-                    <td>12/12/2024</td>
+                    <td>{{ langService.getCurrentLanguage() === 'ar' ? leave.leaveType?.nameAr : leave.leaveType?.nameEn }}</td>
+                    <td>{{ leave.dateFrom | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ leave.dateTo | date: 'dd/MM/yyyy' }}</td>
                     <td>
                       <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
-                        5
+                        {{ leave.daysCount }}
                       </div>
                     </td>
                     <td>
-                      <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.New" class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
-                        <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
+                        <span class="text-[#1849a9] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate }}</span>
                       </div>
-                      <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.ManagementAcceptance" class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
-                        <span class="text-[#085d3a] font-semibold text-sm">مقبول</span>
+                        <span class="text-[#085d3a] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE' | translate }}</span>
                       </div>
-                      <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.HRAcceptance" class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                        <span class="text-[#93370d] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE' | translate }}</span>
+                      </div>
+                      <div *ngIf="leave.status === LeaveStatusEnum.Rejected" class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
-                        <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
+                        <span class="text-[#912018] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_REJECTED' | translate }}</span>
                       </div>
-                      <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
-                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
-                        <span class="text-[#93370d] font-semibold text-sm">مقبول من الادارة</span>
-                      </div>
-                      <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.Canceled" class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
-                        <span class="text-[#1f2a37] font-semibold text-sm">مقبول من الادارة</span>
+                        <span class="text-[#1f2a37] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_CANCELED' | translate }}</span>
                       </div>
-                      <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.DoesNotNeedAcceptance" class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
-                        <span class="text-[#1f2a37] font-semibold text-sm">لا تحتاج موافقة</span>
+                        <span class="text-[#1f2a37] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE' | translate }}</span>
                       </div>
-                      <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
-                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
-                        <span class="text-[#93370d] font-semibold text-sm">مقبول من الموارد البشرية</span>
-                      </div>
-
                     </td>
                     <td>
                       <div class="flex items-center gap-2">
-                        <button class="table-action-gray-btn" (click)="openViewLeaveRequest()">
+                        <button class="table-action-gray-btn" (click)="openDialog(leave)" [pTooltip]="'LEAVE_REQUEST_PAGE.VIEW_DETAILS' | translate">
                           <img src="assets/icons/view.svg" alt="" />
                         </button>
-                        <button class="table-action-gray-btn" (click)="openAddNewLeaveRequestPopup()">
+                        <button *ngIf="leave.status === LeaveStatusEnum.New" class="table-action-gray-btn" (click)="openAddNewLeaveRequestPopup(leave)" [pTooltip]="'COMMON.EDIT' | translate">
                           <img src="assets/icons/edit-action.svg" alt="" />
-                        </button>
-                        <button class="table-action-red-btn">
-                          <img src="assets/icons/delete.svg" alt="" />
                         </button>
                       </div>
                     </td>
                   </tr>
                 </ng-template>
               </p-table>
-              <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-                [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-              <div></div>
+              <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" 
+                [first]="first" 
+                [rows]="rows"
+                [totalRecords]="paginationInfo.totalItems" [rowsPerPageOptions]="[10, 20, 30]" />
             </div>
           </div>
 
         </p-tabpanel>
-        <!-- All Visits Tab Panel -->
+        <!-- Team Leaves Tab Panel -->
         <p-tabpanel value="1">
           <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
             <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
               <div class="flex items-center justify-between">
-                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+                  {{ 'COMMON.SEARCH_FILTERS' | translate }}
+                </h5>
               </div>
               <div class="pt-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
                   <div class="relative">
-                    <label class="label" for="leaveType">نوع الاجازة</label>
-                    <p-select placeholder="نوع الاجازة" class="w-full peer" id="leaveType" optionValue="id"
+                    <label class="label" for="teamLeaveType">{{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</label>
+                    <p-select [placeholder]="'LEAVE_REQUEST_PAGE.CHOOSE_LEAVE_TYPE' | translate" class="w-full peer" id="teamLeaveType"
+                      [(ngModel)]="teamLeavesFilter.fkLeaveTypeId" [options]="leaveTypes"
+                      [optionLabel]="langService.getCurrentLanguage() === 'ar' ? 'nameAr' : 'nameEn'" optionValue="id"
                       [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
                     <span
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                   <div class="relative">
-                    <label class="label" for="leaveType">الادارة</label>
-                    <p-select placeholder="الادارة" class="w-full peer" id="leaveType" optionValue="id"
-                      [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
+                    <label class="label" for="employeeName">{{ 'LEAVE_REQUEST_PAGE.EMPLOYEE_NAME' | translate }}</label>
+                    <input type="text" pInputText [placeholder]="'LEAVE_REQUEST_PAGE.EMPLOYEE_NAME' | translate" class="w-full peer" id="employeeName" 
+                      [(ngModel)]="teamLeavesFilter.fkUserId" />
                     <span
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                   <div class="relative">
-                    <label class="label" for="leaveType">اسم الموظف</label>
-                    <p-select placeholder="الادارة" class="w-full peer" id="leaveType" optionValue="id"
-                      [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
+                    <label class="label" for="teamStatus">{{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}</label>
+                    <p-select [placeholder]="'LEAVE_REQUEST_PAGE.STATUS' | translate" class="w-full peer" id="teamStatus"
+                      [(ngModel)]="teamLeavesFilter.status" [options]="statusOptions"
+                      optionLabel="name" optionValue="id"
+                      [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38">
+                      <ng-template #item let-item>
+                        {{ item.name | translate }}
+                      </ng-template>
+                      <ng-template #selecteditem let-item>
+                        <span *ngIf="item">{{ item.name | translate }}</span>
+                      </ng-template>
+                    </p-select>
                     <span
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
                   <div class="relative">
-                    <label class="label" for="leaveType">حالة الطلب</label>
-                    <p-select placeholder="حالة الطلب" class="w-full peer" id="leaveType" optionValue="id"
-                      [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
-                    <span
-                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                  </div>
-                  <div class="relative">
-                    <label class="label" for="swipeDateFrom">التاريخ من</label>
-                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ من'" [showIcon]="true"
-                      class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+                    <label class="label" for="teamDateFrom">{{ 'COMMON.FROM' | translate }}</label>
+                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'COMMON.FROM' | translate" [showIcon]="true"
+                      class="peer block w-full" inputId="teamDateFrom" [showClear]="true"
+                      [(ngModel)]="teamLeavesFilter.dateFrom">
                       <ng-template pTemplate="inputicon">
                         <img alt="" src="assets/icons/calender-icon.svg" />
                       </ng-template>
@@ -208,23 +227,13 @@
                     <span
                       class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                   </div>
-                  <div class="relative">
-                    <label class="label" for="swipeDateFrom">التاريخ الى</label>
-                    <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ الى'" [showIcon]="true"
-                      class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
-                      <ng-template pTemplate="inputicon">
-                        <img alt="" src="assets/icons/calender-icon.svg" />
-                      </ng-template>
-                    </p-datepicker>
-                    <span
-                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
-                  </div>
-
                 </div>
 
                 <div class="actions flex items-center gap-4 pt-6">
-                  <button class="btn black-btn">بحث</button>
-                  <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
+                  <button class="btn black-btn" (click)="search()">{{ 'COMMON.SEARCH' | translate }}</button>
+                  <button class="btn gray-btn border border-[#d2d6db]" (click)="resetSearch()">
+                    {{ 'COMMON.RESET_SEARCH' | translate }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -232,71 +241,74 @@
               <div
                 class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
                 <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-                  قائمة ورديات العمل المؤقتة
+                  {{ 'LEAVE_REQUEST_PAGE.INCOMING_LEAVE_REQUESTS' | translate }}
                 </h4>
                 <div class="actions flex items-center gap-4 ms-auto">
-                  <button class="table-head-action-btn">
+                  <button class="table-head-action-btn" (click)="exportExcel()">
                     <img src="assets/icons/excel.svg" alt="" />
                   </button>
                 </div>
               </div>
-              <p-table [value]="attendance">
+              <p-table [value]="list">
                 <ng-template #header>
                   <tr>
-                    <th>نوع الاجازة</th>
-                    <th>اسم الموظف</th>
-                    <th>تاريخ البداية</th>
-                    <th>تاريخ الانتهاء</th>
-                    <th>عدد أيام الاجازة</th>
-                    <th>حالة الطلب</th>
-                    <th>الإجراءات</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.EMPLOYEE_NAME' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}</th>
+                    <th>{{ 'LEAVE_REQUEST_PAGE.ACTIONS' | translate }}</th>
                   </tr>
                 </ng-template>
-                <ng-template #body let-attendance>
+                <ng-template #body let-leave>
                   <tr>
-                    <td>اجازة اعتيادي</td>
-                    <td>محمد احمد</td>
-                    <td>12/12/2024</td>
-                    <td>12/12/2024</td>
+                    <td>{{ langService.getCurrentLanguage() === 'ar' ? leave.leaveType?.nameAr : leave.leaveType?.nameEn }}</td>
+                    <td>{{ langService.getCurrentLanguage() === 'ar' ? leave.employee?.nameAr : leave.employee?.nameEn }}</td>
+                    <td>{{ leave.dateFrom | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ leave.dateTo | date: 'dd/MM/yyyy' }}</td>
                     <td>
                       <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
-                        5
+                        {{ leave.daysCount }}
                       </div>
                     </td>
                     <td>
-                      <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.New" class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
-                        <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
+                        <span class="text-[#1849a9] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate }}</span>
                       </div>
-                      <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
-                        <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
-                        <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
-                      </div>
-                      <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                      <div *ngIf="leave.status === LeaveStatusEnum.ManagementAcceptance" class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
-                        <span class="text-[#085d3a] font-semibold text-sm">مقبول من الادارة</span>
+                        <span class="text-[#085d3a] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE' | translate }}</span>
                       </div>
-
-
+                      <div *ngIf="leave.status === LeaveStatusEnum.HRAcceptance" class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                        <span class="text-[#93370d] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE' | translate }}</span>
+                      </div>
+                      <div *ngIf="leave.status === LeaveStatusEnum.Rejected" class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+                        <span class="text-[#912018] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_REJECTED' | translate }}</span>
+                      </div>
                     </td>
                     <td>
                       <div class="flex items-center gap-2">
-                        <button class="table-action-gray-btn" (click)="openViewLeaveRequest()">
+                        <button class="table-action-gray-btn" (click)="openDialog(leave)" [pTooltip]="'LEAVE_REQUEST_PAGE.VIEW_DETAILS' | translate">
                           <img src="assets/icons/view.svg" alt="" />
                         </button>
-                        <button class="table-action-gray-btn flex items-center gap-1 !min-w-[77px]"
-                          (click)="openViewLeaveRequest()">
+                        <button *ngIf="leave.canTakeAction" class="table-action-gray-btn flex items-center gap-1 !min-w-[77px]"
+                          (click)="openDialog(leave)" [pTooltip]="'LEAVE_REQUEST_PAGE.ACTIONS' | translate">
                           <img src="assets/icons/edit-action.svg" alt="" />
-                          اجراء
+                          {{ 'COMMON.ACTION' | translate }}
                         </button>
                       </div>
                     </td>
                   </tr>
                 </ng-template>
               </p-table>
-              <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
-                [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
-              <div></div>
+              <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" 
+                [first]="first" 
+                [rows]="rows"
+                [totalRecords]="paginationInfo.totalItems" [rowsPerPageOptions]="[10, 20, 30]" />
             </div>
           </div>
         </p-tabpanel>

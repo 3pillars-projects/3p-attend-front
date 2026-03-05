@@ -150,8 +150,8 @@ export abstract class BaseListComponent<
   ngOnInit() {
     this.setHomeItem();
     this.initBreadcrumbs();
-    this.list = this.activatedRoute.snapshot.data['list']?.list;
-    this.paginationInfo = this.activatedRoute.snapshot.data['list']?.paginationInfo;
+    this.list = this.activatedRoute.snapshot.data['list']?.list ?? this.list;
+    this.paginationInfo = this.activatedRoute.snapshot.data['list']?.paginationInfo ?? this.paginationInfo;
     this.initListComponent();
     // Listen to language changes
     this.translateService.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(() => {

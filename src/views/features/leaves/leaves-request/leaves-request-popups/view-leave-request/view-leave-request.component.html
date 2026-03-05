@@ -1,126 +1,149 @@
-<div dir="rtl">
+<div>
     <div class="p-6">
-        <button class="block ms-auto">
+        <button class="block ms-auto" (click)="close()">
             <i class="pi pi-times close-popup"></i>
         </button>
         <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
-            بيانات طلب الاجازة
+            {{ 'LEAVE_REQUEST_PAGE.LEAVE_DATA' | translate }}
         </h3>
 
         <div class="bg-[#f3f4f6] p-6 rounded-4xl">
             <div
                 class="bg-white py-3 px-6 rounded-2xl flex justify-between items-start sm:items-center  flex-col sm:flex-row gap-4">
-                <div class="flex items-center gap-2 flex-wrap
-">
+                <div class="flex items-center gap-2 flex-wrap">
                     <span class="text-[14px] text-[#6c737f]">
-                        حالة الطلب
+                        {{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}
                     </span>
-                    <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                    <div *ngIf="model.status === LeaveStatusEnum.New" class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
-                        <span class="text-[#1849a9] font-semibold text-sm">مقبول</span>
+                        <span class="text-[#1849a9] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate }}</span>
                     </div>
-                    <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                    <div *ngIf="model.status === LeaveStatusEnum.HRAcceptance" class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                        <span class="text-[#085d3a] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE' | translate }}</span>
+                    </div>
+                    <div *ngIf="model.status === LeaveStatusEnum.Rejected" class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
-                        <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
+                        <span class="text-[#912018] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_REJECTED' | translate }}</span>
+                    </div>
+                    <div *ngIf="model.status === LeaveStatusEnum.ManagementAcceptance" class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                        <span class="text-[#93370d] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE' | translate }}</span>
+                    </div>
+                    <div *ngIf="model.status === LeaveStatusEnum.Canceled" class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                        <span class="text-[#1f2a37] font-semibold text-sm">{{ 'LEAVE_REQUEST_PAGE.STATUS_CANCELED' | translate }}</span>
                     </div>
                 </div>
-                <div class="flex items-center gap-6 flex-wrap
-">
-                    <div class="flex items-center gap-2">
+                <div class="flex items-center gap-6 flex-wrap">
+                    <div class="flex items-center gap-2" *ngIf="model.lastAcceptanceDate">
                         <span class="text-[14px] text-[#6c737f]">
-                            تاريخ قبول الادارة
+                            {{ 'LEAVE_REQUEST_PAGE.MANAGEMENT_ACCEPTANCE_DATE' | translate }}
                         </span>
                         <h5 class="text-[#161616] font-[600]">
-                            12/12/2024
+                            {{ model.lastAcceptanceDate | date: 'dd/MM/yyyy' }}
                         </h5>
                     </div>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2" *ngIf="model.lastActionDate">
                         <span class="text-[14px] text-[#6c737f]">
-                            تاريخ قبول الموارد البشرية
+                            {{ 'LEAVE_REQUEST_PAGE.LAST_ACTION_DATE' | translate }}
                         </span>
                         <h5 class="text-[#161616] font-[600]">
-                            12/12/2024
+                            {{ model.lastActionDate | date: 'dd/MM/yyyy' }}
                         </h5>
                     </div>
-
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                <div>
+                <div *ngIf="model.department">
                     <span class="text-[14px] text-[#6c737f]">
-                        الادارة
+                        {{ 'LEAVE_REQUEST_PAGE.DEPARTMENT' | translate }}
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
-                        الادارة
+                        {{ languageService.getCurrentLanguage() === 'ar' ? model.department.nameAr : model.department.nameEn }}
                     </h5>
                 </div>
-                <div class="lg:col-span-2">
+                <div class="lg:col-span-2" *ngIf="model.employee">
                     <span class="text-[14px] text-[#6c737f]">
-                        اسم الموظف
+                        {{ 'LEAVE_REQUEST_PAGE.EMPLOYEE_NAME' | translate }}
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
-                        احمد محمد
+                        {{ languageService.getCurrentLanguage() === 'ar' ? model.employee.nameAr : model.employee.nameEn }}
                     </h5>
                 </div>
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
-                        نوع الاجازة
+                        {{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
-                        اجازة اعتيادي
+                        {{ languageService.getCurrentLanguage() === 'ar' ? model.leaveType?.nameAr : model.leaveType?.nameEn }}
                     </h5>
                 </div>
 
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
-                        تاريخ البداية
+                        {{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
-                        12/12/2024
+                        {{ model.dateFrom | date: 'dd/MM/yyyy' }}
                     </h5>
                 </div>
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
-                        تاريخ النهاية
+                        {{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
-                        12/12/2024
+                        {{ model.dateTo | date: 'dd/MM/yyyy' }}
                     </h5>
                 </div>
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
-                        عدد أيام الاجازة
+                        {{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}
                     </span>
                     <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit mt-2">
-                        5
+                        {{ model.daysCount }}
                     </div>
                 </div>
 
-                <div>
+                <div *ngIf="model.notes" class="md:col-span-3">
                     <span class="text-[14px] text-[#6c737f]">
-                        ملاحظات
+                        {{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
-                        ملاحظات
+                        {{ model.notes }}
                     </h5>
                 </div>
-                <div class="md:col-span-2 lg:col-span-3">
-                    <label class="label" for="">ملاحظات</label>
+
+                <div class="md:col-span-3" *ngIf="model.canTakeAction">
+                    <label class="label" for="rejectionNote">{{ 'LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate }} ({{ 'COMMON.OPTIONAL' | translate }})</label>
                     <div class="relative w-full">
                         <textarea
                             class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
-                            cols="30" pTextarea placeholder="ملاحظات" rows="5"></textarea>
+                            cols="30" pTextarea [placeholder]="'LEAVE_REQUEST_PAGE.ENTER_REJECTION_NOTE' | translate" rows="5"
+                            [(ngModel)]="model.rejectionNote" id="rejectionNote"></textarea>
 
                         <span
                             class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"></span>
                     </div>
                 </div>
 
+                <div *ngIf="model.rejectionNote && !model.canTakeAction" class="md:col-span-3">
+                    <span class="text-[14px] text-[#6c737f]">
+                        {{ 'LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate }}
+                    </span>
+                    <h5 class="text-[#161616] font-[600] mt-2">
+                        {{ model.rejectionNote }}
+                    </h5>
+                </div>
             </div>
-
-
         </div>
 
-
+        <div class="flex items-center justify-between gap-4 mt-6" *ngIf="model.canTakeAction">
+            <button class="btn red-btn" (click)="reject()">{{ 'LEAVE_REQUEST_PAGE.REJECT' | translate }}</button>
+            <button class="btn green-btn" (click)="accept()">{{ 'LEAVE_REQUEST_PAGE.ACCEPT' | translate }}</button>
+        </div>
+        <div class="flex items-center justify-end mt-6" *ngIf="!model.canTakeAction">
+            <button class="btn gray-btn" (click)="close()">{{ 'LEAVE_REQUEST_PAGE.CLOSE' | translate }}</button>
+        </div>
     </div>
 </div>

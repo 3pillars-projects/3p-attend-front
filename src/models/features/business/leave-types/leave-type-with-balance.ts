@@ -1,4 +1,5 @@
 export class LeaveTypeWithBalance {
+  id!: number;
   nameAr!: string;
   nameEn!: string;
   canApplyOnHalfDay!: boolean;

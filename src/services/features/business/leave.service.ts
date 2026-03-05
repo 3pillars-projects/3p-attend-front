@@ -8,7 +8,7 @@ import { PaginatedListResponseData } from '@/models/shared/response/paginated-li
 import { ResponseData } from '@/models/shared/response/response-data';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CastResponse, CastResponseContainer } from 'cast-response';
+import { CastResponse, CastResponseContainer, HasInterception, InterceptParam } from 'cast-response';
 import { catchError, map, Observable } from 'rxjs';
 
 @CastResponseContainer({
@@ -77,7 +77,9 @@ export class LeaveService extends BaseCrudService<Leave> {
 
   // ─── Create ───────────────────────────────────────────────────────────────
 
-  createLeave(model: Partial<Leave>): Observable<Leave> {
+  @CastResponse()
+  @HasInterception
+  override create(@InterceptParam() model: Leave): Observable<Leave> {
     return this.http
       .post<ResponseData<Leave>>(this.getUrlSegment() + '/create', model, { withCredentials: true })
       .pipe(
@@ -86,6 +88,10 @@ export class LeaveService extends BaseCrudService<Leave> {
           throw err;
         })
       );
+  }
+
+  createLeave(model: Partial<Leave>): Observable<Leave> {
+    return this.create(model as Leave);
   }
 
   // ─── Approval Actions ─────────────────────────────────────────────────────

@@ -1,68 +1,62 @@
-<div dir="rtl">
+<div [formGroup]="form">
     <div class="p-6">
-        <button class="block ms-auto">
+        <button class="block ms-auto" (click)="close()">
             <i class="pi pi-times close-popup"></i>
         </button>
         <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
-            طلب اجازة جديد
+            {{ 'LEAVE_REQUEST_PAGE.NEW_LEAVE_REQUEST' | translate }}
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <div>
-                <label class="label" for="attendance-department-popup">
-                    نوع الاجازة
+                <label class="label" for="leaveTypeId">
+                    {{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}
                 </label>
                 <div class="relative">
-                    <p-select class="w-full peer" formControlName="departmentId" id="attendance-department-popup"
-                        name="departmentId" optionValue="id" placeholder="نوع الاجازة">
+                    <p-select class="w-full peer" formControlName="fkLeaveTypeId" id="leaveTypeId"
+                        [options]="leaveTypes" [optionLabel]="languageService.getCurrentLanguage() === 'ar' ? 'nameAr' : 'nameEn'" optionValue="id"
+                        [placeholder]="'LEAVE_REQUEST_PAGE.CHOOSE_LEAVE_TYPE' | translate">
                     </p-select>
                     <span
                         class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" *ngIf="selectedLeaveType">
             <div class="bg-[#f3f4f6] p-6 rounded-4xl mt-6 lg:col-span-2 md:col-span-2">
                 <div class="grid grid-cols-1 lg:grid-cols-2  gap-6">
                     <div>
                         <span class="text-[14px] text-[#6c737f]">
-                            عدد أيام الاجازات المستخدمة
+                            {{ 'LEAVES_BALANCES.ANNUAL_BALANCE' | translate }}
                         </span>
                         <h5 class="text-[#161616] font-[600] mt-2">
-                            5 أيام
+                            {{ selectedLeaveType.annualBalance ?? 0 }} {{ 'COMMON.DAYS' | translate }}
                         </h5>
                     </div>
                     <div>
                         <span class="text-[14px] text-[#6c737f]">
-                            المتبقي
+                            {{ 'LEAVES_BALANCES.TOTAL_TIMES_AVAILABLE' | translate }}
                         </span>
                         <h5 class="text-[#161616] font-[600] mt-2">
-                            5 أيام
+                             {{ selectedLeaveType.availableTimesDuringServicePeriod ?? 0 }}
                         </h5>
                     </div>
-
                 </div>
-
-
             </div>
         </div>
-        <div class="pt-6 mt-6 border-t border-[#d2d6db]">
+        <div class="pt-6 mt-6 border-t border-[#d2d6db]" *ngIf="selectedLeaveType?.canApplyOnHalfDay">
             <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
-                <input checked
-                    class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
-                    disabled type="checkbox" />
-                <svg class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
-                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                    viewBox="0 0 24 24">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
-                <span class="text-base font-medium text-[#1f2a37]">اجازة نصف يوم</span>
+                <p-checkbox formControlName="isHalfDay" [binary]="true" inputId="isHalfDay"></p-checkbox>
+                <span class="text-base font-medium text-[#1f2a37] me-2 ms-2">
+                    {{ 'LEAVE_REQUEST_PAGE.HALF_DAY' | translate }}
+                </span>
             </label>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             <div class="relative">
-                <label class="label" for="swipeDateFrom">تاريخ البداية</label>
-                <p-datepicker [iconDisplay]="'input'" [placeholder]="'تاريخ البداية'" [showIcon]="true"
-                    class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+                <label class="label" for="dateFrom">{{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}</label>
+                <p-datepicker [iconDisplay]="'input'" [placeholder]="'LEAVE_REQUEST_PAGE.DATE_FROM' | translate" [showIcon]="true"
+                    class="peer block w-full" inputId="dateFrom" [showClear]="true"
+                    formControlName="dateFrom">
                     <ng-template pTemplate="inputicon">
                         <img alt="" src="assets/icons/calender-icon.svg" />
                     </ng-template>
@@ -70,10 +64,11 @@
                 <span
                     class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
-            <div class="relative">
-                <label class="label" for="swipeDateFrom">تاريخ النهاية</label>
-                <p-datepicker [iconDisplay]="'input'" [placeholder]="'تاريخ النهاية'" [showIcon]="true"
-                    class="peer block w-full" inputId="swipeDateFrom" [showClear]="true">
+            <div class="relative" *ngIf="!form.get('isHalfDay')?.value">
+                <label class="label" for="dateTo">{{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</label>
+                <p-datepicker [iconDisplay]="'input'" [placeholder]="'LEAVE_REQUEST_PAGE.DATE_TO' | translate" [showIcon]="true"
+                    class="peer block w-full" inputId="dateTo" [showClear]="true"
+                    formControlName="dateTo">
                     <ng-template pTemplate="inputicon">
                         <img alt="" src="assets/icons/calender-icon.svg" />
                     </ng-template>
@@ -82,19 +77,20 @@
                     class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="md:col-span-2 lg:col-span-3">
-                <label class="label" for="">ملاحظات</label>
+                <label class="label" for="notes">{{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}</label>
                 <div class="relative w-full">
                     <textarea
-                        class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
-                        cols="30" pTextarea placeholder="ملاحظات" rows="5"></textarea>
+                        class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 focus:outline-none resize-none peer"
+                        cols="30" pTextarea [placeholder]="'LEAVE_REQUEST_PAGE.NOTES' | translate" rows="5"
+                        formControlName="notes" id="notes"></textarea>
                     <span
                         class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"></span>
                 </div>
             </div>
         </div>
         <div class="flex items-center justify-between gap-4 mt-6">
-            <button class="btn gray-btn">إلغاء</button>
-            <button class="btn green-btn">ارسال الطلب</button>
+            <button class="btn gray-btn" (click)="close()">{{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}</button>
+            <button class="btn green-btn" (click)="save$.next()">{{ 'LEAVE_REQUEST_PAGE.SAVE' | translate }}</button>
         </div>
     </div>
 </div>
