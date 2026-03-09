@@ -233,6 +233,11 @@ export const routes: Routes = [
           import('@/views/features/lookups/holidays/holidays-list/holidays-list.component'),
       },
       {
+        path: 'cancel-leaves-request',
+        loadComponent: () =>
+          import('@/views/features/leaves/cancel-leaves-request/cancel-leaves-request-list/cancel-leaves-request-list.component'),
+      },
+      {
         path: 'leaves-list',
         canActivate: [authGuard],
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVE_TYPES },

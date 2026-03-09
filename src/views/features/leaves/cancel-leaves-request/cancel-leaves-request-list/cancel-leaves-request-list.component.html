@@ -1,0 +1,320 @@
+<div class="bg-white">
+    <div class="bg-[#f9fafb] p-3 sm:p-6">
+        <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+            <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">طلبات الغاء الاجازات</h3>
+        </div>
+        <p-tabs value="0">
+            <p-tablist class="mb-6 justify-between">
+                <div class="flex">
+                    <p-tab value="0">
+                        سجل طلبات الغاء اجازاتي
+                    </p-tab>
+                    <p-tab value="1">
+                        طلبات الغاء اجازات الموظفين التابعين
+                    </p-tab>
+                </div>
+            </p-tablist>
+            <p-tabpanels>
+                <!-- My Visits Tab Panel -->
+                <p-tabpanel value="0">
+                    <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+                        <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+                            <div class="flex items-center justify-between">
+                                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+                            </div>
+                            <div class="pt-6">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+                                    <div class="relative">
+                                        <label class="label" for="leaveType">نوع الاجازة</label>
+                                        <p-select placeholder="نوع الاجازة" class="w-full peer" id="leaveType"
+                                            optionValue="id" [showClear]="true" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="38"></p-select>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="swipeDateFrom">التاريخ من</label>
+                                        <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ من'"
+                                            [showIcon]="true" class="peer block w-full" inputId="swipeDateFrom"
+                                            [showClear]="true">
+                                            <ng-template pTemplate="inputicon">
+                                                <img alt="" src="assets/icons/calender-icon.svg" />
+                                            </ng-template>
+                                        </p-datepicker>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="swipeDateFrom">التاريخ الى</label>
+                                        <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ الى'"
+                                            [showIcon]="true" class="peer block w-full" inputId="swipeDateFrom"
+                                            [showClear]="true">
+                                            <ng-template pTemplate="inputicon">
+                                                <img alt="" src="assets/icons/calender-icon.svg" />
+                                            </ng-template>
+                                        </p-datepicker>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="leaveType">حالة الطلب</label>
+                                        <p-select placeholder="حالة الطلب" class="w-full peer" id="leaveType"
+                                            optionValue="id" [showClear]="true" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="38"></p-select>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                </div>
+
+                                <div class="actions flex items-center gap-4 pt-6">
+                                    <button class="btn black-btn">بحث</button>
+                                    <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <div
+                                class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+                                <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+                                    قائمة طلبات الغاء الإجازات
+                                </h4>
+                                <div class="actions flex items-center gap-4 ms-auto">
+                                    <button class="table-head-action-btn">
+                                        <img src="assets/icons/excel.svg" alt="" />
+                                    </button>
+                                </div>
+                            </div>
+                            <p-table [value]="attendance">
+                                <ng-template #header>
+                                    <tr>
+                                        <th>نوع الاجازة</th>
+                                        <th>تاريخ البداية</th>
+                                        <th>تاريخ الانتهاء</th>
+                                        <th>عدد أيام الاجازة الملغاه</th>
+                                        <th>حالة الطلب</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template #body let-attendance>
+                                    <tr>
+                                        <td>اجازة اعتيادي</td>
+                                        <td>12/12/2024</td>
+                                        <td>12/12/2024</td>
+                                        <td>
+                                            <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                                                5
+                                            </div>
+                                            <div
+                                                class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
+                                                نصف يوم
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                                                <span class="text-[#085d3a] font-semibold text-sm">مقبول</span>
+                                            </div>
+                                            <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+                                                <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
+                                            </div>
+
+                                            <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+                                                <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
+                                            </div>
+                                            <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                                                <span class="text-[#93370d] font-semibold text-sm">مقبول من
+                                                    الادارة</span>
+                                            </div>
+
+
+                                        </td>
+                                        <td>
+                                            <div class="flex items-center gap-2">
+                                                <button class="table-action-gray-btn" (click)="openViewLeaveRequest()">
+                                                    <img src="assets/icons/view.svg" alt="" />
+                                                </button>
+                                                <button class="table-action-gray-btn">
+                                                    <img src="assets/icons/edit-action.svg" alt="" />
+                                                </button>
+                                                <button class="table-action-red-btn">
+                                                    <img src="assets/icons/delete.svg" alt="" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" [first]="first"
+                                [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+                            <div></div>
+                        </div>
+                    </div>
+
+                </p-tabpanel>
+                <!-- All Visits Tab Panel -->
+                <p-tabpanel value="1">
+                    <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+                        <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+                            <div class="flex items-center justify-between">
+                                <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">تصفية البحث</h5>
+                            </div>
+                            <div class="pt-6">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+                                    <div class="relative">
+                                        <label class="label" for="leaveType">نوع الاجازة</label>
+                                        <p-select placeholder="نوع الاجازة" class="w-full peer" id="leaveType"
+                                            optionValue="id" [showClear]="true" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="38"></p-select>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="leaveType">الادارة</label>
+                                        <p-select placeholder="الادارة" class="w-full peer" id="leaveType"
+                                            optionValue="id" [showClear]="true" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="38"></p-select>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="leaveType">اسم الموظف</label>
+                                        <p-select placeholder="الادارة" class="w-full peer" id="leaveType"
+                                            optionValue="id" [showClear]="true" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="38"></p-select>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="leaveType">حالة الطلب</label>
+                                        <p-select placeholder="حالة الطلب" class="w-full peer" id="leaveType"
+                                            optionValue="id" [showClear]="true" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="38"></p-select>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="swipeDateFrom">التاريخ من</label>
+                                        <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ من'"
+                                            [showIcon]="true" class="peer block w-full" inputId="swipeDateFrom"
+                                            [showClear]="true">
+                                            <ng-template pTemplate="inputicon">
+                                                <img alt="" src="assets/icons/calender-icon.svg" />
+                                            </ng-template>
+                                        </p-datepicker>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="label" for="swipeDateFrom">التاريخ الى</label>
+                                        <p-datepicker [iconDisplay]="'input'" [placeholder]="'التاريخ الى'"
+                                            [showIcon]="true" class="peer block w-full" inputId="swipeDateFrom"
+                                            [showClear]="true">
+                                            <ng-template pTemplate="inputicon">
+                                                <img alt="" src="assets/icons/calender-icon.svg" />
+                                            </ng-template>
+                                        </p-datepicker>
+                                        <span
+                                            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="actions flex items-center gap-4 pt-6">
+                                    <button class="btn black-btn">بحث</button>
+                                    <button class="btn gray-btn border border-[#d2d6db]">إعادة تعيين</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <div
+                                class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+                                <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+                                    قائمة طلبات الغاء الإجازات
+                                </h4>
+                                <div class="actions flex items-center gap-4 ms-auto">
+                                    <button class="table-head-action-btn">
+                                        <img src="assets/icons/excel.svg" alt="" />
+                                    </button>
+                                </div>
+                            </div>
+                            <p-table [value]="attendance">
+                                <ng-template #header>
+                                    <tr>
+                                        <th>نوع الاجازة</th>
+                                        <th>اسم الموظف</th>
+                                        <th>تاريخ البداية</th>
+                                        <th>تاريخ الانتهاء</th>
+                                        <th>عدد أيام الاجازة الملغاه</th>
+                                        <th>حالة الطلب</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template #body let-attendance>
+                                    <tr>
+                                        <td>اجازة اعتيادي</td>
+                                        <td>محمد احمد</td>
+                                        <td>12/12/2024</td>
+                                        <td>12/12/2024</td>
+                                        <td>
+                                            <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                                                5
+                                            </div>
+                                            <div
+                                                class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
+                                                نصف يوم
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+                                                <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
+                                            </div>
+                                            <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+                                                <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
+                                            </div>
+                                            <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                                                <span class="text-[#93370d] font-semibold text-sm">مقبول من
+                                                    الموظف</span>
+                                            </div>
+
+                                            <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                                                <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                                                <span class="text-[#085d3a] font-semibold text-sm">مقبول
+                                                </span>
+                                            </div>
+
+
+                                        </td>
+                                        <td>
+                                            <div class="flex items-center gap-2">
+                                                <button class="table-action-gray-btn" (click)="openViewLeaveRequest()">
+                                                    <img src="assets/icons/view.svg" alt="" />
+                                                </button>
+                                                <button
+                                                    class="table-action-gray-btn flex items-center gap-1 !min-w-[77px]">
+                                                    <img src="assets/icons/edit-action.svg" alt="" />
+                                                    اجراء
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <p-paginator class="mt-6" (onPageChange)="onPageChange($event)" [first]="first"
+                                [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+                            <div></div>
+                        </div>
+                    </div>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+
+
+    </div>
+</div>

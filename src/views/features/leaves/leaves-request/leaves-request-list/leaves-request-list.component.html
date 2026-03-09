@@ -11,7 +11,7 @@
             سجل طلبات اجازتي
           </p-tab>
           <p-tab value="1">
-            طلبات الاجازات الواردة
+            طلبات اجازات الموظفين التابعين
           </p-tab>
         </div>
       </p-tablist>
@@ -73,7 +73,7 @@
               <div
                 class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
                 <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-                  قائمة ورديات العمل المؤقتة
+                  قائمة طلبات الاجازات
                 </h4>
                 <div class="actions flex items-center gap-4 ms-auto">
                   <button class="table-head-action-btn">
@@ -105,27 +105,36 @@
                       <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
                         5
                       </div>
+                      <div
+                        class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
+                        نصف يوم
+                      </div>
                     </td>
                     <td>
-                      <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
-                        <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
-                        <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
-                      </div>
                       <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
                         <span class="text-[#085d3a] font-semibold text-sm">مقبول</span>
+                      </div>
+                      <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+                        <span class="text-[#1849a9] font-semibold text-sm">جديد</span>
                       </div>
                       <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
                         <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
                       </div>
+
+
+
+
+
                       <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
                         <span class="text-[#93370d] font-semibold text-sm">مقبول من الادارة</span>
                       </div>
                       <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
-                        <span class="text-[#1f2a37] font-semibold text-sm">مقبول من الادارة</span>
+                        <span class="text-[#1f2a37] font-semibold text-sm">ملغى</span>
                       </div>
                       <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
@@ -232,7 +241,7 @@
               <div
                 class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
                 <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-                  قائمة ورديات العمل المؤقتة
+                  قائمة طلبات الاجازات
                 </h4>
                 <div class="actions flex items-center gap-4 ms-auto">
                   <button class="table-head-action-btn">
@@ -262,6 +271,10 @@
                       <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
                         5
                       </div>
+                      <div
+                        class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
+                        نصف يوم
+                      </div>
                     </td>
                     <td>
                       <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
@@ -272,12 +285,18 @@
                         <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
                         <span class="text-[#912018] font-semibold text-sm">مرفوض</span>
                       </div>
+                      <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                        <span class="text-[#93370d] font-semibold text-sm">مقبول من الادارة</span>
+                      </div>
+                      <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                        <span class="text-[#93370d] font-semibold text-sm">مقبول من الموارد البشرية</span>
+                      </div>
                       <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
-                        <span class="text-[#085d3a] font-semibold text-sm">مقبول من الادارة</span>
+                        <span class="text-[#085d3a] font-semibold text-sm">مقبول</span>
                       </div>
-
-
                     </td>
                     <td>
                       <div class="flex items-center gap-2">

@@ -23,16 +23,20 @@
                         <span class="w-[10px] h-[10px] rounded-full bg-[#ffffff99] block"></span>
                         <span class="text-[#fff] font-semibold text-sm">مقبول</span>
                     </div>
+                    <div class="bg-[#b54708] px-2 rounded-full w-fit flex items-center gap-2">
+                        <span class="w-[10px] h-[10px] rounded-full bg-[#ffffff99] block"></span>
+                        <span class="text-[#fff] font-semibold text-sm">مقبول من الموظف</span>
+                    </div>
                     <div class="bg-[#d92d20] px-2 rounded-full w-fit flex items-center gap-2">
                         <span class="w-[10px] h-[10px] rounded-full bg-[#ffffff99] block"></span>
                         <span class="text-[#fff] font-semibold text-sm">مرفوض</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-6 flex-wrap
-                ">
+">
                     <div class="flex items-center gap-2">
                         <span class="text-[14px] text-[#6c737f]">
-                            تاريخ الرفض
+                            تاريخ الرفض لطلب الالغاء
                         </span>
                         <h5 class="text-[#161616] font-[600]">
                             12/12/2024
@@ -54,27 +58,18 @@
                             12/12/2024
                         </h5>
                     </div>
-
+                    <div class="flex items-center gap-2">
+                        <span class="text-[14px] text-[#6c737f]">
+                            تاريخ قبول الموظف
+                        </span>
+                        <h5 class="text-[#161616] font-[600]">
+                            12/12/2024
+                        </h5>
+                    </div>
 
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                <div>
-                    <span class="text-[14px] text-[#6c737f]">
-                        الادارة
-                    </span>
-                    <h5 class="text-[#161616] font-[600] mt-2">
-                        الادارة
-                    </h5>
-                </div>
-                <div class="lg:col-span-2">
-                    <span class="text-[14px] text-[#6c737f]">
-                        اسم الموظف
-                    </span>
-                    <h5 class="text-[#161616] font-[600] mt-2">
-                        احمد محمد
-                    </h5>
-                </div>
+            <div class="bg-white p-6 rounded-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
                         نوع الاجازة
@@ -83,7 +78,6 @@
                         اجازة اعتيادي
                     </h5>
                 </div>
-
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
                         تاريخ البداية
@@ -94,7 +88,7 @@
                 </div>
                 <div>
                     <span class="text-[14px] text-[#6c737f]">
-                        تاريخ النهاية
+                        تاريخ الانتهاء
                     </span>
                     <h5 class="text-[#161616] font-[600] mt-2">
                         12/12/2024
@@ -113,8 +107,50 @@
                         نصف يوم
                     </div>
                 </div>
-
                 <div class="lg:col-span-2">
+                    <span class="text-[14px] text-[#6c737f]">
+                        ملاحظات
+                    </span>
+                    <h5 class="text-[#161616] font-[600] mt-2">
+                        محتوى الملاحظات تكون هنا
+                    </h5>
+                </div>
+
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+                <div>
+                    <span class="text-[14px] text-[#6c737f]">
+                        تاريخ بداية الغاء الأجازة
+                    </span>
+                    <h5 class="text-[#161616] font-[600] mt-2">
+                        12/12/2024
+                    </h5>
+                </div>
+                <div>
+                    <span class="text-[14px] text-[#6c737f]">
+                        تاريخ نهاية الغاء الأجازة
+                    </span>
+                    <h5 class="text-[#161616] font-[600] mt-2">
+                        12/12/2024
+                    </h5>
+                </div>
+                <div>
+                    <span class="text-[14px] text-[#6c737f]">
+                        عدد أيام الاجازة
+                    </span>
+                    <h5 class="text-[#161616] font-[600] mt-2">
+                        <div
+                            class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit mt-2 text-[#1f2a37] font-[500]">
+                            5
+                        </div>
+                        <div
+                            class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
+                            نصف يوم
+                        </div>
+                    </h5>
+                </div>
+                <div class="md:col-span-2 lg:col-span-3">
                     <span class="text-[14px] text-[#6c737f]">
                         ملاحظات
                     </span>
@@ -140,11 +176,14 @@
                             class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"></span>
                     </div>
                 </div>
+
+
+
             </div>
+
+
         </div>
-        <div class="flex items-center justify-between gap-4 mt-6">
-            <button class="btn gray-btn">إلغاء</button>
-            <button class="btn green-btn" (click)="cancelLeaveRequest()">تقديم طلب الغاء اجازات</button>
-        </div>
+
+
     </div>
 </div>
