@@ -4,6 +4,7 @@ import { PartialLeavePosition } from '@/enums/partial-leave-position-enum';
 import { LeaveInterceptor } from '@/model-interceptors/features/business/leave.interceptor';
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
 import { LeaveService } from '@/services/features/business/leave.service';
+import { CustomValidators } from '@/validators/custom-validators';
 import { Validators } from '@angular/forms';
 import { InterceptModel } from 'cast-response';
 
@@ -17,8 +18,8 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
   declare fkLeaveTypeId: number;
   declare fkParentLeaveId?: number;
 
-  declare dateFrom: string;
-  declare dateTo: string;
+  declare dateFrom: string | Date;
+  declare dateTo: string | Date;
   declare daysCount: number;
 
   declare partialLeavePosition: PartialLeavePosition;
@@ -57,7 +58,7 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
       fkUserId: [fkUserId ?? null, []],
       dateFrom: [dateFrom, [Validators.required]],
       dateTo: [dateTo, [Validators.required]],
-      daysCount: [daysCount, [Validators.required, Validators.min(0.5)]],
+      daysCount: [daysCount, [Validators.required, Validators.min(CustomValidators.defaultLengths.HALF_DAY_MIN)]],
       partialLeavePosition: [partialLeavePosition ?? PartialLeavePosition.None, []],
       isHalfDay: [isHalfDay ?? false, []],
       notes: [notes, []],

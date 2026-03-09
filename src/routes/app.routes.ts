@@ -29,6 +29,8 @@ import { leaveTypesResolver } from '@/resolvers/business/leave-types.resolver';
 import { employeesLeavesBalancesResolver } from '@/resolvers/business/employees-leaves-balances.resolver';
 import { employeesLeavesBalancesPagedResolver } from '@/resolvers/business/employees-leaves-balances-paged.resolver';
 import { employeesLeavesBalancesYearsResolver } from '@/resolvers/business/employees-leaves-balances-years.resolver';
+import { myLeavesResolver } from '@/resolvers/business/my-leaves.resolver';
+import { teamLeavesResolver } from '@/resolvers/business/team-leaves.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -366,10 +368,8 @@ export const routes: Routes = [
       {
         path: 'leaves-request',
         resolve: {
-          myLeavesList: () =>
-            import('@/resolvers/business/my-leaves.resolver').then((m) => m.myLeavesResolver),
-          teamLeavesList: () =>
-            import('@/resolvers/business/team-leaves.resolver').then((m) => m.teamLeavesResolver),
+          myLeavesList: myLeavesResolver,
+          teamLeavesList: teamLeavesResolver,
           leaveTypes: leaveTypesResolver,
         },
         loadComponent: () =>

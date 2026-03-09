@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { DatePicker } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Leave } from '@/models/features/business/leave/leave';
+import { LeaveInterceptor } from '@/model-interceptors/features/business/leave.interceptor';
 import { LeaveTypeService } from '@/services/features/business/leave-type.service';
 import { LeaveService } from '@/services/features/business/leave.service';
 import { LeaveTypeWithBalance } from '@/models/features/business/leave-types/leave-type-with-balance';
@@ -15,11 +16,23 @@ import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-
 import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { AlertService } from '@/services/shared/alert.service';
 import { Observable, of } from 'rxjs';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { ValidationMessagesComponent } from '@/views/shared/validation-messages/validation-messages.component';
+import { CustomValidators } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-add-new-leave-request',
   standalone: true,
-  imports: [Select, DatePicker, Textarea, ReactiveFormsModule, CommonModule, Checkbox, TranslateModule],
+  imports: [
+    Select,
+    DatePicker,
+    Textarea,
+    ReactiveFormsModule,
+    CommonModule,
+    Checkbox,
+    TranslateModule,
+    ValidationMessagesComponent,
+  ],
   templateUrl: './add-new-leave-request.component.html',
   styleUrl: './add-new-leave-request.component.scss',
 })
@@ -33,13 +46,15 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
   model: Leave = new Leave();
   form!: FormGroup;
   viewMode!: ViewModeEnum;
-  
+
   leaveTypes: LeaveTypeWithBalance[] = [];
   selectedLeaveType?: LeaveTypeWithBalance;
 
   override initPopup() {
     if (this.data && this.data.model) {
       this.model = Object.assign(new Leave(), this.data.model);
+      const { receive } = new LeaveInterceptor();
+      this.model = receive(this.model);
     }
     this.viewMode = this.data.viewMode || ViewModeEnum.CREATE;
     this.loadLeaveTypes();
@@ -47,7 +62,7 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
 
   override buildForm() {
     this.form = this.fb.group(this.model.buildForm());
-    
+
     this.form.get('fkLeaveTypeId')?.valueChanges.subscribe((id) => {
       this.selectedLeaveType = this.leaveTypes.find((t) => t.id === id);
       if (!this.selectedLeaveType?.canApplyOnHalfDay) {
@@ -56,7 +71,7 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
     });
 
     this.form.valueChanges.subscribe(() => {
-        this.calculateDays();
+      this.calculateDays();
     });
   }
 
@@ -76,8 +91,7 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
     this.alertService.showSuccessMessage(successObject);
   }
 
-  override saveFail(error: Error): void {
-  }
+  override saveFail(error: Error): void {}
 
   loadLeaveTypes() {
     this.leaveTypeService.getLeaveTypesWithBalances().subscribe((types) => {
@@ -96,9 +110,11 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
     const isHalfDay = this.form.get('isHalfDay')?.value;
 
     if (isHalfDay) {
-      this.form.get('daysCount')?.setValue(0.5, { emitEvent: false });
+      this.form
+        .get('daysCount')
+        ?.setValue(CustomValidators.defaultLengths.HALF_DAY_MIN, { emitEvent: false });
       if (from) {
-          this.form.get('dateTo')?.setValue(from, { emitEvent: false });
+        this.form.get('dateTo')?.setValue(from, { emitEvent: false });
       }
       return;
     }
@@ -110,5 +126,13 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
       this.form.get('daysCount')?.setValue(diffDays > 0 ? diffDays : 0, { emitEvent: false });
     }
+  }
+  getPropertyName(): string {
+    return this.languageService.getCurrentLanguage() === LANGUAGE_ENUM.ENGLISH
+      ? 'nameEn'
+      : 'nameAr';
+  }
+  getControl(controlName: string) {
+    return this.form.get(controlName) as FormControl;
   }
 }
