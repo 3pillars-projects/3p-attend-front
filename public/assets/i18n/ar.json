@@ -175,7 +175,8 @@
     "GREATER_THAN": "أكبر من",
     "RESET": "إعادة تعيين",
     "TYPE": "النوع",
-    "DEDUCT": "خصم"
+    "DEDUCT": "خصم",
+    "INSUFFICIENT_LEAVE_BALANCE": "رصيد الإجازة غير كافٍ"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",

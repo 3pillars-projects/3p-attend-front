@@ -49,7 +49,7 @@ export class LeavesListComponent
   leaveTypeStatusOptions: LeaveTypeStatusOption[] = LEAVE_TYPE_STATUS_OPTIONS;
 
   override get service() {
-    return this.leavetypeService;
+    return this.leavetypeService; 
   }
 
   override initListComponent(): void {}

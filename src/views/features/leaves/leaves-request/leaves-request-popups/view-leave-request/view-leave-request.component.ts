@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { LeaveStatus } from '@/enums/leave-status-enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '@/services/shared/language.service';
+import { AlertService } from '@/services/shared/alert.service';
 
 @Component({
   selector: 'app-view-leave-request',
@@ -20,6 +21,7 @@ export class ViewLeaveRequestComponent implements OnInit {
   dialogRef = inject(MatDialogRef<ViewLeaveRequestComponent>);
   data = inject(MAT_DIALOG_DATA);
   languageService = inject(LanguageService);
+  alertService = inject(AlertService);
   
   model: Leave = new Leave();
   LeaveStatusEnum = LeaveStatus;
@@ -44,6 +46,7 @@ export class ViewLeaveRequestComponent implements OnInit {
 
   reject() {
       if (!this.model.rejectionNote) {
+        this.alertService.showErrorMessage({ messages: ['LEAVE_REQUEST_PAGE.REJECTION_NOTE_REQUIRED'] });
           return;
       }
       this.model.reject().subscribe(() => {

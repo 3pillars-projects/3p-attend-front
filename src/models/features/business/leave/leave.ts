@@ -101,7 +101,7 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
 
   reject() {
     return this.$$getService$$<LeaveService>().rejectLeave({
-      id: this.id,
+      leaveId: this.id,
       rejectionNote: this.rejectionNote,
     });
   }

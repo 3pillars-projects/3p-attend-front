@@ -155,11 +155,9 @@
 
         @if (model.canTakeAction) {
           <div class="md:col-span-3">
-            <label class="label" for="rejectionNote"
-              >{{ 'LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate }} ({{
-                'COMMON.OPTIONAL' | translate
-              }})</label
-            >
+            <label class="label" for="rejectionNote">{{
+              'LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate
+            }}</label>
             <div class="relative w-full">
               <textarea
                 class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 focus:outline-none resize-none peer"

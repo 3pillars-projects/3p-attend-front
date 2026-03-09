@@ -109,7 +109,7 @@ export class LeaveService extends BaseCrudService<Leave> {
       );
   }
 
-  rejectLeave(model: { id: number; rejectionNote?: string }): Observable<Leave> {
+  rejectLeave(model: { leaveId: number; rejectionNote?: string }): Observable<Leave> {
     return this.http
       .post<ResponseData<Leave>>(this.getUrlSegment() + '/reject', model, { withCredentials: true })
       .pipe(

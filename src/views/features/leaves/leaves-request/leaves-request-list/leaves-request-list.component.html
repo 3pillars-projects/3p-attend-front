@@ -170,13 +170,17 @@
                     <td>{{ leave.dateFrom | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ leave.dateTo | date: 'dd/MM/yyyy' }}</td>
                     <td>
-                      <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
-                        {{ leave.daysCount }}
-                      </div>
-                      <div
-                        class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
-                        نصف يوم
-                      </div>
+                      @if (leave.isHalfDay) {
+                        <div
+                          class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]"
+                        >
+                          نصف يوم
+                        </div>
+                      } @else {
+                        <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                          {{ leave.daysCount }}
+                        </div>
+                      }
                     </td>
                     <td>
                       @if (leave.status === LeaveStatusEnum.New) {
@@ -410,13 +414,17 @@
                     <td>{{ leave.dateFrom | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ leave.dateTo | date: 'dd/MM/yyyy' }}</td>
                     <td>
-                      <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
-                        {{ leave.daysCount }}
-                      </div>
-                      <div
-                        class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]">
-                        نصف يوم
-                      </div>
+                      @if (leave.isHalfDay) {
+                        <div
+                          class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]"
+                        >
+                          نصف يوم
+                        </div>
+                      } @else {
+                        <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                          {{ leave.daysCount }}
+                        </div>
+                      }
                     </td>
                     <td>
                       @if (leave.status === LeaveStatusEnum.New) {

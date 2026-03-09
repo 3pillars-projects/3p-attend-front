@@ -174,7 +174,8 @@
     "LESS_THAN": "Less than",
     "GREATER_THAN": "Greater than",
     "RESET": "Reset",
-    "TYPE": "Type"
+    "TYPE": "Type",
+    "INSUFFICIENT_LEAVE_BALANCE": "Insufficient leave balance"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
