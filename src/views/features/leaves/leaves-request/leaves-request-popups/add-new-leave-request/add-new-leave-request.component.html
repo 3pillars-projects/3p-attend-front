@@ -112,8 +112,10 @@
             ></span>
           </div>
           <app-validation-messages [control]="getControl('dateTo')"></app-validation-messages>
+          <app-validation-messages [control]="form"></app-validation-messages>
         </div>
       }
+
       <div class="md:col-span-2 lg:col-span-3">
         <label class="label" for="notes">{{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}</label>
         <div class="relative w-full">
@@ -135,10 +137,10 @@
     </div>
     <div class="flex items-center justify-between gap-4 mt-6">
       <button class="btn gray-btn" (click)="close()">
-        {{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+        {{ 'COMMON.CANCEL' | translate }}
       </button>
       <button class="btn green-btn" (click)="save$.next()">
-        {{ 'LEAVE_REQUEST_PAGE.SAVE' | translate }}
+        {{ 'COMMON.SAVE' | translate }}
       </button>
     </div>
   </div>

@@ -9,6 +9,7 @@ import { LeaveStatus } from '@/enums/leave-status-enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '@/services/shared/language.service';
 import { AlertService } from '@/services/shared/alert.service';
+import { ViewModeEnum } from '@/enums/view-mode-enum';
 
 @Component({
   selector: 'app-view-leave-request',
@@ -22,38 +23,55 @@ export class ViewLeaveRequestComponent implements OnInit {
   data = inject(MAT_DIALOG_DATA);
   languageService = inject(LanguageService);
   alertService = inject(AlertService);
-  
+
   model: Leave = new Leave();
   LeaveStatusEnum = LeaveStatus;
+  canCancel: boolean = false;
 
   ngOnInit() {
     if (this.data && this.data.model) {
       this.model = Object.assign(new Leave(), this.data.model);
     }
+    this.canCancel = this.data.viewMode == ViewModeEnum.TAKE_ACTION;
   }
 
   accept() {
-      // Assuming the service has an 'approve' method or similar on the model
-      // Given BaseCrudModel, let's see if there's a specific action.
-      // Usually it's model.approve() or similar if implemented.
-      // Since I don't see it in the model, I'll assume LeaveService handles it.
-      // For now, I'll just close with OK and let the parent handle or assume a service call here.
-      // Looking at common patterns in this codebase, models often have action methods.
-      this.model.approve().subscribe(() => {
-          this.dialogRef.close(DIALOG_ENUM.OK);
-      });
+    // Assuming the service has an 'approve' method or similar on the model
+    // Given BaseCrudModel, let's see if there's a specific action.
+    // Usually it's model.approve() or similar if implemented.
+    // Since I don't see it in the model, I'll assume LeaveService handles it.
+    // For now, I'll just close with OK and let the parent handle or assume a service call here.
+    // Looking at common patterns in this codebase, models often have action methods.
+    this.model.approve().subscribe(() => {
+      this.dialogRef.close(DIALOG_ENUM.OK);
+    });
   }
 
   reject() {
-      if (!this.model.rejectionNote) {
-        this.alertService.showErrorMessage({ messages: ['LEAVE_REQUEST_PAGE.REJECTION_NOTE_REQUIRED'] });
-          return;
-      }
-      this.model.reject().subscribe(() => {
-          this.dialogRef.close(DIALOG_ENUM.OK);
+    if (!this.model.rejectionNote) {
+      this.alertService.showErrorMessage({
+        messages: ['LEAVE_REQUEST_PAGE.REJECTION_NOTE_REQUIRED'],
       });
+      return;
+    }
+    this.model.reject().subscribe(() => {
+      this.dialogRef.close(DIALOG_ENUM.OK);
+    });
   }
+  cancel() {
+    this.model.cancel().subscribe(() => {
+      this.dialogRef.close(DIALOG_ENUM.OK);
+    });
+  }
+  canceledByEmployee(startDate: string | Date) {
+    if (!startDate) return false;
+    const start = new Date(startDate);
+    const today = new Date();
+    start.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
 
+    return (this.model.status != this.LeaveStatusEnum.Rejected && this.model.status != this.LeaveStatusEnum.Accepted && this.model.status != this.LeaveStatusEnum.Canceled) && this.canCancel && start.getTime() > today.getTime();
+  }
   close() {
     this.dialogRef.close(DIALOG_ENUM.CANCEL);
   }

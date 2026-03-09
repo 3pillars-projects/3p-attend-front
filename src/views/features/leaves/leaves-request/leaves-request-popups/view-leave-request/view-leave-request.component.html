@@ -198,6 +198,12 @@
           {{ 'LEAVE_REQUEST_PAGE.ACCEPT' | translate }}
         </button>
       </div>
+    } @else if (canceledByEmployee(model.dateFrom)) {
+      <div class="flex items-center justify-end mt-6">
+        <button class="btn gray-btn" (click)="cancel()">
+          {{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+        </button>
+      </div>
     } @else {
       <div class="flex items-center justify-end mt-6">
         <button class="btn gray-btn" (click)="close()">

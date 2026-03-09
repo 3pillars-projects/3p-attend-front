@@ -176,7 +176,9 @@
     "RESET": "إعادة تعيين",
     "TYPE": "النوع",
     "DEDUCT": "خصم",
-    "INSUFFICIENT_LEAVE_BALANCE": "رصيد الإجازة غير كافٍ"
+    "INSUFFICIENT_LEAVE_BALANCE": "رصيد الإجازة غير كافٍ",
+    "LEAVE_CONTINUOUS_DAYS_EXCEEDED": "لقد تجاوزت الحد الأقصى لعدد الأيام المتتالية المسموح بها",
+    "LEAVE_OVERLAP": "الإجازة تتداخل مع إجازة أخرى"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
@@ -1092,7 +1094,7 @@
       "REJECT": "رفض الطلب",
       "CLOSE": "إغلاق",
       "SAVE": "حفظ",
-      "CANCEL": "إلغاء",
+      "CANCEL": "إلغاء الطلب",
       "STATUS_NEW": "جديد",
       "STATUS_ACCEPTED": "مقبول",
       "STATUS_REJECTED": "مرفوض",

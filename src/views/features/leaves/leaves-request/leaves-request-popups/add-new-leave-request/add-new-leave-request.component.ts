@@ -61,7 +61,7 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
   }
 
   override buildForm() {
-    this.form = this.fb.group(this.model.buildForm());
+    this.form = this.fb.group(this.model.buildForm(), this.model.getCustomValidators());
 
     this.form.get('fkLeaveTypeId')?.valueChanges.subscribe((id) => {
       this.selectedLeaveType = this.leaveTypes.find((t) => t.id === id);

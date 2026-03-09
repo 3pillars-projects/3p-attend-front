@@ -58,11 +58,20 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
       fkUserId: [fkUserId ?? null, []],
       dateFrom: [dateFrom, [Validators.required]],
       dateTo: [dateTo, [Validators.required]],
-      daysCount: [daysCount, [Validators.required, Validators.min(CustomValidators.defaultLengths.HALF_DAY_MIN)]],
+      daysCount: [
+        daysCount,
+        [Validators.required, Validators.min(CustomValidators.defaultLengths.HALF_DAY_MIN)],
+      ],
       partialLeavePosition: [partialLeavePosition ?? PartialLeavePosition.None, []],
       isHalfDay: [isHalfDay ?? false, []],
       notes: [notes, []],
       attachmentId: [attachmentId ?? null, []],
+    };
+  }
+
+  getCustomValidators(): any {
+    return {
+      validators: [CustomValidators.startBeforeEnd('dateFrom', 'dateTo')],
     };
   }
 
@@ -104,5 +113,9 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
       leaveId: this.id,
       rejectionNote: this.rejectionNote,
     });
+  }
+
+  cancel() {
+    return this.$$getService$$<LeaveService>().cancelLeaveByEmployee(this.id);
   }
 }

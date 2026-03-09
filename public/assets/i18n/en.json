@@ -175,7 +175,9 @@
     "GREATER_THAN": "Greater than",
     "RESET": "Reset",
     "TYPE": "Type",
-    "INSUFFICIENT_LEAVE_BALANCE": "Insufficient leave balance"
+    "INSUFFICIENT_LEAVE_BALANCE": "Insufficient leave balance",
+    "LEAVE_CONTINUOUS_DAYS_EXCEEDED": "Leave continuous days exceeded",
+    "LEAVE_OVERLAP": "Leave overlap"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -1094,7 +1096,7 @@
       "REJECT": "Reject Request",
       "CLOSE": "Close",
       "SAVE": "Save",
-      "CANCEL": "Cancel",
+      "CANCEL": "Cancel Request",
       "STATUS_NEW": "New",
       "STATUS_ACCEPTED": "Accepted",
       "STATUS_REJECTED": "Rejected",
