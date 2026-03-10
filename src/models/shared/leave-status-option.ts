@@ -5,6 +5,7 @@ export interface LeaveStatusOption {
   nameEn: string;
   nameAr: string;
   value: LeaveStatus;
+  [key: string]: any;
 }
 
 export const LEAVE_STATUS_OPTIONS: LeaveStatusOption[] = [

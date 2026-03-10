@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Textarea } from 'primeng/textarea';
 import { CommonModule } from '@angular/common';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Leave } from '@/models/features/business/leave/leave';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '@/services/shared/language.service';
 import { AlertService } from '@/services/shared/alert.service';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
+import { AddCancelLeaveRequestComponent } from '../add-cancel-leave-request/add-cancel-leave-request.component';
 
 @Component({
   selector: 'app-view-leave-request',
@@ -23,6 +24,7 @@ export class ViewLeaveRequestComponent implements OnInit {
   data = inject(MAT_DIALOG_DATA);
   languageService = inject(LanguageService);
   alertService = inject(AlertService);
+  matDialog = inject(MatDialog);
 
   model: Leave = new Leave();
   LeaveStatusEnum = LeaveStatus;
@@ -70,9 +72,29 @@ export class ViewLeaveRequestComponent implements OnInit {
     start.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
-    return (this.model.status != this.LeaveStatusEnum.Rejected && this.model.status != this.LeaveStatusEnum.Accepted && this.model.status != this.LeaveStatusEnum.Canceled) && this.canCancel && start.getTime() > today.getTime();
+    return (
+      this.model.status != this.LeaveStatusEnum.Rejected &&
+      this.model.status != this.LeaveStatusEnum.Accepted &&
+      this.model.status != this.LeaveStatusEnum.Canceled &&
+      this.canCancel &&
+      start.getTime() > today.getTime()
+    );
   }
   close() {
     this.dialogRef.close(DIALOG_ENUM.CANCEL);
+  }
+
+  openCancelDialog() {
+    const dialogConfig = {
+      data: { model: this.model },
+      width: '100%',
+      maxWidth: '1024px',
+    };
+    const dialogRef = this.matDialog.open(AddCancelLeaveRequestComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === DIALOG_ENUM.OK) {
+        this.dialogRef.close(DIALOG_ENUM.OK);
+      }
+    });
   }
 }

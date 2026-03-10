@@ -156,6 +156,13 @@
                   'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate
                 }}</span>
               </div>
+            } @else if (leave.status === LeaveStatusEnum.Accepted) {
+              <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                <span class="text-[#085d3a] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED' | translate
+                }}</span>
+              </div>
             } @else if (leave.status === LeaveStatusEnum.ManagementAcceptance) {
               <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
                 <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>

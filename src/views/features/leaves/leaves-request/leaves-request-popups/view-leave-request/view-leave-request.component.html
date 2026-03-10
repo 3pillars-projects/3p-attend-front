@@ -22,6 +22,13 @@
                 'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate
               }}</span>
             </div>
+          } @else if (model.status === LeaveStatusEnum.Accepted) {
+            <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+              <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+              <span class="text-[#085d3a] font-semibold text-sm">{{
+                'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED' | translate
+              }}</span>
+            </div>
           } @else if (model.status === LeaveStatusEnum.HRAcceptance) {
             <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
               <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
@@ -188,28 +195,36 @@
         }
       </div>
     </div>
-
-    @if (model.canTakeAction) {
-      <div class="flex items-center justify-between gap-4 mt-6">
-        <button class="btn red-btn" (click)="reject()">
-          {{ 'LEAVE_REQUEST_PAGE.REJECT' | translate }}
-        </button>
-        <button class="btn green-btn" (click)="accept()">
-          {{ 'LEAVE_REQUEST_PAGE.ACCEPT' | translate }}
-        </button>
-      </div>
-    } @else if (canceledByEmployee(model.dateFrom)) {
-      <div class="flex items-center justify-end mt-6">
-        <button class="btn gray-btn" (click)="cancel()">
-          {{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}
-        </button>
-      </div>
-    } @else {
-      <div class="flex items-center justify-end mt-6">
+    <div class="flex items-center justify-between mt-6">
+      @if (model.canTakeAction) {
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <button class="btn green-btn" (click)="accept()">
+              {{ 'LEAVE_REQUEST_PAGE.ACCEPT' | translate }}
+            </button>
+            <button class="btn !text-[#b42318] red-btn-action" (click)="reject()">
+              {{ 'LEAVE_REQUEST_PAGE.REJECT' | translate }}
+            </button>
+          </div>
+        </div>
+      } @else if (canceledByEmployee(model.dateFrom)) {
+        <div class="flex items-center justify-end">
+          <button class="btn gray-btn" (click)="cancel()">
+            {{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+          </button>
+        </div>
+      } @else if (model.status === LeaveStatusEnum.Accepted) {
+        <div class="flex items-center justify-end">
+          <button class="btn blue-btn" (click)="openCancelDialog()">
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+          </button>
+        </div>
+      }
+      <div class="flex items-center justify-between">
         <button class="btn gray-btn" (click)="close()">
           {{ 'LEAVE_REQUEST_PAGE.CLOSE' | translate }}
         </button>
       </div>
-    }
+    </div>
   </div>
 </div>

@@ -14,7 +14,6 @@ import { LeaveService } from '@/services/features/business/leave.service';
 import { TeamLeaveFilter } from '@/models/features/business/leave/team-leave-filter';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { LeaveStatus } from '@/enums/leave-status-enum';
-import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LEAVE_STATUS_OPTIONS, LeaveStatusOption } from '@/models/shared/leave-status-option';
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
 import { ActivatedRoute } from '@angular/router';
@@ -22,6 +21,7 @@ import { ViewLeaveRequestComponent } from '../leaves-request-popups/view-leave-r
 import { InputTextModule } from 'primeng/inputtext';
 import { DepartmentService } from '@/services/features/lookups/department.service';
 import { UserService } from '@/services/features/user.service';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
 
 @Component({
   selector: 'app-team-leaves-request-list',
@@ -63,7 +63,8 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
   users: BaseLookupModel[] = [];
   userService = inject(UserService);
 
-  LeaveStatusEnum = LeaveStatus;
+  public LeaveStatusEnum = LeaveStatus;
+  public languageEnum = LANGUAGE_ENUM;
 
   override get service() {
     return this.leaveService;
@@ -132,5 +133,75 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
     routerLink?: string;
   }[] {
     return [{ labelKey: 'COMMON.DASHBOARD' }, { labelKey: 'LEAVE_REQUEST_PAGE.LEAVE_REQUESTS' }];
+  }
+
+  public getLanguage() {
+    return this.langService.getCurrentLanguage();
+  }
+
+  public getStatusDisplay(status: LeaveStatus): {
+    bgClass: string;
+    dotClass: string;
+    textClass: string;
+    textKey: string;
+  } {
+    switch (status) {
+      case LeaveStatus.New:
+        return {
+          bgClass: 'bg-[#eff8ff]',
+          dotClass: 'bg-[#1849a9]',
+          textClass: 'text-[#1849a9]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_NEW',
+        };
+      case LeaveStatus.Accepted:
+        return {
+          bgClass: 'bg-[#ecfdf3]',
+          dotClass: 'bg-[#085d3a]',
+          textClass: 'text-[#085d3a]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED',
+        };
+      case LeaveStatus.ManagementAcceptance:
+        return {
+          bgClass: 'bg-[#ecfdf3]',
+          dotClass: 'bg-[#085d3a]',
+          textClass: 'text-[#085d3a]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE',
+        };
+      case LeaveStatus.HRAcceptance:
+        return {
+          bgClass: 'bg-[#fffaeb]',
+          dotClass: 'bg-[#93370d]',
+          textClass: 'text-[#93370d]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE',
+        };
+      case LeaveStatus.Rejected:
+        return {
+          bgClass: 'bg-[#fef3f2]',
+          dotClass: 'bg-[#912018]',
+          textClass: 'text-[#912018]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_REJECTED',
+        };
+      case LeaveStatus.Canceled:
+        return {
+          bgClass: 'bg-[#f9fafb]',
+          dotClass: 'bg-[#4d5761]',
+          textClass: 'text-[#1f2a37]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_CANCELED',
+        };
+      case LeaveStatus.DoesNotNeedAcceptance:
+        return {
+          bgClass: 'bg-[#f9fafb]',
+          dotClass: 'bg-[#4d5761]',
+          textClass: 'text-[#1f2a37]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE',
+        };
+      default:
+        return {
+          bgClass: 'bg-gray-100',
+          dotClass: 'bg-gray-400',
+          textClass: 'text-gray-800',
+          textKey: 'COMMON.UNKNOWN',
+        };
+    }
   }
 }

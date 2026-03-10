@@ -31,6 +31,8 @@ import { employeesLeavesBalancesPagedResolver } from '@/resolvers/business/emplo
 import { employeesLeavesBalancesYearsResolver } from '@/resolvers/business/employees-leaves-balances-years.resolver';
 import { myLeavesResolver } from '@/resolvers/business/my-leaves.resolver';
 import { teamLeavesResolver } from '@/resolvers/business/team-leaves.resolver';
+import { myCancelLeavesResolver } from '@/resolvers/business/my-cancel-leaves.resolver';
+import { teamCancelLeavesResolver } from '@/resolvers/business/team-cancel-leaves.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -236,8 +238,17 @@ export const routes: Routes = [
       },
       {
         path: 'cancel-leaves-request',
+        canActivate: [authGuard],
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVE_REQUESTS },
+        resolve: {
+          myCancelationRequests: myCancelLeavesResolver,
+          teamCancelationRequests: teamCancelLeavesResolver,
+          leaveTypes: leaveTypesResolver
+        },
         loadComponent: () =>
-          import('@/views/features/leaves/cancel-leaves-request/cancel-leaves-request-list/cancel-leaves-request-list.component'),
+          import(
+            '@/views/features/leaves/cancel-leaves-request/cancel-leaves-request-list/cancel-leaves-request-list.component'
+          ),
       },
       {
         path: 'leaves-list',

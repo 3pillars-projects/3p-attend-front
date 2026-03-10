@@ -1,0 +1,189 @@
+<div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+  <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+    <div class="flex items-center justify-between">
+      <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+        {{ 'CANCEL_LEAVE_REQUEST_PAGE.SEARCH' | translate }}
+      </h5>
+    </div>
+    <div class="pt-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div class="relative">
+          <label class="label" for="leaveType">{{
+            'CANCEL_LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate
+          }}</label>
+          <p-select
+            [options]="leaveTypes"
+            [(ngModel)]="filterModel.fkLeaveId"
+            [optionLabel]="optionLabel"
+            optionValue="id"
+            [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate"
+            class="w-full peer"
+            id="leaveType"
+            [showClear]="true"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="dateFrom">{{
+            'CANCEL_LEAVE_REQUEST_PAGE.DATE_FROM' | translate
+          }}</label>
+          <p-datepicker
+            [(ngModel)]="filterModel.dateFrom"
+            [iconDisplay]="'input'"
+            [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.DATE_FROM' | translate"
+            [showIcon]="true"
+            class="peer block w-full"
+            inputId="dateFrom"
+            [showClear]="true"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="dateTo">{{
+            'CANCEL_LEAVE_REQUEST_PAGE.DATE_TO' | translate
+          }}</label>
+          <p-datepicker
+            [(ngModel)]="filterModel.dateTo"
+            [iconDisplay]="'input'"
+            [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.DATE_TO' | translate"
+            [showIcon]="true"
+            class="peer block w-full"
+            inputId="dateTo"
+            [showClear]="true"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="status">{{
+            'CANCEL_LEAVE_REQUEST_PAGE.STATUS' | translate
+          }}</label>
+          <p-select
+            [options]="statusOptions"
+            [(ngModel)]="filterModel.status"
+            [optionLabel]="optionLabel"
+            optionValue="id"
+            [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.STATUS' | translate"
+            class="w-full peer"
+            id="status"
+            [showClear]="true"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+      </div>
+
+      <div class="actions flex items-center gap-4 pt-6">
+        <button class="btn black-btn" (click)="search()">
+          {{ 'CANCEL_LEAVE_REQUEST_PAGE.SEARCH' | translate }}
+        </button>
+        <button class="btn gray-btn border border-[#d2d6db]" (click)="resetSearch()">
+          {{ 'CANCEL_LEAVE_REQUEST_PAGE.RESET' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6">
+    <div
+      class="flex items-start xl:items-center justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
+    >
+      <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+        {{ 'CANCEL_LEAVE_REQUEST_PAGE.MY_CANCEL_LEAVE_REQUESTS' | translate }}
+      </h4>
+      <div class="actions flex items-center gap-4 ms-auto">
+        <button class="table-head-action-btn" (click)="exportExcel('my-cancelations.xlsx')">
+          <img src="assets/icons/excel.svg" alt="" />
+        </button>
+      </div>
+    </div>
+    <p-table [value]="list">
+      <ng-template #header>
+        <tr>
+          <th>{{ 'CANCEL_LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</th>
+          <th>{{ 'CANCEL_LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}</th>
+          <th>{{ 'CANCEL_LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</th>
+          <th class="text-center">{{ 'CANCEL_LEAVE_REQUEST_PAGE.NUMBER_OF_DAYS' | translate }}</th>
+          <th class="text-center">{{ 'CANCEL_LEAVE_REQUEST_PAGE.LEAVE_STATUS' | translate }}</th>
+          <th class="text-center">
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCELLATION_REQUEST_STATUS' | translate }}
+          </th>
+          <th class="text-center">{{ 'CANCEL_LEAVE_REQUEST_PAGE.ACTIONS' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-request>
+        <tr>
+          <td>{{ request.leaveType?.[optionLabel] || '---' }}</td>
+          <td>{{ request.dateFrom | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ request.dateTo | date: 'dd/MM/yyyy' }}</td>
+          <td class="text-center">{{ request.leave?.daysCount || '---' }}</td>
+          <td>
+            <div class="flex items-center justify-center">
+              <span class="font-semibold text-sm">{{
+                getLeaveStatusName(request.leaveStatus)
+              }}</span>
+            </div>
+          </td>
+          <td>
+            <div
+              [class]="
+                getStatusClass(request.status) +
+                ' px-2 rounded-full w-fit mx-auto flex items-center gap-2'
+              "
+            >
+              <span
+                [class]="
+                  getStatusDotClass(request.status) + ' w-[10px] h-[10px] rounded-full block'
+                "
+              ></span>
+              <span class="font-semibold text-sm">{{
+                statusOptions[request.status - 1][optionLabel]
+              }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center gap-2">
+              <button class="table-action-gray-btn" (click)="openDialog(request)">
+                <img src="assets/icons/view.svg" alt="" />
+              </button>
+              <button
+                class="table-action-red-btn"
+                *ngIf="request.status === 1"
+                (click)="deleteModel(request.id)"
+              >
+                <img src="assets/icons/delete.svg" alt="" />
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-paginator
+      class="mt-6"
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="paginationInfo.totalItems"
+      [rowsPerPageOptions]="[10, 20, 30]"
+    />
+  </div>
+</div>
