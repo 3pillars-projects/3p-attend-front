@@ -29,12 +29,14 @@ export class ViewLeaveRequestComponent implements OnInit {
   model: Leave = new Leave();
   LeaveStatusEnum = LeaveStatus;
   canCancel: boolean = false;
+  mGRCanCancel: boolean = false;
 
   ngOnInit() {
     if (this.data && this.data.model) {
       this.model = Object.assign(new Leave(), this.data.model);
     }
     this.canCancel = this.data.viewMode == ViewModeEnum.TAKE_ACTION;
+    this.mGRCanCancel = this.data.viewMode == ViewModeEnum.MANAGER_TAKE_ACTION;
   }
 
   accept() {
@@ -79,6 +81,9 @@ export class ViewLeaveRequestComponent implements OnInit {
       this.canCancel &&
       start.getTime() > today.getTime()
     );
+  }
+  cancelByManager() {
+    return this.model.status == this.LeaveStatusEnum.Accepted && this.mGRCanCancel;
   }
   close() {
     this.dialogRef.close(DIALOG_ENUM.CANCEL);

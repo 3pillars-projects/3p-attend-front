@@ -103,7 +103,7 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
   }
 
   openViewLeaveRequest(model: Leave) {
-    this.openBaseDialog(ViewLeaveRequestComponent as any, model, ViewModeEnum.VIEW);
+    this.openBaseDialog(ViewLeaveRequestComponent as any, model, ViewModeEnum.MANAGER_TAKE_ACTION);
   }
 
   protected override mapModelToExcelRow(model: Leave): { [key: string]: any } {

@@ -4,4 +4,5 @@ export enum ViewModeEnum {
   EDIT = 3,
   VIEW = 4,
   TAKE_ACTION = 5,
+  MANAGER_TAKE_ACTION = 6,
 }
