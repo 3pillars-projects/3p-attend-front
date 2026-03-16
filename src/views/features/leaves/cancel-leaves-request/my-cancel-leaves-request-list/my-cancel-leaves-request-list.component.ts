@@ -21,7 +21,7 @@ import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LEAVE_STATUS_OPTIONS, LeaveStatusOption } from '@/models/shared/leave-status-option';
 import { CancelationRequestStatus } from '@/enums/cancelation-request-status-enum';
-import { ViewLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-leave-request.component';
+import { ViewCancelLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-cancel-leave-request.component';
 
 @Component({
   selector: 'app-my-cancel-leaves-request-list',
@@ -42,7 +42,7 @@ import { ViewLeaveRequestComponent } from '../cancel-leaves-request-popups/view-
 })
 export class MyCancelLeavesRequestListComponent extends BaseListComponent<
   CancelationRequest,
-  ViewLeaveRequestComponent,
+  ViewCancelLeaveRequestComponent,
   CancelationRequestService,
   CancelationRequestFilter
 > {
@@ -77,7 +77,7 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
 
   override loadList() {
     return this.cancelationRequestService
-      .getMyCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
+      .getEmployeesCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
       .pipe(
         map((res) => ({
           list: res.data.list as CancelationRequest[],
@@ -87,7 +87,7 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
   }
 
   override openDialog(model: CancelationRequest) {
-    this.openBaseDialog(ViewLeaveRequestComponent as any, model, ViewModeEnum.VIEW);
+    this.openBaseDialog(ViewCancelLeaveRequestComponent as any, model, ViewModeEnum.VIEW);
   }
 
   protected override mapModelToExcelRow(model: CancelationRequest): { [key: string]: any } {

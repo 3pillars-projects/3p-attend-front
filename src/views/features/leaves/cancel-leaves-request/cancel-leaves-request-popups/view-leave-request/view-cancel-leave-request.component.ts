@@ -12,20 +12,23 @@ import { TextareaModule } from 'primeng/textarea';
 import { CancelationRequestService } from '@/services/features/business/cancelation-request.service';
 import { AlertService } from '@/services/shared/alert.service';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
+import { AuthService } from '@/services/auth/auth.service';
+import { DIALOG_ENUM } from '@/enums/dialog-enum';
 
 @Component({
-  selector: 'app-view-leave-request',
+  selector: 'app-view-cancel-leave-request',
   standalone: true,
   imports: [CommonModule, MatDialogModule, TranslateModule, FormsModule, TextareaModule],
-  templateUrl: './view-leave-request.component.html',
-  styleUrl: './view-leave-request.component.scss',
+  templateUrl: './view-cancel-leave-request.component.html',
+  styleUrl: './view-cancel-leave-request.component.scss',
 })
-export class ViewLeaveRequestComponent implements OnInit {
+export class ViewCancelLeaveRequestComponent implements OnInit {
   data = inject(MAT_DIALOG_DATA);
-  dialogRef = inject(MatDialogRef<ViewLeaveRequestComponent>);
+  dialogRef = inject(MatDialogRef<ViewCancelLeaveRequestComponent>);
   langService = inject(LanguageService);
   cancelationRequestService = inject(CancelationRequestService);
   alert = inject(AlertService);
+  authService = inject(AuthService);
 
   model: CancelationRequest = this.data.model;
   viewMode: ViewModeEnum = this.data.viewMode;
@@ -34,9 +37,6 @@ export class ViewLeaveRequestComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  get isEditMode(): boolean {
-    return this.viewMode === ViewModeEnum.EDIT;
-  }
 
   get isAr(): boolean {
     return this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
@@ -55,7 +55,7 @@ export class ViewLeaveRequestComponent implements OnInit {
       this.alert.showSuccessMessage({
         messages: [this.isAr ? 'تم قبول الطلب بنجاح' : 'Request approved successfully'],
       });
-      this.dialogRef.close(true);
+      this.dialogRef.close(DIALOG_ENUM.OK);
     });
   }
 
@@ -75,7 +75,7 @@ export class ViewLeaveRequestComponent implements OnInit {
         this.alert.showSuccessMessage({
           messages: [this.isAr ? 'تم رفض الطلب بنجاح' : 'Request rejected successfully'],
         });
-        this.dialogRef.close(true);
+        this.dialogRef.close(DIALOG_ENUM.OK);
       });
   }
 
@@ -115,4 +115,6 @@ export class ViewLeaveRequestComponent implements OnInit {
         return 'bg-gray-400';
     }
   }
+
+
 }

@@ -91,33 +91,37 @@
             {{ model.rejectionNote }}
           </h5>
         </div>
-
-        <div class="md:col-span-2 lg:col-span-3 pt-6 border-t border-[#d2d6db]" *ngIf="isEditMode">
-          <label class="label">{{ 'CANCEL_LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate }}</label>
-          <div class="relative w-full">
-            <textarea
-              class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-3 focus:outline-none resize-none peer"
-              cols="30"
-              pTextarea
-              [(ngModel)]="rejectionNote"
-              [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate"
-              rows="5"
-            ></textarea>
-            <span
-              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
-            ></span>
+        @if (model.canTakeAction) {
+          <div class="md:col-span-2 lg:col-span-3 pt-6 border-t border-[#d2d6db]">
+            <label class="label">{{
+              'CANCEL_LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate
+            }}</label>
+            <div class="relative w-full">
+              <textarea
+                class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-3 focus:outline-none resize-none peer"
+                cols="30"
+                pTextarea
+                [(ngModel)]="rejectionNote"
+                [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate"
+                rows="5"
+              ></textarea>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+              ></span>
+            </div>
           </div>
+        }
+      </div>
+      @if (model.canTakeAction) {
+        <div class="flex items-center gap-4 mt-8">
+          <button class="btn green-btn" (click)="approve()">
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.ACCEPT' | translate }}
+          </button>
+          <button class="btn !text-[#b42318] red-btn-action" (click)="reject()">
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.REJECT' | translate }}
+          </button>
         </div>
-      </div>
-
-      <div class="flex items-center gap-4 mt-8" *ngIf="isEditMode">
-        <button class="btn black-btn" (click)="approve()">
-          {{ 'CANCEL_LEAVE_REQUEST_PAGE.ACCEPT' | translate }}
-        </button>
-        <button class="btn red-btn" (click)="reject()">
-          {{ 'CANCEL_LEAVE_REQUEST_PAGE.REJECT' | translate }}
-        </button>
-      </div>
+      }
     </div>
   </div>
 </div>

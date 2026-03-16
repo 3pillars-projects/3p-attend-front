@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { CommonModule } from '@angular/common';
 import { Tabs, TabsModule } from 'primeng/tabs';
@@ -34,6 +34,22 @@ export default class CancelLeavesRequestListComponent extends BaseListComponent<
     width: '100%',
     maxWidth: '1024px',
   };
+
+  @ViewChild('myList') myList!: MyCancelLeavesRequestListComponent;
+  @ViewChild('teamList') teamList!: TeamCancelLeavesRequestListComponent;
+
+  activeTabIndex = 0;
+
+  onTabChange(index: number | string) {
+    this.activeTabIndex = Number(index);
+
+    if (this.activeTabIndex === 0 && this.myList) {
+      this.myList.resetSearch();
+    } else if (this.activeTabIndex === 1 && this.teamList) {
+      this.teamList.resetSearch();
+    }
+  }
+
   private _filterModel = {};
   override get filterModel() {
     return this._filterModel;

@@ -23,7 +23,7 @@ import { LEAVE_STATUS_OPTIONS, LeaveStatusOption } from '@/models/shared/leave-s
 import { CancelationRequestStatus } from '@/enums/cancelation-request-status-enum';
 import { DepartmentService } from '@/services/features/lookups/department.service';
 import { UserService } from '@/services/features/user.service';
-import { ViewLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-leave-request.component';
+import { ViewCancelLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-cancel-leave-request.component';
 import { LeaveStatus } from '@/enums/leave-status-enum';
 
 @Component({
@@ -45,7 +45,7 @@ import { LeaveStatus } from '@/enums/leave-status-enum';
 })
 export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   CancelationRequest,
-  ViewLeaveRequestComponent,
+  ViewCancelLeaveRequestComponent,
   CancelationRequestService,
   CancelationRequestFilter
 > {
@@ -71,11 +71,6 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
 
   override initListComponent() {
     this.activatedRoute.data.subscribe((data) => {
-      if (data['teamCancelationRequests']) {
-        const cancelationRequestsData = data['teamCancelationRequests'].data;
-        this.list = cancelationRequestsData.list;
-        this.paginationInfoMap(cancelationRequestsData);
-      }
       if (data['leaveTypes']) {
         this.leaveTypes = data['leaveTypes'].list;
       }
@@ -90,7 +85,7 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
 
   override loadList() {
     return this.cancelationRequestService
-      .getTeamCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
+      .getMyLeavesCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
       .pipe(
         map((res) => ({
           list: res.data.list as CancelationRequest[],
@@ -100,11 +95,10 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   }
 
   override openDialog(model: CancelationRequest) {
-    this.openViewLeaveRequest(model);
-  }
+    this.openViewCancelLeaveRequest(model);}
 
-  openViewLeaveRequest(model: CancelationRequest) {
-    this.openBaseDialog(ViewLeaveRequestComponent as any, model, ViewModeEnum.EDIT);
+  openViewCancelLeaveRequest(model: CancelationRequest) {
+    this.openBaseDialog(ViewCancelLeaveRequestComponent as any, model, ViewModeEnum.EDIT);
   }
 
   protected override mapModelToExcelRow(model: CancelationRequest): { [key: string]: any } {
@@ -179,69 +173,69 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
         return 'bg-gray-400';
     }
   }
-   public getStatusDisplay(status: LeaveStatus): {
-      bgClass: string;
-      dotClass: string;
-      textClass: string;
-      textKey: string;
-    } {
-      switch (status) {
-        case LeaveStatus.New:
-          return {
-            bgClass: 'bg-[#eff8ff]',
-            dotClass: 'bg-[#1849a9]',
-            textClass: 'text-[#1849a9]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_NEW',
-          };
-        case LeaveStatus.Accepted:
-          return {
-            bgClass: 'bg-[#ecfdf3]',
-            dotClass: 'bg-[#085d3a]',
-            textClass: 'text-[#085d3a]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED',
-          };
-        case LeaveStatus.ManagementAcceptance:
-          return {
-            bgClass: 'bg-[#ecfdf3]',
-            dotClass: 'bg-[#085d3a]',
-            textClass: 'text-[#085d3a]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE',
-          };
-        case LeaveStatus.HRAcceptance:
-          return {
-            bgClass: 'bg-[#fffaeb]',
-            dotClass: 'bg-[#93370d]',
-            textClass: 'text-[#93370d]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE',
-          };
-        case LeaveStatus.Rejected:
-          return {
-            bgClass: 'bg-[#fef3f2]',
-            dotClass: 'bg-[#912018]',
-            textClass: 'text-[#912018]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_REJECTED',
-          };
-        case LeaveStatus.Canceled:
-          return {
-            bgClass: 'bg-[#f9fafb]',
-            dotClass: 'bg-[#4d5761]',
-            textClass: 'text-[#1f2a37]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_CANCELED',
-          };
-        case LeaveStatus.DoesNotNeedAcceptance:
-          return {
-            bgClass: 'bg-[#f9fafb]',
-            dotClass: 'bg-[#4d5761]',
-            textClass: 'text-[#1f2a37]',
-            textKey: 'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE',
-          };
-        default:
-          return {
-            bgClass: 'bg-gray-100',
-            dotClass: 'bg-gray-400',
-            textClass: 'text-gray-800',
-            textKey: 'COMMON.UNKNOWN',
-          };
-      }
+  public getStatusDisplay(status: LeaveStatus): {
+    bgClass: string;
+    dotClass: string;
+    textClass: string;
+    textKey: string;
+  } {
+    switch (status) {
+      case LeaveStatus.New:
+        return {
+          bgClass: 'bg-[#eff8ff]',
+          dotClass: 'bg-[#1849a9]',
+          textClass: 'text-[#1849a9]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_NEW',
+        };
+      case LeaveStatus.Accepted:
+        return {
+          bgClass: 'bg-[#ecfdf3]',
+          dotClass: 'bg-[#085d3a]',
+          textClass: 'text-[#085d3a]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED',
+        };
+      case LeaveStatus.ManagementAcceptance:
+        return {
+          bgClass: 'bg-[#ecfdf3]',
+          dotClass: 'bg-[#085d3a]',
+          textClass: 'text-[#085d3a]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE',
+        };
+      case LeaveStatus.HRAcceptance:
+        return {
+          bgClass: 'bg-[#fffaeb]',
+          dotClass: 'bg-[#93370d]',
+          textClass: 'text-[#93370d]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE',
+        };
+      case LeaveStatus.Rejected:
+        return {
+          bgClass: 'bg-[#fef3f2]',
+          dotClass: 'bg-[#912018]',
+          textClass: 'text-[#912018]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_REJECTED',
+        };
+      case LeaveStatus.Canceled:
+        return {
+          bgClass: 'bg-[#f9fafb]',
+          dotClass: 'bg-[#4d5761]',
+          textClass: 'text-[#1f2a37]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_CANCELED',
+        };
+      case LeaveStatus.DoesNotNeedAcceptance:
+        return {
+          bgClass: 'bg-[#f9fafb]',
+          dotClass: 'bg-[#4d5761]',
+          textClass: 'text-[#1f2a37]',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE',
+        };
+      default:
+        return {
+          bgClass: 'bg-gray-100',
+          dotClass: 'bg-gray-400',
+          textClass: 'text-gray-800',
+          textKey: 'COMMON.UNKNOWN',
+        };
     }
+  }
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePicker } from 'primeng/datepicker';
-import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
 import { TranslateModule } from '@ngx-translate/core';
 import { Leave } from '@/models/features/business/leave/leave';
@@ -12,11 +11,12 @@ import { AlertService } from '@/services/shared/alert.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LanguageService } from '@/services/shared/language.service';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
+import { toDateOnly } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-add-cancel-leave-request',
   standalone: true,
-  imports: [Select, DatePicker, Textarea, CommonModule, FormsModule, TranslateModule],
+  imports: [DatePicker, Textarea, CommonModule, FormsModule, TranslateModule],
 
   templateUrl: './add-cancel-leave-request.component.html',
   styleUrl: './add-cancel-leave-request.component.scss',
@@ -58,8 +58,8 @@ export class AddCancelLeaveRequestComponent implements OnInit {
     }
     const payload = {
       fkLeaveId: this.model.id!,
-      dateFrom: this.dateFrom,
-      dateTo: this.dateTo,
+      dateFrom: toDateOnly(this.dateFrom),
+      dateTo: toDateOnly(this.dateTo),
       note: this.note,
     };
     this.cancelationService.requestLeaveCancelationByManager(payload).subscribe(() => {

@@ -6,23 +6,23 @@
         {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL_LEAVE_REQUESTS' | translate }}
       </h3>
     </div>
-    <p-tabs value="0">
+    <p-tabs [value]="activeTabIndex.toString()" (valueChange)="onTabChange($event)">
       <p-tablist class="mb-6 justify-between">
         <div class="flex">
           <p-tab value="0">
-            {{ 'CANCEL_LEAVE_REQUEST_PAGE.MY_CANCEL_LEAVE_REQUESTS' | translate }}
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.EMPLOYEES_CANCEL_LEAVE_REQUESTS' | translate }}
           </p-tab>
           <p-tab value="1">
-            {{ 'CANCEL_LEAVE_REQUEST_PAGE.TEAM_CANCEL_LEAVE_REQUESTS' | translate }}
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.MY_CANCEL_LEAVE_REQUESTS' | translate }}
           </p-tab>
         </div>
       </p-tablist>
       <p-tabpanels>
         <p-tabpanel value="0">
-          <app-my-cancel-leaves-request-list></app-my-cancel-leaves-request-list>
+          <app-my-cancel-leaves-request-list #myList></app-my-cancel-leaves-request-list>
         </p-tabpanel>
         <p-tabpanel value="1">
-          <app-team-cancel-leaves-request-list></app-team-cancel-leaves-request-list>
+          <app-team-cancel-leaves-request-list #teamList></app-team-cancel-leaves-request-list>
         </p-tabpanel>
       </p-tabpanels>
     </p-tabs>

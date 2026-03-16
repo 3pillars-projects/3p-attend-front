@@ -33,6 +33,7 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
   declare lastActionDate?: string;
   declare lastAcceptanceDate?: string;
   declare isCancelRequested: boolean;
+  declare canCancel: boolean;
 
   // Nested / computed from server
   declare leaveType?: BaseLookupModel;

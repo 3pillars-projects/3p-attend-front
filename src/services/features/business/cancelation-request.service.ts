@@ -95,7 +95,7 @@ export class CancelationRequestService extends BaseCrudService<CancelationReques
   // ─── Retrieval ────────────────────────────────────────────────────────────
 
   @CastResponse(undefined, { fallback: '$pagination' })
-  getMyCancelationRequestsWithPaging(
+  getMyLeavesCancelationRequestsWithPaging(
     paginationParams?: PaginationParams,
     filterOptions?: CancelationRequestFilter
   ): Observable<PaginatedListResponseData<CancelationRequest>> {
@@ -119,7 +119,7 @@ export class CancelationRequestService extends BaseCrudService<CancelationReques
   }
 
   @CastResponse(undefined, { fallback: '$pagination' })
-  getTeamCancelationRequestsWithPaging(
+  getEmployeesCancelationRequestsWithPaging(
     paginationParams?: PaginationParams,
     filterOptions?: CancelationRequestFilter
   ): Observable<PaginatedListResponseData<CancelationRequest>> {

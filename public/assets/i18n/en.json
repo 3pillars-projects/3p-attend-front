@@ -1112,8 +1112,8 @@
   },
   "CANCEL_LEAVE_REQUEST_PAGE": {
     "CANCEL_LEAVE_REQUESTS": "Cancel Leave Requests",
-    "MY_CANCEL_LEAVE_REQUESTS": "My Cancel Leave Requests",
-    "TEAM_CANCEL_LEAVE_REQUESTS": "Team Cancel Leave Requests",
+    "EMPLOYEES_CANCEL_LEAVE_REQUESTS": "Employees Cancel Leave Requests",
+    "MY_CANCEL_LEAVE_REQUESTS": "My Leaves Cancelation Requests",
     "SEARCH": "Search Filter",
     "RESET": "Reset",
     "LEAVE_TYPE": "Leave Type",
@@ -1135,6 +1135,7 @@
     "CLOSE": "Close",
     "SAVE": "Save",
     "CANCEL": "Cancel Request",
+    "CANCEL_REQUEST" : "Create a cancellation request",
     "STATUS_NEW": "New",
     "STATUS_EMPLOYEE_ACCEPTANCE": "Employee Accepted",
     "STATUS_ACCEPTED": "Accepted",

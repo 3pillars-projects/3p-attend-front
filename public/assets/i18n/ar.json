@@ -1110,8 +1110,8 @@
   },
   "CANCEL_LEAVE_REQUEST_PAGE": {
     "CANCEL_LEAVE_REQUESTS": "طلبات إلغاء الإجازات",
+    "EMPLOYEES_CANCEL_LEAVE_REQUESTS": "طلبات إلغاء  إجازات الموظفين",
     "MY_CANCEL_LEAVE_REQUESTS": "طلبات إلغاء إجازاتي",
-    "TEAM_CANCEL_LEAVE_REQUESTS": "طلبات إلغاء إجازات الفريق",
     "LEAVE_TYPE": "نوع الإجازة",
     "DATE_FROM": "التاريخ من",
     "DATE_TO": "التاريخ إلى",
@@ -1130,6 +1130,7 @@
     "CLOSE": "إغلاق",
     "SAVE": "حفظ",
     "CANCEL": "إلغاء الطلب",
+    "CANCEL_REQUEST": "تقديم طلب الغاء للإجازة",
     "STATUS_NEW": "جديد",
     "STATUS_EMPLOYEE_ACCEPTANCE": "مقبول من الموظف",
     "STATUS_ACCEPTED": "مقبول",
@@ -1138,7 +1139,7 @@
     "LEAVE_REQUEST_DETAILS": "تفاصيل طلب الإجازة",
     "ACTION_DATE": "تاريخ الإجراء",
     "NOTES": "ملاحظات",
-    "CANCELLATION_REQUEST_STATUS":"حالة طلب الإلغاء",
+    "CANCELLATION_REQUEST_STATUS": "حالة طلب الإلغاء",
     "LEAVE_STATUS": "حالة الإجازة",
     "NUMBER_OF_DAYS": "عدد الأيام"
   }

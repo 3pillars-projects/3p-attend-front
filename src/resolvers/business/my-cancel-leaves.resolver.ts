@@ -5,10 +5,10 @@ import { CancelationRequest } from '@/models/features/business/leave-cancelation
 import { PaginatedListResponseData } from '@/models/shared/response/paginated-list-response-data';
 import { PaginationParams } from '@/models/shared/pagination-params';
 
-export const myCancelLeavesResolver: ResolveFn<
+export const employeesCancelLeavesResolver: ResolveFn<
   PaginatedListResponseData<CancelationRequest>
 > = () => {
   const params = new PaginationParams();
   params.pageSize = 10;
-  return inject(CancelationRequestService).getMyCancelationRequestsWithPaging(params);
+  return inject(CancelationRequestService).getEmployeesCancelationRequestsWithPaging(params);
 };

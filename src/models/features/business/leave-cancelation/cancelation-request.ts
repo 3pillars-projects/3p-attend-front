@@ -25,6 +25,8 @@ export class CancelationRequest extends BaseCrudModel<
   declare actionDate?: string | Date;
   declare status: CancelationRequestStatus;
   declare requireHRAction: boolean;
+  declare canTakeAction: boolean;
+  declare canDelete: boolean;
   declare leaveType?: BaseLookupModel;
   declare employee?: BaseLookupModel;
   declare department?: BaseLookupModel;

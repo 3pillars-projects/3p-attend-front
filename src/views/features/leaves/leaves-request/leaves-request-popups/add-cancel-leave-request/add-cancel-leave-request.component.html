@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="pb-6 mb-6 border-b border-[#d2d6db]">
+    <!-- <div class="pb-6 mb-6 border-b border-[#d2d6db]">
       <label class="flex items-center space-x-2 cursor-pointer relative">
         <input
           [checked]="model.isHalfDay"
@@ -64,7 +64,7 @@
           'LEAVE_REQUEST_PAGE.HALF_DAY' | translate
         }}</span>
       </label>
-    </div>
+    </div> -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="relative">
         <label class="label" for="swipeDateFrom">{{
@@ -109,14 +109,14 @@
         ></span>
       </div>
       <div class="md:col-span-2 lg:col-span-3">
-        <label class="label" for="note">{{ 'COMMON.NOTES' | translate }}</label>
+        <label class="label" for="note">{{ 'CANCEL_LEAVE_REQUEST_PAGE.NOTES' | translate }}</label>
         <div class="relative w-full">
           <textarea
             [(ngModel)]="note"
             class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
             cols="30"
             pTextarea
-            placeholder="{{ 'COMMON.NOTES' | translate }}"
+            placeholder="{{ 'CANCEL_LEAVE_REQUEST_PAGE.NOTES' | translate }}"
             rows="5"
           ></textarea>
           <span

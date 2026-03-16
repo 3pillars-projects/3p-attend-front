@@ -213,14 +213,14 @@
             {{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}
           </button>
         </div>
-      } @else if (model.status === LeaveStatusEnum.Accepted) {
+      } @else if (model.canCancel) {
         <div class="flex items-center justify-end">
-          <button class="btn blue-btn" (click)="openCancelDialog()">
-            {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+          <button class="btn green-btn" (click)="openCancelDialog()">
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL_REQUEST' | translate }}
           </button>
         </div>
       }
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-end">
         <button class="btn gray-btn" (click)="close()">
           {{ 'LEAVE_REQUEST_PAGE.CLOSE' | translate }}
         </button>

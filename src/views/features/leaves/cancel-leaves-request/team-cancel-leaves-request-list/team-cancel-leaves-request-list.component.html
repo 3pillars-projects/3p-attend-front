@@ -150,7 +150,7 @@
       class="flex items-start xl:items-center justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
     >
       <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
-        {{ 'CANCEL_LEAVE_REQUEST_PAGE.TEAM_CANCEL_LEAVE_REQUESTS' | translate }}
+        {{ 'CANCEL_LEAVE_REQUEST_PAGE.MY_CANCEL_LEAVE_REQUESTS' | translate }}
       </h4>
       <div class="actions flex items-center gap-4 ms-auto">
         <button class="table-head-action-btn" (click)="exportExcel('team-cancelations.xlsx')">
@@ -212,16 +212,19 @@
           </td>
           <td>
             <div class="flex items-center justify-center gap-2">
-              <button class="table-action-gray-btn" (click)="openDialog(request)">
-                <img src="assets/icons/view.svg" alt="" />
-              </button>
-              <button
-                class="table-action-gray-btn flex items-center gap-1 !min-w-[77px]"
-                (click)="openDialog(request)"
-              >
-                <img src="assets/icons/edit-action.svg" alt="" />
-                {{ 'CANCEL_LEAVE_REQUEST_PAGE.ACTIONS' | translate }}
-              </button>
+              @if (request.canTakeAction) {
+                <button
+                  class="table-action-gray-btn flex items-center gap-1 !min-w-[77px]"
+                  (click)="openDialog(request)"
+                >
+                  <img src="assets/icons/edit-action.svg" alt="" />
+                  {{ 'CANCEL_LEAVE_REQUEST_PAGE.ACTIONS' | translate }}
+                </button>
+              } @else {
+                <button class="table-action-gray-btn" (click)="openDialog(request)">
+                  <img src="assets/icons/view.svg" alt="" />
+                </button>
+              }
             </div>
           </td>
         </tr>
