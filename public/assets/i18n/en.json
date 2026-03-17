@@ -1108,7 +1108,11 @@
     "LEAVE_BALANCE": "Available Leave Balance: {{balance}} days",
     "PARTIAL_LEAVE_POSITION": "Partial Leave Position",
     "BEGINNING_OF_SHIFT": "Beginning of Shift",
-    "END_OF_SHIFT": "End of Shift"
+    "END_OF_SHIFT": "End of Shift",
+    "CUT_LEAVE": "Cut Leave",
+    "CUT_LEAVE_CONFIRMATION": "Are you sure you want to cut the leave?",
+    "CUT_LEAVE_SUCCESS": "Leave cut successfully",
+    "CUT_LEAVE_FAILED": "Failed to cut leave"
   },
   "CANCEL_LEAVE_REQUEST_PAGE": {
     "CANCEL_LEAVE_REQUESTS": "Cancel Leave Requests",

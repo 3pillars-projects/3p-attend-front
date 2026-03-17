@@ -34,6 +34,7 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
   declare lastAcceptanceDate?: string;
   declare isCancelRequested: boolean;
   declare canCancel: boolean;
+  declare canCutLeave: boolean;
 
   // Nested / computed from server
   declare leaveType?: BaseLookupModel;
@@ -118,5 +119,9 @@ export class Leave extends BaseCrudModel<Leave, LeaveService> {
 
   cancel() {
     return this.$$getService$$<LeaveService>().cancelLeaveByEmployee(this.id);
+  }
+
+  cutLeave() {
+    return this.$$getService$$<LeaveService>().cutLeaveByEmployee(this.id);
   }
 }

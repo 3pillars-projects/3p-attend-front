@@ -14,6 +14,7 @@ import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { AddCancelLeaveRequestComponent } from '../add-cancel-leave-request/add-cancel-leave-request.component';
 import { CancelationRequestService } from '@/services/features/business/cancelation-request.service';
 import { CancelationRequest } from '@/models/features/business/leave-cancelation/cancelation-request';
+import { ConfirmationService } from '@/services/shared/confirmation.service';
 
 @Component({
   selector: 'app-view-leave-request',
@@ -33,6 +34,7 @@ export class ViewLeaveRequestComponent implements OnInit {
   LeaveStatusEnum = LeaveStatus;
   canCancel: boolean = false;
   mGRCanCancel: boolean = false;
+  confirmationService = inject(ConfirmationService);
 
   ngOnInit() {
     if (this.data && this.data.model) {
@@ -103,6 +105,28 @@ export class ViewLeaveRequestComponent implements OnInit {
       if (result === DIALOG_ENUM.OK) {
         this.dialogRef.close(DIALOG_ENUM.OK);
       }
+    });
+  }
+
+  cutLeave() {
+    const dialogRef = this.confirmationService.open({
+      icon: 'warning',
+      messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_CONFIRMATION'],
+      confirmText: 'COMMON.OK',
+      cancelText: 'COMMON.CANCEL',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == DIALOG_ENUM.OK) {
+        this.alertService.showSuccessMessage({
+          messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_SUCCESS'],
+        });
+      } else {
+        this.alertService.showErrorMessage({ messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_FAILED'] });
+      }
+    });
+    this.model.cutLeave().subscribe(() => {
+      this.dialogRef.close(DIALOG_ENUM.OK);
     });
   }
 }

@@ -267,6 +267,13 @@
           </button>
         </div>
       }
+      @if (model.canCutLeave) {
+        <div class="flex items-center justify-end">
+          <button class="btn green-btn" (click)="cutLeave()">
+            {{ 'LEAVE_REQUEST_PAGE.CUT_LEAVE' | translate }}
+          </button>
+        </div>
+      }
       <div class="flex items-center justify-end">
         <button class="btn gray-btn" (click)="close()">
           {{ 'LEAVE_REQUEST_PAGE.CLOSE' | translate }}

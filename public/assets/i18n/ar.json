@@ -1106,7 +1106,11 @@
     "LEAVE_BALANCE": "رصيد الاجازة المتاح: {{balance}} يوم",
     "PARTIAL_LEAVE_POSITION": "توقيت الإجازة الجزئية",
     "BEGINNING_OF_SHIFT": "بداية الدوام",
-    "END_OF_SHIFT": "نهاية الدوام"
+    "END_OF_SHIFT": "نهاية الدوام",
+    "CUT_LEAVE": "قطع الاجازة",
+    "CUT_LEAVE_CONFIRMATION": "هل انت متاكد من قطع الاجازة",
+    "CUT_LEAVE_SUCCESS": "تم قطع الاجازة بنجاح",
+    "CUT_LEAVE_FAILED": "فشل قطع الاجازة"
   },
   "CANCEL_LEAVE_REQUEST_PAGE": {
     "CANCEL_LEAVE_REQUESTS": "طلبات إلغاء الإجازات",
