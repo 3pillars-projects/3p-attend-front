@@ -147,4 +147,25 @@ export class LeaveService extends BaseCrudService<Leave> {
         })
       );
   }
+
+  // ─── Related / Child Leaves ───────────────────────────────────────────────
+
+  @CastResponse()
+  getLeavesWithParent(parentLeaveId?: number): Observable<Leave[]> {
+    let httpParams = new HttpParams();
+    if (parentLeaveId !== null && parentLeaveId !== undefined) {
+      httpParams = httpParams.set('parentLeaveId', String(parentLeaveId));
+    }
+    return this.http
+      .get<ResponseData<Leave[]>>(this.getUrlSegment() + '/GetLeavesWithParent', {
+        params: httpParams,
+        withCredentials: true,
+      })
+      .pipe(
+        map((res) => res.data),
+        catchError((err) => {
+          throw err;
+        })
+      );
+  }
 }
