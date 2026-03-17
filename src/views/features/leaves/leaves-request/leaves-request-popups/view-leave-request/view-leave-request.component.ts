@@ -9,13 +9,16 @@ import { LeaveStatus } from '@/enums/leave-status-enum';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '@/services/shared/language.service';
 import { AlertService } from '@/services/shared/alert.service';
+import { TabsModule } from 'primeng/tabs';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { AddCancelLeaveRequestComponent } from '../add-cancel-leave-request/add-cancel-leave-request.component';
+import { CancelationRequestService } from '@/services/features/business/cancelation-request.service';
+import { CancelationRequest } from '@/models/features/business/leave-cancelation/cancelation-request';
 
 @Component({
   selector: 'app-view-leave-request',
   standalone: true,
-  imports: [Textarea, CommonModule, FormsModule, TranslateModule],
+  imports: [Textarea, CommonModule, FormsModule, TranslateModule, TabsModule],
   templateUrl: './view-leave-request.component.html',
   styleUrl: './view-leave-request.component.scss',
 })
