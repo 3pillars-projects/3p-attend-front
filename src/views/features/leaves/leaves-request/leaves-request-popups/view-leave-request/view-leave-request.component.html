@@ -1,4 +1,4 @@
-<div>
+<div [dir]="direction">
   <div class="p-6">
     <button class="block ms-auto" (click)="close()">
       <i class="pi pi-times close-popup"></i>
@@ -10,7 +10,9 @@
     <p-tabs value="0">
       <p-tablist>
         <p-tab value="0">تفاصيل الطلب الاساسي</p-tab>
-        <p-tab value="1"> الطلبات المتعلقة بطلب الاجازة </p-tab>
+        @if(activeLeaves.length > 0){
+          <p-tab value="1"> الطلبات المتعلقة بطلب الاجازة </p-tab>
+        }
       </p-tablist>
       <p-tabpanels>
         <p-tabpanel value="0">
@@ -209,32 +211,68 @@
               <h3 class="font-semibold text-[#14573A]">الطلبات المتعلقة بطلب الاجازة</h3>
             </header>
             <article>
-              <div class="mt-4">
+              <!-- Active Leaves -->
+              <div class="my-4">
                 <h4
-                  class="text-[#161616] font-semibold border-l-[3px] border-l-[#1b8354] pl-3 mb-2"
+                  class="text-[#161616] font-semibold border-s-[3px] border-s-[#1b8354] ps-3 mb-2"
                 >
                   الاجازات السارية
                 </h4>
-                <ul class="border-l-2 border-l-[#D2D6DB] pl-4">
-                  <li>
-                    <p class="text-[#384250]">12/12/2024 - 15/12/2024</p>
-                    <div class="border-l-2 border-l-[#D2D6DB] pl-4">
-                      <div class="bg-white p-3 rounded">
-                        <p>عدد أيام الاجازة</p>
-                        <span>4</span>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <p class="text-[#384250]">12/12/2024 - 15/12/2024</p>
-                    <div class="border-l-2 border-l-[#D2D6DB] pl-4">
-                      <div class="bg-white p-3 rounded">
-                        <p>عدد أيام الاجازة</p>
-                        <span>4</span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                @if (activeLeaves.length === 0) {
+                  <p class="text-sm text-[#6c737f] ps-4">لا توجد اجازات سارية</p>
+                } @else {
+                  <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
+                    @for (leave of activeLeaves; track leave.id) {
+                      <li>
+                        <p class="text-[#384250] text-sm my-2">
+                          {{ leave.dateFrom | date: 'dd/MM/yyyy' }} - {{ leave.dateTo | date: 'dd/MM/yyyy' }}
+                        </p>
+                        <div class="border-s-2 border-s-[#D2D6DB] ps-4">
+                          <div class="bg-white p-3 rounded">
+                            <p class="text-sm text-[#6c737f] mb-2">عدد أيام الاجازة</p>
+                            <span
+                              class="inline-block bg-[#ecfdf3] min-w-[36px] text-center border border-[#abefc6] text-[#085d3a] rounded-full"
+                            >{{ leave.daysCount }}</span>
+                          </div>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+
+              <!-- Cancelled Periods -->
+              <div class="my-4">
+                <h4
+                  class="text-[#161616] font-semibold border-s-[3px] border-s-[#dc2626] ps-3 mb-2"
+                >
+                  الفتره الملغاه
+                </h4>
+                @if (cancelledPeriods.length === 0) {
+                  <p class="text-sm text-[#6c737f] ps-4">لا توجد فترات ملغاه</p>
+                } @else {
+                  <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
+                    @for (period of cancelledPeriods; track period.dateFrom) {
+                      <li>
+                        <p class="text-[#384250] text-sm my-2">
+                          {{ period.dateFrom | date: 'dd/MM/yyyy' }} - {{ period.dateTo | date: 'dd/MM/yyyy' }}
+                        </p>
+                        <div class="border-s-2 border-s-[#D2D6DB] ps-4">
+                          <div class="bg-white p-3 rounded">
+                            <p class="text-sm text-[#6c737f] mb-2">عدد أيام الاجازه الملغاه</p>
+                            <span
+                              class="inline-block bg-[#fef3f2] min-w-[36px] text-center border border-[#fecdcc] text-[#912018] rounded-full"
+                            >{{ period.daysCount }}</span>
+                            @if (period.notes) {
+                              <p class="text-sm text-[#6c737f] my-2">ملاحظات</p>
+                              <span class="inline-block">{{ period.notes }}</span>
+                            }
+                          </div>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                }
               </div>
             </article>
           </div>

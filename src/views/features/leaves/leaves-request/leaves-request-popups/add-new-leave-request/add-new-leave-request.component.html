@@ -63,8 +63,33 @@
             {{ 'LEAVE_REQUEST_PAGE.HALF_DAY' | translate }}
           </span>
         </label>
+        @if (form.get('isHalfDay')?.value) {
+          <div class="flex items-center gap-6 ms-4 mt-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <p-radiobutton
+                formControlName="partialLeavePosition"
+                [value]="PartialLeavePosition.BeginningOfShift"
+                inputId="posBeginning"
+              ></p-radiobutton>
+              <span class="text-sm text-[#1f2a37] ms-2">
+                {{ 'LEAVE_REQUEST_PAGE.BEGINNING_OF_SHIFT' | translate }}
+              </span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <p-radiobutton
+                formControlName="partialLeavePosition"
+                [value]="PartialLeavePosition.EndOfShift"
+                inputId="posEnd"
+              ></p-radiobutton>
+              <span class="text-sm text-[#1f2a37] ms-2">
+                {{ 'LEAVE_REQUEST_PAGE.END_OF_SHIFT' | translate }}
+              </span>
+            </label>
+          </div>
+        }
       </div>
     }
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
       <div>
         <div class="relative">

@@ -11,6 +11,7 @@ import { LeaveTypeService } from '@/services/features/business/leave-type.servic
 import { LeaveService } from '@/services/features/business/leave.service';
 import { LeaveTypeWithBalance } from '@/models/features/business/leave-types/leave-type-with-balance';
 import { Checkbox } from 'primeng/checkbox';
+import { RadioButton } from 'primeng/radiobutton';
 import { TranslateModule } from '@ngx-translate/core';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import { ViewModeEnum } from '@/enums/view-mode-enum';
@@ -19,6 +20,7 @@ import { Observable, of } from 'rxjs';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { ValidationMessagesComponent } from '@/views/shared/validation-messages/validation-messages.component';
 import { CustomValidators } from '@/validators/custom-validators';
+import { PartialLeavePosition } from '@/enums/partial-leave-position-enum';
 
 @Component({
   selector: 'app-add-new-leave-request',
@@ -30,6 +32,7 @@ import { CustomValidators } from '@/validators/custom-validators';
     ReactiveFormsModule,
     CommonModule,
     Checkbox,
+    RadioButton,
     TranslateModule,
     ValidationMessagesComponent,
   ],
@@ -49,6 +52,7 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
 
   leaveTypes: LeaveTypeWithBalance[] = [];
   selectedLeaveType?: LeaveTypeWithBalance;
+  PartialLeavePosition = PartialLeavePosition;
 
   override initPopup() {
     if (this.data && this.data.model) {
@@ -67,6 +71,12 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
       this.selectedLeaveType = this.leaveTypes.find((t) => t.id === id);
       if (!this.selectedLeaveType?.canApplyOnHalfDay) {
         this.form.patchValue({ isHalfDay: false });
+      }
+    });
+
+    this.form.get('isHalfDay')?.valueChanges.subscribe((isHalfDay) => {
+      if (!isHalfDay) {
+        this.form.patchValue({ partialLeavePosition: PartialLeavePosition.None }, { emitEvent: false });
       }
     });
 

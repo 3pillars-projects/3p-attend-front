@@ -15,6 +15,16 @@ import { AddCancelLeaveRequestComponent } from '../add-cancel-leave-request/add-
 import { CancelationRequestService } from '@/services/features/business/cancelation-request.service';
 import { CancelationRequest } from '@/models/features/business/leave-cancelation/cancelation-request';
 import { ConfirmationService } from '@/services/shared/confirmation.service';
+import { LAYOUT_DIRECTION_ENUM } from '@/enums/layout-direction-enum';
+import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { LeaveService } from '@/services/features/business/leave.service';
+
+export interface CancelledPeriod {
+  dateFrom: Date;
+  dateTo: Date;
+  daysCount: number;
+  notes?: string;
+}
 
 @Component({
   selector: 'app-view-leave-request',
@@ -35,13 +45,92 @@ export class ViewLeaveRequestComponent implements OnInit {
   canCancel: boolean = false;
   mGRCanCancel: boolean = false;
   confirmationService = inject(ConfirmationService);
+  leaveService = inject(LeaveService);
+  declare direction: LAYOUT_DIRECTION_ENUM;
+  
+  activeLeaves: Leave[] = [];
+  cancelledPeriods: CancelledPeriod[] = [];
 
+  constructor() {
+    this.direction =
+      this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
+        ? LAYOUT_DIRECTION_ENUM.LTR
+        : LAYOUT_DIRECTION_ENUM.RTL;
+  }
   ngOnInit() {
     if (this.data && this.data.model) {
       this.model = Object.assign(new Leave(), this.data.model);
+      this.loadRelatedLeaves();
     }
     this.canCancel = this.data.viewMode == ViewModeEnum.TAKE_ACTION;
     this.mGRCanCancel = this.data.viewMode == ViewModeEnum.MANAGER_TAKE_ACTION;
+  }
+
+  loadRelatedLeaves() {
+    if (!this.model.id) return;
+    this.leaveService.getLeavesWithParent(this.model.id).subscribe((leaves) => {
+      console.log(leaves);
+      if (!leaves || leaves.length === 0) return;
+      this.activeLeaves = leaves.filter((l) => l.status !== this.LeaveStatusEnum.Canceled);
+      this.calculateCancelledPeriods(this.activeLeaves);
+    });
+  }
+
+  calculateCancelledPeriods(childLeaves: Leave[]) {
+    if (childLeaves.length === 0) return;
+
+    const parentStart = new Date(this.model.dateFrom);
+    parentStart.setHours(0, 0, 0, 0);
+    const parentEnd = new Date(this.model.dateTo);
+    parentEnd.setHours(0, 0, 0, 0);
+
+    const sorted = [...childLeaves].sort(
+      (a, b) => new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime()
+    );
+
+    const cancelled: CancelledPeriod[] = [];
+    let currentStart = new Date(parentStart);
+
+    for (const child of sorted) {
+      const childStart = new Date(child.dateFrom);
+      childStart.setHours(0, 0, 0, 0);
+      const childEnd = new Date(child.dateTo);
+      childEnd.setHours(0, 0, 0, 0);
+
+      if (childStart > currentStart) {
+        const gapEnd = new Date(childStart);
+        gapEnd.setDate(gapEnd.getDate() - 1);
+
+        const diffTime = gapEnd.getTime() - currentStart.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+        if (diffDays > 0) {
+          cancelled.push({
+            dateFrom: new Date(currentStart),
+            dateTo: new Date(gapEnd),
+            daysCount: diffDays,
+          });
+        }
+      }
+
+      currentStart = new Date(childEnd);
+      currentStart.setDate(currentStart.getDate() + 1);
+    }
+
+    if (currentStart <= parentEnd) {
+      const diffTime = parentEnd.getTime() - currentStart.getTime();
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+      if (diffDays > 0) {
+        cancelled.push({
+          dateFrom: new Date(currentStart),
+          dateTo: new Date(parentEnd),
+          daysCount: diffDays,
+        });
+      }
+    }
+
+    this.cancelledPeriods = cancelled;
   }
 
   accept() {
