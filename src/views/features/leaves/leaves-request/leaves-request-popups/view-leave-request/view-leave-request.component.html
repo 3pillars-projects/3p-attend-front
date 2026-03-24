@@ -9,9 +9,9 @@
 
     <p-tabs value="0">
       <p-tablist>
-        <p-tab value="0">تفاصيل الطلب الاساسي</p-tab>
+        <p-tab value="0">{{ 'LEAVE_REQUEST_PAGE.REQUEST_DETAILS' | translate }}</p-tab>
         @if(activeLeaves.length > 0){
-          <p-tab value="1"> الطلبات المتعلقة بطلب الاجازة </p-tab>
+          <p-tab value="1">{{ 'LEAVE_REQUEST_PAGE.RELATED_REQUESTS' | translate }}</p-tab>
         }
       </p-tablist>
       <p-tabpanels>
@@ -216,10 +216,10 @@
                 <h4
                   class="text-[#161616] font-semibold border-s-[3px] border-s-[#1b8354] ps-3 mb-2"
                 >
-                  الاجازات السارية
+                  {{ 'LEAVE_REQUEST_PAGE.ACTIVE_LEAVES' | translate }}
                 </h4>
                 @if (activeLeaves.length === 0) {
-                  <p class="text-sm text-[#6c737f] ps-4">لا توجد اجازات سارية</p>
+                  <p class="text-sm text-[#6c737f] ps-4">{{ 'LEAVE_REQUEST_PAGE.NO_ACTIVE_LEAVES' | translate }}</p>
                 } @else {
                   <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
                     @for (leave of activeLeaves; track leave.id) {
@@ -229,7 +229,7 @@
                         </p>
                         <div class="border-s-2 border-s-[#D2D6DB] ps-4">
                           <div class="bg-white p-3 rounded">
-                            <p class="text-sm text-[#6c737f] mb-2">عدد أيام الاجازة</p>
+                            <p class="text-sm text-[#6c737f] mb-2">{{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}</p>
                             <span
                               class="inline-block bg-[#ecfdf3] min-w-[36px] text-center border border-[#abefc6] text-[#085d3a] rounded-full"
                             >{{ leave.daysCount }}</span>
@@ -246,10 +246,10 @@
                 <h4
                   class="text-[#161616] font-semibold border-s-[3px] border-s-[#dc2626] ps-3 mb-2"
                 >
-                  الفتره الملغاه
+                  {{ 'LEAVE_REQUEST_PAGE.CANCELLED_PERIOD' | translate }}
                 </h4>
                 @if (cancelledPeriods.length === 0) {
-                  <p class="text-sm text-[#6c737f] ps-4">لا توجد فترات ملغاه</p>
+                  <p class="text-sm text-[#6c737f] ps-4">{{ 'LEAVE_REQUEST_PAGE.NO_CANCELLED_PERIODS' | translate }}</p>
                 } @else {
                   <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
                     @for (period of cancelledPeriods; track period.dateFrom) {
@@ -259,12 +259,12 @@
                         </p>
                         <div class="border-s-2 border-s-[#D2D6DB] ps-4">
                           <div class="bg-white p-3 rounded">
-                            <p class="text-sm text-[#6c737f] mb-2">عدد أيام الاجازه الملغاه</p>
+                            <p class="text-sm text-[#6c737f] mb-2">{{ 'LEAVE_REQUEST_PAGE.CANCELLED_LEAVE_DAYS_COUNT' | translate }}</p>
                             <span
                               class="inline-block bg-[#fef3f2] min-w-[36px] text-center border border-[#fecdcc] text-[#912018] rounded-full"
                             >{{ period.daysCount }}</span>
                             @if (period.notes) {
-                              <p class="text-sm text-[#6c737f] my-2">ملاحظات</p>
+                              <p class="text-sm text-[#6c737f] my-2">{{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}</p>
                               <span class="inline-block">{{ period.notes }}</span>
                             }
                           </div>
