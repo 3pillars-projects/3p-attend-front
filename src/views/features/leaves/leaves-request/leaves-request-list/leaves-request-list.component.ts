@@ -8,6 +8,7 @@ import { MyLeavesRequestListComponent } from '../my-leaves-request-list/my-leave
 import { TeamLeavesRequestListComponent } from '../team-leaves-request-list/team-leaves-request-list.component';
 import { MenuItem } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '@/services/auth/auth.service';
 
 @Component({
   selector: 'app-leaves-request-list',
@@ -27,7 +28,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class LeavesRequestListComponent implements OnInit, OnDestroy {
   translateService = inject(TranslateService);
   destroy$ = new Subject<void>();
-
+  authService = inject(AuthService);
   @ViewChild('myList') myList!: MyLeavesRequestListComponent;
   @ViewChild('teamList') teamList!: TeamLeavesRequestListComponent;
 
@@ -81,6 +82,9 @@ export class LeavesRequestListComponent implements OnInit, OnDestroy {
     } else if (this.activeTabIndex === 1 && this.teamList) {
       this.teamList.resetSearch();
     }
+  }
+  canViewTeamRequests() {
+    return this.authService.isHROfficer || this.authService.isDepartmentManager;
   }
 
   ngOnDestroy() {

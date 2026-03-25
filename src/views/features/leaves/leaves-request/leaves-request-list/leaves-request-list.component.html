@@ -23,9 +23,12 @@
         <p-tabpanel value="0">
           <app-my-leaves-request-list #myList></app-my-leaves-request-list>
         </p-tabpanel>
-        <p-tabpanel value="1">
-          <app-team-leaves-request-list #teamList></app-team-leaves-request-list>
-        </p-tabpanel>
+
+        @if (canViewTeamRequests()) {
+          <p-tabpanel value="1">
+            <app-team-leaves-request-list #teamList></app-team-leaves-request-list>
+          </p-tabpanel>
+        }
       </p-tabpanels>
     </p-tabs>
   </div>

@@ -9,6 +9,7 @@ import { BaseListComponent } from '@/abstracts/base-components/base-list/base-li
 import { CancelationRequest } from '@/models/features/business/leave-cancelation/cancelation-request';
 import { CancelationRequestService } from '@/services/features/business/cancelation-request.service';
 import { CancelationRequestFilter } from '@/models/features/business/leave-cancelation/cancelation-request-filter';
+import { AuthService } from '@/services/auth/auth.service';
 
 @Component({
   selector: 'app-cancel-leaves-request-list',
@@ -34,6 +35,7 @@ export default class CancelLeavesRequestListComponent extends BaseListComponent<
     width: '100%',
     maxWidth: '1024px',
   };
+  authService = inject(AuthService);
 
   @ViewChild('myList') myList!: MyCancelLeavesRequestListComponent;
   @ViewChild('teamList') teamList!: TeamCancelLeavesRequestListComponent;
@@ -79,5 +81,8 @@ export default class CancelLeavesRequestListComponent extends BaseListComponent<
       { labelKey: 'COMMON.DASHBOARD' },
       { labelKey: 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL_LEAVE_REQUESTS' },
     ];
+  }
+  canViewTeamRequests() {
+    return this.authService.isHROfficer || this.authService.isDepartmentManager;
   }
 }

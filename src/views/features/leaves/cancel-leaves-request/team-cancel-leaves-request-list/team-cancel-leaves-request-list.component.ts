@@ -85,7 +85,7 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
 
   override loadList() {
     return this.cancelationRequestService
-      .getMyLeavesCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
+      .getEmployeesCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
       .pipe(
         map((res) => ({
           list: res.data.list as CancelationRequest[],
@@ -95,7 +95,8 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   }
 
   override openDialog(model: CancelationRequest) {
-    this.openViewCancelLeaveRequest(model);}
+    this.openViewCancelLeaveRequest(model);
+  }
 
   openViewCancelLeaveRequest(model: CancelationRequest) {
     this.openBaseDialog(ViewCancelLeaveRequestComponent as any, model, ViewModeEnum.EDIT);

@@ -23,7 +23,7 @@ import { employeesLeavesBalancesResolver } from '@/resolvers/business/employees-
 import { employeesLeavesBalancesPagedResolver } from '@/resolvers/business/employees-leaves-balances-paged.resolver';
 import { employeesLeavesBalancesYearsResolver } from '@/resolvers/business/employees-leaves-balances-years.resolver';
 import { myLeavesResolver } from '@/resolvers/business/my-leaves.resolver';
-import { employeesCancelLeavesResolver } from '@/resolvers/business/my-cancel-leaves.resolver';
+import { myCancelLeavesResolver } from '@/resolvers/business/my-cancel-leaves.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -232,7 +232,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVE_REQUESTS },
         resolve: {
-          myCancelationRequests: employeesCancelLeavesResolver,
+          myCancelationRequests: myCancelLeavesResolver,
           leaveTypes: leaveTypesResolver,
         },
         loadComponent: () =>
