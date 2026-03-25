@@ -5,6 +5,6 @@ export enum LeaveStatus {
   Canceled = 4,
   HRAcceptance = 5,
   ManagementAcceptance = 6,
-  EmployeeAcceptance = 7,
-  DoesNotNeedAcceptance = 8,
+  DoesNotNeedAcceptance = 7,
+  Cut = 8,
 }

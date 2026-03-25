@@ -198,6 +198,13 @@
                   'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE' | translate
                 }}</span>
               </div>
+            } @else if (leave.status === LeaveStatusEnum.Cut) {
+              <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                <span class="text-[#1f2a37] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_CUT' | translate
+                }}</span>
+              </div>
             }
           </td>
           <td>
