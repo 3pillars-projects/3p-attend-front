@@ -850,7 +850,8 @@
     "ONE_FINGER_PRINT": "One Finger Print",
     "LATE_ATTENDANCE": "Late Attendance",
     "EARLY_LEAVE": "Early Leave",
-    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "Late Attendance and Early Leave"
+    "LATE_ATTENDANCE_AND_EARLY_LEAVE": "Late Attendance and Early Leave",
+    "LEAVE": "Leave"
   },
   "ATTENDANCE_REPORT_PAGE": {
     "SPECIAL_SHIFT": "Special Shift",
@@ -1146,7 +1147,7 @@
     "CLOSE": "Close",
     "SAVE": "Save",
     "CANCEL": "Cancel Request",
-    "CANCEL_REQUEST" : "Create a cancellation request",
+    "CANCEL_REQUEST": "Create a cancellation request",
     "STATUS_NEW": "New",
     "STATUS_EMPLOYEE_ACCEPTANCE": "Employee Accepted",
     "STATUS_ACCEPTED": "Accepted",
