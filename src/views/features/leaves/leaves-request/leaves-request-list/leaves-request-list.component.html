@@ -13,9 +13,11 @@
           <p-tab value="0">
             {{ 'LEAVE_REQUEST_PAGE.MY_LEAVE_REQUESTS' | translate }}
           </p-tab>
-          <p-tab value="1">
-            {{ 'LEAVE_REQUEST_PAGE.INCOMING_LEAVE_REQUESTS' | translate }}
-          </p-tab>
+          @if (canViewTeamRequests()) {
+            <p-tab value="1">
+              {{ 'LEAVE_REQUEST_PAGE.INCOMING_LEAVE_REQUESTS' | translate }}
+            </p-tab>
+          }
         </div>
       </p-tablist>
 
@@ -24,11 +26,9 @@
           <app-my-leaves-request-list #myList></app-my-leaves-request-list>
         </p-tabpanel>
 
-        @if (canViewTeamRequests()) {
-          <p-tabpanel value="1">
-            <app-team-leaves-request-list #teamList></app-team-leaves-request-list>
-          </p-tabpanel>
-        }
+        <p-tabpanel value="1">
+          <app-team-leaves-request-list #teamList></app-team-leaves-request-list>
+        </p-tabpanel>
       </p-tabpanels>
     </p-tabs>
   </div>
