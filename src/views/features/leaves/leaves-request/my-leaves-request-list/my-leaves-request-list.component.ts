@@ -20,6 +20,8 @@ import { LEAVE_STATUS_OPTIONS, LeaveStatusOption } from '@/models/shared/leave-s
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
 import { ActivatedRoute } from '@angular/router';
 import { ViewLeaveRequestComponent } from '../leaves-request-popups/view-leave-request/view-leave-request.component';
+import { LeaveTypeService } from '@/services/features/business/leave-type.service';
+import { LeaveInterceptor } from '@/model-interceptors/features/business/leave.interceptor';
 
 @Component({
   selector: 'app-my-leaves-request-list',
@@ -51,15 +53,37 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
   };
 
   leaveService = inject(LeaveService);
+  private leaveInterceptor = new LeaveInterceptor();
 
   override filterModel: LeaveFilter = new LeaveFilter();
   statusOptions: LeaveStatusOption[] = LEAVE_STATUS_OPTIONS;
   leaveTypes: BaseLookupModel[] = [];
+  leaveTypesService = inject(LeaveTypeService);
 
   LeaveStatusEnum = LeaveStatus;
 
   override get service() {
     return this.leaveService;
+  }
+
+  override search(isStoredProcedure: boolean = false) {
+    // Apply interceptor transformations to filter model before search
+    const transformedFilter = this.leaveInterceptor.send({
+      ...this.filterModel,
+    }) as LeaveFilter;
+
+    this.appliedFilterModel = { ...transformedFilter };
+    this.paginationParams.pageNumber = 1;
+    this.first = 0;
+
+    this.leaveService.getMyLeavesWithPaging(this.paginationParams, transformedFilter).subscribe({
+      next: (response) =>
+        this.handleLoadListSuccess({
+          list: response.data.list,
+          paginationInfo: response.data.paginationInfo,
+        }),
+      error: () => this.handleLoadListError(),
+    });
   }
 
   override initListComponent() {
@@ -69,9 +93,9 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
         this.list = myLeavesData.list;
         this.paginationInfoMap(myLeavesData);
       }
-      if (data['leaveTypes']) {
-        this.leaveTypes = data['leaveTypes'].list;
-      }
+      this.leaveTypesService.getLookup().subscribe((res) => {
+        this.leaveTypes = res;
+      });
     });
   }
 

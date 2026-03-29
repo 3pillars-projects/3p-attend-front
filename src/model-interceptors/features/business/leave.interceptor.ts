@@ -10,8 +10,8 @@ export class LeaveInterceptor implements ModelInterceptorContract<Leave> {
   }
 
   send(model: Partial<Leave>): Partial<Leave> {
-    model.dateTo = toDateOnly(model.dateTo);
-    model.dateFrom = toDateOnly(model.dateFrom);
+    if (model.dateTo) model.dateTo = toDateOnly(model.dateTo);
+    if (model.dateFrom) model.dateFrom = toDateOnly(model.dateFrom);
     delete model.leaveType;
     delete model.employee;
     delete model.department;

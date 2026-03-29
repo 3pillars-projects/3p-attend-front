@@ -1109,6 +1109,8 @@
     "STATUS_ACCEPTED": "Accepted",
     "STATUS_REJECTED": "Rejected",
     "STATUS_CANCELED": "Canceled",
+    "STATUS_DOES_NOT_NEED_ACCEPTANCE": "Doesn't need acceptance",
+    "STATUS_CUT": "Cut leave",
     "STATUS_HR_ACCEPTANCE": "HR Accepted",
     "STATUS_MANAGEMENT_ACCEPTANCE": "Management Accepted",
     "MANAGEMENT_ACCEPTANCE_DATE": "Management Acceptance Date",

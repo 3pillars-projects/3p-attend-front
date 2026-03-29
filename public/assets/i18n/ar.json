@@ -1107,6 +1107,8 @@
     "STATUS_ACCEPTED": "مقبول",
     "STATUS_REJECTED": "مرفوض",
     "STATUS_CANCELED": "ملغي",
+    "STATUS_DOES_NOT_NEED_ACCEPTANCE": "لا يحتاج موافقة",
+    "STATUS_CUT": "قطع الاجازة",
     "STATUS_HR_ACCEPTANCE": "مقبول من الـ HR",
     "STATUS_MANAGEMENT_ACCEPTANCE": "مقبول من الادارة",
     "MANAGEMENT_ACCEPTANCE_DATE": "تاريخ قبول الادارة",

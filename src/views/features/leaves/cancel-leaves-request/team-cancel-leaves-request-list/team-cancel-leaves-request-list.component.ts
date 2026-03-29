@@ -25,6 +25,8 @@ import { DepartmentService } from '@/services/features/lookups/department.servic
 import { UserService } from '@/services/features/user.service';
 import { ViewCancelLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-cancel-leave-request.component';
 import { LeaveStatus } from '@/enums/leave-status-enum';
+import { LeaveTypeService } from '@/services/features/business/leave-type.service';
+import { CancelationRequestInterceptor } from '@/model-interceptors/features/business/cancelation-request.interceptor';
 
 @Component({
   selector: 'app-team-cancel-leaves-request-list',
@@ -57,6 +59,7 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   cancelationRequestService = inject(CancelationRequestService);
   departmentService = inject(DepartmentService);
   userService = inject(UserService);
+  private cancelationRequestInterceptor = new CancelationRequestInterceptor();
 
   override filterModel: CancelationRequestFilter = new CancelationRequestFilter();
   statusOptions: CancelationStatusOption[] = CANCELATION_STATUS_OPTIONS;
@@ -64,16 +67,39 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   departments: BaseLookupModel[] = [];
   users: BaseLookupModel[] = [];
   leaveStatusOptions: LeaveStatusOption[] = LEAVE_STATUS_OPTIONS;
+  leaveTypesService = inject(LeaveTypeService);
 
   override get service() {
     return this.cancelationRequestService;
   }
 
+  override search(isStoredProcedure: boolean = false) {
+    // Apply interceptor transformations to filter model before search
+    const transformedFilter = this.cancelationRequestInterceptor.send({
+      ...this.filterModel,
+    }) as CancelationRequestFilter;
+
+    this.appliedFilterModel = { ...transformedFilter };
+    this.paginationParams.pageNumber = 1;
+    this.first = 0;
+
+    this.cancelationRequestService
+      .getEmployeesCancelationRequestsWithPaging(this.paginationParams, transformedFilter)
+      .subscribe({
+        next: (response) =>
+          this.handleLoadListSuccess({
+            list: response.data.list,
+            paginationInfo: response.data.paginationInfo,
+          }),
+        error: () => this.handleLoadListError(),
+      });
+  }
+
   override initListComponent() {
     this.activatedRoute.data.subscribe((data) => {
-      if (data['leaveTypes']) {
-        this.leaveTypes = data['leaveTypes'].list;
-      }
+      this.leaveTypesService.getLookup().subscribe((res) => {
+        this.leaveTypes = res;
+      });
       this.departmentService.getLookup().subscribe((res) => {
         this.departments = res;
       });

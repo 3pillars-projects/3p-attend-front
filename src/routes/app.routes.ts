@@ -233,7 +233,6 @@ export const routes: Routes = [
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVE_REQUESTS },
         resolve: {
           myCancelationRequests: myCancelLeavesResolver,
-          leaveTypes: leaveTypesResolver,
         },
         loadComponent: () =>
           import(
@@ -375,7 +374,6 @@ export const routes: Routes = [
         path: 'leaves-request',
         resolve: {
           myLeavesList: myLeavesResolver,
-          leaveTypes: leaveTypesResolver,
         },
         loadComponent: () =>
           import(
