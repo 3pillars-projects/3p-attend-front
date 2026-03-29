@@ -167,7 +167,6 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
   }
 
   protected override mapModelToExcelRow(model: Leave): { [key: string]: any } {
-    console.log('Mapping model to Excel row:', model);
     const isAr = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
     return {
       [this.translateService.instant('LEAVE_REQUEST_PAGE.LEAVE_TYPE')]: isAr
