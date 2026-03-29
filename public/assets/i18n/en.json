@@ -520,9 +520,10 @@
     "LIMITED_TIME_PERMISSION": "Limited Time Permission",
     "LEAVE_TYPES": "Leave Types",
     "LEAVES": "Leaves",
-    "EDIT_BALANCES": "Leaves Balances",
+    "LEAVES_BALANCES": "Leaves Balances",
     "LEAVE_TRANSFER": "Renew and transfer leaves balances",
-    "LEAVES_BALANCES": "Leaves Balances"
+    "LEAVES_REQUEST": "Leaves Request",
+    "CANCEL_LEAVES_REQUEST": "Cancel Leaves Request"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "General Settings",
