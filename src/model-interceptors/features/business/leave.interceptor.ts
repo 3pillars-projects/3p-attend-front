@@ -4,8 +4,8 @@ import { ModelInterceptorContract } from 'cast-response';
 
 export class LeaveInterceptor implements ModelInterceptorContract<Leave> {
   receive(model: Leave): Leave {
-    model.dateTo = toDateTime(model.dateTo)!;
-    model.dateFrom = toDateTime(model.dateFrom)!;
+   if (model.dateTo) model.dateTo = toDateTime(model.dateTo)!;
+   if (model.dateFrom) model.dateFrom = toDateTime(model.dateFrom)!;
     return model;
   }
 
