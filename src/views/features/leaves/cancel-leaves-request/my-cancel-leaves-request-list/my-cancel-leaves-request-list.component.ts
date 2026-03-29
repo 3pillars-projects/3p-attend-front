@@ -24,6 +24,8 @@ import { CancelationRequestStatus } from '@/enums/cancelation-request-status-enu
 import { ViewCancelLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-cancel-leave-request.component';
 import { LeaveTypeService } from '@/services/features/business/leave-type.service';
 import { CancelationRequestInterceptor } from '@/model-interceptors/features/business/cancelation-request.interceptor';
+import * as XLSX from 'xlsx';
+import { CustomValidators } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-my-cancel-leaves-request-list',
@@ -114,6 +116,42 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
 
   override openDialog(model: CancelationRequest) {
     this.openBaseDialog(ViewCancelLeaveRequestComponent as any, model, ViewModeEnum.VIEW);
+  }
+
+  override exportExcel(fileName: string = 'MyCancelLeaveRequests.xlsx'): void {
+    // Apply interceptor transformations to the applied filter before exporting
+    const transformedFilter = this.cancelationRequestInterceptor.send({
+      ...this.appliedFilterModel,
+    }) as CancelationRequestFilter;
+
+    const allDataParams = {
+      ...this.paginationParams,
+      pageNumber: 1,
+      pageSize: CustomValidators.defaultLengths.INT_MAX, // MAX_INT equivalent
+    };
+
+    this.cancelationRequestService
+      .getEmployeesCancelationRequestsWithPaging(allDataParams, transformedFilter)
+      .subscribe({
+        next: (response) => {
+          const fullList = response.data.list || [];
+          if (fullList.length === 0) {
+            this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
+            return;
+          }
+
+          const isRTL = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
+          const transformedData = fullList.map((item) => this.mapModelToExcelRow(item));
+          const ws = XLSX.utils.json_to_sheet(transformedData);
+          const wb: XLSX.WorkBook = XLSX.utils.book_new();
+          wb.Workbook = { Views: [{ RTL: isRTL }] };
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+          XLSX.writeFile(wb, fileName);
+        },
+        error: () => {
+          this.alertsService.showErrorMessage({ messages: ['COMMON.ERROR'] });
+        },
+      });
   }
 
   protected override mapModelToExcelRow(model: CancelationRequest): { [key: string]: any } {

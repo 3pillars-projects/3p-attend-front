@@ -24,6 +24,8 @@ import { UserService } from '@/services/features/user.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LeaveTypeService } from '@/services/features/business/leave-type.service';
 import { LeaveInterceptor } from '@/model-interceptors/features/business/leave.interceptor';
+import * as XLSX from 'xlsx';
+import { CustomValidators } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-team-leaves-request-list',
@@ -126,11 +128,46 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
     this.openViewLeaveRequest(model);
   }
 
+  override exportExcel(fileName: string = 'TeamLeaveRequests.xlsx'): void {
+    // Apply interceptor transformations to the applied filter before exporting
+    const transformedFilter = this.leaveInterceptor.send({
+      ...this.appliedFilterModel,
+    }) as TeamLeaveFilter;
+
+    const allDataParams = {
+      ...this.paginationParams,
+      pageNumber: 1,
+      pageSize: CustomValidators.defaultLengths.INT_MAX, // MAX_INT equivalent
+    };
+
+    this.leaveService.getTeamLeavesWithPaging(allDataParams, transformedFilter).subscribe({
+      next: (response) => {
+        const fullList = response.data.list || [];
+        if (fullList.length === 0) {
+          this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
+          return;
+        }
+
+        const isRTL = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
+        const transformedData = fullList.map((item) => this.mapModelToExcelRow(item));
+        const ws = XLSX.utils.json_to_sheet(transformedData);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        wb.Workbook = { Views: [{ RTL: isRTL }] };
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, fileName);
+      },
+      error: () => {
+        this.alertsService.showErrorMessage({ messages: ['COMMON.ERROR'] });
+      },
+    });
+  }
+
   openViewLeaveRequest(model: Leave) {
     this.openBaseDialog(ViewLeaveRequestComponent as any, model, ViewModeEnum.MANAGER_TAKE_ACTION);
   }
 
   protected override mapModelToExcelRow(model: Leave): { [key: string]: any } {
+    console.log('Mapping model to Excel row:', model);
     const isAr = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
     return {
       [this.translateService.instant('LEAVE_REQUEST_PAGE.LEAVE_TYPE')]: isAr
