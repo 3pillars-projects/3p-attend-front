@@ -81,31 +81,25 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
     this.leaveService.getMyLeavesWithPaging(this.paginationParams, transformedFilter).subscribe({
       next: (response) =>
         this.handleLoadListSuccess({
-          list: response.data.list,
-          paginationInfo: response.data.paginationInfo,
+          list: response.list,
+          paginationInfo: response.paginationInfo,
         }),
       error: () => this.handleLoadListError(),
     });
   }
 
   override initListComponent() {
-    this.activatedRoute.data.subscribe((data) => {
-      if (data['myLeavesList']) {
-        const myLeavesData = data['myLeavesList'].data;
-        this.list = myLeavesData.list;
-        this.paginationInfoMap(myLeavesData);
-      }
-      this.leaveTypesService.getLookup().subscribe((res) => {
-        this.leaveTypes = res;
-      });
+
+    this.leaveTypesService.getLookup().subscribe((res) => {
+      this.leaveTypes = res;
     });
   }
 
   override loadList() {
     return this.leaveService.getMyLeavesWithPaging(this.paginationParams, this.filterModel).pipe(
       map((res) => ({
-        list: res.data.list as Leave[],
-        paginationInfo: res.data.paginationInfo,
+        list: res.list as Leave[],
+        paginationInfo: res.paginationInfo,
       }))
     );
   }
@@ -128,7 +122,7 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
 
     this.leaveService.getMyLeavesWithPaging(allDataParams, transformedFilter).subscribe({
       next: (response) => {
-        const fullList = response.data.list || [];
+        const fullList = response.list || [];
         if (fullList.length === 0) {
           this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
           return;
