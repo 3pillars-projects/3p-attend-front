@@ -519,8 +519,10 @@
     "LIMITED_TIME_PERMISSION": "الاستئذان الزمني المحدود",
     "LEAVE_TYPES": "أنواع الإجازات",
     "LEAVES": "الاجازات",
-    "EDIT_BALANCES": "أرصدة الاجازات",
-    "LEAVE_TRANSFER": "تجديد وترحيل أرصدة الاجازات"
+    "LEAVES_BALANCES": "أرصدة الاجازات",
+    "LEAVE_TRANSFER": "تجديد وترحيل أرصدة الاجازات",
+    "LEAVES_REQUEST": "طلبات الاجازات",
+    "CANCEL_LEAVES_REQUEST": "طلبات إلغاء الاجازات"
   },
   "NOTIFICATION": {
     "GENERAL_SETTINGS": "الإعدادات العامة",
@@ -1108,6 +1110,8 @@
     "STATUS_ACCEPTED": "مقبول",
     "STATUS_REJECTED": "مرفوض",
     "STATUS_CANCELED": "ملغي",
+    "STATUS_DOES_NOT_NEED_ACCEPTANCE": "لا يحتاج موافقة",
+    "STATUS_CUT": "قطع الاجازة",
     "STATUS_HR_ACCEPTANCE": "مقبول من الـ HR",
     "STATUS_MANAGEMENT_ACCEPTANCE": "مقبول من الادارة",
     "MANAGEMENT_ACCEPTANCE_DATE": "تاريخ قبول الادارة",

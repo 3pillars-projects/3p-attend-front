@@ -22,6 +22,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DepartmentService } from '@/services/features/lookups/department.service';
 import { UserService } from '@/services/features/user.service';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
+import { LeaveTypeService } from '@/services/features/business/leave-type.service';
+import { LeaveInterceptor } from '@/model-interceptors/features/business/leave.interceptor';
+import * as XLSX from 'xlsx';
+import { CustomValidators } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-team-leaves-request-list',
@@ -54,6 +58,7 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
   };
 
   leaveService = inject(LeaveService);
+  private leaveInterceptor = new LeaveInterceptor();
 
   override filterModel: TeamLeaveFilter = new TeamLeaveFilter();
   statusOptions: LeaveStatusOption[] = LEAVE_STATUS_OPTIONS;
@@ -62,12 +67,33 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
   departmentService = inject(DepartmentService);
   users: BaseLookupModel[] = [];
   userService = inject(UserService);
+  leaveTypesService = inject(LeaveTypeService);
 
   public LeaveStatusEnum = LeaveStatus;
   public languageEnum = LANGUAGE_ENUM;
 
   override get service() {
     return this.leaveService;
+  }
+
+  override search(isStoredProcedure: boolean = false) {
+    // Apply interceptor transformations to filter model before search
+    const transformedFilter = this.leaveInterceptor.send({
+      ...this.filterModel,
+    }) as TeamLeaveFilter;
+
+    this.appliedFilterModel = { ...transformedFilter };
+    this.paginationParams.pageNumber = 1;
+    this.first = 0;
+
+    this.leaveService.getTeamLeavesWithPaging(this.paginationParams, transformedFilter).subscribe({
+      next: (response) =>
+        this.handleLoadListSuccess({
+          list: response.data.list,
+          paginationInfo: response.data.paginationInfo,
+        }),
+      error: () => this.handleLoadListError(),
+    });
   }
 
   override initListComponent() {
@@ -77,9 +103,9 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
         this.list = teamLeavesData.list;
         this.paginationInfoMap(teamLeavesData);
       }
-      if (data['leaveTypes']) {
-        this.leaveTypes = data['leaveTypes'].list;
-      }
+      this.leaveTypesService.getLookup().subscribe((res) => {
+        this.leaveTypes = res;
+      });
       this.departmentService.getLookup().subscribe((res) => {
         this.departments = res;
       });
@@ -100,6 +126,40 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
 
   override openDialog(model: Leave) {
     this.openViewLeaveRequest(model);
+  }
+
+  override exportExcel(fileName: string = 'TeamLeaveRequests.xlsx'): void {
+    // Apply interceptor transformations to the applied filter before exporting
+    const transformedFilter = this.leaveInterceptor.send({
+      ...this.appliedFilterModel,
+    }) as TeamLeaveFilter;
+
+    const allDataParams = {
+      ...this.paginationParams,
+      pageNumber: 1,
+      pageSize: CustomValidators.defaultLengths.INT_MAX, // MAX_INT equivalent
+    };
+
+    this.leaveService.getTeamLeavesWithPaging(allDataParams, transformedFilter).subscribe({
+      next: (response) => {
+        const fullList = response.data.list || [];
+        if (fullList.length === 0) {
+          this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
+          return;
+        }
+
+        const isRTL = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
+        const transformedData = fullList.map((item) => this.mapModelToExcelRow(item));
+        const ws = XLSX.utils.json_to_sheet(transformedData);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        wb.Workbook = { Views: [{ RTL: isRTL }] };
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, fileName);
+      },
+      error: () => {
+        this.alertsService.showErrorMessage({ messages: ['COMMON.ERROR'] });
+      },
+    });
   }
 
   openViewLeaveRequest(model: Leave) {

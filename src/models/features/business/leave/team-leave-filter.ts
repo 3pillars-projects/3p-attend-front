@@ -4,8 +4,8 @@ export class TeamLeaveFilter {
   declare fkLeaveTypeId?: number;
   declare fkDepartmentId?: number;
   declare fkUserId?: number;
-  declare dateFrom?: string;
-  declare dateTo?: string;
+  declare dateFrom?: string | Date;
+  declare dateTo?: string | Date;
   declare status?: LeaveStatus;
   declare isCancelRequested?: boolean;
 }

@@ -4,14 +4,14 @@ import { ModelInterceptorContract } from 'cast-response';
 
 export class LeaveInterceptor implements ModelInterceptorContract<Leave> {
   receive(model: Leave): Leave {
-    model.dateTo = toDateTime(model.dateTo)!;
-    model.dateFrom = toDateTime(model.dateFrom)!;
+   if (model.dateTo) model.dateTo = toDateTime(model.dateTo)!;
+   if (model.dateFrom) model.dateFrom = toDateTime(model.dateFrom)!;
     return model;
   }
 
   send(model: Partial<Leave>): Partial<Leave> {
-    model.dateTo = toDateOnly(model.dateTo);
-    model.dateFrom = toDateOnly(model.dateFrom);
+    if (model.dateTo) model.dateTo = toDateOnly(model.dateTo);
+    if (model.dateFrom) model.dateFrom = toDateOnly(model.dateFrom);
     delete model.leaveType;
     delete model.employee;
     delete model.department;

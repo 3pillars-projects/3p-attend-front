@@ -25,6 +25,10 @@ import { DepartmentService } from '@/services/features/lookups/department.servic
 import { UserService } from '@/services/features/user.service';
 import { ViewCancelLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-cancel-leave-request.component';
 import { LeaveStatus } from '@/enums/leave-status-enum';
+import { LeaveTypeService } from '@/services/features/business/leave-type.service';
+import { CancelationRequestInterceptor } from '@/model-interceptors/features/business/cancelation-request.interceptor';
+import * as XLSX from 'xlsx';
+import { CustomValidators } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-team-cancel-leaves-request-list',
@@ -57,6 +61,7 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   cancelationRequestService = inject(CancelationRequestService);
   departmentService = inject(DepartmentService);
   userService = inject(UserService);
+  private cancelationRequestInterceptor = new CancelationRequestInterceptor();
 
   override filterModel: CancelationRequestFilter = new CancelationRequestFilter();
   statusOptions: CancelationStatusOption[] = CANCELATION_STATUS_OPTIONS;
@@ -64,16 +69,39 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
   departments: BaseLookupModel[] = [];
   users: BaseLookupModel[] = [];
   leaveStatusOptions: LeaveStatusOption[] = LEAVE_STATUS_OPTIONS;
+  leaveTypesService = inject(LeaveTypeService);
 
   override get service() {
     return this.cancelationRequestService;
   }
 
+  override search(isStoredProcedure: boolean = false) {
+    // Apply interceptor transformations to filter model before search
+    const transformedFilter = this.cancelationRequestInterceptor.send({
+      ...this.filterModel,
+    }) as CancelationRequestFilter;
+
+    this.appliedFilterModel = { ...transformedFilter };
+    this.paginationParams.pageNumber = 1;
+    this.first = 0;
+
+    this.cancelationRequestService
+      .getEmployeesCancelationRequestsWithPaging(this.paginationParams, transformedFilter)
+      .subscribe({
+        next: (response) =>
+          this.handleLoadListSuccess({
+            list: response.data.list,
+            paginationInfo: response.data.paginationInfo,
+          }),
+        error: () => this.handleLoadListError(),
+      });
+  }
+
   override initListComponent() {
     this.activatedRoute.data.subscribe((data) => {
-      if (data['leaveTypes']) {
-        this.leaveTypes = data['leaveTypes'].list;
-      }
+      this.leaveTypesService.getLookup().subscribe((res) => {
+        this.leaveTypes = res;
+      });
       this.departmentService.getLookup().subscribe((res) => {
         this.departments = res;
       });
@@ -96,6 +124,42 @@ export class TeamCancelLeavesRequestListComponent extends BaseListComponent<
 
   override openDialog(model: CancelationRequest) {
     this.openViewCancelLeaveRequest(model);
+  }
+
+  override exportExcel(fileName: string = 'TeamCancelLeaveRequests.xlsx'): void {
+    // Apply interceptor transformations to the applied filter before exporting
+    const transformedFilter = this.cancelationRequestInterceptor.send({
+      ...this.appliedFilterModel,
+    }) as CancelationRequestFilter;
+
+    const allDataParams = {
+      ...this.paginationParams,
+      pageNumber: 1,
+      pageSize: CustomValidators.defaultLengths.INT_MAX, // MAX_INT equivalent
+    };
+
+    this.cancelationRequestService
+      .getEmployeesCancelationRequestsWithPaging(allDataParams, transformedFilter)
+      .subscribe({
+        next: (response) => {
+          const fullList = response.data.list || [];
+          if (fullList.length === 0) {
+            this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
+            return;
+          }
+
+          const isRTL = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
+          const transformedData = fullList.map((item) => this.mapModelToExcelRow(item));
+          const ws = XLSX.utils.json_to_sheet(transformedData);
+          const wb: XLSX.WorkBook = XLSX.utils.book_new();
+          wb.Workbook = { Views: [{ RTL: isRTL }] };
+          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+          XLSX.writeFile(wb, fileName);
+        },
+        error: () => {
+          this.alertsService.showErrorMessage({ messages: ['COMMON.ERROR'] });
+        },
+      });
   }
 
   openViewCancelLeaveRequest(model: CancelationRequest) {

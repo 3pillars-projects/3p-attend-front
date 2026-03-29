@@ -8,6 +8,7 @@ import { ResponseData } from '@/models/shared/response/response-data';
 import { LeaveTypesLookup } from '@/models/features/business/leave-types/leave-types-lookup';
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
 import { LeaveTypeWithBalance } from '@/models/features/business/leave-types/leave-type-with-balance';
+import { LookupBaseService } from '@/abstracts/lookup-base.service';
 
 @CastResponseContainer({
   $default: {
@@ -32,7 +33,7 @@ import { LeaveTypeWithBalance } from '@/models/features/business/leave-types/lea
 @Injectable({
   providedIn: 'root',
 })
-export class LeaveTypeService extends BaseCrudService<LeaveType> {
+export class LeaveTypeService extends LookupBaseService<LeaveType, number> {
   serviceName: string = 'LeaveTypeService';
 
   override getUrlSegment(): string {

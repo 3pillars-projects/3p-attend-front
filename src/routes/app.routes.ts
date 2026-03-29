@@ -230,10 +230,9 @@ export const routes: Routes = [
       {
         path: 'cancel-leaves-request',
         canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVE_REQUESTS },
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVES_REQUEST },
         resolve: {
           myCancelationRequests: myCancelLeavesResolver,
-          leaveTypes: leaveTypesResolver,
         },
         loadComponent: () =>
           import(
@@ -373,9 +372,13 @@ export const routes: Routes = [
       },
       {
         path: 'leaves-request',
+        canActivate: [authGuard],
+        data: {
+          roles: [ROLES_ENUM.EMPLOYEE],
+          routeId: RouteIdsEnum.LEAVES_REQUEST,
+        },
         resolve: {
           myLeavesList: myLeavesResolver,
-          leaveTypes: leaveTypesResolver,
         },
         loadComponent: () =>
           import(

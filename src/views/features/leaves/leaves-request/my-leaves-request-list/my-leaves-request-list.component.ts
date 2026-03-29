@@ -20,6 +20,10 @@ import { LEAVE_STATUS_OPTIONS, LeaveStatusOption } from '@/models/shared/leave-s
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
 import { ActivatedRoute } from '@angular/router';
 import { ViewLeaveRequestComponent } from '../leaves-request-popups/view-leave-request/view-leave-request.component';
+import { LeaveTypeService } from '@/services/features/business/leave-type.service';
+import { LeaveInterceptor } from '@/model-interceptors/features/business/leave.interceptor';
+import * as XLSX from 'xlsx';
+import { CustomValidators } from '@/validators/custom-validators';
 
 @Component({
   selector: 'app-my-leaves-request-list',
@@ -51,15 +55,37 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
   };
 
   leaveService = inject(LeaveService);
+  private leaveInterceptor = new LeaveInterceptor();
 
   override filterModel: LeaveFilter = new LeaveFilter();
   statusOptions: LeaveStatusOption[] = LEAVE_STATUS_OPTIONS;
   leaveTypes: BaseLookupModel[] = [];
+  leaveTypesService = inject(LeaveTypeService);
 
   LeaveStatusEnum = LeaveStatus;
 
   override get service() {
     return this.leaveService;
+  }
+
+  override search(isStoredProcedure: boolean = false) {
+    // Apply interceptor transformations to filter model before search
+    const transformedFilter = this.leaveInterceptor.send({
+      ...this.filterModel,
+    }) as LeaveFilter;
+
+    this.appliedFilterModel = { ...transformedFilter };
+    this.paginationParams.pageNumber = 1;
+    this.first = 0;
+
+    this.leaveService.getMyLeavesWithPaging(this.paginationParams, transformedFilter).subscribe({
+      next: (response) =>
+        this.handleLoadListSuccess({
+          list: response.data.list,
+          paginationInfo: response.data.paginationInfo,
+        }),
+      error: () => this.handleLoadListError(),
+    });
   }
 
   override initListComponent() {
@@ -69,9 +95,9 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
         this.list = myLeavesData.list;
         this.paginationInfoMap(myLeavesData);
       }
-      if (data['leaveTypes']) {
-        this.leaveTypes = data['leaveTypes'].list;
-      }
+      this.leaveTypesService.getLookup().subscribe((res) => {
+        this.leaveTypes = res;
+      });
     });
   }
 
@@ -86,6 +112,40 @@ export class MyLeavesRequestListComponent extends BaseListComponent<
 
   override openDialog(model: Leave) {
     this.openBaseDialog(ViewLeaveRequestComponent as any, model, ViewModeEnum.TAKE_ACTION);
+  }
+
+  override exportExcel(fileName: string = 'MyLeaveRequests.xlsx'): void {
+    // Apply interceptor transformations to the applied filter before exporting
+    const transformedFilter = this.leaveInterceptor.send({
+      ...this.appliedFilterModel,
+    }) as LeaveFilter;
+
+    const allDataParams = {
+      ...this.paginationParams,
+      pageNumber: 1,
+      pageSize: CustomValidators.defaultLengths.INT_MAX, // MAX_INT equivalent
+    };
+
+    this.leaveService.getMyLeavesWithPaging(allDataParams, transformedFilter).subscribe({
+      next: (response) => {
+        const fullList = response.data.list || [];
+        if (fullList.length === 0) {
+          this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
+          return;
+        }
+
+        const isRTL = this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
+        const transformedData = fullList.map((item) => this.mapModelToExcelRow(item));
+        const ws = XLSX.utils.json_to_sheet(transformedData);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        wb.Workbook = { Views: [{ RTL: isRTL }] };
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, fileName);
+      },
+      error: () => {
+        this.alertsService.showErrorMessage({ messages: ['COMMON.ERROR'] });
+      },
+    });
   }
 
   openAddNewLeaveRequestPopup(model?: Leave) {
