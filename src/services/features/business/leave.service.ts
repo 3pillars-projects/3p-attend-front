@@ -8,7 +8,12 @@ import { PaginatedListResponseData } from '@/models/shared/response/paginated-li
 import { ResponseData } from '@/models/shared/response/response-data';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CastResponse, CastResponseContainer, HasInterception, InterceptParam } from 'cast-response';
+import {
+  CastResponse,
+  CastResponseContainer,
+  HasInterception,
+  InterceptParam,
+} from 'cast-response';
 import { catchError, map, Observable } from 'rxjs';
 
 @CastResponseContainer({
@@ -37,22 +42,27 @@ export class LeaveService extends BaseCrudService<Leave> {
   getMyLeavesWithPaging(
     paginationParams?: PaginationParams,
     filterOptions?: LeaveFilter
-  ): Observable<PaginatedListResponseData<Leave>> {
-    let httpParams = new HttpParams();
-    if (paginationParams) {
-      Object.entries(paginationParams).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          httpParams = httpParams.set(key, String(value));
+  ): Observable<PaginatedList<Leave>> {
+    const httpParams = new HttpParams({
+      fromObject: paginationParams as unknown as never,
+    });
+
+    return this.http
+      .post<PaginatedListResponseData<Leave>>(
+        this.getUrlSegment() + '/GetMyLeavesWithPaging',
+        filterOptions ?? {},
+        {
+          params: httpParams,
+          withCredentials: true,
         }
-      });
-    }
-
-    return this.http.post(this.getUrlSegment() + '/GetMyLeavesWithPaging', filterOptions ?? {}, {
-      params: httpParams,
-      withCredentials: true,
-    }) as unknown as Observable<PaginatedListResponseData<Leave>>;
+      )
+      .pipe(
+        map((response) => ({
+          list: response.data.list as Leave[],
+          paginationInfo: response.data.paginationInfo,
+        }))
+      );
   }
-
   // ─── Team Leaves ──────────────────────────────────────────────────────────
 
   @CastResponse(undefined, { fallback: '$pagination' })

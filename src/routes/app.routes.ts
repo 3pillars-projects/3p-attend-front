@@ -232,7 +232,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVES_REQUEST },
         resolve: {
-          myCancelationRequests: myCancelLeavesResolver,
+          list: myCancelLeavesResolver,
         },
         loadComponent: () =>
           import(
@@ -378,7 +378,7 @@ export const routes: Routes = [
           routeId: RouteIdsEnum.LEAVES_REQUEST,
         },
         resolve: {
-          myLeavesList: myLeavesResolver,
+          list: myLeavesResolver,
         },
         loadComponent: () =>
           import(

@@ -95,28 +95,30 @@ export class CancelationRequestService extends BaseCrudService<CancelationReques
   // ─── Retrieval ────────────────────────────────────────────────────────────
 
   @CastResponse(undefined, { fallback: '$pagination' })
-  getMyLeavesCancelationRequestsWithPaging(
-    paginationParams?: PaginationParams,
-    filterOptions?: CancelationRequestFilter
-  ): Observable<PaginatedListResponseData<CancelationRequest>> {
-    let httpParams = new HttpParams();
-    if (paginationParams) {
-      Object.entries(paginationParams).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          httpParams = httpParams.set(key, String(value));
-        }
-      });
-    }
+getMyLeavesCancelationRequestsWithPaging(
+  paginationParams?: PaginationParams,
+  filterOptions?: CancelationRequestFilter
+): Observable<PaginatedList<CancelationRequest>> {
+  const httpParams = new HttpParams({
+    fromObject: paginationParams as unknown as never,
+  });
 
-    return this.http.post(
+  return this.http
+    .post<PaginatedListResponseData<CancelationRequest>>(
       this.getUrlSegment() + '/GetMyCancelationRequestsWithPaging',
       filterOptions ?? {},
       {
         params: httpParams,
         withCredentials: true,
       }
-    ) as unknown as Observable<PaginatedListResponseData<CancelationRequest>>;
-  }
+    )
+    .pipe(
+      map((response) => ({
+        list: response.data.list as CancelationRequest[],
+        paginationInfo: response.data.paginationInfo,
+      }))
+    );
+}
 
   @CastResponse(undefined, { fallback: '$pagination' })
   getEmployeesCancelationRequestsWithPaging(

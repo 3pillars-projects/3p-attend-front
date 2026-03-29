@@ -91,15 +91,8 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
   }
 
   override initListComponent() {
-    this.activatedRoute.data.subscribe((data) => {
-      if (data['myCancelationRequests']) {
-        const cancelationRequestsData = data['myCancelationRequests'].data;
-        this.list = cancelationRequestsData.list;
-        this.paginationInfoMap(cancelationRequestsData);
-      }
-      this.leaveTypesService.getLookup().subscribe((res) => {
-        this.leaveTypes = res;
-      });
+    this.leaveTypesService.getLookup().subscribe((res) => {
+      this.leaveTypes = res;
     });
   }
 
