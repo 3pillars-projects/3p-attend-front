@@ -242,7 +242,10 @@ export const routes: Routes = [
       {
         path: 'leaves-list',
         canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVE_TYPES },
+        data: {
+          roles: [ROLES_ENUM.HR_OFFICER, ROLES_ENUM.ADMIN],
+          routeId: RouteIdsEnum.LEAVE_TYPES,
+        },
         resolve: { list: leaveTypesResolver },
         loadComponent: () =>
           import(

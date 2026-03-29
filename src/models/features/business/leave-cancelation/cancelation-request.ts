@@ -7,6 +7,7 @@ import { CancelationRequestService } from '@/services/features/business/cancelat
 import { InterceptModel } from 'cast-response';
 import { BaseLookupModel } from '../../lookups/base-lookup-model';
 import { LeaveStatus } from '@/enums/leave-status-enum';
+import { Validators } from '@angular/forms';
 
 const { send, receive } = new CancelationRequestInterceptor();
 
@@ -35,9 +36,9 @@ export class CancelationRequest extends BaseCrudModel<
   buildForm() {
     const { fkLeaveId, dateFrom, dateTo, note, status, requireHRAction } = this;
     return {
-      fkLeaveId: [fkLeaveId, []],
-      dateFrom: [dateFrom, []],
-      dateTo: [dateTo, []],
+      fkLeaveId: [fkLeaveId, [Validators.required]],
+      dateFrom: [dateFrom, [Validators.required]],
+      dateTo: [dateTo, [Validators.required]],
       note: [note, []],
       status: [status, []],
       requireHRAction: [requireHRAction ?? false, []],

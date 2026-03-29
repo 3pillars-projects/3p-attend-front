@@ -79,12 +79,12 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
     this.first = 0;
 
     this.cancelationRequestService
-      .getEmployeesCancelationRequestsWithPaging(this.paginationParams, transformedFilter)
+      .getMyLeavesCancelationRequestsWithPaging(this.paginationParams, transformedFilter)
       .subscribe({
         next: (response) =>
           this.handleLoadListSuccess({
-            list: response.data.list,
-            paginationInfo: response.data.paginationInfo,
+            list: response.list,
+            paginationInfo: response.paginationInfo,
           }),
         error: () => this.handleLoadListError(),
       });
@@ -98,11 +98,11 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
 
   override loadList() {
     return this.cancelationRequestService
-      .getEmployeesCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
+      .getMyLeavesCancelationRequestsWithPaging(this.paginationParams, this.filterModel)
       .pipe(
         map((res) => ({
-          list: res.data.list as CancelationRequest[],
-          paginationInfo: res.data.paginationInfo,
+          list: res.list as CancelationRequest[],
+          paginationInfo: res.paginationInfo,
         }))
       );
   }
@@ -124,10 +124,10 @@ export class MyCancelLeavesRequestListComponent extends BaseListComponent<
     };
 
     this.cancelationRequestService
-      .getEmployeesCancelationRequestsWithPaging(allDataParams, transformedFilter)
+      .getMyLeavesCancelationRequestsWithPaging(allDataParams, transformedFilter)
       .subscribe({
         next: (response) => {
-          const fullList = response.data.list || [];
+          const fullList = response.list || [];
           if (fullList.length === 0) {
             this.alertsService.showErrorMessage({ messages: ['COMMON.NO_DATA_TO_EXPORT'] });
             return;
