@@ -65,7 +65,7 @@
         }}</span>
       </label>
     </div> -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" [formGroup]="form">
       <div class="relative">
         <label class="label" for="swipeDateFrom">{{
           'CANCEL_LEAVE_REQUEST_PAGE.DATE_FROM' | translate
@@ -77,12 +77,13 @@
           class="peer block w-full"
           inputId="swipeDateFrom"
           [showClear]="true"
-          [(ngModel)]="dateFrom"
+          formControlName="dateFrom"
         >
           <ng-template pTemplate="inputicon">
             <img alt="" src="assets/icons/calender-icon.svg" />
           </ng-template>
         </p-datepicker>
+        <app-validation-messages [control]="dateFromControl"></app-validation-messages>
         <span
           class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
         ></span>
@@ -98,12 +99,13 @@
           class="peer block w-full"
           inputId="swipeDateTo"
           [showClear]="true"
-          [(ngModel)]="dateTo"
+          formControlName="dateTo"
         >
           <ng-template pTemplate="inputicon">
             <img alt="" src="assets/icons/calender-icon.svg" />
           </ng-template>
         </p-datepicker>
+        <app-validation-messages [control]="dateToControl"></app-validation-messages>
         <span
           class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
         ></span>
@@ -112,13 +114,14 @@
         <label class="label" for="note">{{ 'CANCEL_LEAVE_REQUEST_PAGE.NOTES' | translate }}</label>
         <div class="relative w-full">
           <textarea
-            [(ngModel)]="note"
+            formControlName="note"
             class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
             cols="30"
             pTextarea
             placeholder="{{ 'CANCEL_LEAVE_REQUEST_PAGE.NOTES' | translate }}"
             rows="5"
           ></textarea>
+          <app-validation-messages [control]="noteControl"></app-validation-messages>
           <span
             class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
           ></span>
