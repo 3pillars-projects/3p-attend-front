@@ -10,7 +10,7 @@
     <p-tabs value="0">
       <p-tablist>
         <p-tab value="0">{{ 'LEAVE_REQUEST_PAGE.REQUEST_DETAILS' | translate }}</p-tab>
-        @if(activeLeaves.length > 0){
+        @if (activeLeaves.length > 0) {
           <p-tab value="1">{{ 'LEAVE_REQUEST_PAGE.RELATED_REQUESTS' | translate }}</p-tab>
         }
       </p-tablist>
@@ -208,7 +208,9 @@
         <p-tabpanel value="1">
           <div class="bg-[#f3f4f6] p-6 rounded-2xl mt-4">
             <header>
-              <h3 class="font-semibold text-[#14573A]">الطلبات المتعلقة بطلب الاجازة</h3>
+              <h3 class="font-semibold text-[#14573A]">
+                {{ 'LEAVE_REQUEST_PAGE.RELATED_REQUESTS' | translate }}
+              </h3>
             </header>
             <article>
               <!-- Active Leaves -->
@@ -219,20 +221,26 @@
                   {{ 'LEAVE_REQUEST_PAGE.ACTIVE_LEAVES' | translate }}
                 </h4>
                 @if (activeLeaves.length === 0) {
-                  <p class="text-sm text-[#6c737f] ps-4">{{ 'LEAVE_REQUEST_PAGE.NO_ACTIVE_LEAVES' | translate }}</p>
+                  <p class="text-sm text-[#6c737f] ps-4">
+                    {{ 'LEAVE_REQUEST_PAGE.NO_ACTIVE_LEAVES' | translate }}
+                  </p>
                 } @else {
                   <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
                     @for (leave of activeLeaves; track leave.id) {
                       <li>
                         <p class="text-[#384250] text-sm my-2">
-                          {{ leave.dateFrom | date: 'dd/MM/yyyy' }} - {{ leave.dateTo | date: 'dd/MM/yyyy' }}
+                          {{ leave.dateFrom | date: 'dd/MM/yyyy' }} -
+                          {{ leave.dateTo | date: 'dd/MM/yyyy' }}
                         </p>
                         <div class="border-s-2 border-s-[#D2D6DB] ps-4">
                           <div class="bg-white p-3 rounded">
-                            <p class="text-sm text-[#6c737f] mb-2">{{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}</p>
+                            <p class="text-sm text-[#6c737f] mb-2">
+                              {{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}
+                            </p>
                             <span
                               class="inline-block bg-[#ecfdf3] min-w-[36px] text-center border border-[#abefc6] text-[#085d3a] rounded-full"
-                            >{{ leave.daysCount }}</span>
+                              >{{ leave.daysCount }}</span
+                            >
                           </div>
                         </div>
                       </li>
@@ -249,22 +257,30 @@
                   {{ 'LEAVE_REQUEST_PAGE.CANCELLED_PERIOD' | translate }}
                 </h4>
                 @if (cancelledPeriods.length === 0) {
-                  <p class="text-sm text-[#6c737f] ps-4">{{ 'LEAVE_REQUEST_PAGE.NO_CANCELLED_PERIODS' | translate }}</p>
+                  <p class="text-sm text-[#6c737f] ps-4">
+                    {{ 'LEAVE_REQUEST_PAGE.NO_CANCELLED_PERIODS' | translate }}
+                  </p>
                 } @else {
                   <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
                     @for (period of cancelledPeriods; track period.dateFrom) {
                       <li>
                         <p class="text-[#384250] text-sm my-2">
-                          {{ period.dateFrom | date: 'dd/MM/yyyy' }} - {{ period.dateTo | date: 'dd/MM/yyyy' }}
+                          {{ period.dateFrom | date: 'dd/MM/yyyy' }} -
+                          {{ period.dateTo | date: 'dd/MM/yyyy' }}
                         </p>
                         <div class="border-s-2 border-s-[#D2D6DB] ps-4">
                           <div class="bg-white p-3 rounded">
-                            <p class="text-sm text-[#6c737f] mb-2">{{ 'LEAVE_REQUEST_PAGE.CANCELLED_LEAVE_DAYS_COUNT' | translate }}</p>
+                            <p class="text-sm text-[#6c737f] mb-2">
+                              {{ 'LEAVE_REQUEST_PAGE.CANCELLED_LEAVE_DAYS_COUNT' | translate }}
+                            </p>
                             <span
                               class="inline-block bg-[#fef3f2] min-w-[36px] text-center border border-[#fecdcc] text-[#912018] rounded-full"
-                            >{{ period.daysCount }}</span>
+                              >{{ period.daysCount }}</span
+                            >
                             @if (period.notes) {
-                              <p class="text-sm text-[#6c737f] my-2">{{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}</p>
+                              <p class="text-sm text-[#6c737f] my-2">
+                                {{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}
+                              </p>
                               <span class="inline-block">{{ period.notes }}</span>
                             }
                           </div>
