@@ -47,7 +47,7 @@ export class ViewLeaveRequestComponent implements OnInit {
   confirmationService = inject(ConfirmationService);
   leaveService = inject(LeaveService);
   declare direction: LAYOUT_DIRECTION_ENUM;
-  
+  languageEnum = LANGUAGE_ENUM;
   activeLeaves: Leave[] = [];
   cancelledPeriods: CancelledPeriod[] = [];
 

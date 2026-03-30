@@ -178,7 +178,8 @@
     "DEDUCT": "خصم",
     "INSUFFICIENT_LEAVE_BALANCE": "رصيد الإجازة غير كافٍ",
     "LEAVE_CONTINUOUS_DAYS_EXCEEDED": "لقد تجاوزت الحد الأقصى لعدد الأيام المتتالية المسموح بها",
-    "LEAVE_OVERLAP": "الإجازة تتداخل مع إجازة أخرى"
+    "LEAVE_OVERLAP": "الإجازة تتداخل مع إجازة أخرى",
+    "PLEASE_ENTER_REJECTION_NOTE": "يرجى إدخال سبب الرفض"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",

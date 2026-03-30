@@ -9,6 +9,5 @@ export const teamCancelLeavesResolver: ResolveFn<
   PaginatedListResponseData<CancelationRequest>
 > = () => {
   const params = new PaginationParams();
-  params.pageSize = 10;
   return inject(CancelationRequestService).getEmployeesCancelationRequestsWithPaging(params);
 };

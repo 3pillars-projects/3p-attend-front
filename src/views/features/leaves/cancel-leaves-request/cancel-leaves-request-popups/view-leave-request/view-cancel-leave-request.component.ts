@@ -34,9 +34,8 @@ export class ViewCancelLeaveRequestComponent implements OnInit {
   viewMode: ViewModeEnum = this.data.viewMode;
   statusOptions = CANCELATION_STATUS_OPTIONS;
   rejectionNote: string = '';
-
+  languageEnum = LANGUAGE_ENUM;
   ngOnInit(): void {}
-
 
   get isAr(): boolean {
     return this.langService.getCurrentLanguage() === LANGUAGE_ENUM.ARABIC;
@@ -52,9 +51,7 @@ export class ViewCancelLeaveRequestComponent implements OnInit {
 
   approve(): void {
     this.cancelationRequestService.approveCancelation(this.model.id).subscribe(() => {
-      this.alert.showSuccessMessage({
-        messages: [this.isAr ? 'تم قبول الطلب بنجاح' : 'Request approved successfully'],
-      });
+      this.alert.showSuccessMessage({});
       this.dialogRef.close(DIALOG_ENUM.OK);
     });
   }
@@ -62,7 +59,7 @@ export class ViewCancelLeaveRequestComponent implements OnInit {
   reject(): void {
     if (!this.rejectionNote) {
       this.alert.showErrorMessage({
-        messages: [this.isAr ? 'يرجى إدخال سبب الرفض' : 'Please enter rejection note'],
+        messages: ['COMMON.PLEASE_ENTER_REJECTION_NOTE'],
       });
       return;
     }
@@ -72,9 +69,7 @@ export class ViewCancelLeaveRequestComponent implements OnInit {
         rejectionNote: this.rejectionNote,
       })
       .subscribe(() => {
-        this.alert.showSuccessMessage({
-          messages: [this.isAr ? 'تم رفض الطلب بنجاح' : 'Request rejected successfully'],
-        });
+        this.alert.showSuccessMessage({});
         this.dialogRef.close(DIALOG_ENUM.OK);
       });
   }
@@ -115,6 +110,4 @@ export class ViewCancelLeaveRequestComponent implements OnInit {
         return 'bg-gray-400';
     }
   }
-
-
 }

@@ -177,7 +177,8 @@
     "TYPE": "Type",
     "INSUFFICIENT_LEAVE_BALANCE": "Insufficient leave balance",
     "LEAVE_CONTINUOUS_DAYS_EXCEEDED": "Leave continuous days exceeded",
-    "LEAVE_OVERLAP": "Leave overlap"
+    "LEAVE_OVERLAP": "Leave overlap",
+    "PLEASE_ENTER_REJECTION_NOTE": "Please enter rejection note"
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
