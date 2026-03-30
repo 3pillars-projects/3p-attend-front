@@ -1,100 +1,88 @@
-import { Component, inject } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePicker, DatePickerModule } from 'primeng/datepicker';
-import { FormsModule } from '@angular/forms';
 import { Tabs, TabsModule } from 'primeng/tabs';
-import { Select } from 'primeng/select';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-// import { ViewLeaveRequestComponent } from '../leaves-request-popups/view-leave-request/view-leave-request.component';
-import { DIALOG_ENUM } from '@/enums/dialog-enum';
-import { ViewLeaveRequestComponent } from '../cancel-leaves-request-popups/view-leave-request/view-leave-request.component';
-// import { AddNewLeaveRequestComponent } from '../leaves-request-popups/add-new-leave-request/add-new-leave-request.component';
-interface Adminstration {
-  type: string;
-}
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { MyCancelLeavesRequestListComponent } from '../my-cancel-leaves-request-list/my-cancel-leaves-request-list.component';
+import { TeamCancelLeavesRequestListComponent } from '../team-cancel-leaves-request-list/team-cancel-leaves-request-list.component';
+import { BaseListComponent } from '@/abstracts/base-components/base-list/base-list.component';
+import { CancelationRequest } from '@/models/features/business/leave-cancelation/cancelation-request';
+import { CancelationRequestService } from '@/services/features/business/cancelation-request.service';
+import { CancelationRequestFilter } from '@/models/features/business/leave-cancelation/cancelation-request-filter';
+import { AuthService } from '@/services/auth/auth.service';
 
 @Component({
   selector: 'app-cancel-leaves-request-list',
+  standalone: true,
   imports: [
     Breadcrumb,
-    InputTextModule,
-    TableModule,
     CommonModule,
-    RouterModule,
-    CommonModule,
-    PaginatorModule,
-    DatePickerModule,
-    FormsModule,
     TabsModule,
-    DatePicker,
-    Select,
+    TranslateModule,
+    MyCancelLeavesRequestListComponent,
+    TeamCancelLeavesRequestListComponent,
   ],
   templateUrl: './cancel-leaves-request-list.component.html',
   styleUrl: './cancel-leaves-request-list.component.scss',
 })
-export default class CancelLeavesRequestListComponent {
-  first: number = 0;
-  rows: number = 10;
-  date2: Date | undefined;
-  attendance!: any[];
-  items: MenuItem[] | undefined;
-  home: MenuItem | undefined;
-  dialogSize = {
+export default class CancelLeavesRequestListComponent extends BaseListComponent<
+  CancelationRequest,
+  any,
+  CancelationRequestService,
+  CancelationRequestFilter
+> {
+  override dialogSize = {
     width: '100%',
     maxWidth: '1024px',
   };
+  authService = inject(AuthService);
 
-  matDialog = inject(MatDialog);
+  @ViewChild('myList') myList!: MyCancelLeavesRequestListComponent;
+  @ViewChild('teamList') teamList!: TeamCancelLeavesRequestListComponent;
 
-  ngOnInit() {
-    this.items = [{ label: 'لوحة المعلومات' }, { label: 'طلبات الغاء الاجازات' }];
-    // Updated dummy data to match your Arabic table structure
-    this.attendance = [
-      {
-        serialNumber: 1,
-        PermanentType: 'دوام كلي',
-        startDate: '12/12/2024',
-        endDate: '24/12/2024',
-        timeRange: '10:00 - 17:00',
-        maxAttendanceTime: '09:30',
-        maxwithdrawalTime: '19:00',
-      },
+  activeTabIndex = 0;
+
+  onTabChange(index: number | string) {
+    this.activeTabIndex = Number(index);
+
+    if (this.activeTabIndex === 0 && this.myList) {
+      this.myList.resetSearch();
+    } else if (this.activeTabIndex === 1 && this.teamList) {
+      this.teamList.resetSearch();
+    }
+  }
+
+  private _filterModel = {};
+  override get filterModel() {
+    return this._filterModel;
+  }
+  override set filterModel(val: any) {
+    this._filterModel = val;
+  }
+  override get service() {
+    return null as any;
+  }
+  override initListComponent(): void {}
+  override loadList() {
+    return null as any;
+  }
+  override openDialog(model: any): void {}
+
+  protected override mapModelToExcelRow(model: any): { [p: string]: any } {
+    return {};
+  }
+
+  protected override getBreadcrumbKeys(): {
+    labelKey: string;
+    icon?: string;
+    routerLink?: string;
+  }[] {
+    return [
+      { labelKey: 'COMMON.DASHBOARD' },
+      { labelKey: 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL_LEAVE_REQUESTS' },
     ];
   }
-  onPageChange(event: PaginatorState) {
-    this.first = event.first ?? 0;
-    this.rows = event.rows ?? 10;
+  canViewTeamRequests() {
+    return this.authService.isHROfficer || this.authService.isDepartmentManager;
   }
-  openViewLeaveRequest(model?: any) {
-    let dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      model: model,
-    };
-    dialogConfig.width = this.dialogSize.width;
-    dialogConfig.maxWidth = this.dialogSize.maxWidth;
-    const dialogRef = this.matDialog.open(ViewLeaveRequestComponent as any, dialogConfig);
-
-    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      console.log('closed');
-    });
-  }
-  // openAddNewLeaveRequestPopup(model?: any) {
-  //   let dialogConfig: MatDialogConfig = new MatDialogConfig();
-  //   dialogConfig.data = {
-  //     model: model,
-  //   };
-  //   dialogConfig.width = this.dialogSize.width;
-  //   dialogConfig.maxWidth = this.dialogSize.maxWidth;
-  //   const dialogRef = this.matDialog.open(AddNewLeaveRequestComponent as any, dialogConfig);
-
-  //   return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-  //     console.log('closed');
-  //   });
-  // }
 }

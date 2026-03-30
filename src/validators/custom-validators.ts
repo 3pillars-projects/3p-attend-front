@@ -40,6 +40,7 @@ const defaultLengths = {
   _500: 500,
   INT_MAX: 2_147_483_647,
   maxShiftBuffer: 30,
+  HALF_DAY_MIN: 0.5,
 };
 
 export function pattern(patternName: customValidationTypes): ValidatorFn {

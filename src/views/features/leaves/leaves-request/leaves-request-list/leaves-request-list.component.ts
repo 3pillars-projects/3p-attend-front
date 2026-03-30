@@ -1,95 +1,94 @@
-import { Component, inject } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Breadcrumb } from 'primeng/breadcrumb';
-import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePicker, DatePickerModule } from 'primeng/datepicker';
-import { FormsModule } from '@angular/forms';
-import { Tabs, TabsModule } from 'primeng/tabs';
-import { Select } from 'primeng/select';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ViewLeaveRequestComponent } from '../leaves-request-popups/view-leave-request/view-leave-request.component';
-import { DIALOG_ENUM } from '@/enums/dialog-enum';
-import { AddNewLeaveRequestComponent } from '../leaves-request-popups/add-new-leave-request/add-new-leave-request.component';
+import { TabsModule } from 'primeng/tabs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MyLeavesRequestListComponent } from '../my-leaves-request-list/my-leaves-request-list.component';
+import { TeamLeavesRequestListComponent } from '../team-leaves-request-list/team-leaves-request-list.component';
+import { MenuItem } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '@/services/auth/auth.service';
+
 @Component({
   selector: 'app-leaves-request-list',
+  standalone: true,
   imports: [
     Breadcrumb,
-    InputTextModule,
-    TableModule,
     CommonModule,
     RouterModule,
-    CommonModule,
-    PaginatorModule,
-    DatePickerModule,
-    FormsModule,
     TabsModule,
-    DatePicker,
-    Select,
+    TranslateModule,
+    MyLeavesRequestListComponent,
+    TeamLeavesRequestListComponent,
   ],
   templateUrl: './leaves-request-list.component.html',
   styleUrl: './leaves-request-list.component.scss',
 })
-export class LeavesRequestListComponent {
-  first: number = 0;
-  rows: number = 10;
-  date2: Date | undefined;
-  attendance!: any[];
-  items: MenuItem[] | undefined;
-  home: MenuItem | undefined;
-  dialogSize = {
-    width: '100%',
-    maxWidth: '1024px',
+export class LeavesRequestListComponent implements OnInit, OnDestroy {
+  translateService = inject(TranslateService);
+  destroy$ = new Subject<void>();
+  authService = inject(AuthService);
+  @ViewChild('myList') myList!: MyLeavesRequestListComponent;
+  @ViewChild('teamList') teamList!: TeamLeavesRequestListComponent;
+
+  activeTabIndex = 0;
+  breadcrumbs: MenuItem[] = [];
+  home = {
+    label: this.translateService.instant('COMMON.HOME'),
+    icon: 'pi pi-home',
+    routerLink: '/home',
   };
 
-  matDialog = inject(MatDialog);
-
   ngOnInit() {
-    this.items = [{ label: 'لوحة المعلومات' }, { label: 'طلبات الإجازات' }];
-    // Updated dummy data to match your Arabic table structure
-    this.attendance = [
-      {
-        serialNumber: 1,
-        PermanentType: 'دوام كلي',
-        startDate: '12/12/2024',
-        endDate: '24/12/2024',
-        timeRange: '10:00 - 17:00',
-        maxAttendanceTime: '09:30',
-        maxwithdrawalTime: '19:00',
-      },
-    ];
-  }
-  onPageChange(event: PaginatorState) {
-    this.first = event.first ?? 0;
-    this.rows = event.rows ?? 10;
-  }
-  openViewLeaveRequest(model?: any) {
-    let dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      model: model,
-    };
-    dialogConfig.width = this.dialogSize.width;
-    dialogConfig.maxWidth = this.dialogSize.maxWidth;
-    const dialogRef = this.matDialog.open(ViewLeaveRequestComponent as any, dialogConfig);
+    this.setHomeItem();
+    this.initBreadcrumbs();
 
-    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      console.log('closed');
+    this.translateService.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.setHomeItem();
+      this.initBreadcrumbs();
     });
   }
-  openAddNewLeaveRequestPopup(model?: any) {
-    let dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      model: model,
-    };
-    dialogConfig.width = this.dialogSize.width;
-    dialogConfig.maxWidth = this.dialogSize.maxWidth;
-    const dialogRef = this.matDialog.open(AddNewLeaveRequestComponent as any, dialogConfig);
 
-    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      console.log('closed');
-    });
+  private setHomeItem(): void {
+    this.home = {
+      label: this.translateService.instant('COMMON.HOME'),
+      icon: 'pi pi-home',
+      routerLink: '/home',
+    };
+  }
+
+  private initBreadcrumbs(): void {
+    this.breadcrumbs = this.getBreadcrumbKeys().map((item) => ({
+      label: this.translateService.instant(item.labelKey),
+      icon: item.icon,
+      routerLink: item.routerLink,
+    }));
+  }
+
+  protected getBreadcrumbKeys(): {
+    labelKey: string;
+    icon?: string;
+    routerLink?: string;
+  }[] {
+    return [{ labelKey: 'COMMON.DASHBOARD' }, { labelKey: 'LEAVE_REQUEST_PAGE.LEAVE_REQUESTS' }];
+  }
+
+  onTabChange(index: number | string) {
+    this.activeTabIndex = Number(index);
+
+    if (this.activeTabIndex === 0 && this.myList) {
+      this.myList.resetSearch();
+    } else if (this.activeTabIndex === 1 && this.teamList) {
+      this.teamList.resetSearch();
+    }
+  }
+  canViewTeamRequests() {
+    return this.authService.isHROfficer || this.authService.isDepartmentManager;
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

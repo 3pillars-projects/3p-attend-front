@@ -40,6 +40,11 @@ export default class AttendanceReport extends BaseCrudModel<
   declare holidayNameEn?: string | null;
   declare holidayNameAr?: string | null;
 
+  // leave type
+  declare leaveTypeId?: number | null;
+  declare leaveTypeNameEn?: string | null;
+  declare leaveTypeNameAr?: string | null;
+
   declare shiftId?: number | null;
   declare shiftNameEn?: string | null;
   declare shiftNameAr?: string | null;
@@ -93,6 +98,11 @@ export default class AttendanceReport extends BaseCrudModel<
     return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
       ? this.holidayNameEn!
       : this.holidayNameAr!;
+  }
+  getLeaveTypeName(): string {
+    return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
+      ? this.leaveTypeNameEn!
+      : this.leaveTypeNameAr!;
   }
   getTimeDifferenceValue(): string {
     if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
