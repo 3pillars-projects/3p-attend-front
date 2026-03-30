@@ -1,0 +1,172 @@
+<div [formGroup]="form">
+  <div class="p-6">
+    <button class="block ms-auto" (click)="close()">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'LEAVE_REQUEST_PAGE.NEW_LEAVE_REQUEST' | translate }}
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div>
+        <label class="label" for="leaveTypeId">
+          {{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}
+        </label>
+        <div class="relative">
+          <p-select
+            class="w-full peer"
+            formControlName="fkLeaveTypeId"
+            id="leaveTypeId"
+            [options]="leaveTypes"
+            [optionLabel]="getPropertyName()"
+            optionValue="id"
+            [placeholder]="'LEAVE_REQUEST_PAGE.CHOOSE_LEAVE_TYPE' | translate"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <app-validation-messages [control]="getControl('fkLeaveTypeId')"></app-validation-messages>
+      </div>
+    </div>
+    @if (selectedLeaveType) {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-[#f3f4f6] p-6 rounded-4xl mt-6 lg:col-span-2 md:col-span-2">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <span class="text-[14px] text-[#6c737f]">
+                {{ 'LEAVES_BALANCES.ANNUAL_BALANCE' | translate }}
+              </span>
+              <h5 class="text-[#161616] font-[600] mt-2">
+                {{ selectedLeaveType.annualBalance ?? 0 }}
+              </h5>
+            </div>
+            <div>
+              <span class="text-[14px] text-[#6c737f]">
+                {{ 'LEAVES_BALANCES.TOTAL_TIMES_AVAILABLE' | translate }}
+              </span>
+              <h5 class="text-[#161616] font-[600] mt-2">
+                {{ selectedLeaveType.availableTimesDuringServicePeriod ?? 0 }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @if (selectedLeaveType?.canApplyOnHalfDay) {
+      <div class="pt-6 mt-6 border-t border-[#d2d6db]">
+        <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+          <p-checkbox formControlName="isHalfDay" [binary]="true" inputId="isHalfDay"></p-checkbox>
+          <span class="text-base font-medium text-[#1f2a37] me-2 ms-2">
+            {{ 'LEAVE_REQUEST_PAGE.HALF_DAY' | translate }}
+          </span>
+        </label>
+        @if (form.get('isHalfDay')?.value) {
+          <div class="flex items-center gap-6 ms-4 mt-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <p-radiobutton
+                formControlName="partialLeavePosition"
+                [value]="PartialLeavePosition.BeginningOfShift"
+                inputId="posBeginning"
+              ></p-radiobutton>
+              <span class="text-sm text-[#1f2a37] ms-2">
+                {{ 'LEAVE_REQUEST_PAGE.BEGINNING_OF_SHIFT' | translate }}
+              </span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <p-radiobutton
+                formControlName="partialLeavePosition"
+                [value]="PartialLeavePosition.EndOfShift"
+                inputId="posEnd"
+              ></p-radiobutton>
+              <span class="text-sm text-[#1f2a37] ms-2">
+                {{ 'LEAVE_REQUEST_PAGE.END_OF_SHIFT' | translate }}
+              </span>
+            </label>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      <div>
+        <div class="relative">
+          <label class="label" for="dateFrom">{{
+            'LEAVE_REQUEST_PAGE.DATE_FROM' | translate
+          }}</label>
+          <p-datepicker
+            [iconDisplay]="'input'"
+            [placeholder]="'LEAVE_REQUEST_PAGE.DATE_FROM' | translate"
+            [showIcon]="true"
+            class="peer block w-full"
+            inputId="dateFrom"
+            formControlName="dateFrom"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <app-validation-messages [control]="getControl('dateFrom')"></app-validation-messages>
+      </div>
+      @if (!form.get('isHalfDay')?.value) {
+        <div>
+          <div class="relative">
+            <label class="label" for="dateTo">{{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</label>
+            <p-datepicker
+              [iconDisplay]="'input'"
+              formControlName="dateTo"
+              [showIcon]="true"
+              class="peer block w-full"
+              id="dateTo"
+              inputId="dateTo"
+              name="dateTo"
+              [placeholder]="'LEAVE_REQUEST_PAGE.DATE_TO' | translate"
+            >
+              <ng-template pTemplate="inputicon">
+                <img alt="" src="assets/icons/calender-icon.svg" />
+              </ng-template>
+            </p-datepicker>
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+          <app-validation-messages [control]="getControl('dateTo')"></app-validation-messages>
+          <app-validation-messages [control]="form"></app-validation-messages>
+        </div>
+      }
+
+      <div class="md:col-span-2 lg:col-span-3">
+        <label class="label" for="notes">{{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}</label>
+        <div class="relative w-full">
+          <textarea
+            class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 focus:outline-none resize-none peer"
+            cols="30"
+            pTextarea
+            [placeholder]="'LEAVE_REQUEST_PAGE.NOTES' | translate"
+            rows="5"
+            formControlName="notes"
+            id="notes"
+          ></textarea>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+          ></span>
+          <app-validation-messages [control]="getControl('notes')"></app-validation-messages>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-4 mt-6">
+      <button class="btn gray-btn" (click)="close()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button class="btn green-btn" (click)="save$.next()">
+        {{ 'COMMON.SAVE' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@/guards/auth-guard';
 import { ROLES_ENUM } from '@/enums/roles-enum';
-import { nationalitiesResolver } from '@/resolvers/lookups/nationalities.resolver';
 import { cityResolver } from '@/resolvers/lookups/city.resolver';
 import { userResolver } from '@/resolvers/user.resolver';
 import { regionResolver } from '@/resolvers/lookups/region.resolver';
@@ -16,15 +15,15 @@ import { notificationResolver } from '@/resolvers/setting/notification.resolver'
 import { userWorkShiftResolver } from '@/resolvers/lookups/user-work-shift.resolver';
 import { userProfileResolver } from '@/resolvers/features/user-profile.resolver';
 import { myShiftsResolver } from '@/resolvers/lookups/my-shifts.resolver';
-import { presenceInquiryResolver } from '@/resolvers/presence-inquiry.resolver';
-import { blacklistedNationalIdResolver } from '@/resolvers/features/visit/blacklisted-national-id.resolver';
-import { blacklistResolver } from '@/resolvers/features/blacklist.resolver';
 import { WorkMissionResolver } from '@/resolvers/business/work-missions.resolver';
-import { visitResolver } from '@/resolvers/features/visit/visit.resolver';
-import { accessLocationResolver } from '@/resolvers/business/access-location.resolver';
-import { devicesConfigurationResolver } from '@/resolvers/business/devices-configuration.resolver';
 import { attendanceReportResolver } from '@/resolvers/business/attendance-report.resolver';
 import { limitedTimePermissionResolver } from '@/resolvers/lookups/limited-timepermission.resolver';
+import { leaveTypesResolver } from '@/resolvers/business/leave-types.resolver';
+import { employeesLeavesBalancesResolver } from '@/resolvers/business/employees-leaves-balances.resolver';
+import { employeesLeavesBalancesPagedResolver } from '@/resolvers/business/employees-leaves-balances-paged.resolver';
+import { employeesLeavesBalancesYearsResolver } from '@/resolvers/business/employees-leaves-balances-years.resolver';
+import { myLeavesResolver } from '@/resolvers/business/my-leaves.resolver';
+import { myCancelLeavesResolver } from '@/resolvers/business/my-cancel-leaves.resolver';
 
 export const routes: Routes = [
   // ✅ Protected routes
@@ -44,7 +43,10 @@ export const routes: Routes = [
   },
   {
     path: 'privacy-policy',
-    loadComponent: () => import('@/views/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
+    loadComponent: () =>
+      import('@/views/privacy-policy/privacy-policy.component').then(
+        (m) => m.PrivacyPolicyComponent
+      ),
   },
 
   // ✅ Auth layout and login
@@ -226,6 +228,45 @@ export const routes: Routes = [
           import('@/views/features/lookups/holidays/holidays-list/holidays-list.component'),
       },
       {
+        path: 'cancel-leaves-request',
+        canActivate: [authGuard],
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.CANCEL_LEAVES_REQUEST },
+        resolve: {
+          list: myCancelLeavesResolver,
+        },
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/cancel-leaves-request/cancel-leaves-request-list/cancel-leaves-request-list.component'
+          ),
+      },
+      {
+        path: 'leaves-list',
+        canActivate: [authGuard],
+        data: {
+          roles: [ROLES_ENUM.HR_OFFICER, ROLES_ENUM.ADMIN],
+          routeId: RouteIdsEnum.LEAVE_TYPES,
+        },
+        resolve: { list: leaveTypesResolver },
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/leaves-types/leave-types-list/leave-types-list.component'
+          ).then((m) => m.LeavesListComponent),
+      },
+      {
+        path: 'leaves-balances',
+        canActivate: [authGuard],
+        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVES_BALANCES },
+        resolve: {
+          leavesBalance: employeesLeavesBalancesResolver,
+          list: employeesLeavesBalancesPagedResolver,
+          years: employeesLeavesBalancesYearsResolver,
+        },
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/leaves-balances/leaves-balances-list/leaves-balances-list.component'
+          ).then((m) => m.LeavesBalancesListComponent),
+      },
+      {
         path: 'employee-holidays',
         loadComponent: () =>
           import('@/views/features/lookups/holidays/employee-holidays/employee-holidays.component'),
@@ -324,6 +365,28 @@ export const routes: Routes = [
           import(
             '@/views/features/limited-time-permission/limited-time-permission-container/limited-time-permission-container.component'
           ),
+      },
+      {
+        path: 'transfer-leaves-balances',
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/transfer-balances/transfer-leaves-balances/transfer-leaves-balances.component'
+          ),
+      },
+      {
+        path: 'leaves-request',
+        canActivate: [authGuard],
+        data: {
+          roles: [ROLES_ENUM.EMPLOYEE],
+          routeId: RouteIdsEnum.LEAVES_REQUEST,
+        },
+        resolve: {
+          list: myLeavesResolver,
+        },
+        loadComponent: () =>
+          import(
+            '@/views/features/leaves/leaves-request/leaves-request-list/leaves-request-list.component'
+          ).then((m) => m.LeavesRequestListComponent),
       },
     ],
   },

@@ -1,0 +1,959 @@
+<div [dir]="direction">
+  <div class="p-6">
+    <button (click)="close()" class="block ms-auto">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+
+    <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
+      {{
+        isCreateMode
+          ? ('LEAVE_TYPES_PAGE.ADD_NEW_LEAVE_TYPE' | translate)
+          : ('LEAVE_TYPES_PAGE.EDIT_LEAVE_TYPE' | translate)
+      }}
+    </h3>
+
+    <form class="mt-6" [formGroup]="form" (ngSubmit)="save$.next()">
+      <!-- Names -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label class="label" for="nameAr-popup">
+            {{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate }}
+          </label>
+          <div class="relative">
+            <input
+              formControlName="nameAr"
+              class="peer w-full"
+              fluid="true"
+              id="nameAr-popup"
+              pInputText
+              placeholder="{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_AR' | translate }}"
+              type="text"
+            />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+          <app-validation-messages [control]="getControl('nameAr')"></app-validation-messages>
+        </div>
+
+        <div>
+          <label class="label" for="nameEn-popup">
+            {{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate }}
+          </label>
+          <div class="relative">
+            <input
+              formControlName="nameEn"
+              class="peer w-full"
+              fluid="true"
+              id="nameEn-popup"
+              pInputText
+              placeholder="{{ 'LEAVE_TYPES_PAGE.LEAVE_TYPE_NAME_EN' | translate }}"
+              type="text"
+            />
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+            ></span>
+          </div>
+          <app-validation-messages [control]="getControl('nameEn')"></app-validation-messages>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-6 border-t border-[#d2d6db] grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label class="label mb-3 block" radio-label-for="notPaid">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.NOT_PAID' | translate }}
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="notPaid-yes"
+            >
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="notPaid"
+                  type="radio"
+                  id="notPaid-yes"
+                  name="notPaid"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="notPaid-no"
+            >
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="notPaid"
+                  type="radio"
+                  id="notPaid-no"
+                  name="notPaid"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+          </div>
+          <app-validation-messages [control]="getControl('notPaid')"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label mb-3 block">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.REQUIRES_APPROVAL' | translate }}
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+              <input
+                formControlName="needManagerApproval"
+                class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+                type="checkbox"
+              />
+              <svg
+                class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span class="text-base text-[#1f2a37]"
+                >{{ 'LEAVE_TYPES_PAGE.DEPARTMENT_MANAGER' | translate }}
+              </span>
+            </label>
+            <app-validation-messages
+              [control]="getControl('needManagerApproval')"
+            ></app-validation-messages>
+
+            <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+              <input
+                formControlName="needHRApproval"
+                class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+                type="checkbox"
+              />
+              <svg
+                class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span class="text-base text-[#1f2a37]"
+                >{{ 'LEAVE_TYPES_PAGE.HUMAN_RESOURCES' | translate }}
+              </span>
+            </label>
+            <app-validation-messages
+              [control]="getControl('needHRApproval')"
+            ></app-validation-messages>
+          </div>
+        </div>
+      </div>
+
+      <!-- Annual balance + transferable -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db] grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="mb-6">
+          <label class="label mb-3 block" radio-label-for="hasAnnualBalance">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.HAS_ANNUAL_BALANCE' | translate }}
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="hasAnnualBalance-yes"
+            >
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="hasAnnualBalance"
+                  type="radio"
+                  id="hasAnnualBalance-yes"
+                  name="hasAnnualBalance"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="hasAnnualBalance-no"
+            >
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="hasAnnualBalance"
+                  type="radio"
+                  id="hasAnnualBalance-no"
+                  name="hasAnnualBalance"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+          </div>
+          <app-validation-messages
+            [control]="getControl('hasAnnualBalance')"
+          ></app-validation-messages>
+        </div>
+        <fieldset
+          [disabled]="!isAnnualLeave()"
+          [class.opacity-60]="form.get('hasAnnualBalance')?.value !== true"
+        >
+          <div class="mb-6">
+            <label class="label mb-3 block" radio-label-for="isBalanceTransferrable">
+              <strong class="font-bolc text-lg">
+                {{ 'LEAVE_TYPES_PAGE.CAN_CARRY_FORWARD' | translate }}
+              </strong>
+            </label>
+
+            <div class="flex flex-wrap gap-8">
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="isBalanceTransferrable-yes"
+              >
+                {{ 'COMMON.YES' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="isBalanceTransferrable"
+                    type="radio"
+                    id="isBalanceTransferrable-yes"
+                    name="isBalanceTransferrable"
+                    [value]="true"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
+              </label>
+
+              <label
+                class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                for="isBalanceTransferrable-no"
+              >
+                {{ 'COMMON.NO' | translate }}
+                <div class="relative w-6 h-6">
+                  <input
+                    formControlName="isBalanceTransferrable"
+                    type="radio"
+                    id="isBalanceTransferrable-no"
+                    name="isBalanceTransferrable"
+                    [value]="false"
+                    class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                  />
+                  <span
+                    class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                  >
+                  </span>
+                </div>
+              </label>
+            </div>
+            <app-validation-messages
+              [control]="getControl('isBalanceTransferrable')"
+            ></app-validation-messages>
+          </div>
+        </fieldset>
+
+        <div>
+          <div>
+            <label class="label" for="annualBalance">
+              {{ 'LEAVE_TYPES_PAGE.ANNUAL_BALANCE' | translate }}
+            </label>
+
+            <p-inputnumber
+              inputId="annualBalance"
+              formControlName="annualBalance"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              [min]="0"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages
+              [control]="getControl('annualBalance')"
+            ></app-validation-messages>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 pt-6 border-t border-[#d2d6db] mt-6">
+        <!-- Limited times during service -->
+        <fieldset
+          [disabled]="isAnnualLeave()"
+          [class.opacity-60]="form.get('hasAnnualBalance')?.value === true"
+        >
+          <div class="">
+            <div class="mb-6">
+              <label class="label mb-3 block" radio-label-for="hasLimitedTimesDuringServicePeriod">
+                <strong class="font-bolc text-lg">
+                  {{ 'LEAVE_TYPES_PAGE.MULTIPLE_APPLICATIONS_LIMITED' | translate }}
+                </strong>
+              </label>
+  
+              <div class="flex flex-wrap gap-8">
+                <label
+                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                  for="hasLimitedTimes-yes"
+                >
+                  {{ 'COMMON.YES' | translate }}
+                  <div class="relative w-6 h-6">
+                    <input
+                      formControlName="hasLimitedTimesDuringServicePeriod"
+                      type="radio"
+                      id="hasLimitedTimes-yes"
+                      name="hasLimitedTimesDuringServicePeriod"
+                      [value]="true"
+                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                    />
+                    <span
+                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                    >
+                    </span>
+                  </div>
+                </label>
+  
+                <label
+                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                  for="hasLimitedTimes-no"
+                >
+                  {{ 'COMMON.NO' | translate }}
+                  <div class="relative w-6 h-6">
+                    <input
+                      formControlName="hasLimitedTimesDuringServicePeriod"
+                      type="radio"
+                      id="hasLimitedTimes-no"
+                      name="hasLimitedTimesDuringServicePeriod"
+                      [value]="false"
+                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                    />
+                    <span
+                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                    >
+                    </span>
+                  </div>
+                </label>
+              </div>
+              <app-validation-messages
+                [control]="getControl('hasLimitedTimesDuringServicePeriod')"
+              ></app-validation-messages>
+            </div>
+          </div>
+        </fieldset>
+  
+        <!-- Half day -->
+        <fieldset
+          [disabled]="hasLimitedTimeLeave()"
+          [class.opacity-60]="form.get('hasLimitedTimesDuringServicePeriod')?.value === true"
+        >
+          <div>
+            <div class="mb-6">
+              <label class="label mb-3 block" radio-label-for="canApplyOnHalfDay">
+                <strong class="font-bolc text-lg">
+                  {{ 'LEAVE_TYPES_PAGE.ALLOW_HALF_DAY_LEAVE' | translate }}
+                </strong>
+              </label>
+  
+              <div class="flex flex-wrap gap-8">
+                <label
+                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                  for="canApplyOnHalfDay-yes"
+                >
+                  {{ 'COMMON.YES' | translate }}
+                  <div class="relative w-6 h-6">
+                    <input
+                      formControlName="canApplyOnHalfDay"
+                      type="radio"
+                      id="canApplyOnHalfDay-yes"
+                      name="canApplyOnHalfDay"
+                      [value]="true"
+                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                    />
+                    <span
+                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                    >
+                    </span>
+                  </div>
+                </label>
+  
+                <label
+                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                  for="canApplyOnHalfDay-no"
+                >
+                  {{ 'COMMON.NO' | translate }}
+                  <div class="relative w-6 h-6">
+                    <input
+                      formControlName="canApplyOnHalfDay"
+                      type="radio"
+                      id="canApplyOnHalfDay-no"
+                      name="canApplyOnHalfDay"
+                      [value]="false"
+                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                    />
+                    <span
+                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                    >
+                    </span>
+                  </div>
+                </label>
+              </div>
+              <app-validation-messages
+                [control]="getControl('canApplyOnHalfDay')"
+              ></app-validation-messages>
+            </div>
+          </div>
+        </fieldset>
+
+        
+  
+            <div>
+              <div>
+                <label class="label" for="availableTimesDuringServicePeriod">
+                  {{ 'LEAVE_TYPES_PAGE.APPLICATION_COUNT_DURING_SERVICE' | translate }}
+                </label>
+  
+                <p-inputnumber
+                  inputId="availableTimesDuringServicePeriod"
+                  formControlName="availableTimesDuringServicePeriod"
+                  [inputStyle]="{ width: '3rem' }"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  spinnerMode="horizontal"
+                  [min]="1"
+                >
+                  <ng-template #incrementbuttonicon>
+                    <span class="pi pi-plus"></span>
+                  </ng-template>
+                  <ng-template #decrementbuttonicon>
+                    <span class="pi pi-minus"></span>
+                  </ng-template>
+                </p-inputnumber>
+                <app-validation-messages
+                  [control]="getControl('availableTimesDuringServicePeriod')"
+                ></app-validation-messages>
+              </div>
+            </div>
+      </div>
+
+
+      <!-- Application period scope -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <label class="label mb-3 block">
+          <strong class="font-bolc text-lg">
+            {{ 'LEAVE_TYPES_PAGE.APPLICATION_PERIOD_RANGE' | translate }}
+            <span class="text-[#b42318] font-[600]">*</span>
+          </strong>
+        </label>
+
+        <div class="flex flex-wrap gap-8">
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="canApplyInPastOnly"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.ALLOW_PAST_DATE_APPLICATION' | translate }}
+            </span>
+          </label>
+          <app-validation-messages
+            [control]="getControl('canApplyInPastOnly')"
+          ></app-validation-messages>
+
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="canApplyInPresentOnly"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.ALLOW_TODAY_APPLICATION' | translate }}
+            </span>
+          </label>
+          <app-validation-messages
+            [control]="getControl('canApplyInPresentOnly')"
+          ></app-validation-messages>
+
+          <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+            <input
+              formControlName="canApplyInFutureOnly"
+              class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+              type="checkbox"
+            />
+            <svg
+              class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span class="text-base text-[#1f2a37]"
+              >{{ 'LEAVE_TYPES_PAGE.ALLOW_FUTURE_DATE_APPLICATION' | translate }}
+            </span>
+          </label>
+        </div>
+        <app-validation-messages
+          [control]="getControl('canApplyInFutureOnly')"
+        ></app-validation-messages>
+        <app-validation-messages [control]="form"></app-validation-messages>
+      </div>
+
+      <!-- Gender -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <div class="mb-6">
+          <label class="label mb-3 block" radio-label-for="genderType">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.ELIGIBLE_APPLICANTS' | translate }}
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="gender-male"
+            >
+              {{ 'LEAVE_TYPES_PAGE.MALE' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="genderType"
+                  type="radio"
+                  id="gender-male"
+                  name="genderType"
+                  [value]="genderEnum.MALE"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="gender-female"
+            >
+              {{ 'LEAVE_TYPES_PAGE.FEMALE' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="genderType"
+                  type="radio"
+                  id="gender-female"
+                  name="genderType"
+                  [value]="genderEnum.FEMALE"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="gender-both"
+            >
+              {{ 'LEAVE_TYPES_PAGE.BOTH' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="genderType"
+                  type="radio"
+                  id="gender-both"
+                  name="genderType"
+                  [value]="genderEnum.BOTH"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+          </div>
+          <app-validation-messages [control]="getControl('genderType')"></app-validation-messages>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="label" for="yearsExperience">
+              {{ 'LEAVE_TYPES_PAGE.MIN_REQUIRED_EXPERIENCE_YEARS' | translate }}
+            </label>
+            <p-inputnumber
+              inputId="yearsExperience"
+              formControlName="years"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages [control]="getControl('years')"></app-validation-messages>
+          </div>
+
+          <div>
+            <label class="label" for="monthsExperience">
+              {{ 'LEAVE_TYPES_PAGE.MIN_REQUIRED_EXPERIENCE_MONTHS' | translate }}
+            </label>
+            <p-inputnumber
+              inputId="monthsExperience"
+              formControlName="months"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages [control]="getControl('months')"></app-validation-messages>
+          </div>
+
+          <div class="flex flex-col">
+            <label class="label" for="minAge"> {{ 'LEAVE_TYPES_PAGE.MIN_AGE' | translate }} </label>
+            <div class="mt-auto">
+              <p-inputnumber
+                inputId="minAge"
+                formControlName="minAge"
+                [inputStyle]="{ width: '3rem' }"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                spinnerMode="horizontal"
+              >
+                <ng-template #incrementbuttonicon>
+                  <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template #decrementbuttonicon>
+                  <span class="pi pi-minus"></span>
+                </ng-template>
+              </p-inputnumber>
+            </div>
+            <app-validation-messages [control]="getControl('minAge')"></app-validation-messages>
+          </div>
+        </div>
+      </div>
+
+      <!-- Holidays included + continuous days limit -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <div class="mb-6">
+          <label class="label mb-3 block" radio-label-for="areHolidaysAndWeekendsIncludedInLeave">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.INCLUDE_HOLIDAYS_AND_WEEKENDS' | translate }}
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="holidaysIncluded-yes"
+            >
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="areHolidaysAndWeekendsIncludedInLeave"
+                  type="radio"
+                  id="holidaysIncluded-yes"
+                  name="areHolidaysAndWeekendsIncludedInLeave"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="holidaysIncluded-no"
+            >
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="areHolidaysAndWeekendsIncludedInLeave"
+                  type="radio"
+                  id="holidaysIncluded-no"
+                  name="areHolidaysAndWeekendsIncludedInLeave"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+          </div>
+          <app-validation-messages
+            [control]="getControl('areHolidaysAndWeekendsIncludedInLeave')"
+          ></app-validation-messages>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="label" for="continuousDaysLimit">
+              {{ 'LEAVE_TYPES_PAGE.MAX_CONSECUTIVE_LEAVE_DAYS' | translate }}
+            </label>
+
+            <p-inputnumber
+              inputId="continuousDaysLimit"
+              formControlName="continuousDaysLimit"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages
+              [control]="getControl('continuousDaysLimit')"
+            ></app-validation-messages>
+          </div>
+        </div>
+      </div>
+
+      <!-- Require attachment -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db] grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+          <label class="label mb-3 block" radio-label-for="religion">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.ELIGIBLE_RELIGION' | translate }}
+              <span class="text-[#b42318] font-[600]">*</span>
+            </strong>
+          </label>
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="religion-1"
+            >
+              {{ 'LEAVE_TYPES_PAGE.RELIGION_MUSLIM' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="religion"
+                  type="radio"
+                  id="religion-1"
+                  name="religion"
+                  [value]="religionEnum.MUSLIM"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="religion-2"
+            >
+              {{ 'LEAVE_TYPES_PAGE.RELIGION_CHRISTIAN' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="religion"
+                  type="radio"
+                  id="religion-2"
+                  name="religion"
+                  [value]="religionEnum.CHRISTIAN"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="religion-null"
+            >
+              {{ 'LEAVE_TYPES_PAGE.RELIGION_ALL' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="religion"
+                  type="radio"
+                  id="religion-null"
+                  name="religion"
+                  [value]="null"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+          </div>
+          <app-validation-messages [control]="getControl('religion')"></app-validation-messages>
+        </div>
+        <div>
+          <label class="label mb-3 block" radio-label-for="requireAttachment">
+            <strong class="font-bolc text-lg">
+              {{ 'LEAVE_TYPES_PAGE.REQUIRES_ATTACHMENT' | translate }}
+            </strong>
+          </label>
+
+          <div class="flex flex-wrap gap-8">
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="requireAttachment-yes"
+            >
+              {{ 'COMMON.YES' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="requireAttachment"
+                  type="radio"
+                  id="requireAttachment-yes"
+                  name="requireAttachment"
+                  [value]="true"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+
+            <label
+              class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+              for="requireAttachment-no"
+            >
+              {{ 'COMMON.NO' | translate }}
+              <div class="relative w-6 h-6">
+                <input
+                  formControlName="requireAttachment"
+                  type="radio"
+                  id="requireAttachment-no"
+                  name="requireAttachment"
+                  [value]="false"
+                  class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                />
+                <span
+                  class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                >
+                </span>
+              </div>
+            </label>
+          </div>
+          <app-validation-messages
+            [control]="getControl('requireAttachment')"
+          ></app-validation-messages>
+        </div>
+      </div>
+
+      <!-- Active -->
+      <div class="mt-6 pt-6 border-t border-[#d2d6db]">
+        <label class="flex items-center space-x-2 mb-4 cursor-pointer relative">
+          <input
+            formControlName="isActive"
+            class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+            type="checkbox"
+          />
+          <svg
+            class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span class="text-base text-[#1f2a37]">{{ 'LEAVE_TYPES_PAGE.ACTIVE' | translate }}</span>
+        </label>
+      </div>
+
+      <div class="actions mt-6 flex items-center justify-end gap-4">
+        <button (click)="close()" class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
+        <button (click)="save$.next()" class="btn green-btn">
+          {{ 'COMMON.SAVE' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

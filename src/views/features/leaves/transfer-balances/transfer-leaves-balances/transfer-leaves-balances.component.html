@@ -1,0 +1,386 @@
+<div class="bg-white">
+  <div class="bg-[#f9fafb] p-3 sm:p-6">
+    <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+      <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+        {{ 'LEAVES.TRANSFER_BALANCES.TITLE' | translate }}
+      </h3>
+    </div>
+    <div class="bg-white rounded-2xl p-4 sm:p-8">
+      <form [formGroup]="filterForm">
+        <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+          <div class="flex items-center justify-between">
+            <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+              {{ 'COMMON.SEARCH_FILTERS' | translate }}
+            </h5>
+          </div>
+          <div class="pt-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <label class="label" for="filterDepartment">{{
+                  'LEAVES.TRANSFER_BALANCES.DEPARTMENT' | translate
+                }}</label>
+                <div class="relative">
+                  <p-select
+                    formControlName="departmentId"
+                    [options]="departments"
+                    [optionLabel]="getPropertyName()"
+                    [placeholder]="'LEAVES.TRANSFER_BALANCES.DEPARTMENT_PLACEHOLDER' | translate"
+                    class="w-full peer"
+                    id="filterDepartment"
+                    optionValue="id"
+                    [showClear]="true"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="38"
+                  ></p-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                  ></span>
+                </div>
+              </div>
+              <div>
+                <label class="label" for="filterLeaveType"
+                  >{{ 'LEAVES.TRANSFER_BALANCES.LEAVE_TYPE' | translate }}
+                  <span class="text-red-500">*</span></label
+                >
+                <div class="relative">
+                  <p-select
+                    formControlName="leaveTypeId"
+                    [options]="leaveTypes"
+                    [optionLabel]="getPropertyName()"
+                    [placeholder]="'LEAVES.TRANSFER_BALANCES.LEAVE_TYPE_PLACEHOLDER' | translate"
+                    class="w-full peer"
+                    id="filterLeaveType"
+                    optionValue="id"
+                    [virtualScroll]="true"
+                    [virtualScrollItemSize]="38"
+                  ></p-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                  ></span>
+                </div>
+                <app-validation-messages [control]="filterForm.get('leaveTypeId')!">
+                </app-validation-messages>
+              </div>
+            </div>
+            <div class="actions flex items-center gap-4 pt-6">
+              <button type="button" class="btn black-btn" (click)="loadEligibleEmployees()">
+                {{ 'COMMON.SEARCH' | translate }}
+              </button>
+              <button
+                type="button"
+                class="btn gray-btn border border-[#d2d6db]"
+                (click)="onReset()"
+              >
+                {{ 'COMMON.RESET_SEARCH' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <form [formGroup]="operationForm">
+        <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] mt-10">
+          <div class="flex items-center justify-between">
+            <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+              {{ 'LEAVES.TRANSFER_BALANCES.OPERATION_TYPE_TITLE' | translate }}
+            </h5>
+          </div>
+          <div class="pt-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <label class="label" for="actionType"
+                  >{{ 'LEAVES.TRANSFER_BALANCES.OPERATION_TYPE' | translate }}
+                  <span class="text-red-500">*</span></label
+                >
+                <div class="relative">
+                  <p-select
+                    formControlName="actionType"
+                    [options]="operationTypeOptions"
+                    [optionLabel]="getPropertyName()"
+                    optionValue="value"
+                    [placeholder]="
+                      'LEAVES.TRANSFER_BALANCES.OPERATION_TYPE_PLACEHOLDER' | translate
+                    "
+                    class="w-full peer"
+                    id="actionType"
+                    (onChange)="onOperationTypeChange()"
+                  ></p-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                  ></span>
+                </div>
+
+                <app-validation-messages [control]="operationForm.get('actionType')!">
+                </app-validation-messages>
+              </div>
+              @if (shouldShowYearSelect) {
+                <div>
+                  <label class="label" for="year"
+                    >{{ 'LEAVES.TRANSFER_BALANCES.YEAR' | translate }}
+                    <span class="text-red-500">*</span></label
+                  >
+                  <div class="relative">
+                    <p-select
+                      formControlName="year"
+                      [options]="yearOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      [placeholder]="'LEAVES.TRANSFER_BALANCES.YEAR_PLACEHOLDER' | translate"
+                      class="w-full peer"
+                      id="year"
+                      [showClear]="true"
+                    ></p-select>
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+                    ></span>
+                  </div>
+                  <app-validation-messages [control]="operationForm.get('year')!">
+                  </app-validation-messages>
+                </div>
+              }
+              @if (isForwardOrBackwardTransfer) {
+                <div>
+                  <label class="label" for="transferAmount"
+                    >{{ 'LEAVES.TRANSFER_BALANCES.DAYS_COUNT' | translate }}
+                    <span class="text-red-500">*</span></label
+                  >
+                  <div class="relative">
+                    <p-inputnumber
+                      inputId="transferAmount"
+                      formControlName="transferAmount"
+                      [inputStyle]="{ width: '3rem' }"
+                      [showButtons]="true"
+                      [min]="1"
+                      buttonLayout="horizontal"
+                      spinnerMode="horizontal"
+                    >
+                      <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                      </ng-template>
+                      <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                      </ng-template>
+                    </p-inputnumber>
+                  </div>
+                  <app-validation-messages [control]="operationForm.get('transferAmount')!">
+                  </app-validation-messages>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="flex flex-col xl:flex-row gap-6 mt-6 max-w-full">
+        <div class="flex-1">
+          <div class="bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+            <h4 class="text-normal sm:text-lg xl:text-xl font-bold text-[#161616]">
+              {{ 'LEAVES.TRANSFER_BALANCES.AVAILABLE_EMPLOYEES_TITLE' | translate }}
+              <span class="font-normal">({{ availableCount }})</span>
+            </h4>
+          </div>
+          <div class="relative w-full mb-4">
+            <img
+              class="absolute start-2 top-1/2 -translate-y-1/2"
+              src="/assets/icons/search-icon.svg"
+              alt=""
+            />
+            <input
+              class="peer"
+              type="text"
+              pInputText
+              [placeholder]="'LEAVES.TRANSFER_BALANCES.SEARCH_EMPLOYEE_PLACEHOLDER' | translate"
+              fluid="true"
+              [(ngModel)]="availableSearchTerm"
+            />
+            @if (availableSearchTerm) {
+              <img
+                class="absolute end-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                src="/assets/icons/close-icon.svg"
+                alt=""
+                (click)="clearAvailableSearch()"
+              />
+            }
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+            ></span>
+          </div>
+          <div class="table-wrapper">
+            <p-table [value]="filteredAvailableEmployees">
+              <ng-template #header>
+                <tr>
+                  <th>{{ 'LEAVES.TRANSFER_BALANCES.EMPLOYEE_NAME' | translate }}</th>
+                  <th>
+                    {{ 'LEAVES.TRANSFER_BALANCES.REMAINING_BALANCE_PREVIOUS_YEAR' | translate }}
+                  </th>
+                  <th>
+                    {{ 'LEAVES.TRANSFER_BALANCES.TRANSFERRED_BALANCE_CURRENT_YEAR' | translate }}
+                  </th>
+                  <th>{{ 'LEAVES.TRANSFER_BALANCES.ACTION' | translate }}</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-employee>
+                <tr>
+                  <td>{{ isCurrentLanguageEnglish() ? employee.nameEn : employee.nameAr }}</td>
+                  <td>{{ employee.remainingBalancePreviousYear ?? '-' }}</td>
+                  <td>{{ employee.transferedBalanceCurrentYear ?? '-' }}</td>
+                  <td>
+                    <button
+                      class="table-action-gray-btn ltr:rotate-180"
+                      type="button"
+                      (click)="moveToSelected(employee)"
+                    >
+                      <img src="/assets/icons/move-icon.svg" alt="" />
+                    </button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+        <div class="flex items-center justify-center flex-col gap-4 rotate-90 xl:rotate-0">
+          <button
+            class="btn black-btn first"
+            type="button"
+            [disabled]="availableCount === 0"
+            (click)="moveAllToSelected()"
+          >
+            {{ 'LEAVES.TRANSFER_BALANCES.ALL' | translate }}
+            <img class="normal-icon ltr:rotate-180" src="/assets/icons/move-all.svg" alt="" />
+            <img
+              class="disabled-icon ltr:rotate-180"
+              src="/assets/icons/move-all-disapled-icon.svg"
+              alt=""
+            />
+          </button>
+          <button
+            class="btn black-btn last"
+            type="button"
+            [disabled]="selectedCount === 0"
+            (click)="moveAllToAvailable()"
+          >
+            <img class="normal-icon rtl:rotate-180" src="/assets/icons/move-all.svg" alt="" />
+            <img
+              class="disabled-icon rtl:rotate-180"
+              src="/assets/icons/move-all-disapled-icon.svg"
+              alt=""
+            />
+            {{ 'LEAVES.TRANSFER_BALANCES.ALL' | translate }}
+          </button>
+        </div>
+        <div class="flex-1">
+          <div class="bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
+            <h4 class="text-normal sm:text-lg md:text-xl font-bold text-[#161616]">
+              {{
+                isRenewAction
+                  ? ('LEAVES.TRANSFER_BALANCES.SELECTED_EMPLOYEES_FOR_REVOKE_TITLE' | translate)
+                  : ('LEAVES.TRANSFER_BALANCES.SELECTED_EMPLOYEES_FOR_TRANSFER_TITLE' | translate)
+              }}
+              <span class="font-normal">({{ selectedCount }})</span>
+            </h4>
+          </div>
+          <div class="relative w-full mb-4">
+            <img
+              class="absolute start-2 top-1/2 -translate-y-1/2"
+              src="/assets/icons/search-icon.svg"
+              alt=""
+            />
+            <input
+              class="peer"
+              type="text"
+              pInputText
+              [placeholder]="'LEAVES.TRANSFER_BALANCES.SEARCH_EMPLOYEE_PLACEHOLDER' | translate"
+              fluid="true"
+              [(ngModel)]="selectedSearchTerm"
+            />
+            @if (selectedSearchTerm) {
+              <img
+                class="absolute end-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                src="/assets/icons/close-icon.svg"
+                alt=""
+                (click)="clearSelectedSearch()"
+              />
+            }
+            <span
+              class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+            ></span>
+          </div>
+          <div class="table-wrapper">
+            @if (selectedCount > 0) {
+              <p-table [value]="filteredSelectedEmployees">
+                <ng-template #header>
+                  <tr>
+                    <th>{{ 'LEAVES.TRANSFER_BALANCES.ACTION' | translate }}</th>
+                    <th>{{ 'LEAVES.TRANSFER_BALANCES.EMPLOYEE_NAME' | translate }}</th>
+                    <th>
+                      {{ 'LEAVES.TRANSFER_BALANCES.REMAINING_BALANCE_PREVIOUS_YEAR' | translate }}
+                    </th>
+                    <th>
+                      {{ 'LEAVES.TRANSFER_BALANCES.TRANSFERRED_BALANCE_CURRENT_YEAR' | translate }}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-employee>
+                  <tr>
+                    <td>
+                      <button
+                        class="table-action-gray-btn rotate-180 ltr:rotate-0"
+                        type="button"
+                        (click)="moveToAvailable(employee)"
+                      >
+                        <img src="/assets/icons/move-icon.svg" alt="" />
+                      </button>
+                    </td>
+                    <td>{{ employee.nameAr }}</td>
+                    <td>{{ employee.remainingBalancePreviousYear ?? '-' }}</td>
+                    <td>{{ employee.transferedBalanceCurrentYear ?? '-' }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            }
+          </div>
+          @if (filteredSelectedEmployees.length === 0) {
+            <p-table [value]="[{}]">
+              <ng-template #header>
+                <tr>
+                  <th>{{ 'LEAVES.TRANSFER_BALANCES.ACTION' | translate }}</th>
+                  <th>{{ 'LEAVES.TRANSFER_BALANCES.EMPLOYEE_NAME' | translate }}</th>
+                  <th>
+                    {{ 'LEAVES.TRANSFER_BALANCES.REMAINING_BALANCE_PREVIOUS_YEAR' | translate }}
+                  </th>
+                  <th>
+                    {{ 'LEAVES.TRANSFER_BALANCES.TRANSFERRED_BALANCE_CURRENT_YEAR' | translate }}
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template #body>
+                <tr>
+                  <td colspan="4" class="text-center">
+                    <div class="max-w-[210px] flex justify-center items-center flex-col mx-auto">
+                      <img src="/assets/icons/not-found.svg" alt="" />
+                      <h3 class="text-lg text-[#384250] font-bold mt-2">
+                        {{ 'LEAVES.TRANSFER_BALANCES.NO_EMPLOYEES_SELECTED_TITLE' | translate }}
+                      </h3>
+                      <p class="text-xs text-[#6c737f] font-[500] text-wrap text-center">
+                        {{ 'LEAVES.TRANSFER_BALANCES.NO_EMPLOYEES_SELECTED_DESC' | translate }}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          }
+          <div class="flex justify-end mt-4">
+            <button
+              type="button"
+              class="btn green-btn"
+              (click)="onSubmit()"
+              [disabled]="operationForm.invalid || selectedEmployees.length === 0"
+            >
+              {{ 'COMMON.SAVE' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

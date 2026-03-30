@@ -1,0 +1,247 @@
+<div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+  <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+    <div class="flex items-center justify-between">
+      <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+        {{ 'COMMON.SEARCH_FILTERS' | translate }}
+      </h5>
+    </div>
+    <div class="pt-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div class="relative">
+          <label class="label" for="leaveType">{{
+            'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate
+          }}</label>
+          <p-select
+            [placeholder]="'LEAVE_REQUEST_PAGE.CHOOSE_LEAVE_TYPE' | translate"
+            class="w-full peer"
+            id="leaveType"
+            [(ngModel)]="filterModel.fkLeaveTypeId"
+            [options]="leaveTypes"
+            [optionLabel]="optionLabel"
+            optionValue="id"
+            [showClear]="true"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+          ></p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="dateFrom">{{ 'COMMON.FROM' | translate }}</label>
+          <p-datepicker
+            [iconDisplay]="'input'"
+            [placeholder]="'COMMON.FROM' | translate"
+            [showIcon]="true"
+            class="peer block w-full"
+            inputId="dateFrom"
+            [showClear]="true"
+            [(ngModel)]="filterModel.dateFrom"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="dateTo">{{ 'COMMON.TO' | translate }}</label>
+          <p-datepicker
+            [iconDisplay]="'input'"
+            [placeholder]="'COMMON.TO' | translate"
+            [showIcon]="true"
+            class="peer block w-full"
+            inputId="dateTo"
+            [showClear]="true"
+            [(ngModel)]="filterModel.dateTo"
+          >
+            <ng-template pTemplate="inputicon">
+              <img alt="" src="assets/icons/calender-icon.svg" />
+            </ng-template>
+          </p-datepicker>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+        <div class="relative">
+          <label class="label" for="status">{{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}</label>
+          <p-select
+            [placeholder]="'LEAVE_REQUEST_PAGE.STATUS' | translate"
+            class="w-full peer"
+            id="status"
+            [(ngModel)]="filterModel.status"
+            [options]="statusOptions"
+            [optionLabel]="optionLabel"
+            optionValue="id"
+            [showClear]="true"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+          >
+          </p-select>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+          ></span>
+        </div>
+      </div>
+
+      <div class="actions flex items-center gap-4 pt-6">
+        <button class="btn black-btn" (click)="search()">
+          {{ 'COMMON.SEARCH' | translate }}
+        </button>
+        <button class="btn gray-btn border border-[#d2d6db]" (click)="resetSearch()">
+          {{ 'COMMON.RESET_SEARCH' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6">
+    <div
+      class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
+    >
+      <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+        {{ 'LEAVE_REQUEST_PAGE.MY_LEAVE_REQUESTS' | translate }}
+      </h4>
+      <div class="actions flex items-center gap-4 ms-auto">
+        <button class="table-head-action-btn" (click)="exportExcel()">
+          <img src="assets/icons/excel.svg" alt="" />
+        </button>
+        <button class="btn green-btn" (click)="openAddNewLeaveRequestPopup()">
+          <img src="assets/icons/plus.svg" alt="" />
+          {{ 'LEAVE_REQUEST_PAGE.ADD_NEW' | translate }}
+        </button>
+      </div>
+    </div>
+    <p-table [value]="list">
+      <ng-template #header>
+        <tr>
+          <th>{{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</th>
+          <th>{{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}</th>
+          <th>{{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</th>
+          <th>{{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}</th>
+          <th>{{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}</th>
+          <th>{{ 'LEAVE_REQUEST_PAGE.ACTIONS' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-leave>
+        <tr>
+          <td>
+            {{
+              langService.getCurrentLanguage() === 'ar'
+                ? leave.leaveType?.nameAr
+                : leave.leaveType?.nameEn
+            }}
+          </td>
+          <td>{{ leave.dateFrom | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ leave.dateTo | date: 'dd/MM/yyyy' }}</td>
+          <td>
+            @if (leave.isHalfDay) {
+              <div
+                class="rounded-full px-2 bg-[#f9fafb] border border-[#b2ddff] w-fit mt-2 text-[#1849a9] font-[500]"
+              >
+                نصف يوم
+              </div>
+            } @else {
+              <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                {{ leave.daysCount }}
+              </div>
+            }
+          </td>
+          <td>
+            @if (leave.status === LeaveStatusEnum.New) {
+              <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+                <span class="text-[#1849a9] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.Accepted) {
+              <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                <span class="text-[#085d3a] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.ManagementAcceptance) {
+              <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                <span class="text-[#085d3a] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.HRAcceptance) {
+              <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                <span class="text-[#93370d] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.Rejected) {
+              <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+                <span class="text-[#912018] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_REJECTED' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.Canceled) {
+              <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                <span class="text-[#1f2a37] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_CANCELED' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.DoesNotNeedAcceptance) {
+              <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                <span class="text-[#1f2a37] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE' | translate
+                }}</span>
+              </div>
+            } @else if (leave.status === LeaveStatusEnum.Cut) {
+              <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                <span class="text-[#1f2a37] font-semibold text-sm">{{
+                  'LEAVE_REQUEST_PAGE.STATUS_CUT' | translate
+                }}</span>
+              </div>
+            }
+          </td>
+          <td>
+            <div class="flex items-center gap-2">
+              @if (leave.status !== LeaveStatusEnum.New) {
+                <button
+                  class="table-action-gray-btn"
+                  (click)="openDialog(leave)"
+                  [pTooltip]="'LEAVE_REQUEST_PAGE.VIEW_DETAILS' | translate"
+                >
+                  <img src="assets/icons/view.svg" alt="" />
+                </button>
+              }
+              @if (leave.status === LeaveStatusEnum.New) {
+                <button
+                  class="table-action-gray-btn"
+                  (click)="openAddNewLeaveRequestPopup(leave)"
+                  [pTooltip]="'COMMON.EDIT' | translate"
+                >
+                  <img src="assets/icons/edit-action.svg" alt="" />
+                </button>
+                <button (click)="deleteModel(leave.id)" class="table-action-red-btn">
+                  <img src="assets/icons/delete-action.svg" alt="حذف" />
+                </button>
+              }
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-paginator
+      class="mt-6"
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="paginationInfo.totalItems"
+      [rowsPerPageOptions]="[10, 20, 30]"
+    />
+  </div>
+</div>

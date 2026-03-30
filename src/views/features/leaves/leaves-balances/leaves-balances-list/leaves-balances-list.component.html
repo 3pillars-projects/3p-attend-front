@@ -1,0 +1,410 @@
+<div class="bg-white">
+  <div class="bg-[#f9fafb] p-3 sm:p-6">
+    <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+      <p-breadcrumb [home]="home" [model]="breadcrumbs" class="max-w-full">
+        <ng-template let-item pTemplate="item">
+          <a [routerLink]="item.url" class="cursor-pointer">
+            <span>{{ item.label | translate }}</span>
+          </a>
+        </ng-template>
+      </p-breadcrumb>
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+        {{ 'LEAVES_BALANCES.UPDATE_LEAVES_BALANCES' | translate }}
+      </h3>
+    </div>
+    <div class="bg-white rounded-2xl p-4 sm:p-8 border border-[#d2d6db]">
+      <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6]">
+        <div class="flex items-center justify-between">
+          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+            {{ 'COMMON.SEARCH_FILTERS' | translate }}
+          </h5>
+        </div>
+        <div class="pt-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div class="relative">
+              <label class="label" for="department">
+                {{ 'DEPARTMENTS_LIST_PAGE.DEPARTMENT_NAME' | translate }}
+              </label>
+              <p-select
+                [options]="departments"
+                [(ngModel)]="filterModel.fkDepartmentId"
+                [optionLabel]="getPropertyName()"
+                [showClear]="true"
+                [filter]="true"
+                class="w-full peer"
+                id="department"
+                optionLabel="type"
+                optionValue="id"
+                placeholder="{{ 'DEPARTMENTS_LIST_PAGE.DEPARTMENT_NAME' | translate }}"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="employeeNameAr">
+                {{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}
+              </label>
+              <input
+                [(ngModel)]="filterModel.fullNameAr"
+                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}"
+                class="peer"
+                fluid="true"
+                id="employeeNameAr"
+                pInputText
+                type="text"
+              />
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="employeeNameEn">
+                {{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}
+              </label>
+              <input
+                [(ngModel)]="filterModel.fullNameEn"
+                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}"
+                class="peer"
+                fluid="true"
+                id="employeeNameEn"
+                pInputText
+                type="text"
+              />
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="type">
+                {{ 'EMPLOYEES_PAGE.GENDER' | translate }}
+              </label>
+
+              <p-select
+                [options]="genderOptions"
+                [optionLabel]="getPropertyName()"
+                optionValue="id"
+                [(ngModel)]="filterModel.fkGenderId"
+                id="gender"
+                class="w-full peer"
+                [showClear]="true"
+                placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="religion">
+                {{ 'EMPLOYEES_PAGE.RELIGION' | translate }}
+              </label>
+              <p-select
+                [options]="religionOptions"
+                [optionLabel]="getPropertyName()"
+                optionValue="id"
+                [(ngModel)]="filterModel.religion"
+                id="religion"
+                class="w-full peer"
+                placeholder="{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}"
+                [showClear]="true"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="year">
+                {{ 'COMMON.YEAR' | translate }}
+              </label>
+              <p-select
+                [options]="years"
+                placeholder="{{ 'COMMON.YEAR' | translate }}"
+                class="w-full peer"
+                id="year"
+                [(ngModel)]="filterModel.year"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+              ></p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="yearCountLessThan">{{
+                'LEAVES_BALANCES.YEARS_OF_SERVICE_LESS_THAN' | translate
+              }}</label>
+              <input
+                [(ngModel)]="filterModel.maxYearsOfExperience"
+                placeholder="{{ 'COMMON.LESS_THAN' | translate }}"
+                class="peer"
+                fluid="true"
+                id="yearCountLessThan"
+                pInputText
+                type="text"
+              />
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="yearCountGreaterThan">{{
+                'LEAVES_BALANCES.YEARS_OF_SERVICE_GREATER_THAN' | translate
+              }}</label>
+              <input
+                [(ngModel)]="filterModel.minYearsOfExperience"
+                placeholder="{{ 'COMMON.GREATER_THAN' | translate }}"
+                class="peer"
+                fluid="true"
+                id="yearCountGreaterThan"
+                pInputText
+                type="text"
+              />
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+          </div>
+          <div class="actions flex items-center gap-4 pt-6">
+            <button (click)="search()" class="btn black-btn">
+              {{ 'COMMON.SEARCH' | translate }}
+            </button>
+            <button (click)="resetSearch()" class="btn gray-btn border border-[#d2d6db]">
+              {{ 'COMMON.RESET_SEARCH' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] mt-10">
+        <div class="flex items-center justify-between">
+          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+            {{ 'LEAVES_BALANCES.LEAVES_DISPLAY_OPTIONS' | translate }}
+          </h5>
+        </div>
+        <div class="pt-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="relative">
+              <label class="label" for="hasYearlyBalance"
+                >{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
+                  leavesBalance?.annualLeaves?.length
+                }}
+                )</label
+              >
+              <p-multi-select
+                [selectedItemsLabel]="getSelectedLeavesLabel(selectedAnnualLeaves)"
+                [maxSelectedLabels]="0"
+                [options]="leavesBalance?.annualLeaves"
+                [optionLabel]="getLookupLabelKey()"
+                placeholder="{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }}"
+                class="w-full peer"
+                id="hasYearlyBalance"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+                [(ngModel)]="selectedAnnualLeaves"
+              ></p-multi-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <div class="relative">
+              <label class="label" for="hasLimitedBalance"
+                >{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
+                  leavesBalance?.limitedLeaves?.length
+                }})</label
+              >
+              <p-multi-select
+                [selectedItemsLabel]="getSelectedLeavesLabel(selectedLimitedTimesLeaves!)"
+                [maxSelectedLabels]="0"
+                [options]="leavesBalance?.limitedLeaves"
+                [optionLabel]="getLookupLabelKey()"
+                placeholder="{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }}"
+                class="w-full peer"
+                id="hasLimitedBalance"
+                [showClear]="true"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+                [(ngModel)]="selectedLimitedTimesLeaves"
+              ></p-multi-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+          </div>
+          <p-tabs value="0">
+            <p-tablist class="my-6 justify-between">
+              <div class="flex">
+                <p-tab value="0">
+                  {{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
+                    selectedAnnualLeaves?.length
+                  }})
+                </p-tab>
+                <p-tab value="1">
+                  {{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
+                    selectedLimitedTimesLeaves?.length
+                  }})
+                </p-tab>
+              </div>
+              <button class="ms-auto btn !text-[#d92d20]" (click)="resetSelectedLeaveTypes()">
+                <img src="/assets/icons/delete.svg" alt="" />
+                {{ 'COMMON.RESET' | translate }}
+              </button>
+            </p-tablist>
+            <p-tabpanels>
+              <!-- My Visits Tab Panel -->
+              <p-tabpanel value="0">
+                <div class="flex gap-4 wrap bg-[#f3f4f6]">
+                  @for (annualLeave of selectedAnnualLeaves; track annualLeave.id) {
+                    <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1">
+                      {{ getNameBasedOnLanguage(annualLeave) }}
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        (click)="removeAnnualLeave(annualLeave)"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
+                          fill="#161616"
+                        />
+                      </svg>
+                    </div>
+                  }
+                </div>
+              </p-tabpanel>
+              <!-- All Visits Tab Panel -->
+              <p-tabpanel value="1">
+                <div class="flex gap-4 wrap bg-[#f3f4f6]">
+                  @for (limitedTimeLeave of selectedLimitedTimesLeaves; track limitedTimeLeave.id) {
+                    <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1">
+                      {{ getNameBasedOnLanguage(limitedTimeLeave) }}
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        (click)="removeLimitedTimesLeave(limitedTimeLeave)"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
+                          fill="#161616"
+                        />
+                      </svg>
+                    </div>
+                  }
+                </div>
+              </p-tabpanel>
+            </p-tabpanels>
+          </p-tabs>
+        </div>
+      </div>
+      <div class="mt-6">
+        <div
+          class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
+        >
+          <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
+            {{ 'LEAVES_BALANCES.LEAVES_BALANCES_REMAINING' | translate }}
+          </h4>
+          <div class="actions flex items-center gap-4 ms-auto">
+            <button (click)="exportExcel(getTranslatedLeavesBalancesLabel() + '.xlsx')" class="table-head-action-btn">
+              <img src="assets/icons/excel.svg" alt="" />
+            </button>
+          </div>
+        </div>
+        @if (list && list.length > 0) {
+          <p-table
+            [value]="list"
+            [rows]="paginationInfo.pageSize"
+            [first]="(paginationInfo.currentPage - 1) * paginationInfo.pageSize"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</th>
+                <th>{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</th>
+                <th>{{ 'LEAVES_BALANCES.YEARS_OF_SERVICE' | translate }}</th>
+                @for (item of selectedAnnualLeaves; track $index) {
+                  <th>
+                    <div class="flex items-center gap-2">
+                      {{ getNameBasedOnLanguage(item) }}
+                      <button
+                        class="btn black-btn !p-2 !w-[24px] h-[24px]"
+                        (click)="openEmployeesDialog(item, true)"
+                      >
+                        <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
+                      </button>
+                    </div>
+                  </th>
+                }
+                @for (item of selectedLimitedTimesLeaves; track $index) {
+                  <th>
+                    <div class="flex items-center gap-2">
+                      {{ getNameBasedOnLanguage(item) }}
+                      <button
+                        class="btn black-btn !p-2 !w-[24px] h-[24px]"
+                        (click)="openEmployeesDialog(item, false)"
+                      >
+                        <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
+                      </button>
+                    </div>
+                  </th>
+                }
+                <th>{{ 'COMMON.ACTION' | translate }}</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-employeeBalance>
+              <tr>
+                <td>{{ employeeBalance.fullNameAr }}</td>
+                <td>{{ employeeBalance.fullNameEn }}</td>
+                <td>{{ getGenderName(employeeBalance.fkGenderId) }}</td>
+                <td>{{ getReligionName(employeeBalance.religion) }}</td>
+                <td>
+                  <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                    {{ formatExperience(employeeBalance.monthsOfExperience) }}
+                  </div>
+                </td>
+                @for (annualLeave of selectedAnnualLeaves; track $index) {
+                  <td>{{ getEmployeeAnnualLeaveBalance(employeeBalance, annualLeave.id!) }}</td>
+                }
+                @for (limitedLeave of selectedLimitedTimesLeaves; track $index) {
+                  <td>{{ getEmployeeLimitedLeaveBalance(employeeBalance, limitedLeave.id!) }}</td>
+                }
+                <td>
+                  <button class="btn black-btn" (click)="openEmployeeDialog(employeeBalance)">
+                    <img class="!w-[20px]" src="/assets/icons/edit.png" alt="" />
+                    {{ 'LEAVES_BALANCES.UPDATE_BALANCE' | translate }}
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        } @else {
+          <div class="flex items-center justify-center h-64">
+            <p class="text-gray-500">
+              {{ 'COMMON.NO_DATA_TO_SHOW' | translate }}
+            </p>
+          </div>
+        }
+        @if (paginationInfo) {
+          <p-paginator
+            (onPageChange)="onPageChange($event)"
+            [first]="first"
+            [rowsPerPageOptions]="[10, 20, 30]"
+            [rows]="rows"
+            [showCurrentPageReport]="false"
+            [totalRecords]="paginationInfo.totalItems"
+            class="mt-6"
+          />
+        }
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,322 @@
+<div [dir]="direction">
+  <div class="p-6">
+    <button class="block ms-auto" (click)="close()">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'LEAVE_REQUEST_PAGE.LEAVE_DATA' | translate }}
+    </h3>
+
+    <p-tabs value="0">
+      <p-tablist>
+        <p-tab value="0">{{ 'LEAVE_REQUEST_PAGE.REQUEST_DETAILS' | translate }}</p-tab>
+        @if(activeLeaves.length > 0){
+          <p-tab value="1">{{ 'LEAVE_REQUEST_PAGE.RELATED_REQUESTS' | translate }}</p-tab>
+        }
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <div class="bg-[#f3f4f6] p-6 rounded-2xl mt-4">
+            <div
+              class="bg-white py-3 px-6 rounded-2xl flex justify-between items-start sm:items-center flex-col sm:flex-row gap-4"
+            >
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[14px] text-[#6c737f]">
+                  {{ 'LEAVE_REQUEST_PAGE.STATUS' | translate }}
+                </span>
+                @if (model.status === LeaveStatusEnum.New) {
+                  <div class="bg-[#eff8ff] px-2 rounded-full w-fit flex items-center gap-2">
+                    <span class="w-[10px] h-[10px] rounded-full bg-[#1849a9] block"></span>
+                    <span class="text-[#1849a9] font-semibold text-sm">{{
+                      'LEAVE_REQUEST_PAGE.STATUS_NEW' | translate
+                    }}</span>
+                  </div>
+                } @else if (model.status === LeaveStatusEnum.Accepted) {
+                  <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                    <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                    <span class="text-[#085d3a] font-semibold text-sm">{{
+                      'LEAVE_REQUEST_PAGE.STATUS_ACCEPTED' | translate
+                    }}</span>
+                  </div>
+                } @else if (model.status === LeaveStatusEnum.HRAcceptance) {
+                  <div class="bg-[#ecfdf3] px-2 rounded-full w-fit flex items-center gap-2">
+                    <span class="w-[10px] h-[10px] rounded-full bg-[#085d3a] block"></span>
+                    <span class="text-[#085d3a] font-semibold text-sm">{{
+                      'LEAVE_REQUEST_PAGE.STATUS_HR_ACCEPTANCE' | translate
+                    }}</span>
+                  </div>
+                } @else if (model.status === LeaveStatusEnum.Rejected) {
+                  <div class="bg-[#fef3f2] px-2 rounded-full w-fit flex items-center gap-2">
+                    <span class="w-[10px] h-[10px] rounded-full bg-[#912018] block"></span>
+                    <span class="text-[#912018] font-semibold text-sm">{{
+                      'LEAVE_REQUEST_PAGE.STATUS_REJECTED' | translate
+                    }}</span>
+                  </div>
+                } @else if (model.status === LeaveStatusEnum.ManagementAcceptance) {
+                  <div class="bg-[#fffaeb] px-2 rounded-full w-fit flex items-center gap-2">
+                    <span class="w-[10px] h-[10px] rounded-full bg-[#93370d] block"></span>
+                    <span class="text-[#93370d] font-semibold text-sm">{{
+                      'LEAVE_REQUEST_PAGE.STATUS_MANAGEMENT_ACCEPTANCE' | translate
+                    }}</span>
+                  </div>
+                } @else if (model.status === LeaveStatusEnum.Canceled) {
+                  <div class="bg-[#f9fafb] px-2 rounded-full w-fit flex items-center gap-2">
+                    <span class="w-[10px] h-[10px] rounded-full bg-[#4d5761] block"></span>
+                    <span class="text-[#1f2a37] font-semibold text-sm">{{
+                      'LEAVE_REQUEST_PAGE.STATUS_CANCELED' | translate
+                    }}</span>
+                  </div>
+                }
+              </div>
+              <div class="flex items-center gap-6 flex-wrap">
+                @if (model.lastAcceptanceDate) {
+                  <div class="flex items-center gap-2">
+                    <span class="text-[14px] text-[#6c737f]">
+                      {{ 'LEAVE_REQUEST_PAGE.MANAGEMENT_ACCEPTANCE_DATE' | translate }}
+                    </span>
+                    <h5 class="text-[#161616] font-[600]">
+                      {{ model.lastAcceptanceDate | date: 'dd/MM/yyyy' }}
+                    </h5>
+                  </div>
+                }
+                @if (model.lastActionDate) {
+                  <div class="flex items-center gap-2">
+                    <span class="text-[14px] text-[#6c737f]">
+                      {{ 'LEAVE_REQUEST_PAGE.LAST_ACTION_DATE' | translate }}
+                    </span>
+                    <h5 class="text-[#161616] font-[600]">
+                      {{ model.lastActionDate | date: 'dd/MM/yyyy' }}
+                    </h5>
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+              @if (model.department) {
+                <div>
+                  <span class="text-[14px] text-[#6c737f]">
+                    {{ 'LEAVE_REQUEST_PAGE.DEPARTMENT' | translate }}
+                  </span>
+                  <h5 class="text-[#161616] font-[600] mt-2">
+                    {{
+                      languageService.getCurrentLanguage() === 'ar'
+                        ? model.department.nameAr
+                        : model.department.nameEn
+                    }}
+                  </h5>
+                </div>
+              }
+              @if (model.employee) {
+                <div class="lg:col-span-2">
+                  <span class="text-[14px] text-[#6c737f]">
+                    {{ 'LEAVE_REQUEST_PAGE.EMPLOYEE_NAME' | translate }}
+                  </span>
+                  <h5 class="text-[#161616] font-[600] mt-2">
+                    {{
+                      languageService.getCurrentLanguage() === languageEnum.ARABIC
+                        ? model.employee.nameAr
+                        : model.employee.nameEn
+                    }}
+                  </h5>
+                </div>
+              }
+              <div>
+                <span class="text-[14px] text-[#6c737f]">
+                  {{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}
+                </span>
+                <h5 class="text-[#161616] font-[600] mt-2">
+                  {{
+                    languageService.getCurrentLanguage() === languageEnum.ARABIC
+                      ? model.leaveType?.nameAr
+                      : model.leaveType?.nameEn
+                  }}
+                </h5>
+              </div>
+
+              <div>
+                <span class="text-[14px] text-[#6c737f]">
+                  {{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}
+                </span>
+                <h5 class="text-[#161616] font-[600] mt-2">
+                  {{ model.dateFrom | date: 'dd/MM/yyyy' }}
+                </h5>
+              </div>
+              <div>
+                <span class="text-[14px] text-[#6c737f]">
+                  {{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}
+                </span>
+                <h5 class="text-[#161616] font-[600] mt-2">
+                  {{ model.dateTo | date: 'dd/MM/yyyy' }}
+                </h5>
+              </div>
+              <div>
+                <span class="text-[14px] text-[#6c737f]">
+                  {{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}
+                </span>
+                <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit mt-2">
+                  {{ model.daysCount }}
+                </div>
+              </div>
+
+              @if (model.notes) {
+                <div class="md:col-span-3">
+                  <span class="text-[14px] text-[#6c737f]">
+                    {{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}
+                  </span>
+                  <h5 class="text-[#161616] font-[600] mt-2">
+                    {{ model.notes }}
+                  </h5>
+                </div>
+              }
+
+              @if (model.canTakeAction) {
+                <div class="md:col-span-3">
+                  <label class="label" for="rejectionNote">{{
+                    'LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate
+                  }}</label>
+                  <div class="relative w-full">
+                    <textarea
+                      class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 focus:outline-none resize-none peer"
+                      cols="30"
+                      pTextarea
+                      [placeholder]="'LEAVE_REQUEST_PAGE.ENTER_REJECTION_NOTE' | translate"
+                      rows="5"
+                      [(ngModel)]="model.rejectionNote"
+                      id="rejectionNote"
+                    ></textarea>
+
+                    <span
+                      class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+                    ></span>
+                  </div>
+                </div>
+              }
+
+              @if (model.rejectionNote && !model.canTakeAction) {
+                <div class="md:col-span-3">
+                  <span class="text-[14px] text-[#6c737f]">
+                    {{ 'LEAVE_REQUEST_PAGE.REJECTION_NOTE' | translate }}
+                  </span>
+                  <h5 class="text-[#161616] font-[600] mt-2">
+                    {{ model.rejectionNote }}
+                  </h5>
+                </div>
+              }
+            </div>
+          </div>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <div class="bg-[#f3f4f6] p-6 rounded-2xl mt-4">
+            <header>
+              <h3 class="font-semibold text-[#14573A]">الطلبات المتعلقة بطلب الاجازة</h3>
+            </header>
+            <article>
+              <!-- Active Leaves -->
+              <div class="my-4">
+                <h4
+                  class="text-[#161616] font-semibold border-s-[3px] border-s-[#1b8354] ps-3 mb-2"
+                >
+                  {{ 'LEAVE_REQUEST_PAGE.ACTIVE_LEAVES' | translate }}
+                </h4>
+                @if (activeLeaves.length === 0) {
+                  <p class="text-sm text-[#6c737f] ps-4">{{ 'LEAVE_REQUEST_PAGE.NO_ACTIVE_LEAVES' | translate }}</p>
+                } @else {
+                  <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
+                    @for (leave of activeLeaves; track leave.id) {
+                      <li>
+                        <p class="text-[#384250] text-sm my-2">
+                          {{ leave.dateFrom | date: 'dd/MM/yyyy' }} - {{ leave.dateTo | date: 'dd/MM/yyyy' }}
+                        </p>
+                        <div class="border-s-2 border-s-[#D2D6DB] ps-4">
+                          <div class="bg-white p-3 rounded">
+                            <p class="text-sm text-[#6c737f] mb-2">{{ 'LEAVE_REQUEST_PAGE.DAYS_COUNT' | translate }}</p>
+                            <span
+                              class="inline-block bg-[#ecfdf3] min-w-[36px] text-center border border-[#abefc6] text-[#085d3a] rounded-full"
+                            >{{ leave.daysCount }}</span>
+                          </div>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+
+              <!-- Cancelled Periods -->
+              <div class="my-4">
+                <h4
+                  class="text-[#161616] font-semibold border-s-[3px] border-s-[#dc2626] ps-3 mb-2"
+                >
+                  {{ 'LEAVE_REQUEST_PAGE.CANCELLED_PERIOD' | translate }}
+                </h4>
+                @if (cancelledPeriods.length === 0) {
+                  <p class="text-sm text-[#6c737f] ps-4">{{ 'LEAVE_REQUEST_PAGE.NO_CANCELLED_PERIODS' | translate }}</p>
+                } @else {
+                  <ul class="border-s-2 border-s-[#D2D6DB] ps-4">
+                    @for (period of cancelledPeriods; track period.dateFrom) {
+                      <li>
+                        <p class="text-[#384250] text-sm my-2">
+                          {{ period.dateFrom | date: 'dd/MM/yyyy' }} - {{ period.dateTo | date: 'dd/MM/yyyy' }}
+                        </p>
+                        <div class="border-s-2 border-s-[#D2D6DB] ps-4">
+                          <div class="bg-white p-3 rounded">
+                            <p class="text-sm text-[#6c737f] mb-2">{{ 'LEAVE_REQUEST_PAGE.CANCELLED_LEAVE_DAYS_COUNT' | translate }}</p>
+                            <span
+                              class="inline-block bg-[#fef3f2] min-w-[36px] text-center border border-[#fecdcc] text-[#912018] rounded-full"
+                            >{{ period.daysCount }}</span>
+                            @if (period.notes) {
+                              <p class="text-sm text-[#6c737f] my-2">{{ 'LEAVE_REQUEST_PAGE.NOTES' | translate }}</p>
+                              <span class="inline-block">{{ period.notes }}</span>
+                            }
+                          </div>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+            </article>
+          </div>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+
+    <div class="flex items-center justify-between mt-6">
+      @if (model.canTakeAction) {
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <button class="btn green-btn" (click)="accept()">
+              {{ 'LEAVE_REQUEST_PAGE.ACCEPT' | translate }}
+            </button>
+            <button class="btn !text-[#b42318] red-btn-action" (click)="reject()">
+              {{ 'LEAVE_REQUEST_PAGE.REJECT' | translate }}
+            </button>
+          </div>
+        </div>
+      } @else if (canceledByEmployee(model.dateFrom)) {
+        <div class="flex items-center justify-end">
+          <button class="btn gray-btn" (click)="cancel()">
+            {{ 'LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+          </button>
+        </div>
+      } @else if (model.canCancel) {
+        <div class="flex items-center justify-end">
+          <button class="btn green-btn" (click)="openCancelDialog()">
+            {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL_REQUEST' | translate }}
+          </button>
+        </div>
+      }
+      @if (model.canCutLeave) {
+        <div class="flex items-center justify-end">
+          <button class="btn green-btn" (click)="cutLeave()">
+            {{ 'LEAVE_REQUEST_PAGE.CUT_LEAVE' | translate }}
+          </button>
+        </div>
+      }
+      <div class="flex items-center justify-end">
+        <button class="btn gray-btn" (click)="close()">
+          {{ 'LEAVE_REQUEST_PAGE.CLOSE' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

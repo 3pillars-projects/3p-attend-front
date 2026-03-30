@@ -1,0 +1,91 @@
+::ng-deep {
+  .p-inputtext {
+    padding-inline-start: 36px !important;
+  }
+}
+
+.black-btn {
+  .disabled-icon {
+    display: none;
+  }
+}
+
+.black-btn:disabled {
+  background-color: #e5e7eb !important;
+  color: #9da4ae !important;
+
+  &.first {
+    .normal-icon,
+    .disabled-icon {
+      transform: rotate(180deg) !important;
+    }
+  }
+
+  &.last {
+    .normal-icon,
+    .disabled-icon {
+      transform: rotate(180deg) !important;
+    }
+  }
+
+  .disabled-icon {
+    display: block;
+  }
+
+  .normal-icon {
+    display: none;
+  }
+}
+
+.table-wrapper {
+  ::ng-deep {
+    .p-datatable {
+      .p-datatable-wrapper {
+        overflow: visible;
+      }
+
+      .p-datatable-table {
+        display: block;
+
+        thead {
+          display: block;
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          background-color: white;
+        }
+
+        tbody {
+          display: block;
+          max-height: 400px;
+          overflow-y: auto;
+          overflow-x: hidden;
+
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+
+            &:hover {
+              background: #555;
+            }
+          }
+        }
+
+        tr {
+          display: table;
+          width: 100%;
+          table-layout: fixed;
+        }
+      }
+    }
+  }
+}

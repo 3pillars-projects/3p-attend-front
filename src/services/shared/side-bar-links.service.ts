@@ -95,6 +95,37 @@ export class SideBarLinksService {
       routerLink: ['/holidays'],
       routeId: RouteIdsEnum.HOLIDAYS,
     },
+    {
+      labelKey: 'MENU.LEAVES',
+      iconUrl: 'assets/icons/menu-icons/vacations.svg',
+      children: [
+        {
+          labelKey: 'MENU.LEAVE_TYPES',
+          routerLink: ['/leaves-list'],
+          routeId: RouteIdsEnum.LEAVE_TYPES,
+        },
+        {
+          labelKey: 'MENU.LEAVES_BALANCES',
+          routerLink: ['/leaves-balances'],
+          routeId: RouteIdsEnum.LEAVES_BALANCES,
+        },
+        {
+          labelKey: 'MENU.LEAVE_TRANSFER',
+          routerLink: ['/transfer-leaves-balances'],
+          routeId: RouteIdsEnum.LEAVE_TRANSFER,
+        },
+        {
+          labelKey: 'MENU.LEAVES_REQUEST',
+          routerLink: ['/leaves-request'],
+          routeId: RouteIdsEnum.LEAVES_REQUEST,
+        },
+        {
+          labelKey: 'MENU.CANCEL_LEAVES_REQUEST',
+          routerLink: ['/cancel-leaves-request'],
+          routeId: RouteIdsEnum.CANCEL_LEAVES_REQUEST,
+        },
+      ],
+    },
     // {
     //   labelKey: 'MENU.VISITS',
     //   iconUrl: 'assets/icons/menu-icons/visits.svg',

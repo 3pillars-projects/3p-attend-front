@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivateFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -12,7 +11,7 @@ import { of } from 'rxjs';
 import { COOKIE_ENUM } from '@/enums/cookie-enum';
 import { CookieService } from '@/services/shared/cookie.service';
 
-export const authGuard: CanActivateFn = (
+export const authGuard: any = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {

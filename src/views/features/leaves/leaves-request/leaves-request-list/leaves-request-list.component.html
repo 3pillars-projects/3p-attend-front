@@ -1,0 +1,35 @@
+<div class="bg-white">
+  <div class="bg-[#f9fafb] p-3 sm:p-6">
+    <div class="header bg-white rounded-2xl p-4 sm:p-6 mb-6">
+      <p-breadcrumb class="max-w-full" [model]="breadcrumbs" [home]="home" />
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#161616]">
+        {{ 'LEAVE_REQUEST_PAGE.LEAVE_REQUESTS' | translate }}
+      </h3>
+    </div>
+
+    <p-tabs [value]="activeTabIndex.toString()" (valueChange)="onTabChange($event)">
+      <p-tablist class="mb-6 justify-between">
+        <div class="flex">
+          <p-tab value="0">
+            {{ 'LEAVE_REQUEST_PAGE.MY_LEAVE_REQUESTS' | translate }}
+          </p-tab>
+          @if (canViewTeamRequests()) {
+            <p-tab value="1">
+              {{ 'LEAVE_REQUEST_PAGE.INCOMING_LEAVE_REQUESTS' | translate }}
+            </p-tab>
+          }
+        </div>
+      </p-tablist>
+
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <app-my-leaves-request-list #myList></app-my-leaves-request-list>
+        </p-tabpanel>
+
+        <p-tabpanel value="1">
+          <app-team-leaves-request-list #teamList></app-team-leaves-request-list>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</div>

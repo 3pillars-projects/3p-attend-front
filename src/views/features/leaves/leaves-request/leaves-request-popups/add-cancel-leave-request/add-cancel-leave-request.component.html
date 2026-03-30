@@ -1,0 +1,136 @@
+<div dir="rtl">
+  <div class="p-6">
+    <button class="block ms-auto" (click)="close()">
+      <i class="pi pi-times close-popup"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-4 text-lg sm:text-xl">
+      {{ 'CANCEL_LEAVE_REQUEST_PAGE.CANCEL' | translate }}
+    </h3>
+
+    <!-- leave summary -->
+    <div class="mb-6 p-4 bg-[#f3f4f6] rounded-lg">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-gray-600">{{ 'LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}</p>
+          <p class="font-medium">
+            {{
+              getLanguage() === languageEnum.ARABIC
+                ? model.leaveType?.nameAr
+                : model.leaveType?.nameEn
+            }}
+          </p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">{{ 'LEAVE_REQUEST_PAGE.EMPLOYEE_NAME' | translate }}</p>
+          <p class="font-medium">
+            {{
+              getLanguage() === languageEnum.ARABIC
+                ? model.employee?.nameAr
+                : model.employee?.nameEn
+            }}
+          </p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">{{ 'LEAVE_REQUEST_PAGE.DATE_FROM' | translate }}</p>
+          <p class="font-medium">{{ model.dateFrom | date: 'dd/MM/yyyy' }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">{{ 'LEAVE_REQUEST_PAGE.DATE_TO' | translate }}</p>
+          <p class="font-medium">{{ model.dateTo | date: 'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="pb-6 mb-6 border-b border-[#d2d6db]">
+      <label class="flex items-center space-x-2 cursor-pointer relative">
+        <input
+          [checked]="model.isHalfDay"
+          class="appearance-none w-6 h-6 border border-[#6c737f] rounded-[2px] checked:bg-[#1b8354] checked:border-transparent focus:outline-none peer"
+          disabled
+          type="checkbox"
+        />
+        <svg
+          class="absolute start-1 top-1 w-4 h-4 text-white pointer-events-none scale-0 peer-checked:scale-100 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+          viewBox="0 0 24 24"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+        <span class="text-base font-medium text-[#1f2a37]">{{
+          'LEAVE_REQUEST_PAGE.HALF_DAY' | translate
+        }}</span>
+      </label>
+    </div> -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" [formGroup]="form">
+      <div class="relative">
+        <label class="label" for="swipeDateFrom">{{
+          'CANCEL_LEAVE_REQUEST_PAGE.DATE_FROM' | translate
+        }}</label>
+        <p-datepicker
+          [iconDisplay]="'input'"
+          [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.DATE_FROM' | translate"
+          [showIcon]="true"
+          class="peer block w-full"
+          inputId="swipeDateFrom"
+          [showClear]="true"
+          formControlName="dateFrom"
+        >
+          <ng-template pTemplate="inputicon">
+            <img alt="" src="assets/icons/calender-icon.svg" />
+          </ng-template>
+        </p-datepicker>
+        <app-validation-messages [control]="dateFromControl"></app-validation-messages>
+        <span
+          class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+        ></span>
+      </div>
+      <div class="relative">
+        <label class="label" for="swipeDateTo">{{
+          'CANCEL_LEAVE_REQUEST_PAGE.DATE_TO' | translate
+        }}</label>
+        <p-datepicker
+          [iconDisplay]="'input'"
+          [placeholder]="'CANCEL_LEAVE_REQUEST_PAGE.DATE_TO' | translate"
+          [showIcon]="true"
+          class="peer block w-full"
+          inputId="swipeDateTo"
+          [showClear]="true"
+          formControlName="dateTo"
+        >
+          <ng-template pTemplate="inputicon">
+            <img alt="" src="assets/icons/calender-icon.svg" />
+          </ng-template>
+        </p-datepicker>
+        <app-validation-messages [control]="dateToControl"></app-validation-messages>
+        <span
+          class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+        ></span>
+      </div>
+      <div class="md:col-span-2 lg:col-span-3">
+        <label class="label" for="note">{{ 'CANCEL_LEAVE_REQUEST_PAGE.NOTES' | translate }}</label>
+        <div class="relative w-full">
+          <textarea
+            formControlName="note"
+            class="h-24 block overflow-auto w-full rounded border border-[#9da4ae] px-4 py-2 px-4 py-3 focus:outline-none resize-none peer"
+            cols="30"
+            pTextarea
+            placeholder="{{ 'CANCEL_LEAVE_REQUEST_PAGE.NOTES' | translate }}"
+            rows="5"
+          ></textarea>
+          <app-validation-messages [control]="noteControl"></app-validation-messages>
+          <span
+            class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus:left-0 peer-focus:w-full"
+          ></span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-4 mt-6">
+      <button class="btn gray-btn" (click)="close()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button class="btn green-btn" (click)="submit()">{{ 'COMMON.SAVE' | translate }}</button>
+    </div>
+  </div>
+</div>
