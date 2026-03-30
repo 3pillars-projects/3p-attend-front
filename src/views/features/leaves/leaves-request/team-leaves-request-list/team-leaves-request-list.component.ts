@@ -255,6 +255,13 @@ export class TeamLeavesRequestListComponent extends BaseListComponent<
           textClass: 'text-[#1f2a37]',
           textKey: 'LEAVE_REQUEST_PAGE.STATUS_DOES_NOT_NEED_ACCEPTANCE',
         };
+      case LeaveStatus.Cut:
+        return {
+          bgClass: 'bg-gray-100',
+          dotClass: 'bg-gray-400',
+          textClass: 'text-gray-800',
+          textKey: 'LEAVE_REQUEST_PAGE.STATUS_CUT',
+        };
       default:
         return {
           bgClass: 'bg-gray-100',
