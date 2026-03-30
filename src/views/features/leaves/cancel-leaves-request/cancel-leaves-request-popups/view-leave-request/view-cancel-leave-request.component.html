@@ -48,7 +48,11 @@
             {{ 'CANCEL_LEAVE_REQUEST_PAGE.LEAVE_TYPE' | translate }}
           </span>
           <h5 class="text-[#161616] font-[600] mt-2">
-            {{ model.leaveType?.[optionLabel] || '---' }}
+            {{
+              langService.getCurrentLanguage() === languageEnum.ARABIC
+                ? model.leaveType?.nameAr
+                : model.leaveType?.nameEn
+            }}
           </h5>
         </div>
         <div>

@@ -36,7 +36,7 @@ export class CancelationRequest extends BaseCrudModel<
   buildForm() {
     const { fkLeaveId, dateFrom, dateTo, note, status, requireHRAction } = this;
     return {
-      fkLeaveId: [fkLeaveId, [Validators.required]],
+      fkLeaveId: [fkLeaveId, []],
       dateFrom: [dateFrom, [Validators.required]],
       dateTo: [dateTo, [Validators.required]],
       note: [note, []],

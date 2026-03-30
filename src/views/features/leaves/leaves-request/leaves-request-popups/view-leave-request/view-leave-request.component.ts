@@ -47,7 +47,7 @@ export class ViewLeaveRequestComponent implements OnInit {
   confirmationService = inject(ConfirmationService);
   leaveService = inject(LeaveService);
   declare direction: LAYOUT_DIRECTION_ENUM;
-  
+  languageEnum = LANGUAGE_ENUM;
   activeLeaves: Leave[] = [];
   cancelledPeriods: CancelledPeriod[] = [];
 
@@ -69,7 +69,6 @@ export class ViewLeaveRequestComponent implements OnInit {
   loadRelatedLeaves() {
     if (!this.model.id) return;
     this.leaveService.getLeavesWithParent(this.model.id).subscribe((leaves) => {
-      console.log(leaves);
       if (!leaves || leaves.length === 0) return;
       this.activeLeaves = leaves.filter((l) => l.status !== this.LeaveStatusEnum.Canceled);
       this.calculateCancelledPeriods(this.activeLeaves);
