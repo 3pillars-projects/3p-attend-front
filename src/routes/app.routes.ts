@@ -255,7 +255,7 @@ export const routes: Routes = [
       {
         path: 'leaves-balances',
         canActivate: [authGuard],
-        data: { roles: [ROLES_ENUM.EMPLOYEE], routeId: RouteIdsEnum.LEAVES_BALANCES },
+        data: { roles: [ROLES_ENUM.HR_OFFICER], routeId: RouteIdsEnum.LEAVES_BALANCES },
         resolve: {
           leavesBalance: employeesLeavesBalancesResolver,
           list: employeesLeavesBalancesPagedResolver,
@@ -368,6 +368,11 @@ export const routes: Routes = [
       },
       {
         path: 'transfer-leaves-balances',
+        canActivate: [authGuard],
+        data: {
+          roles: [ROLES_ENUM.HR_OFFICER],
+          routeId: RouteIdsEnum.LEAVE_TRANSFER,
+        },
         loadComponent: () =>
           import(
             '@/views/features/leaves/transfer-balances/transfer-leaves-balances/transfer-leaves-balances.component'
