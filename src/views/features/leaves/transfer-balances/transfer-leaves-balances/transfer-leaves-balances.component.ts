@@ -96,7 +96,7 @@ export default class TransferLeavesBalancesComponent {
     });
 
     this.buildForms();
-    this.generateYearOptions();
+    this.generateYearOptions(2025);
     this.leaveTransferService.getAnnualLeaveTypesLookup().subscribe((res) => {
       this.leaveTypes = res;
     });
