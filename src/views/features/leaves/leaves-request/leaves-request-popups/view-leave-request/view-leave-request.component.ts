@@ -169,7 +169,6 @@ export class ViewLeaveRequestComponent implements OnInit {
 
     return (
       this.model.status != this.LeaveStatusEnum.Rejected &&
-      this.model.status != this.LeaveStatusEnum.Accepted &&
       this.model.status != this.LeaveStatusEnum.Canceled &&
       this.canCancel &&
       start.getTime() > today.getTime()
