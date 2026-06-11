@@ -169,7 +169,6 @@ export class ViewLeaveRequestComponent implements OnInit {
 
     return (
       this.model.status != this.LeaveStatusEnum.Rejected &&
-      this.model.status != this.LeaveStatusEnum.Accepted &&
       this.model.status != this.LeaveStatusEnum.Canceled &&
       this.canCancel &&
       start.getTime() > today.getTime()
@@ -205,16 +204,19 @@ export class ViewLeaveRequestComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result == DIALOG_ENUM.OK) {
-        this.alertService.showSuccessMessage({
-          messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_SUCCESS'],
-        });
-      } else {
-        this.alertService.showErrorMessage({ messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_FAILED'] });
-      }
-    });
-    this.model.cutLeave().subscribe(() => {
-      this.dialogRef.close(DIALOG_ENUM.OK);
+      if (result !== DIALOG_ENUM.OK) return;
+
+      this.model.cutLeave().subscribe({
+        next: () => {
+          this.alertService.showSuccessMessage({
+            messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_SUCCESS'],
+          });
+          this.dialogRef.close(DIALOG_ENUM.OK);
+        },
+        error: () => {
+          this.alertService.showErrorMessage({ messages: ['LEAVE_REQUEST_PAGE.CUT_LEAVE_FAILED'] });
+        },
+      });
     });
   }
 }
