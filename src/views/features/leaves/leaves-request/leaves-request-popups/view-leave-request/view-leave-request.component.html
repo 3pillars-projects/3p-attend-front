@@ -157,6 +157,20 @@
                   {{ model.daysCount }}
                 </div>
               </div>
+              @if (model.isHalfDay) {
+                <div>
+                  <span class="text-[14px] text-[#6c737f]">
+                    {{ 'LEAVE_REQUEST_PAGE.PARTIAL_LEAVE_POSITION' | translate }}
+                  </span>
+                  <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit mt-2">
+                    @if (model.partialLeavePosition === PartialLeavePositionEnum.BeginningOfShift) {
+                      {{ 'LEAVE_REQUEST_PAGE.BEGINNING_OF_SHIFT' | translate }}
+                    } @else if (model.partialLeavePosition === PartialLeavePositionEnum.EndOfShift) {
+                      {{ 'LEAVE_REQUEST_PAGE.END_OF_SHIFT' | translate }}
+                    }
+                  </div>
+                </div>
+              }
 
               @if (model.notes) {
                 <div class="md:col-span-3">

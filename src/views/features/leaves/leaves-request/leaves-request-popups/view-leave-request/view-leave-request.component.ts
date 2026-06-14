@@ -18,6 +18,7 @@ import { ConfirmationService } from '@/services/shared/confirmation.service';
 import { LAYOUT_DIRECTION_ENUM } from '@/enums/layout-direction-enum';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LeaveService } from '@/services/features/business/leave.service';
+import { PartialLeavePosition } from '@/enums/partial-leave-position-enum';
 
 export interface CancelledPeriod {
   dateFrom: Date;
@@ -42,6 +43,7 @@ export class ViewLeaveRequestComponent implements OnInit {
 
   model: Leave = new Leave();
   LeaveStatusEnum = LeaveStatus;
+  PartialLeavePositionEnum = PartialLeavePosition;
   canCancel: boolean = false;
   mGRCanCancel: boolean = false;
   confirmationService = inject(ConfirmationService);
