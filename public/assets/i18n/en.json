@@ -51,6 +51,7 @@
     "POSITIVE_NUMBER_ONLY": "Only positive numbers are allowed",
     "INVALID_NUMBER": "Please enter a valid number",
     "NUMBER_RANGE": "Maximum length is 4 numbers",
+    "INVALID_STEP": "Value must be in increments of {step}",
     "INTERNAL_SERVER_ERROR": "Internal server error",
     "RESOURCE_NOT_FOUND": "Resource not found",
     "RESOURCE_CONFLICT": "Resource already exists",

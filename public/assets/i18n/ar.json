@@ -51,6 +51,7 @@
     "POSITIVE_NUMBER_ONLY": "يجب أن يكون الرقم إيجابي",
     "INVALID_NUMBER": "الرقم غير صحيح",
     "NUMBER_RANGE": "يجب أن يكون الحد الأقصى للحقل هو 4 ارقام",
+    "INVALID_STEP": "يجب أن تكون القيمة من مضاعفات {step}",
     "INTERNAL_SERVER_ERROR": "خطأ داخلي في الخادم",
     "RESOURCE_NOT_FOUND": "المورد غير موجود",
     "RESOURCE_CONFLICT": "المورد موجود بالفعل",

@@ -63,6 +63,11 @@ export class ValidationMessagesComponent implements OnInit {
         .replace('{max}', this.unwrap(errorData.max, 'max').toString())
         .replace('{actual}', errorData.actual.toString());
     }
+
+    // step
+    if (errorData.step !== undefined) {
+      return message.replace('{step}', errorData.step.toString());
+    }
     return message;
   }
   unwrap = (val: any, key: string) => {
@@ -97,5 +102,6 @@ export class ValidationMessagesComponent implements OnInit {
     [ValidationErrorKeyEnum.DATE_MAX_RANGE_EXCEEDED]:
       'ATTENDANCE_REPORT_PROCESSING_PAGE.DATE_MAX_RANGE_EXCEEDED',
     [ValidationErrorKeyEnum.AT_LEAST_ONE_TRUE]: 'COMMON.AT_LEAST_ONE_TRUE',
+    [ValidationErrorKeyEnum.INVALID_STEP]: 'COMMON.INVALID_STEP',
   };
 }
