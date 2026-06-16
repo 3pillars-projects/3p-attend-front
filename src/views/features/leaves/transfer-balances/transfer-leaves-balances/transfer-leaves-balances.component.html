@@ -334,7 +334,7 @@
                         <img src="/assets/icons/move-icon.svg" alt="" />
                       </button>
                     </td>
-                    <td>{{ employee.nameAr }}</td>
+                    <td>{{ isCurrentLanguageEnglish() ? employee.nameEn : employee.nameAr }}</td>
                     <td>{{ employee.remainingBalancePreviousYear ?? '-' }}</td>
                     <td>{{ employee.transferedBalanceCurrentYear ?? '-' }}</td>
                   </tr>
