@@ -32,6 +32,9 @@ import { ConfirmationService } from '@/services/shared/confirmation.service';
 import { AlertService } from '@/services/shared/alert.service';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { LeaveTransferAnnualLeaveTypeLookup } from '@/models/features/business/leave-transfer/leave-transfer-annual-leave-type-lookup';
+import { CustomValidators } from '@/validators/custom-validators';
+
+const TRANSFER_AMOUNT_STEP = 0.5;
 
 interface YearOption {
   label: string;
@@ -152,7 +155,14 @@ export default class TransferLeavesBalancesComponent {
     this.operationForm = this.fb.group({
       actionType: [null, Validators.required],
       year: [null, Validators.required],
-      transferAmount: [null, [Validators.required, Validators.min(1)]],
+      transferAmount: [
+        null,
+        [
+          Validators.required,
+          Validators.min(1),
+          CustomValidators.stepValidator(TRANSFER_AMOUNT_STEP),
+        ],
+      ],
     });
   }
 
@@ -365,7 +375,11 @@ export default class TransferLeavesBalancesComponent {
     ) {
       yearControl?.setValue(this.currentYear);
       yearControl?.setValidators([Validators.required]);
-      transferAmountControl?.setValidators([Validators.required, Validators.min(1)]);
+      transferAmountControl?.setValidators([
+        Validators.required,
+        Validators.min(1),
+        CustomValidators.stepValidator(TRANSFER_AMOUNT_STEP),
+      ]);
       transferAmountControl?.enable();
     } else if (actionType === LeaveTransferActionType.RenewLeaveBalance) {
       yearControl?.setValue(null);
@@ -376,7 +390,11 @@ export default class TransferLeavesBalancesComponent {
       // Reset if null or other
       yearControl?.setValue(null);
       yearControl?.clearValidators();
-      transferAmountControl?.setValidators([Validators.required, Validators.min(1)]);
+      transferAmountControl?.setValidators([
+        Validators.required,
+        Validators.min(1),
+        CustomValidators.stepValidator(TRANSFER_AMOUNT_STEP),
+      ]);
       transferAmountControl?.enable();
     }
 
