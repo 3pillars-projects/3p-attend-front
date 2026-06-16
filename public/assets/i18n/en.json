@@ -377,7 +377,9 @@
     "EMPLOYEE_NUMBER": "Employee Number",
     "BIRTHDATE": "Birthdate",
     "GENDER": "Gender",
-    "RELIGION": "Religion"
+    "RELIGION": "Religion",
+    "INSURANCE_SERVICE_YEARS": "Insurance service (years)",
+    "INSURANCE_SERVICE_MONTHS": "Insurance service (months)"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "Holidays",

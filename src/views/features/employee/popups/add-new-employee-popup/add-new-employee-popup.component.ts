@@ -162,6 +162,12 @@ export class AddNewEmployeePopupComponent extends BasePopupComponent<User> imple
   get genderControl() {
     return this.form.get('fkGenderId') as FormControl;
   }
+  get insuranceServiceYearsControl() {
+    return this.form.get('insuranceServiceYears') as FormControl;
+  }
+  get insuranceServiceMonthsControl() {
+    return this.form.get('insuranceServiceMonths') as FormControl;
+  }
   override initPopup() {
     this.model = this.data.model;
     this.cities = this.data.lookups.cities;
