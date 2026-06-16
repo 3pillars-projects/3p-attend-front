@@ -131,7 +131,6 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
     this.getControl('availableTimesDuringServicePeriod').enable();
   }
 
-
   disableLimitedTimesDuringServiceRelatedControls() {
     this.getControl('availableTimesDuringServicePeriod').patchValue(null);
     this.getControl('availableTimesDuringServicePeriod').disable();
@@ -143,15 +142,23 @@ export class LeaveTypesPopupComponent extends BasePopupComponent<LeaveType> impl
   hasLimitedTimeLeave() {
     const hasLimitedTime = this.getControl('hasLimitedTimesDuringServicePeriod').value;
     if (hasLimitedTime) {
-      this.getControl('canApplyOnHalfDay').patchValue(false);
-      this.getControl('canApplyOnHalfDay').disable();
       this.getControl('availableTimesDuringServicePeriod').enable();
     } else {
-      this.getControl('canApplyOnHalfDay').enable();
       this.getControl('availableTimesDuringServicePeriod').patchValue(null);
       this.getControl('availableTimesDuringServicePeriod').disable();
     }
 
     return hasLimitedTime;
+  }
+  hasAnnualBalanceLeave() {
+    const hasAnnual = this.getControl('hasAnnualBalance').value;
+    if (hasAnnual) {
+      this.getControl('canApplyOnHalfDay').enable();
+    } else {
+      this.getControl('canApplyOnHalfDay').patchValue(false);
+      this.getControl('canApplyOnHalfDay').disable();
+    }
+
+    return hasAnnual;
   }
 }
