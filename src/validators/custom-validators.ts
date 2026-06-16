@@ -122,6 +122,24 @@ export function positiveNumber(): ValidatorFn {
   };
 }
 
+// Custom validator for enforcing a step (e.g. multiples of 0.5)
+export function stepValidator(step: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!isValidValue(control.value)) {
+      return null;
+    }
+
+    const value = Number(control.value);
+    const remainder = Math.abs(value - Math.round(value / step) * step);
+
+    if (remainder > 1e-9) {
+      return { invalidStep: { step } };
+    }
+
+    return null;
+  };
+}
+
 // Custom validator for number range
 export function numberRange(min: number, max: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -494,6 +512,7 @@ export const CustomValidators = {
   numberMinLength,
   positiveNumber,
   numberRange,
+  stepValidator,
   timeFromBeforeTimeTo,
   crossDateTimeValidator,
   crossDateShiftEndNotPassNextDayStart,

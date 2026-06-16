@@ -22,4 +22,5 @@ export enum ValidationErrorKeyEnum {
   PASSWORD_MISMATCH = 'passwordMismatch',
   DATE_MAX_RANGE_EXCEEDED = 'maxRangeExceeded',
   AT_LEAST_ONE_TRUE = 'atLeastOneTrue',
+  INVALID_STEP = 'invalidStep',
 }
