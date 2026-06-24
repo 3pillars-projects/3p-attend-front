@@ -163,7 +163,7 @@
 
     <!-- Action Buttons - Only show for TAKE_ACTION mode -->
     <div class="actions flex items-center justify-between mt-6">
-      <button class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button (click)="close()" class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
       <div class="flex items-center gap-4">
         @if (canShowCancelApprovalButtons) {
           <button class="btn green-btn" (click)="approveCancel()">

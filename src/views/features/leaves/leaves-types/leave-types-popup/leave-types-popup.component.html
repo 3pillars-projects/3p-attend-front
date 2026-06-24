@@ -228,6 +228,7 @@
             [control]="getControl('hasAnnualBalance')"
           ></app-validation-messages>
         </div>
+
         <fieldset
           [disabled]="!isAnnualLeave()"
           [class.opacity-60]="form.get('hasAnnualBalance')?.value !== true"
@@ -287,6 +288,68 @@
             ></app-validation-messages>
           </div>
         </fieldset>
+        <!-- Half day -->
+        <fieldset
+          [disabled]="!hasAnnualBalanceLeave()"
+          [class.opacity-60]="form.get('hasAnnualBalance')?.value === false"
+        >
+          <div>
+            <div class="mb-6">
+              <label class="label mb-3 block" radio-label-for="canApplyOnHalfDay">
+                <strong class="font-bolc text-lg">
+                  {{ 'LEAVE_TYPES_PAGE.ALLOW_HALF_DAY_LEAVE' | translate }}
+                </strong>
+              </label>
+
+              <div class="flex flex-wrap gap-8">
+                <label
+                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                  for="canApplyOnHalfDay-yes"
+                >
+                  {{ 'COMMON.YES' | translate }}
+                  <div class="relative w-6 h-6">
+                    <input
+                      formControlName="canApplyOnHalfDay"
+                      type="radio"
+                      id="canApplyOnHalfDay-yes"
+                      name="canApplyOnHalfDay"
+                      [value]="true"
+                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                    />
+                    <span
+                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                    >
+                    </span>
+                  </div>
+                </label>
+
+                <label
+                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
+                  for="canApplyOnHalfDay-no"
+                >
+                  {{ 'COMMON.NO' | translate }}
+                  <div class="relative w-6 h-6">
+                    <input
+                      formControlName="canApplyOnHalfDay"
+                      type="radio"
+                      id="canApplyOnHalfDay-no"
+                      name="canApplyOnHalfDay"
+                      [value]="false"
+                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
+                    />
+                    <span
+                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                    >
+                    </span>
+                  </div>
+                </label>
+              </div>
+              <app-validation-messages
+                [control]="getControl('canApplyOnHalfDay')"
+              ></app-validation-messages>
+            </div>
+          </div>
+        </fieldset>
 
         <div>
           <div>
@@ -330,7 +393,7 @@
                   {{ 'LEAVE_TYPES_PAGE.MULTIPLE_APPLICATIONS_LIMITED' | translate }}
                 </strong>
               </label>
-  
+
               <div class="flex flex-wrap gap-8">
                 <label
                   class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
@@ -352,7 +415,7 @@
                     </span>
                   </div>
                 </label>
-  
+
                 <label
                   class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
                   for="hasLimitedTimes-no"
@@ -380,101 +443,35 @@
             </div>
           </div>
         </fieldset>
-  
-        <!-- Half day -->
-        <fieldset
-          [disabled]="hasLimitedTimeLeave()"
-          [class.opacity-60]="form.get('hasLimitedTimesDuringServicePeriod')?.value === true"
-        >
+
+        <div>
           <div>
-            <div class="mb-6">
-              <label class="label mb-3 block" radio-label-for="canApplyOnHalfDay">
-                <strong class="font-bolc text-lg">
-                  {{ 'LEAVE_TYPES_PAGE.ALLOW_HALF_DAY_LEAVE' | translate }}
-                </strong>
-              </label>
-  
-              <div class="flex flex-wrap gap-8">
-                <label
-                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-                  for="canApplyOnHalfDay-yes"
-                >
-                  {{ 'COMMON.YES' | translate }}
-                  <div class="relative w-6 h-6">
-                    <input
-                      formControlName="canApplyOnHalfDay"
-                      type="radio"
-                      id="canApplyOnHalfDay-yes"
-                      name="canApplyOnHalfDay"
-                      [value]="true"
-                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                    />
-                    <span
-                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
-                    >
-                    </span>
-                  </div>
-                </label>
-  
-                <label
-                  class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-                  for="canApplyOnHalfDay-no"
-                >
-                  {{ 'COMMON.NO' | translate }}
-                  <div class="relative w-6 h-6">
-                    <input
-                      formControlName="canApplyOnHalfDay"
-                      type="radio"
-                      id="canApplyOnHalfDay-no"
-                      name="canApplyOnHalfDay"
-                      [value]="false"
-                      class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-                    />
-                    <span
-                      class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
-                    >
-                    </span>
-                  </div>
-                </label>
-              </div>
-              <app-validation-messages
-                [control]="getControl('canApplyOnHalfDay')"
-              ></app-validation-messages>
-            </div>
+            <label class="label" for="availableTimesDuringServicePeriod">
+              {{ 'LEAVE_TYPES_PAGE.APPLICATION_COUNT_DURING_SERVICE' | translate }}
+            </label>
+
+            <p-inputnumber
+              inputId="availableTimesDuringServicePeriod"
+              formControlName="availableTimesDuringServicePeriod"
+              [inputStyle]="{ width: '3rem' }"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              [min]="1"
+            >
+              <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+              </ng-template>
+              <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+              </ng-template>
+            </p-inputnumber>
+            <app-validation-messages
+              [control]="getControl('availableTimesDuringServicePeriod')"
+            ></app-validation-messages>
           </div>
-        </fieldset>
-
-        
-  
-            <div>
-              <div>
-                <label class="label" for="availableTimesDuringServicePeriod">
-                  {{ 'LEAVE_TYPES_PAGE.APPLICATION_COUNT_DURING_SERVICE' | translate }}
-                </label>
-  
-                <p-inputnumber
-                  inputId="availableTimesDuringServicePeriod"
-                  formControlName="availableTimesDuringServicePeriod"
-                  [inputStyle]="{ width: '3rem' }"
-                  [showButtons]="true"
-                  buttonLayout="horizontal"
-                  spinnerMode="horizontal"
-                  [min]="1"
-                >
-                  <ng-template #incrementbuttonicon>
-                    <span class="pi pi-plus"></span>
-                  </ng-template>
-                  <ng-template #decrementbuttonicon>
-                    <span class="pi pi-minus"></span>
-                  </ng-template>
-                </p-inputnumber>
-                <app-validation-messages
-                  [control]="getControl('availableTimesDuringServicePeriod')"
-                ></app-validation-messages>
-              </div>
-            </div>
+        </div>
       </div>
-
 
       <!-- Application period scope -->
       <div class="mt-6 pt-6 border-t border-[#d2d6db]">
@@ -652,6 +649,7 @@
               [showButtons]="true"
               buttonLayout="horizontal"
               spinnerMode="horizontal"
+              [min]="0" 
             >
               <ng-template #incrementbuttonicon>
                 <span class="pi pi-plus"></span>
@@ -674,6 +672,7 @@
               [showButtons]="true"
               buttonLayout="horizontal"
               spinnerMode="horizontal"
+              [min]="0"
             >
               <ng-template #incrementbuttonicon>
                 <span class="pi pi-plus"></span>
@@ -695,6 +694,7 @@
                 [showButtons]="true"
                 buttonLayout="horizontal"
                 spinnerMode="horizontal"
+                [min]="0"
               >
                 <ng-template #incrementbuttonicon>
                   <span class="pi pi-plus"></span>

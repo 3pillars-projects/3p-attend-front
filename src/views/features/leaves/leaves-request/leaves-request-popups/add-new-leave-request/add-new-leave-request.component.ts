@@ -75,9 +75,14 @@ export class AddNewLeaveRequestComponent extends BasePopupComponent<Leave> imple
     });
 
     this.form.get('isHalfDay')?.valueChanges.subscribe((isHalfDay) => {
-      if (!isHalfDay) {
-        this.form.patchValue({ partialLeavePosition: PartialLeavePosition.None }, { emitEvent: false });
-      }
+      this.form.patchValue(
+        {
+          partialLeavePosition: isHalfDay
+            ? PartialLeavePosition.BeginningOfShift
+            : PartialLeavePosition.None,
+        },
+        { emitEvent: false }
+      );
     });
 
     this.form.valueChanges.subscribe(() => {

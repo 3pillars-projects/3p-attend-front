@@ -40,6 +40,8 @@ export class User extends BaseCrudModel<User, UserService, string> {
   declare activeDirectoryUsername?: string;
   private languageService?: LanguageService;
   declare religion?: number;
+  declare insuranceServiceMonths?: number;
+  declare insuranceServiceYears?: number;
 
   constructor() {
     super();
@@ -66,7 +68,9 @@ export class User extends BaseCrudModel<User, UserService, string> {
       joinDate,
       canLeaveWithoutFingerPrint,
       isActive,
-      religion
+      religion,
+      insuranceServiceMonths,
+      insuranceServiceYears,
     } = this;
 
     return {
@@ -142,6 +146,22 @@ export class User extends BaseCrudModel<User, UserService, string> {
       canLeaveWithoutFingerPrint: [canLeaveWithoutFingerPrint],
       isActive: [isActive, [Validators.required]],
       religion: [religion, [Validators.required]],
+      insuranceServiceYears: [
+        insuranceServiceYears ?? 0,
+        [
+          Validators.required,
+          Validators.min(CustomValidators.defaultLengths.YEARS_MIN),
+          Validators.max(CustomValidators.defaultLengths.YEARS_MAX),
+        ],
+      ],
+      insuranceServiceMonths: [
+        insuranceServiceMonths ?? 0,
+        [
+          Validators.required,
+          Validators.min(CustomValidators.defaultLengths.MONTHS_MIN),
+          Validators.max(CustomValidators.defaultLengths.MONTHS_MAX),
+        ],
+      ],
     };
   }
 
