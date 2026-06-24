@@ -376,7 +376,9 @@
     "EMPLOYEE_NUMBER": "رقم الموظف",
     "BIRTHDATE": "تاريخ الميلاد",
     "GENDER": "الجنس",
-    "RELIGION": "الديانة"
+    "RELIGION": "الديانة",
+    "INSURANCE_SERVICE_YEARS": "الخدمة التأمينية (عدد السنوات)",
+    "INSURANCE_SERVICE_MONTHS": "الخدمة التأمينية (عدد الشهور)"
   },
   "HOLIDAYS_PAGE": {
     "HOLIDAYS_LIST": "قائمة الإجازات والأعياد",
