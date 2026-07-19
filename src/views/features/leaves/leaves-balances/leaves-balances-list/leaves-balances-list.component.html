@@ -25,143 +25,81 @@
               <label class="label" for="department">
                 {{ 'DEPARTMENTS_LIST_PAGE.DEPARTMENT_NAME' | translate }}
               </label>
-              <p-select
-                [options]="departments"
-                [(ngModel)]="filterModel.fkDepartmentId"
-                [optionLabel]="getPropertyName()"
-                [showClear]="true"
-                [filter]="true"
-                class="w-full peer"
-                id="department"
-                optionLabel="type"
-                optionValue="id"
-                placeholder="{{ 'DEPARTMENTS_LIST_PAGE.DEPARTMENT_NAME' | translate }}"
-              ></p-select>
+              <p-select [options]="departments" [(ngModel)]="filterModel.fkDepartmentId"
+                [optionLabel]="getPropertyName()" [showClear]="true" [filter]="true" class="w-full peer" id="department"
+                optionLabel="type" optionValue="id"
+                placeholder="{{ 'DEPARTMENTS_LIST_PAGE.DEPARTMENT_NAME' | translate }}"></p-select>
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="employeeNameAr">
                 {{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}
               </label>
-              <input
-                [(ngModel)]="filterModel.fullNameAr"
-                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}"
-                class="peer"
-                fluid="true"
-                id="employeeNameAr"
-                pInputText
-                type="text"
-              />
+              <input [(ngModel)]="filterModel.fullNameAr"
+                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}" class="peer" fluid="true"
+                id="employeeNameAr" pInputText type="text" />
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="employeeNameEn">
                 {{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}
               </label>
-              <input
-                [(ngModel)]="filterModel.fullNameEn"
-                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}"
-                class="peer"
-                fluid="true"
-                id="employeeNameEn"
-                pInputText
-                type="text"
-              />
+              <input [(ngModel)]="filterModel.fullNameEn"
+                placeholder="{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}" class="peer" fluid="true"
+                id="employeeNameEn" pInputText type="text" />
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="type">
                 {{ 'EMPLOYEES_PAGE.GENDER' | translate }}
               </label>
 
-              <p-select
-                [options]="genderOptions"
-                [optionLabel]="getPropertyName()"
-                optionValue="id"
-                [(ngModel)]="filterModel.fkGenderId"
-                id="gender"
-                class="w-full peer"
-                [showClear]="true"
-                placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"
-              ></p-select>
+              <p-select [options]="genderOptions" [optionLabel]="getPropertyName()" optionValue="id"
+                [(ngModel)]="filterModel.fkGenderId" id="gender" class="w-full peer" [showClear]="true"
+                placeholder="{{ 'EMPLOYEES_PAGE.GENDER' | translate }}"></p-select>
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="religion">
                 {{ 'EMPLOYEES_PAGE.RELIGION' | translate }}
               </label>
-              <p-select
-                [options]="religionOptions"
-                [optionLabel]="getPropertyName()"
-                optionValue="id"
-                [(ngModel)]="filterModel.religion"
-                id="religion"
-                class="w-full peer"
-                placeholder="{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}"
-                [showClear]="true"
-              ></p-select>
+              <p-select [options]="religionOptions" [optionLabel]="getPropertyName()" optionValue="id"
+                [(ngModel)]="filterModel.religion" id="religion" class="w-full peer"
+                placeholder="{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}" [showClear]="true"></p-select>
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="year">
                 {{ 'COMMON.YEAR' | translate }}
               </label>
-              <p-select
-                [options]="years"
-                placeholder="{{ 'COMMON.YEAR' | translate }}"
-                class="w-full peer"
-                id="year"
-                [(ngModel)]="filterModel.year"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-              ></p-select>
+              <p-select [options]="years" placeholder="{{ 'COMMON.YEAR' | translate }}" class="w-full peer" id="year"
+                [(ngModel)]="filterModel.year" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-select>
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="yearCountLessThan">{{
                 'LEAVES_BALANCES.YEARS_OF_SERVICE_LESS_THAN' | translate
-              }}</label>
-              <input
-                [(ngModel)]="filterModel.maxYearsOfExperience"
-                placeholder="{{ 'COMMON.LESS_THAN' | translate }}"
-                class="peer"
-                fluid="true"
-                id="yearCountLessThan"
-                pInputText
-                type="text"
-              />
+                }}</label>
+              <input [(ngModel)]="filterModel.maxYearsOfExperience" placeholder="{{ 'COMMON.LESS_THAN' | translate }}"
+                class="peer" fluid="true" id="yearCountLessThan" pInputText type="text" />
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
             <div class="relative">
               <label class="label" for="yearCountGreaterThan">{{
                 'LEAVES_BALANCES.YEARS_OF_SERVICE_GREATER_THAN' | translate
-              }}</label>
-              <input
-                [(ngModel)]="filterModel.minYearsOfExperience"
-                placeholder="{{ 'COMMON.GREATER_THAN' | translate }}"
-                class="peer"
-                fluid="true"
-                id="yearCountGreaterThan"
-                pInputText
-                type="text"
-              />
+                }}</label>
+              <input [(ngModel)]="filterModel.minYearsOfExperience"
+                placeholder="{{ 'COMMON.GREATER_THAN' | translate }}" class="peer" fluid="true"
+                id="yearCountGreaterThan" pInputText type="text" />
               <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
             </div>
           </div>
           <div class="actions flex items-center gap-4 pt-6">
@@ -174,140 +112,104 @@
           </div>
         </div>
       </div>
-      <div class="p-6 sm:p-8 rounded-2xl bg-[#f3f4f6] mt-10">
-        <div class="flex items-center justify-between">
-          <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
-            {{ 'LEAVES_BALANCES.LEAVES_DISPLAY_OPTIONS' | translate }}
-          </h5>
-        </div>
-        <div class="pt-6">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="relative">
-              <label class="label" for="hasYearlyBalance"
-                >{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
-                  leavesBalance?.annualLeaves?.length
-                }}
-                )</label
-              >
-              <p-multi-select
-                [selectedItemsLabel]="getSelectedLeavesLabel(selectedAnnualLeaves)"
-                [maxSelectedLabels]="0"
-                [options]="leavesBalance?.annualLeaves"
-                [optionLabel]="getLookupLabelKey()"
-                placeholder="{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }}"
-                class="w-full peer"
-                id="hasYearlyBalance"
-                [showClear]="true"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                [(ngModel)]="selectedAnnualLeaves"
-              ></p-multi-select>
-              <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
-            </div>
-            <div class="relative">
-              <label class="label" for="hasLimitedBalance"
-                >{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
-                  leavesBalance?.limitedLeaves?.length
-                }})</label
-              >
-              <p-multi-select
-                [selectedItemsLabel]="getSelectedLeavesLabel(selectedLimitedTimesLeaves!)"
-                [maxSelectedLabels]="0"
-                [options]="leavesBalance?.limitedLeaves"
-                [optionLabel]="getLookupLabelKey()"
-                placeholder="{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }}"
-                class="w-full peer"
-                id="hasLimitedBalance"
-                [showClear]="true"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                [(ngModel)]="selectedLimitedTimesLeaves"
-              ></p-multi-select>
-              <span
-                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
-              ></span>
-            </div>
-          </div>
-          <p-tabs value="0">
-            <p-tablist class="my-6 justify-between">
-              <div class="flex">
-                <p-tab value="0">
-                  {{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
-                    selectedAnnualLeaves?.length
-                  }})
-                </p-tab>
-                <p-tab value="1">
-                  {{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
-                    selectedLimitedTimesLeaves?.length
-                  }})
-                </p-tab>
+      <p-accordion class="display-options-accordion">
+        <p-accordion-panel value="0">
+          <p-accordion-header>
+            <h5 class="text-base sm:text-lg md:text-xl font-bold text-[#161616]">
+              {{ 'LEAVES_BALANCES.LEAVES_DISPLAY_OPTIONS' | translate }}
+            </h5>
+          </p-accordion-header>
+          <p-accordion-content>
+            <div class="pt-6">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="relative">
+                  <label class="label" for="hasYearlyBalance">{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
+                    leavesBalance?.annualLeaves?.length
+                    }}
+                    )</label>
+                  <p-multi-select [selectedItemsLabel]="getSelectedLeavesLabel(selectedAnnualLeaves)"
+                    [maxSelectedLabels]="0" [options]="leavesBalance?.annualLeaves" [optionLabel]="getLookupLabelKey()"
+                    placeholder="{{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }}" class="w-full peer"
+                    id="hasYearlyBalance" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                    [(ngModel)]="selectedAnnualLeaves" appendTo="body"></p-multi-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                </div>
+                <div class="relative">
+                  <label class="label" for="hasLimitedBalance">{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }}
+                    ({{
+                    leavesBalance?.limitedLeaves?.length
+                    }})</label>
+                  <p-multi-select [selectedItemsLabel]="getSelectedLeavesLabel(selectedLimitedTimesLeaves!)"
+                    [maxSelectedLabels]="0" [options]="leavesBalance?.limitedLeaves" [optionLabel]="getLookupLabelKey()"
+                    placeholder="{{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }}" class="w-full peer"
+                    id="hasLimitedBalance" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                    [(ngModel)]="selectedLimitedTimesLeaves" appendTo="body"></p-multi-select>
+                  <span
+                    class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"></span>
+                </div>
               </div>
-              <button class="ms-auto btn !text-[#d92d20]" (click)="resetSelectedLeaveTypes()">
-                <img src="/assets/icons/delete.svg" alt="" />
-                {{ 'COMMON.RESET' | translate }}
-              </button>
-            </p-tablist>
-            <p-tabpanels>
-              <!-- My Visits Tab Panel -->
-              <p-tabpanel value="0">
-                <div class="flex gap-4 wrap bg-[#f3f4f6]">
-                  @for (annualLeave of selectedAnnualLeaves; track annualLeave.id) {
-                    <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1">
-                      {{ getNameBasedOnLanguage(annualLeave) }}
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        (click)="removeAnnualLeave(annualLeave)"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                          fill="#161616"
-                        />
-                      </svg>
+              <p-tabs value="0">
+                <p-tablist class="my-6 justify-between">
+                  <div class="flex">
+                    <p-tab value="0">
+                      {{ 'LEAVES_BALANCES.HAS_ANNUAL_BALANCE' | translate }} ({{
+                      selectedAnnualLeaves?.length
+                      }})
+                    </p-tab>
+                    <p-tab value="1">
+                      {{ 'LEAVES_BALANCES.HAS_LIMITED_BALANCE' | translate }} ({{
+                      selectedLimitedTimesLeaves?.length
+                      }})
+                    </p-tab>
+                  </div>
+                  <button class="ms-auto btn !text-[#d92d20]" (click)="resetSelectedLeaveTypes()">
+                    <img src="/assets/icons/delete.svg" alt="" />
+                    {{ 'COMMON.RESET' | translate }}
+                  </button>
+                </p-tablist>
+                <p-tabpanels>
+                  <!-- My Visits Tab Panel -->
+                  <p-tabpanel value="0">
+                    <div class="flex gap-4 wrap bg-[#f3f4f6]">
+                      @for (annualLeave of selectedAnnualLeaves; track annualLeave.id) {
+                      <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1">
+                        {{ getNameBasedOnLanguage(annualLeave) }}
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"
+                          (click)="removeAnnualLeave(annualLeave)">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
+                            fill="#161616" />
+                        </svg>
+                      </div>
+                      }
                     </div>
-                  }
-                </div>
-              </p-tabpanel>
-              <!-- All Visits Tab Panel -->
-              <p-tabpanel value="1">
-                <div class="flex gap-4 wrap bg-[#f3f4f6]">
-                  @for (limitedTimeLeave of selectedLimitedTimesLeaves; track limitedTimeLeave.id) {
-                    <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1">
-                      {{ getNameBasedOnLanguage(limitedTimeLeave) }}
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        (click)="removeLimitedTimesLeave(limitedTimeLeave)"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
-                          fill="#161616"
-                        />
-                      </svg>
+                  </p-tabpanel>
+                  <!-- All Visits Tab Panel -->
+                  <p-tabpanel value="1">
+                    <div class="flex gap-4 wrap bg-[#f3f4f6]">
+                      @for (limitedTimeLeave of selectedLimitedTimesLeaves; track limitedTimeLeave.id) {
+                      <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1">
+                        {{ getNameBasedOnLanguage(limitedTimeLeave) }}
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"
+                          (click)="removeLimitedTimesLeave(limitedTimeLeave)">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3.353 3.352c.22-.22.576-.22.795 0L9 8.205l4.853-4.853a.563.563 0 0 1 .795.796L9.796 9l4.852 4.852a.562.562 0 1 1-.795.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.795-.796L8.205 9 3.353 4.148a.563.563 0 0 1 0-.796z"
+                            fill="#161616" />
+                        </svg>
+                      </div>
+                      }
                     </div>
-                  }
-                </div>
-              </p-tabpanel>
-            </p-tabpanels>
-          </p-tabs>
-        </div>
-      </div>
+                  </p-tabpanel>
+                </p-tabpanels>
+              </p-tabs>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
       <div class="mt-6">
         <div
-          class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4"
-        >
+          class="flex items-start xl:items-center justify-between justify-between flex-col xl:flex-row gap-4 bg-[#e5e7eb] rounded-lg p-4 sm:p-6 mb-4">
           <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-[#161616]">
             {{ 'LEAVES_BALANCES.LEAVES_BALANCES_REMAINING' | translate }}
           </h4>
@@ -315,93 +217,101 @@
             <button (click)="exportExcel(getTranslatedLeavesBalancesLabel() + '.xlsx')" class="table-head-action-btn">
               <img src="assets/icons/excel.svg" alt="" />
             </button>
+            <button (click)="openSelectHolidayPopup()" class="btn green-btn flex items-center">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12.67 1.495a3.213 3.213 0 0 1 3.208-.048c.416.231.796.62 1.361 1.197l.154.157c.567.579.946.966 1.171 1.39a3.37 3.37 0 0 1-.047 3.244c-.237.417-.627.792-1.21 1.354l-8.016 7.72c-1.151 1.109-1.86 1.792-2.758 2.143-.898.35-1.876.325-3.457.283l-.405-.01a5.067 5.067 0 0 1-.66-.044c-.222-.038-.486-.123-.694-.36-.207-.234-.26-.505-.273-.728-.01-.197.008-.433.026-.67l.034-.438c.108-1.386.174-2.233.508-3.002.335-.771.907-1.39 1.84-2.402l7.891-8.549c.548-.594.917-.993 1.326-1.237zM15.27 2.54a1.964 1.964 0 0 0-1.963.03c-.232.137-.47.385-1.121 1.092l-.068.073 4.235 4.236.007-.007c.69-.665.934-.909 1.07-1.148a2.12 2.12 0 0 0 .03-2.039c-.13-.243-.366-.494-1.037-1.18-.672-.686-.917-.926-1.153-1.057zM4.45 12.044l6.82-7.39 4.184 4.184-6.93 6.674C7.24 16.75 6.716 17.239 6.08 17.487c-.636.248-1.343.241-3.109.195l-.233-.006a13.615 13.615 0 0 1-.446-.02c0-.1.01-.241.028-.47l.023-.288c.12-1.539.176-2.163.417-2.717.24-.554.654-1.014 1.69-2.137z"
+                  fill="#fff" />
+                <path d="M11.666 17.708a.625.625 0 1 0 0 1.25h6.667a.625.625 0 0 0 0-1.25h-6.667z" fill="#fff" />
+              </svg>
+              تحديث أرصدة الموظفين
+            </button>
           </div>
         </div>
         @if (list && list.length > 0) {
-          <p-table
-            [value]="list"
-            [rows]="paginationInfo.pageSize"
-            [first]="(paginationInfo.currentPage - 1) * paginationInfo.pageSize"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}</th>
-                <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}</th>
-                <th>{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</th>
-                <th>{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</th>
-                <th>{{ 'LEAVES_BALANCES.YEARS_OF_SERVICE' | translate }}</th>
-                @for (item of selectedAnnualLeaves; track $index) {
-                  <th>
-                    <div class="flex items-center gap-2">
-                      {{ getNameBasedOnLanguage(item) }}
-                      <button
-                        class="btn black-btn !p-2 !w-[24px] h-[24px]"
-                        (click)="openEmployeesDialog(item, true)"
-                      >
-                        <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
-                      </button>
-                    </div>
-                  </th>
-                }
-                @for (item of selectedLimitedTimesLeaves; track $index) {
-                  <th>
-                    <div class="flex items-center gap-2">
-                      {{ getNameBasedOnLanguage(item) }}
-                      <button
-                        class="btn black-btn !p-2 !w-[24px] h-[24px]"
-                        (click)="openEmployeesDialog(item, false)"
-                      >
-                        <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
-                      </button>
-                    </div>
-                  </th>
-                }
-                <th>{{ 'COMMON.ACTION' | translate }}</th>
-              </tr>
-            </ng-template>
-            <ng-template #body let-employeeBalance>
-              <tr>
-                <td>{{ employeeBalance.fullNameAr }}</td>
-                <td>{{ employeeBalance.fullNameEn }}</td>
-                <td>{{ getGenderName(employeeBalance.fkGenderId) }}</td>
-                <td>{{ getReligionName(employeeBalance.religion) }}</td>
-                <td>
-                  <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
-                    {{ formatExperience(employeeBalance.monthsOfExperience) }}
-                  </div>
-                </td>
-                @for (annualLeave of selectedAnnualLeaves; track $index) {
-                  <td>{{ getEmployeeAnnualLeaveBalance(employeeBalance, annualLeave.id!) }}</td>
-                }
-                @for (limitedLeave of selectedLimitedTimesLeaves; track $index) {
-                  <td>{{ getEmployeeLimitedLeaveBalance(employeeBalance, limitedLeave.id!) }}</td>
-                }
-                <td>
-                  <button class="btn black-btn" (click)="openEmployeeDialog(employeeBalance)">
-                    <img class="!w-[20px]" src="/assets/icons/edit.png" alt="" />
-                    {{ 'LEAVES_BALANCES.UPDATE_BALANCE' | translate }}
+        <p-table [value]="list" [rows]="paginationInfo.pageSize"
+          [first]="(paginationInfo.currentPage - 1) * paginationInfo.pageSize">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ARABIC' | translate }}</th>
+              <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}</th>
+              <th>{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</th>
+              <th>{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</th>
+              <th>
+                اجازة مرضي
+                <span class="block text-[#807d7dfc]">( متاح/ الاجمالي ) أيام</span>
+              </th>
+              <th>{{ 'LEAVES_BALANCES.YEARS_OF_SERVICE' | translate }}</th>
+              @for (item of selectedAnnualLeaves; track $index) {
+              <th>
+                <div class="flex items-center gap-2">
+                  {{ getNameBasedOnLanguage(item) }}
+                  <button class="btn black-btn !p-2 !w-[24px] h-[24px]" (click)="openEmployeesDialog(item, true)">
+                    <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
                   </button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
+                </div>
+              </th>
+              }
+              @for (item of selectedLimitedTimesLeaves; track $index) {
+              <th>
+                <div class="flex items-center gap-2">
+                  {{ getNameBasedOnLanguage(item) }}
+                  <button class="btn black-btn !p-2 !w-[24px] h-[24px]" (click)="openEmployeesDialog(item, false)">
+                    <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
+                  </button>
+                </div>
+              </th>
+              }
+              <th>{{ 'COMMON.ACTION' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-employeeBalance>
+            <tr>
+              <td>{{ employeeBalance.fullNameAr }}</td>
+              <td>{{ employeeBalance.fullNameEn }}</td>
+              <td>{{ getGenderName(employeeBalance.fkGenderId) }}</td>
+              <td>{{ getReligionName(employeeBalance.religion) }}</td>
+              <td>
+                <span
+                  class="inline-block rounded-full border border-[#fecdca] bg-[#fef3f2] px-2 text-[12px] font-bold text-[#912018]">
+                  غير مستحق
+                </span>
+                <div class="flex items-center gap-1">
+                  <span class="text-[#161616] text-xl font-bold">15</span>
+                  /
+                  <span class="text-[#161616]">20</span>
+                </div>
+              </td>
+              <td>
+                <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
+                  {{ formatExperience(employeeBalance.monthsOfExperience) }}
+                </div>
+              </td>
+              @for (annualLeave of selectedAnnualLeaves; track $index) {
+              <td>{{ getEmployeeAnnualLeaveBalance(employeeBalance, annualLeave.id!) }}</td>
+              }
+              @for (limitedLeave of selectedLimitedTimesLeaves; track $index) {
+              <td>{{ getEmployeeLimitedLeaveBalance(employeeBalance, limitedLeave.id!) }}</td>
+              }
+              <td>
+                <button class="btn black-btn" (click)="openEmployeeDialog(employeeBalance)">
+                  <img class="!w-[20px]" src="/assets/icons/edit.png" alt="" />
+                  {{ 'LEAVES_BALANCES.UPDATE_BALANCE' | translate }}
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
         } @else {
-          <div class="flex items-center justify-center h-64">
-            <p class="text-gray-500">
-              {{ 'COMMON.NO_DATA_TO_SHOW' | translate }}
-            </p>
-          </div>
+        <div class="flex items-center justify-center h-64">
+          <p class="text-gray-500">
+            {{ 'COMMON.NO_DATA_TO_SHOW' | translate }}
+          </p>
+        </div>
         }
         @if (paginationInfo) {
-          <p-paginator
-            (onPageChange)="onPageChange($event)"
-            [first]="first"
-            [rowsPerPageOptions]="[10, 20, 30]"
-            [rows]="rows"
-            [showCurrentPageReport]="false"
-            [totalRecords]="paginationInfo.totalItems"
-            class="mt-6"
-          />
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rowsPerPageOptions]="[10, 20, 30]"
+          [rows]="rows" [showCurrentPageReport]="false" [totalRecords]="paginationInfo.totalItems" class="mt-6" />
         }
         <div></div>
       </div>

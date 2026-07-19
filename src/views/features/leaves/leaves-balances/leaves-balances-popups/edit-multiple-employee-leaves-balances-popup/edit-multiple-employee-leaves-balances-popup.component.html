@@ -13,7 +13,7 @@
           <div class="flex flex-col gap-2 lg:col-span-5">
             <span class="text-sm text-white">{{
               'LEAVES_BALANCES.LEAVE_NAME' | translate
-            }}</span>
+              }}</span>
             <span class="font-semibold text-white">
               {{ getLanguage() === languageEnum.ARABIC ? leaveType.nameAr : leaveType.nameEn }}
             </span>
@@ -22,10 +22,9 @@
             <span class="text-sm text-white">{{ 'COMMON.YEAR' | translate }}</span>
             <span class="font-semibold text-white">{{ form.get('year')?.value }}</span>
           </div>
-          <div
-            class="bg-[#abefc6] px-3 rounded-full text-[#085d3a] font-[500] text-base ms-auto w-fit lg:col-span-2"
-          >
-            {{ isAnnualLeave ? ('LEAVES_BALANCES.ANNUAL_BALANCE' | translate) : ('LEAVES_BALANCES.TIMES_BALANCE' | translate) }}
+          <div class="bg-[#abefc6] px-3 rounded-full text-[#085d3a] font-[500] text-base ms-auto w-fit lg:col-span-2">
+            {{ isAnnualLeave ? ('LEAVES_BALANCES.ANNUAL_BALANCE' | translate) : ('LEAVES_BALANCES.TIMES_BALANCE' |
+            translate) }}
           </div>
         </div>
       </div>
@@ -37,35 +36,21 @@
       </div>
 
       <div class="flex flex-wrap gap-8 mb-6">
-        <label
-          class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-        >
+        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between">
           {{ 'COMMON.ADD' | translate }}
-          <input
-            type="radio"
-            formControlName="operationType"
-            [value]="operationTypes.ADD"
-            class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-          />
+          <input type="radio" formControlName="operationType" [value]="operationTypes.ADD"
+            class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
           <span
-            class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-          >
+            class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
           </span>
         </label>
 
-        <label
-          class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between"
-        >
+        <label class="relative flex flex-row-reverse items-center cursor-pointer gap-4 justify-between">
           {{ 'COMMON.DEDUCT' | translate }}
-          <input
-            type="radio"
-            formControlName="operationType"
-            [value]="operationTypes.SUBTRACT"
-            class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all"
-          />
+          <input type="radio" formControlName="operationType" [value]="operationTypes.SUBTRACT"
+            class="peer appearance-none h-6 w-6 cursor-pointer rounded-full border border-[#64748b] checked:border-[#22a06b] transition-all" />
           <span
-            class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2"
-          >
+            class="absolute bg-[#1b8354] w-4 h-4 rounded-full opacity-0 peer-checked:opacity-100 transform top-[50%] start-1 -translate-y-1/2">
           </span>
         </label>
       </div>
@@ -77,14 +62,8 @@
             {{ 'LEAVES_BALANCES.VALUE_TO_ADD_OR_SUBTRACT_FROM_BALANCE' | translate }}
             <!-- Value -->
           </label>
-          <p-inputnumber
-            formControlName="amount"
-            [inputStyle]="{ width: '100%' }"
-            [showButtons]="true"
-            buttonLayout="horizontal"
-            spinnerMode="horizontal"
-            [min]="1"
-          >
+          <p-inputnumber formControlName="amount" [inputStyle]="{ width: '100%' }" [showButtons]="true"
+            buttonLayout="horizontal" spinnerMode="horizontal" [min]="1">
             <ng-template #incrementbuttonicon>
               <span class="pi pi-plus"></span>
             </ng-template>
@@ -97,44 +76,90 @@
       </div>
 
       <section class="border-t border-[#d2d6db] pt-8 mt-8">
-        <h3 class="text-[14px] font-normal text-[#6c737f] mb-6">
-          {{ 'MENU.EMPLOYEES' | translate }}
-          (<span class="font-bold text-[#161616]">{{ selectedEmployees.length }}</span>
-          {{ 'LEAVES_BALANCES.EMPLOYEE' | translate }})
-        </h3>
-        <ul class="flex flex-wrap gap-4 max-h-[150px] overflow-y-auto">
-          @for (emp of selectedEmployees; track emp.employee.id) {
-            <li
-              class="flex flex-row justify-center items-center gap-1 px-3 py-1 rounded-full bg-[#f3f4f6] text-[#161616] font-medium"
-            >
-              <span>{{ getUserName(emp) }}</span>
-              <button type="button" (click)="toggleEmployeeSelection(emp.employee.id)">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M3.352 3.352c.22-.22.576-.22.796 0L9 8.205l4.852-4.853a.562.562 0 1 1 .796.796L9.795 9l4.853 4.852a.562.562 0 1 1-.796.796L9 9.795l-4.852 4.853a.562.562 0 1 1-.796-.796L8.205 9 3.351 4.148a.563.563 0 0 1 0-.796z"
-                    fill="#161616"
-                  />
-                </svg>
-              </button>
-            </li>
-          }
-        </ul>
+        <!-- Excluded Employees Section -->
+        <div class="mb-6">
+          <label class="label">
+            الموظفون المستبعدون من التحديث ( 50 موظف )
+          </label>
+          <div class="flex items-center gap-4">
+            <div class="flex-grow">
+              <p-select [options]="[{ name: 'محمد احمد علي طه' }]" optionLabel="name" placeholder="محمد احمد علي طه"
+                class="w-full"></p-select>
+            </div>
+            <button type="button" class="btn black-btn whitespace-nowrap !h-[42px] flex items-center justify-center">
+              اعادة الموظف للقائمة
+            </button>
+          </div>
+        </div>
+
+        <!-- Target Employees Section -->
+        <div class="mb-6">
+          <label class="label">
+            الموظفون المعنيون بالتحديث (100 موظف )
+          </label>
+          <div class="relative w-full">
+            <input type="text" placeholder="بحث عن موظف" class="w-full peer p-inputtext !pl-10 !pr-10" pInputText />
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
+              <i class="pi pi-times"></i>
+            </span>
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <i class="pi pi-search"></i>
+            </span>
+          </div>
+        </div>
+
+        <p-table [value]="selectedEmployees" [scrollable]="true" scrollHeight="250px" class="w-full text-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>اسم الموظف</th>
+              <th>النوع</th>
+              <th>الديانة</th>
+              <th>الرصيد المتاح <span class="text-gray-500 font-semibold">(ايام)</span></th>
+              <th>الرصيد المستخدم <span class="text-gray-500 font-semibold">(ايام)</span></th>
+              <th>الرصيد الاجمالي <span class="text-gray-500 font-semibold">(ايام)</span></th>
+              <th>اجراء</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-emp>
+            <tr>
+              <td>{{ getUserName(emp) }}</td>
+              <td>
+
+              </td>
+              <td>
+
+              </td>
+              <td>
+
+              </td>
+              <td>
+
+              </td>
+              <td>
+
+              </td>
+              <td>
+                <button type="button" class="btn !text-[#b42318] !p-1"
+                  (click)="toggleEmployeeSelection(emp.employee.id)">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7.917 14.375a.625.625 0 0 1-.625-.625v-5a.625.625 0 1 1 1.25 0v5c0 .345-.28.625-.625.625zM12.708 8.75a.625.625 0 1 0-1.25 0v5a.625.625 0 0 0 1.25 0v-5z"
+                      fill="#B42318" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M10.055 1.042h-.053c-.421 0-.778 0-1.075.026-.314.03-.607.091-.89.242a2.29 2.29 0 0 0-.32.205c-.254.195-.432.436-.589.71-.147.259-.295.584-.47.967l-.35.766H2.5a.625.625 0 1 0 0 1.25h.662L3.632 13c.063 1.041.113 1.868.216 2.528.107.677.278 1.24.621 1.734.314.451.719.832 1.188 1.118.513.313 1.086.45 1.768.515.665.064 1.493.064 2.537.064h.064c1.042 0 1.869 0 2.533-.063.682-.066 1.254-.202 1.767-.515a3.958 3.958 0 0 0 1.187-1.116c.344-.492.515-1.055.623-1.731.104-.66.155-1.485.22-2.525l.482-7.8h.662a.625.625 0 1 0 0-1.25h-3.729l-.41-.845c-.178-.37-.33-.683-.48-.932a2.278 2.278 0 0 0-.59-.685 2.29 2.29 0 0 0-.314-.197 2.278 2.278 0 0 0-.873-.232c-.29-.026-.638-.026-1.049-.025zm5.53 4.166h-2.192a.62.62 0 0 1-.026 0H4.414l.464 7.684c.065 1.08.112 1.847.205 2.44.092.585.22.94.412 1.215.215.309.492.57.813.765.286.175.648.282 1.237.338.598.058 1.366.058 2.449.058 1.081 0 1.848 0 2.446-.058.588-.056.95-.163 1.235-.337.321-.196.598-.456.813-.764.192-.275.32-.63.413-1.212.094-.593.142-1.359.209-2.438l.475-7.69zm-3.203-1.25h-4.7l.102-.223c.189-.414.314-.687.43-.89.11-.193.189-.28.264-.338.046-.035.094-.067.145-.094.084-.044.196-.08.417-.1.234-.02.534-.021.989-.021.444 0 .736 0 .964.02.216.02.326.054.408.097.05.026.098.055.143.09.075.055.154.14.265.325.118.196.246.459.44.858l.133.276z"
+                      fill="#B42318" />
+                  </svg>
+                  استبعاد
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </section>
 
       <div class="actions mt-6 flex items-center justify-between gap-4">
-        <button
-          type="button"
-          (click)="close()"
-          class="btn gray-btn border border-[#d2d6db] !bg-[#fff] hover:!bg-[#d2d6db]"
-        >
+        <button type="button" (click)="close()"
+          class="btn gray-btn border border-[#d2d6db] !bg-[#fff] hover:!bg-[#d2d6db]">
           {{ 'COMMON.CANCEL' | translate }}
         </button>
         <button type="submit" class="btn green-btn">

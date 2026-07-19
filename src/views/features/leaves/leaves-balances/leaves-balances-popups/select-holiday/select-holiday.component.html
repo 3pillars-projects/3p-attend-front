@@ -1,0 +1,40 @@
+<div [dir]="direction">
+  <div class="p-6">
+    <button (click)="close()" class="block ms-auto">
+      <i class="pi pi-times"></i>
+    </button>
+    <h3 class="text-[#1f2a37] font-[600] mb-6 text-lg sm:text-xl">
+      تحديث أرصدة الأجازة للموظفين
+    </h3>
+
+    <form [formGroup]="form" (ngSubmit)="save$.next()">
+      <!-- Card Container -->
+      <div class="bg-[#f9fafb] p-6 rounded-2xl border border-[#e5e7eb] mb-6">
+        <h4 class="text-[#161616] font-bold text-base mb-4">
+          تحديد الاجازة
+        </h4>
+
+        <div class="mb-6">
+          <label class="label mb-2 block text-sm font-medium text-[#4b5563]">
+            اسم الاجازة
+          </label>
+          <p-select
+            [options]="leaveTypes"
+            [optionLabel]="getLookupLabelKey()"
+            placeholder="الاجازة"
+            formControlName="leaveType"
+            class="w-full"
+            [filter]="true"
+            filterPlaceholder="بحث..."
+          ></p-select>
+        </div>
+
+        <div class="flex">
+          <button type="submit" class="btn black-btn whitespace-nowrap !h-[42px] px-6 flex items-center justify-center">
+            تأكيد اختيار الاجازة
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

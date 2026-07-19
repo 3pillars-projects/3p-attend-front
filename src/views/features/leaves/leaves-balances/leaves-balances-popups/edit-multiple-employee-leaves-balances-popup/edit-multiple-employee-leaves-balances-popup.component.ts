@@ -11,6 +11,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChipModule } from 'primeng/chip';
+import { Select } from 'primeng/select';
+import { InputTextModule } from 'primeng/inputtext';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -42,6 +44,8 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
     TableModule,
     RadioButtonModule,
     ChipModule,
+    Select,
+    InputTextModule,
   ],
   templateUrl: './edit-multiple-employee-leaves-balances-popup.component.html',
   styleUrl: './edit-multiple-employee-leaves-balances-popup.component.scss',
