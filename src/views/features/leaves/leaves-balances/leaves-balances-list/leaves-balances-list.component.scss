@@ -1,0 +1,44 @@
+::ng-deep {
+  .display-options-accordion {
+    .p-accordionpanel {
+      background-color: #f3f4f6 !important;
+      border: none !important;
+      border-radius: 16px !important;
+      margin-top: 40px !important; // mt-10 is 40px
+      padding: 24px !important; // p-6 is 24px
+      
+      @media (min-width: 640px) {
+        padding: 32px !important; // sm:p-8 is 32px
+      }
+
+      .p-accordionheader {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        color: #161616 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+
+        .p-accordionheader-toggle-icon {
+          color: #161616 !important;
+          margin-inline-start: auto !important;
+        }
+      }
+
+      .p-accordioncontent {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+
+      .p-accordioncontent-content {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+    }
+  }
+}

@@ -9,10 +9,12 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { TabsModule } from 'primeng/tabs';
+import { AccordionModule } from 'primeng/accordion';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { EditEmployeeLeavesBalancesPopupComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/edit-employee-leaves-balances-popup/edit-employee-leaves-balances-popup.component';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { EditMultipleEmployeeLeavesBalancesPopupComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/edit-multiple-employee-leaves-balances-popup/edit-multiple-employee-leaves-balances-popup.component';
+import { SelectHolidayComponent } from '@/views/features/leaves/leaves-balances/leaves-balances-popups/select-holiday/select-holiday.component';
 import { LeaveTypesLookup } from '@/models/features/business/leave-types/leave-types-lookup';
 import { MultiSelect } from 'primeng/multiselect';
 import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
@@ -45,6 +47,7 @@ import { RELIGION_OPTIONS } from '@/models/shared/religion-option';
     TabsModule,
     MultiSelect,
     TranslatePipe,
+    AccordionModule,
   ],
   templateUrl: './leaves-balances-list.component.html',
   styleUrl: './leaves-balances-list.component.scss',
@@ -178,6 +181,25 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     dialogConfig.maxWidth = this.dialogSize.maxWidth;
     const dialogRef = this.matDialog.open(
       EditMultipleEmployeeLeavesBalancesPopupComponent as any,
+      dialogConfig
+    );
+
+    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
+      if (result === DIALOG_ENUM.OK) {
+        this.loadEmployeeBalancesList();
+      }
+    });
+  }
+
+  openSelectHolidayPopup() {
+    let dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      leavesBalance: this.leavesBalance,
+    };
+    dialogConfig.width = this.dialogSize.width;
+    dialogConfig.maxWidth = this.dialogSize.maxWidth;
+    const dialogRef = this.matDialog.open(
+      SelectHolidayComponent as any,
       dialogConfig
     );
 
