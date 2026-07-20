@@ -77,67 +77,81 @@
 
       <section class="border-t border-[#d2d6db] pt-8 mt-8">
         <!-- Excluded Employees Section -->
+        @if (excludedEmployees.length > 0) {
         <div class="mb-6">
           <label class="label">
-            الموظفون المستبعدون من التحديث ( 50 موظف )
+            {{ 'LEAVES_BALANCES.EXCLUDED_EMPLOYEES' | translate }} ({{ excludedEmployees.length }})
           </label>
           <div class="flex items-center gap-4">
             <div class="flex-grow">
-              <p-select [options]="[{ name: 'محمد احمد علي طه' }]" optionLabel="name" placeholder="محمد احمد علي طه"
-                class="w-full"></p-select>
+              <p-multi-select [options]="excludedEmployeeOptions" optionLabel="name" optionValue="id"
+                [(ngModel)]="employeeToRestoreIds" [ngModelOptions]="{ standalone: true }"
+                [placeholder]="'LEAVES_BALANCES.SELECT_EMPLOYEES' | translate" class="w-full" [filter]="true"
+                [filterPlaceHolder]="'LEAVES_BALANCES.SEARCH_EMPLOYEE' | translate" [showClear]="true"
+                [virtualScroll]="true" [virtualScrollItemSize]="38"></p-multi-select>
             </div>
-            <button type="button" class="btn black-btn whitespace-nowrap !h-[42px] flex items-center justify-center">
-              اعادة الموظف للقائمة
+            <button type="button" (click)="restoreEmployees()" [disabled]="employeeToRestoreIds.length === 0"
+              class="btn black-btn whitespace-nowrap !h-[42px] flex items-center justify-center disabled:opacity-50">
+              {{ 'LEAVES_BALANCES.RETURN_EMPLOYEES_TO_LIST' | translate }}
             </button>
           </div>
         </div>
+        }
 
         <!-- Target Employees Section -->
         <div class="mb-6">
           <label class="label">
-            الموظفون المعنيون بالتحديث (100 موظف )
+            {{ 'LEAVES_BALANCES.TARGET_EMPLOYEES' | translate }} ({{ selectedEmployees.length }})
           </label>
           <div class="relative w-full">
-            <input type="text" placeholder="بحث عن موظف" class="w-full peer p-inputtext !pl-10 !pr-10" pInputText />
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
+            <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{ standalone: true }"
+              [placeholder]="'LEAVES_BALANCES.SEARCH_EMPLOYEE' | translate"
+              class="w-full peer p-inputtext !pl-10 !pr-10" pInputText />
+            @if (searchTerm) {
+            <span (click)="searchTerm = ''"
+              class="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400">
               <i class="pi pi-times"></i>
             </span>
+            }
             <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
               <i class="pi pi-search"></i>
             </span>
           </div>
         </div>
 
-        <p-table [value]="selectedEmployees" [scrollable]="true" scrollHeight="250px" class="w-full text-sm">
+        <p-table [value]="displayedEmployees" [scrollable]="true" scrollHeight="250px" class="w-full text-sm">
           <ng-template pTemplate="header">
             <tr>
-              <th>اسم الموظف</th>
-              <th>النوع</th>
-              <th>الديانة</th>
-              <th>الرصيد المتاح <span class="text-gray-500 font-semibold">(ايام)</span></th>
-              <th>الرصيد المستخدم <span class="text-gray-500 font-semibold">(ايام)</span></th>
-              <th>الرصيد الاجمالي <span class="text-gray-500 font-semibold">(ايام)</span></th>
-              <th>اجراء</th>
+              <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME' | translate }}</th>
+              <th>{{ 'LEAVES_BALANCES.ELIGIBILITY' | translate }}</th>
+              <th>{{ 'LEAVES_BALANCES.REMAINING_BALANCE' | translate }}
+                <span class="text-gray-500 font-semibold">({{ (isAnnualLeave ? 'LEAVES_BALANCES.DAYS' :
+                  'LEAVES_BALANCES.TIMES') | translate }})</span>
+              </th>
+              <th>{{ 'LEAVES_BALANCES.USED_BALANCE' | translate }}
+                <span class="text-gray-500 font-semibold">({{ (isAnnualLeave ? 'LEAVES_BALANCES.DAYS' :
+                  'LEAVES_BALANCES.TIMES') | translate }})</span>
+              </th>
+              <th>{{ 'LEAVES_BALANCES.TOTAL_BALANCE' | translate }}
+                <span class="text-gray-500 font-semibold">({{ (isAnnualLeave ? 'LEAVES_BALANCES.DAYS' :
+                  'LEAVES_BALANCES.TIMES') | translate }})</span>
+              </th>
+              <th>{{ 'COMMON.ACTION' | translate }}</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-emp>
             <tr>
               <td>{{ getUserName(emp) }}</td>
               <td>
-
+                @if (emp.isEligible) {
+                <span class="text-[#067647]">{{ 'LEAVES_BALANCES.ELIGIBLE' | translate }}</span>
+                } @else {
+                <span class="text-[#b42318]">{{ 'LEAVES_BALANCES.NOT_ELIGIBLE' | translate }}</span>
+                }
               </td>
-              <td>
-
-              </td>
-              <td>
-
-              </td>
-              <td>
-
-              </td>
-              <td>
-
-              </td>
+              <td>{{ emp.isEligible ? (getAvailableBalance(emp) ?? 0) : '-' }}</td>
+              <td>{{ emp.isEligible ? (getUsedBalance(emp) ?? 0) : '-' }}</td>
+              <td>{{ emp.isEligible ? (getTotalBalance(emp) ?? 0) : '-' }}</td>
               <td>
                 <button type="button" class="btn !text-[#b42318] !p-1"
                   (click)="toggleEmployeeSelection(emp.employee.id)">
@@ -149,8 +163,15 @@
                       d="M10.055 1.042h-.053c-.421 0-.778 0-1.075.026-.314.03-.607.091-.89.242a2.29 2.29 0 0 0-.32.205c-.254.195-.432.436-.589.71-.147.259-.295.584-.47.967l-.35.766H2.5a.625.625 0 1 0 0 1.25h.662L3.632 13c.063 1.041.113 1.868.216 2.528.107.677.278 1.24.621 1.734.314.451.719.832 1.188 1.118.513.313 1.086.45 1.768.515.665.064 1.493.064 2.537.064h.064c1.042 0 1.869 0 2.533-.063.682-.066 1.254-.202 1.767-.515a3.958 3.958 0 0 0 1.187-1.116c.344-.492.515-1.055.623-1.731.104-.66.155-1.485.22-2.525l.482-7.8h.662a.625.625 0 1 0 0-1.25h-3.729l-.41-.845c-.178-.37-.33-.683-.48-.932a2.278 2.278 0 0 0-.59-.685 2.29 2.29 0 0 0-.314-.197 2.278 2.278 0 0 0-.873-.232c-.29-.026-.638-.026-1.049-.025zm5.53 4.166h-2.192a.62.62 0 0 1-.026 0H4.414l.464 7.684c.065 1.08.112 1.847.205 2.44.092.585.22.94.412 1.215.215.309.492.57.813.765.286.175.648.282 1.237.338.598.058 1.366.058 2.449.058 1.081 0 1.848 0 2.446-.058.588-.056.95-.163 1.235-.337.321-.196.598-.456.813-.764.192-.275.32-.63.413-1.212.094-.593.142-1.359.209-2.438l.475-7.69zm-3.203-1.25h-4.7l.102-.223c.189-.414.314-.687.43-.89.11-.193.189-.28.264-.338.046-.035.094-.067.145-.094.084-.044.196-.08.417-.1.234-.02.534-.021.989-.021.444 0 .736 0 .964.02.216.02.326.054.408.097.05.026.098.055.143.09.075.055.154.14.265.325.118.196.246.459.44.858l.133.276z"
                       fill="#B42318" />
                   </svg>
-                  استبعاد
+                  {{ 'LEAVES_BALANCES.EXCLUDE' | translate }}
                 </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6" class="text-center text-gray-500 py-4">
+                {{ 'COMMON.NO_DATA_TO_SHOW' | translate }}
               </td>
             </tr>
           </ng-template>

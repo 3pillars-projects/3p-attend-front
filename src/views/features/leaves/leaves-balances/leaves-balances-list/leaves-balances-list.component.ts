@@ -203,9 +203,9 @@ export class LeavesBalancesListComponent extends BaseListComponent<
       dialogConfig
     );
 
-    return dialogRef.afterClosed().subscribe((result: DIALOG_ENUM) => {
-      if (result === DIALOG_ENUM.OK) {
-        this.loadEmployeeBalancesList();
+    return dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result.leaveType) {
+        this.openEmployeesDialog(result.leaveType, result.isAnnualLeave);
       }
     });
   }
@@ -262,6 +262,15 @@ export class LeavesBalancesListComponent extends BaseListComponent<
     } else {
       return emp.remainingTimes;
     }
+  }
+
+  // Full balance objects for the table cells (eligibility badge + remaining/total).
+  getAnnualLeaveBalance(employee: EmployeeLeaveBalance, annualLeaveId: number) {
+    return employee.annualLeaves.find((x) => x.fkLeaveTypeId == annualLeaveId);
+  }
+
+  getLimitedLeaveBalance(employee: EmployeeLeaveBalance, limitedLeaveId: number) {
+    return employee.limitedTimesLeaves.find((x) => x.fkLeaveTypeId == limitedLeaveId);
   }
 
   private yearWord(years: number): string {

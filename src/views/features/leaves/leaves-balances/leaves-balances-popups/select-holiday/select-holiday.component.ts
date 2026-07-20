@@ -1,14 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AlertService } from '@/services/shared/alert.service';
-import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { Select } from 'primeng/select';
-import { Observable, of } from 'rxjs';
+import { BaseLookupModel } from '@/models/features/lookups/base-lookup-model';
+import { markFormGroupTouched } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-select-holiday',
@@ -30,7 +36,8 @@ export class SelectHolidayComponent extends BasePopupComponent<any> implements O
   alertService = inject(AlertService);
   translateService = inject(TranslateService);
   lang!: string;
-  leaveTypes: any[] = [];
+  leaveTypes: BaseLookupModel[] = [];
+  private annualLeaveIds = new Set<number>();
 
   override initPopup(): void {
     this.lang = this.translateService.currentLang;
@@ -40,21 +47,39 @@ export class SelectHolidayComponent extends BasePopupComponent<any> implements O
 
     if (this.data && this.data.leavesBalance) {
       const leaves = this.data.leavesBalance;
-      this.leaveTypes = [
-        ...(leaves.annualLeaves || []),
-        ...(leaves.limitedLeaves || []),
-      ];
+      const annualLeaves: BaseLookupModel[] = leaves.annualLeaves || [];
+      const limitedLeaves: BaseLookupModel[] = leaves.limitedLeaves || [];
+      this.annualLeaveIds = new Set(
+        annualLeaves.map((leave) => leave.id!).filter((id) => id != null)
+      );
+      this.leaveTypes = [...annualLeaves, ...limitedLeaves];
     }
   }
 
   override buildForm(): void {
     this.form = this.fb.group({
-      leaveType: [null]
+      leaveType: [null, [Validators.required]],
+    });
+  }
+
+  // A leave type has been picked in the dropdown: close the dialog and hand the
+  // selected leave (and whether it is an annual leave) back to the caller so it
+  // can open the bulk-edit balances popup for that leave.
+  override listenToSave(): void {
+    this.save$.subscribe(() => {
+      if (this.form.invalid) {
+        markFormGroupTouched(this.form);
+        return;
+      }
+
+      const leaveType: BaseLookupModel = this.form.value.leaveType;
+      const isAnnualLeave = this.annualLeaveIds.has(leaveType.id!);
+      this.dialogRef.close({ leaveType, isAnnualLeave });
     });
   }
 
   getLookupLabelKey() {
-    return this.lang === 'en' ? 'nameEn' : 'nameAr';
+    return this.lang === LANGUAGE_ENUM.ENGLISH ? 'nameEn' : 'nameAr';
   }
 
   override saveFail(error: Error): void {}
