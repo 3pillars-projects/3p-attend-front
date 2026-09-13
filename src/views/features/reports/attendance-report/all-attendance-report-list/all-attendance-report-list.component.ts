@@ -152,6 +152,10 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
         model.getTimeDifferenceData().value,
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.PENALTY')]:
         model.formatNullableMinutes(model.penaltyMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.UNPERMITTED_LATE')]:
+        model.formatNullableMinutes(model.unpermittedLateMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.UNPERMITTED_EARLY_LEAVE')]:
+        model.formatNullableMinutes(model.unpermittedEarlyLeaveMinutes),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.IN_SHIFT_EXTRA')]:
         model.formatNullableMinutes(model.inShiftExtraMinutes),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.OUT_OF_SHIFT_EXTRA')]:

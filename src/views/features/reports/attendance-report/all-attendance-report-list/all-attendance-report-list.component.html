@@ -190,6 +190,8 @@
             <th>{{ 'ATTENDANCE_REPORT_PAGE.CHECKOUT_TIME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.PENALTY' | translate }}</th>
+            <th>{{ 'ATTENDANCE_REPORT_PAGE.UNPERMITTED_LATE' | translate }}</th>
+            <th>{{ 'ATTENDANCE_REPORT_PAGE.UNPERMITTED_EARLY_LEAVE' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.IN_SHIFT_EXTRA' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.OUT_OF_SHIFT_EXTRA' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.STATUS' | translate }}</th>
@@ -270,6 +272,14 @@
             <td [innerHTML]="getTimeDifference(attendance)"></td>
             <td>
               <bdi>{{ attendance.formatNullableMinutes(attendance.penaltyMinutes) }}</bdi>
+            </td>
+            <td>
+              <bdi>{{ attendance.formatNullableMinutes(attendance.unpermittedLateMinutes) }}</bdi>
+            </td>
+            <td>
+              <bdi>{{
+                attendance.formatNullableMinutes(attendance.unpermittedEarlyLeaveMinutes)
+              }}</bdi>
             </td>
             <td>
               <bdi>{{ attendance.formatNullableMinutes(attendance.inShiftExtraMinutes) }}</bdi>

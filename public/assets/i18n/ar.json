@@ -939,7 +939,9 @@
       "TOTAL_DEDUCTIBLE": "إجمالي الوقت المخصوم",
       "PENDING_OVERTIME": "وقت إضافي بانتظار الاعتماد",
       "FORMAT_HINT": "تُعرض الأوقات بصيغة ساعات:دقائق."
-    }
+    },
+    "UNPERMITTED_LATE": "تأخير بدون إذن",
+    "UNPERMITTED_EARLY_LEAVE": "انصراف مبكر بدون إذن"
   },
   "ATTENDANCE_REPORT_PERMISSION_POPUP": {
     "TITLE": "طلبات الاستئذانات",

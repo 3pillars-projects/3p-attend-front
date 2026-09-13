@@ -940,7 +940,9 @@
       "TOTAL_DEDUCTIBLE": "Total Deductible",
       "PENDING_OVERTIME": "Pending Overtime",
       "FORMAT_HINT": "Times are shown as hours:minutes."
-    }
+    },
+    "UNPERMITTED_LATE": "Unpermitted Late",
+    "UNPERMITTED_EARLY_LEAVE": "Unpermitted Early Leave"
   },
   "ATTENDANCE_REPORT_PERMISSION_POPUP": {
     "TITLE": "Permission Requests",
