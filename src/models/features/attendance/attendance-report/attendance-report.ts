@@ -76,6 +76,13 @@ export default class AttendanceReport extends BaseCrudModel<
   declare totalOvertimeMinutes: number;
   declare totalMissingMinutes: number;
 
+  // null for days processed before permission-restructuring was deployed
+  declare inShiftExtraMinutes?: number | null;
+  declare outOfShiftExtraMinutes?: number | null;
+  declare unpermittedLateMinutes?: number | null;
+  declare unpermittedEarlyLeaveMinutes?: number | null;
+  declare penaltyMinutes?: number | null;
+
   declare creationDate: Date | string | null;
   declare modificationDate?: Date | string | null;
   private languageService?: LanguageService;
@@ -103,6 +110,9 @@ export default class AttendanceReport extends BaseCrudModel<
     return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
       ? this.leaveTypeNameEn!
       : this.leaveTypeNameAr!;
+  }
+  formatNullableMinutes(value?: number | null): string {
+    return value == null ? '-' : formatMinutes(value);
   }
   getTimeDifferenceValue(): string {
     if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {

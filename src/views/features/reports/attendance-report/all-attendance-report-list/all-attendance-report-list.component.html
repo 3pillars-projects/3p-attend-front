@@ -189,6 +189,9 @@
             <th>{{ 'ATTENDANCE_REPORT_PAGE.CHECKIN_TIME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.CHECKOUT_TIME' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE' | translate }}</th>
+            <th>{{ 'ATTENDANCE_REPORT_PAGE.PENALTY' | translate }}</th>
+            <th>{{ 'ATTENDANCE_REPORT_PAGE.IN_SHIFT_EXTRA' | translate }}</th>
+            <th>{{ 'ATTENDANCE_REPORT_PAGE.OUT_OF_SHIFT_EXTRA' | translate }}</th>
             <th>{{ 'ATTENDANCE_REPORT_PAGE.STATUS' | translate }}</th>
           </tr>
         </ng-template>
@@ -265,6 +268,15 @@
             <td>{{ formatTime(attendance.firstAttendanceFingerPrint) }}</td>
             <td>{{ formatTime(attendance.lastLeaveFingerPrint) }}</td>
             <td [innerHTML]="getTimeDifference(attendance)"></td>
+            <td>
+              <bdi>{{ attendance.formatNullableMinutes(attendance.penaltyMinutes) }}</bdi>
+            </td>
+            <td>
+              <bdi>{{ attendance.formatNullableMinutes(attendance.inShiftExtraMinutes) }}</bdi>
+            </td>
+            <td>
+              <bdi>{{ attendance.formatNullableMinutes(attendance.outOfShiftExtraMinutes) }}</bdi>
+            </td>
             <td>
               <div
                 class="px-2 py-1 flex items-center gap-2 rounded-full font-medium text-[14px] w-fit"

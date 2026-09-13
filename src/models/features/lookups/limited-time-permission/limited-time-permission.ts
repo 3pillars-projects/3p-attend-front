@@ -24,7 +24,10 @@ export class LimitedTimePermission extends BaseCrudModel<
   declare fkLimitedTimePermissionTypeId: number;
   declare creationUserId: number;
   declare status: BaseLookupModel;
+  // Audit creator; the owner is fkUserId/user
   declare creationUser: BaseLookupModel;
+  declare fkUserId?: number | null;
+  declare user?: BaseLookupModel;
   declare department: BaseLookupModel;
   declare limitedTimePermissionType: BaseLookupModel;
   declare limitedTimePermissionReason?: string | null;
@@ -35,6 +38,8 @@ export class LimitedTimePermission extends BaseCrudModel<
   declare isCancelRequested?: boolean;
   declare canTakeAction?: boolean;
   declare canRequestCancel?: boolean;
+  // Server-computed: owner before the permission starts, manager/HR until rejected or canceled
+  declare canEdit?: boolean;
   private languageService?: LanguageService;
   constructor() {
     super();
@@ -48,11 +53,15 @@ export class LimitedTimePermission extends BaseCrudModel<
       limitedTimePermissionDuration,
       limitedTimePermissionReason,
       limitedTimePermissionTimeFrom,
+      fkUserId,
     } = this;
     return {
       fkLimitedTimePermissionTypeId: [fkLimitedTimePermissionTypeId, [Validators.required]],
       limitedTimePermissionDate: [limitedTimePermissionDate, [Validators.required]],
-      limitedTimePermissionDuration: [limitedTimePermissionDuration, [Validators.required]],
+      limitedTimePermissionDuration: [
+        limitedTimePermissionDuration,
+        [Validators.required, Validators.min(1)],
+      ],
       limitedTimePermissionReason: [
         limitedTimePermissionReason,
         [
@@ -61,6 +70,7 @@ export class LimitedTimePermission extends BaseCrudModel<
         ],
       ],
       limitedTimePermissionTimeFrom: [limitedTimePermissionTimeFrom],
+      fkUserId: [fkUserId],
     };
   }
 
@@ -74,6 +84,14 @@ export class LimitedTimePermission extends BaseCrudModel<
     return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
       ? (this.creationUser?.nameEn ?? '')
       : (this.creationUser?.nameAr ?? '');
+  }
+
+  // Owner name; falls back to the creator when a response has no owner (e.g. rows read before the owner field)
+  getUserName(): string {
+    const owner = this.user ?? this.creationUser;
+    return this.languageService?.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH
+      ? (owner?.nameEn ?? '')
+      : (owner?.nameAr ?? '');
   }
 
   getPermissionTypeName(): string {

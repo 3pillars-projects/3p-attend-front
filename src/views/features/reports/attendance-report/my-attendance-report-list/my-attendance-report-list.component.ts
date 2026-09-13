@@ -28,6 +28,7 @@ import { formatDateTo12Hour, formatMinutes } from '@/utils/general-helper';
 import { PermissionRequestPopupComponent } from '../permission-request-popup/permission-request-popup.component';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { MatDialogConfig } from '@angular/material/dialog';
+import { TimeBalanceCardComponent } from '../time-balance-card/time-balance-card.component';
 
 @Component({
   selector: 'app-my-attendance-report-list',
@@ -42,6 +43,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
     FormsModule,
     Select,
     TranslatePipe,
+    TimeBalanceCardComponent,
   ],
   providers: [DatePipe],
 
@@ -146,6 +148,12 @@ export class MyAttendanceReportListComponent extends BaseListComponent<
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
         model.getTimeDifferenceData().value,
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.PENALTY')]:
+        model.formatNullableMinutes(model.penaltyMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.IN_SHIFT_EXTRA')]:
+        model.formatNullableMinutes(model.inShiftExtraMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.OUT_OF_SHIFT_EXTRA')]:
+        model.formatNullableMinutes(model.outOfShiftExtraMinutes),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',

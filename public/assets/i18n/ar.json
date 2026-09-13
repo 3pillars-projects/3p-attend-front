@@ -208,7 +208,18 @@
     "YEAR_REQUIRED_FOR_ANNUAL_LEAVE": "السنة مطلوبة للإجازة السنوية",
     "INVALID_BALANCE_AMOUNT": "قيمة الرصيد غير صحيحة",
     "BALANCE_UPDATE_FAILED": "فشل تحديث الرصيد",
-    "PLEASE_ENTER_REJECTION_NOTE": "يرجى إدخال سبب الرفض"
+    "PLEASE_ENTER_REJECTION_NOTE": "يرجى إدخال سبب الرفض",
+    "PERMISSION_MUST_START_IN_FUTURE": "يجب أن يبدأ الاستئذان بعد الوقت الحالي.",
+    "PERMISSION_MIN_DURATION": "يجب ألا تقل مدة الاستئذان عن دقيقة واحدة.",
+    "PERMISSION_DAILY_COUNT_EXCEEDED": "لا يمكن أن يكون لديك أكثر من 3 استئذانات في اليوم نفسه.",
+    "PERMISSION_DAILY_DURATION_EXCEEDED": "لا يمكن أن يتجاوز إجمالي مدة الاستئذانات في اليوم نفسه نصف مدة الوردية.",
+    "PERMISSION_NO_SHIFT_ON_DATE": "لا توجد وردية عمل في التاريخ المحدد.",
+    "PERMISSION_ALREADY_STARTED": "لقد بدأ الاستئذان بالفعل. يمكن للمدير أو الموارد البشرية فقط تعديله.",
+    "PERMISSION_INVALID_STATUS": "حالة الاستئذان غير صالحة لهذه العملية.",
+    "PERMISSION_INVALID_TYPE": "نوع الاستئذان غير صالح.",
+    "MID_SHIFT_TIME_FROM_REQUIRED": "وقت البداية مطلوب لاستئذانات وسط الوردية.",
+    "PERMISSION_CANCEL_ALREADY_REQUESTED": "تم تقديم طلب إلغاء لهذا الاستئذان بالفعل.",
+    "PERMISSION_NO_CANCEL_REQUEST": "لا يوجد طلب إلغاء مقدم لهذا الاستئذان."
   },
   "FOOTER": {
     "PRIVACY_POLICY": "سياسة الخصوصية",
@@ -911,7 +922,24 @@
     "PERMISSIONS": "الاستئذانات",
     "TIME_DIFFERENCE": "فرق مدة الانصراف",
     "FLEXIBLE_SHIFT": "وردية مرنة",
-    "FIXED_SHIFT": "وردية ثابتة"
+    "FIXED_SHIFT": "وردية ثابتة",
+    "PENALTY": "الجزاء",
+    "IN_SHIFT_EXTRA": "وقت إضافي داخل الوردية",
+    "OUT_OF_SHIFT_EXTRA": "وقت إضافي خارج الوردية",
+    "TIME_BALANCE": {
+      "TITLE": "رصيد الوقت لدورة الرواتب",
+      "CYCLE": "الدورة",
+      "LOADING": "جارٍ تحميل رصيد الوقت...",
+      "LOAD_FAILED": "تعذر تحميل رصيد الوقت.",
+      "TOTAL_MISSING": "إجمالي الوقت الناقص",
+      "TOTAL_IN_SHIFT_EXTRA": "إجمالي الوقت الإضافي داخل الوردية",
+      "NET_MISSING": "صافي الوقت الناقص",
+      "REMAINING_IN_SHIFT_EXTRA": "المتبقي من الوقت الإضافي داخل الوردية",
+      "TOTAL_PENALTY": "إجمالي الجزاءات",
+      "TOTAL_DEDUCTIBLE": "إجمالي الوقت المخصوم",
+      "PENDING_OVERTIME": "وقت إضافي بانتظار الاعتماد",
+      "FORMAT_HINT": "تُعرض الأوقات بصيغة ساعات:دقائق."
+    }
   },
   "ATTENDANCE_REPORT_PERMISSION_POPUP": {
     "TITLE": "طلبات الاستئذانات",
@@ -1008,7 +1036,16 @@
     "PERMISSION_HAS_REJECTED": "تم رفض الإذن",
     "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "تم تقديم طلب الإلغاء",
     "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "تم قبول طلب الإلغاء",
-    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "تم رفض طلب الإلغاء"
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "تم رفض طلب الإلغاء",
+    "ADD_PERMISSION_FOR_EMPLOYEE": "إضافة استئذان لموظف",
+    "NEW_PERMISSION_FOR_EMPLOYEE": "استئذان جديد لموظف",
+    "EMPLOYEE": "الموظف",
+    "FOR_EMPLOYEE_ACCEPTED_NOTE": "الاستئذانات التي تنشئها لموظف تُعتمد مباشرةً، ويُسمح بالتواريخ السابقة.",
+    "EMPLOYEE_EDIT_RETURNS_TO_NEW": "قد يؤدي تعديل استئذان معتمد إلى إعادته لانتظار الموافقة.",
+    "DURATION_HINT": "المدة بالدقائق (دقيقة واحدة على الأقل). لا يمكن أن يتجاوز مجموع الاستئذانات في اليوم نفسه نصف مدة الوردية.",
+    "VIEW_PERMISSION": "عرض الاستئذان",
+    "EDIT_PERMISSION": "تعديل الاستئذان",
+    "DELETE_PERMISSION": "حذف الاستئذان"
   },
   "LEAVE_TYPES_PAGE": {
     "LEAVE_TYPES": "أنواع الإجازات",

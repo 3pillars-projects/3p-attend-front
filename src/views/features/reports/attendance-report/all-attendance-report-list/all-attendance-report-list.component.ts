@@ -150,6 +150,12 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
         model.getTimeDifferenceData().value,
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.PENALTY')]:
+        model.formatNullableMinutes(model.penaltyMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.IN_SHIFT_EXTRA')]:
+        model.formatNullableMinutes(model.inShiftExtraMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.OUT_OF_SHIFT_EXTRA')]:
+        model.formatNullableMinutes(model.outOfShiftExtraMinutes),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',

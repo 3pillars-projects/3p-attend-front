@@ -207,7 +207,18 @@
     "YEAR_REQUIRED_FOR_ANNUAL_LEAVE": "Year is required for annual leave",
     "INVALID_BALANCE_AMOUNT": "Invalid balance amount",
     "BALANCE_UPDATE_FAILED": "Balance update failed",
-    "PLEASE_ENTER_REJECTION_NOTE": "Please enter rejection note"
+    "PLEASE_ENTER_REJECTION_NOTE": "Please enter rejection note",
+    "PERMISSION_MUST_START_IN_FUTURE": "The permission must start after the current time.",
+    "PERMISSION_MIN_DURATION": "The permission duration must be at least 1 minute.",
+    "PERMISSION_DAILY_COUNT_EXCEEDED": "You cannot have more than 3 permissions on the same day.",
+    "PERMISSION_DAILY_DURATION_EXCEEDED": "The total permission duration on the same day cannot exceed half of the shift duration.",
+    "PERMISSION_NO_SHIFT_ON_DATE": "There is no working shift on the selected date.",
+    "PERMISSION_ALREADY_STARTED": "The permission has already started. Only the manager or HR can change it.",
+    "PERMISSION_INVALID_STATUS": "Invalid permission status for this operation.",
+    "PERMISSION_INVALID_TYPE": "Invalid permission type.",
+    "MID_SHIFT_TIME_FROM_REQUIRED": "Start time is required for mid-shift permissions.",
+    "PERMISSION_CANCEL_ALREADY_REQUESTED": "A cancel request has already been submitted for this permission.",
+    "PERMISSION_NO_CANCEL_REQUEST": "No cancel request has been submitted for this permission."
   },
   "FOOTER": {
     "PRIVACY_POLICY": "Privacy Policy",
@@ -912,7 +923,24 @@
     "PERMISSIONS": "Permissions",
     "TIME_DIFFERENCE": "Check-out Time Difference",
     "FLEXIBLE_SHIFT": "Flexible shift",
-    "FIXED_SHIFT": "Fixed Shift"
+    "FIXED_SHIFT": "Fixed Shift",
+    "PENALTY": "Penalty",
+    "IN_SHIFT_EXTRA": "In-shift Extra",
+    "OUT_OF_SHIFT_EXTRA": "Out-of-shift Extra",
+    "TIME_BALANCE": {
+      "TITLE": "Payroll Cycle Time Balance",
+      "CYCLE": "Cycle",
+      "LOADING": "Loading time balance...",
+      "LOAD_FAILED": "Could not load the time balance.",
+      "TOTAL_MISSING": "Total Missing Time",
+      "TOTAL_IN_SHIFT_EXTRA": "Total In-shift Extra",
+      "NET_MISSING": "Net Missing Time",
+      "REMAINING_IN_SHIFT_EXTRA": "Remaining In-shift Extra",
+      "TOTAL_PENALTY": "Total Penalty",
+      "TOTAL_DEDUCTIBLE": "Total Deductible",
+      "PENDING_OVERTIME": "Pending Overtime",
+      "FORMAT_HINT": "Times are shown as hours:minutes."
+    }
   },
   "ATTENDANCE_REPORT_PERMISSION_POPUP": {
     "TITLE": "Permission Requests",
@@ -1009,7 +1037,16 @@
     "PERMISSION_HAS_REJECTED": "Permission Has Been Rejected",
     "PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED": "Permission Cancellation Has Been Requested",
     "PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED": "Permission Cancellation Has Been Accepted",
-    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "Permission Cancellation Has Been Rejected"
+    "PERMISSION_CANCELLATION_HAS_BEEN_REJECTED": "Permission Cancellation Has Been Rejected",
+    "ADD_PERMISSION_FOR_EMPLOYEE": "Add Permission for Employee",
+    "NEW_PERMISSION_FOR_EMPLOYEE": "New Permission for Employee",
+    "EMPLOYEE": "Employee",
+    "FOR_EMPLOYEE_ACCEPTED_NOTE": "Permissions you create for an employee are accepted immediately, and past dates are allowed.",
+    "EMPLOYEE_EDIT_RETURNS_TO_NEW": "Editing an approved permission may send it back for approval.",
+    "DURATION_HINT": "Duration in minutes (at least 1). All permissions on the same day cannot exceed half of the shift.",
+    "VIEW_PERMISSION": "View permission",
+    "EDIT_PERMISSION": "Edit permission",
+    "DELETE_PERMISSION": "Delete permission"
   },
   "LEAVE_TYPES_PAGE": {
     "LEAVE_TYPES": "Leave types",
