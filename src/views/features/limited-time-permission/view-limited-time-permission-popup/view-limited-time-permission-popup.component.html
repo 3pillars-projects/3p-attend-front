@@ -122,7 +122,7 @@
           <span class="text-[14px] text-[#6c737f]">{{
             'LIMITED_TIME_PERMISSION.EMPLOYEE_NAME' | translate
           }}</span>
-          <h4 class="font-semibold text-[#161616]">{{ model.getCreationUserName() }}</h4>
+          <h4 class="font-semibold text-[#161616]">{{ model.getUserName() }}</h4>
         </div>
         <div>
           <span class="text-[14px] text-[#6c737f]">{{
@@ -166,21 +166,51 @@
       <button (click)="close()" class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
       <div class="flex items-center gap-4">
         @if (canShowCancelApprovalButtons) {
-          <button class="btn green-btn" (click)="approveCancel()">
+          <button
+            type="button"
+            class="btn green-btn"
+            [disabled]="isSubmitting"
+            [attr.aria-busy]="isSubmitting"
+            (click)="approveCancel()"
+          >
             {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION_CANCEL_REQUEST' | translate }}
           </button>
-          <button class="btn !text-[#b42318] red-btn-action" (click)="rejectCancel()">
+          <button
+            type="button"
+            class="btn !text-[#b42318] red-btn-action"
+            [disabled]="isSubmitting"
+            [attr.aria-busy]="isSubmitting"
+            (click)="rejectCancel()"
+          >
             {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION_CANCEL_REQUEST' | translate }}
           </button>
         } @else if (canShowNormalApprovalButtons) {
-          <button class="btn green-btn" (click)="acceptPermission()">
+          <button
+            type="button"
+            class="btn green-btn"
+            [disabled]="isSubmitting"
+            [attr.aria-busy]="isSubmitting"
+            (click)="acceptPermission()"
+          >
             {{ 'LIMITED_TIME_PERMISSION.APPROVE_PERMISSION' | translate }}
           </button>
-          <button class="btn !text-[#b42318] red-btn-action" (click)="rejectPermission()">
+          <button
+            type="button"
+            class="btn !text-[#b42318] red-btn-action"
+            [disabled]="isSubmitting"
+            [attr.aria-busy]="isSubmitting"
+            (click)="rejectPermission()"
+          >
             {{ 'LIMITED_TIME_PERMISSION.DECLINE_PERMISSION' | translate }}
           </button>
         } @else if (canShowRequestCancelButton) {
-          <button class="btn green-btn" (click)="requestCancel()">
+          <button
+            type="button"
+            class="btn green-btn"
+            [disabled]="isSubmitting"
+            [attr.aria-busy]="isSubmitting"
+            (click)="requestCancel()"
+          >
             {{ 'LIMITED_TIME_PERMISSION.REQUEST_CANCEL' | translate }}
           </button>
         }

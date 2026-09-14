@@ -23,6 +23,7 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
 import { LIMITED_TIME_PERMISSION_TABS_ENUM } from '@/enums/limited-time-permission-tabs-enum';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import * as XLSX from 'xlsx';
+import { takeUntil } from 'rxjs';
 import { CustomValidators } from '@/validators/custom-validators';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -153,28 +154,70 @@ export default class LimitedTimePermissionContainerComponent
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH;
   }
   override openDialog(model: LimitedTimePermission, viewMode?: ViewModeEnum): void {
-    const lookups = {
-      permissionTypes: this.limitedTimepermissionTypes,
-      availableTimeOptions: this.availableTimeOptions,
-    };
-    this.openBaseDialog(
-      AddEditLimitedTimePermissionPopupComponent as any,
-      model,
-      viewMode!,
-      lookups
-    );
+    this.openAddEditDialog(model, viewMode!);
   }
   addOrEditModel(permission?: LimitedTimePermission) {
     const viewMode = permission ? ViewModeEnum.EDIT : ViewModeEnum.CREATE;
     permission = permission || new LimitedTimePermission();
     this.openDialog(permission, viewMode);
   }
+
+  // Manager/HR creates a permission for one of their employees (sent as fkUserId)
+  addPermissionForEmployee() {
+    this.openAddEditDialog(new LimitedTimePermission(), ViewModeEnum.CREATE, true);
+  }
+
+  editIncomingPermission(permission: LimitedTimePermission) {
+    this.openAddEditDialog(permission, ViewModeEnum.EDIT, false, true);
+  }
+
+  private openAddEditDialog(
+    model: LimitedTimePermission,
+    viewMode: ViewModeEnum,
+    forEmployee: boolean = false,
+    fromIncoming: boolean = false
+  ): void {
+    const clonedModel = Object.assign(Object.create(Object.getPrototypeOf(model)), model);
+    let dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.width = this.dialogSize.width;
+    dialogConfig.maxWidth = this.dialogSize.maxWidth;
+    dialogConfig.data = {
+      model: clonedModel,
+      viewMode: viewMode,
+      lookups: {
+        permissionTypes: this.limitedTimepermissionTypes,
+        employees: forEmployee ? this.users : undefined,
+      },
+      fromIncoming: fromIncoming,
+    };
+    const dialogRef = this.matDialog.open(
+      AddEditLimitedTimePermissionPopupComponent as any,
+      dialogConfig
+    );
+
+    // Reload the tab the popup was opened from
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result: DIALOG_ENUM) => {
+        if (result == DIALOG_ENUM.OK) {
+          this.reloadActiveTab();
+        }
+      });
+  }
+
+  private reloadActiveTab(): void {
+    if (this.activeTabIndex === LIMITED_TIME_PERMISSION_TABS_ENUM.MY_PERMISSIONS) {
+      this.loadMyPermissions();
+    } else {
+      this.loadIncomingPermissions();
+    }
+  }
   mapIncomingRequestsToExcelRow(model: LimitedTimePermission): { [key: string]: any } {
     return {
       [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_TYPE')]:
         model.getPermissionTypeName(),
-      [this.translateService.instant('LIMITED_TIME_PERMISSION.EMPLOYEE_NAME')]:
-        model.getCreationUserName(),
+      [this.translateService.instant('LIMITED_TIME_PERMISSION.EMPLOYEE_NAME')]: model.getUserName(),
       [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DATE')]:
         model.limitedTimePermissionDate,
       [this.translateService.instant('LIMITED_TIME_PERMISSION.PERMISSION_DURATION')]:

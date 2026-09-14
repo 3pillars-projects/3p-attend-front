@@ -3,7 +3,11 @@
     <button (click)="close()" class="block ms-auto">
       <i class="pi pi-times close-popup"></i>
     </button>
-    @if (isCreateMode) {
+    @if (isForEmployee) {
+      <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
+        {{ 'LIMITED_TIME_PERMISSION.NEW_PERMISSION_FOR_EMPLOYEE' | translate }}
+      </h3>
+    } @else if (isCreateMode) {
       <h3 class="text-[#1f2a37 font-[600] mb-4 text-lg sm:text-xl">
         {{ 'LIMITED_TIME_PERMISSION.NEW_PERMISSION_REQUEST' | translate }}
       </h3>
@@ -13,8 +17,44 @@
       </h3>
     }
 
+    @if (isForEmployee) {
+      <p class="mb-4 text-sm text-[#4d5761]">
+        {{ 'LIMITED_TIME_PERMISSION.FOR_EMPLOYEE_ACCEPTED_NOTE' | translate }}
+      </p>
+    }
+    @if (showStatusResetNote) {
+      <p class="mb-4 text-sm text-[#93370d]">
+        {{ 'LIMITED_TIME_PERMISSION.EMPLOYEE_EDIT_RETURNS_TO_NEW' | translate }}
+      </p>
+    }
+
     <form [formGroup]="form">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @if (isForEmployee) {
+          <div>
+            <label class="label" for="permissionEmployee">{{
+              'LIMITED_TIME_PERMISSION.EMPLOYEE' | translate
+            }}</label>
+            <div class="relative">
+              <p-select
+                [optionLabel]="getPropertyName()"
+                [options]="employees"
+                [filter]="true"
+                [filterBy]="getPropertyName()"
+                formControlName="fkUserId"
+                class="w-full peer"
+                inputId="permissionEmployee"
+                optionValue="id"
+                placeholder="{{ 'LIMITED_TIME_PERMISSION.EMPLOYEE' | translate }}"
+              >
+              </p-select>
+              <span
+                class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
+              ></span>
+            </div>
+            <app-validation-messages [control]="fkUserIdControl"></app-validation-messages>
+          </div>
+        }
         <div>
           <label class="label" for="permissionType">{{
             'LIMITED_TIME_PERMISSION.PERMISSION_TYPE' | translate
@@ -48,6 +88,7 @@
             <p-datepicker
               [iconDisplay]="'input'"
               formControlName="limitedTimePermissionDate"
+              [minDate]="minPermissionDate"
               [showIcon]="true"
               class="peer block w-full"
               id="permissionDate"
@@ -73,16 +114,17 @@
             'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate
           }}</label>
           <div class="relative">
-            <p-select
-              [options]="availableTimeOptions"
+            <p-inputnumber
               formControlName="limitedTimePermissionDuration"
+              inputId="permissionDuration"
               class="w-full peer"
-              id="permissionDuration"
-              name="permissionDuration"
-              optionValue="value"
+              [inputStyle]="{ width: '100%' }"
+              [min]="1"
+              [maxFractionDigits]="0"
+              [useGrouping]="false"
               placeholder="{{ 'LIMITED_TIME_PERMISSION.PERMISSION_DURATION' | translate }}"
             >
-            </p-select>
+            </p-inputnumber>
             <span
               class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-black transition-all duration-500 peer-focus-within:left-0 peer-focus-within:w-full"
             ></span>
@@ -90,6 +132,9 @@
           <app-validation-messages
             [control]="limitedTimePermissionDurationControl"
           ></app-validation-messages>
+          <p class="mt-1 text-xs text-[#6c737f]">
+            {{ 'LIMITED_TIME_PERMISSION.DURATION_HINT' | translate }}
+          </p>
         </div>
 
         <!-- Conditionally show time picker only for Mid-Shift -->
@@ -148,7 +193,13 @@
       <!-- Action Buttons -->
       <div class="actions mt-6 flex items-center justify-end gap-4">
         <button (click)="close()" class="btn gray-btn">{{ 'COMMON.CANCEL' | translate }}</button>
-        <button (click)="save$.next()" class="btn green-btn">
+        <button
+          type="button"
+          (click)="save$.next()"
+          class="btn green-btn"
+          [disabled]="isSaving"
+          [attr.aria-busy]="isSaving"
+        >
           {{ 'COMMON.SAVE' | translate }}
         </button>
       </div>

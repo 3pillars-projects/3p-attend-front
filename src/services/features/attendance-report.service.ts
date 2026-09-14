@@ -6,9 +6,11 @@ import { PaginatedList } from '@/models/shared/response/paginated-list';
 import { OptionsContract } from '@/contracts/options-contract';
 import { PaginationParams } from '@/models/shared/pagination-params';
 import { PaginatedListResponseData } from '@/models/shared/response/paginated-list-response-data';
-import { genericDateOnlyConvertor } from '@/utils/general-helper';
+import { genericDateOnlyConvertor, toDateOnly } from '@/utils/general-helper';
 import { Observable, map, catchError } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { AttendanceTimeBalance } from '@/models/features/attendance/attendance-report/attendance-time-balance';
+import { ResponseData } from '@/models/shared/response/response-data';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +61,23 @@ export class AttendanceReportService extends BaseCrudService<AttendanceReport, n
         })
       );
   }
+  // Payroll-cycle balance; the server defaults userId to the current user and date to today
+  getTimeBalance(userId?: number, date?: Date | string): Observable<AttendanceTimeBalance> {
+    let params = new HttpParams();
+    if (userId != null) {
+      params = params.set('userId', userId);
+    }
+    if (date) {
+      params = params.set('date', toDateOnly(date));
+    }
+    return this.http
+      .get<ResponseData<AttendanceTimeBalance>>(this.getUrlSegment() + '/time-balance', {
+        params,
+        withCredentials: true,
+      })
+      .pipe(map((response) => response.data));
+  }
+
   @CastResponse()
   @HasInterception
   assignInquiryToUsers(inquiryId: number, userIds: number[]): Observable<AttendanceReport> {
