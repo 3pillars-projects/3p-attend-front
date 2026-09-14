@@ -43,7 +43,7 @@ import { TimeBalanceCardComponent } from '../time-balance-card/time-balance-card
     FormsModule,
     Select,
     TranslatePipe,
-    TimeBalanceCardComponent,
+    // TimeBalanceCardComponent,
   ],
   providers: [DatePipe],
 
