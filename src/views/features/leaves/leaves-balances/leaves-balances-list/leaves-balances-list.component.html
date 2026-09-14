@@ -224,7 +224,7 @@
                   fill="#fff" />
                 <path d="M11.666 17.708a.625.625 0 1 0 0 1.25h6.667a.625.625 0 0 0 0-1.25h-6.667z" fill="#fff" />
               </svg>
-              تحديث أرصدة الموظفين
+              {{ 'LEAVES_BALANCES.UPDATE_EMPLOYEES_BALANCES' | translate }}
             </button>
           </div>
         </div>
@@ -237,29 +237,29 @@
               <th>{{ 'EMPLOYEES_PAGE.EMPLOYEE_NAME_ENGLISH' | translate }}</th>
               <th>{{ 'EMPLOYEES_PAGE.GENDER' | translate }}</th>
               <th>{{ 'EMPLOYEES_PAGE.RELIGION' | translate }}</th>
-              <th>
-                اجازة مرضي
-                <span class="block text-[#807d7dfc]">( متاح/ الاجمالي ) أيام</span>
-              </th>
               <th>{{ 'LEAVES_BALANCES.YEARS_OF_SERVICE' | translate }}</th>
               @for (item of selectedAnnualLeaves; track $index) {
               <th>
                 <div class="flex items-center gap-2">
                   {{ getNameBasedOnLanguage(item) }}
-                  <button class="btn black-btn !p-2 !w-[24px] h-[24px]" (click)="openEmployeesDialog(item, true)">
+                  <!-- <button class="btn black-btn !p-2 !w-[24px] h-[24px]" (click)="openEmployeesDialog(item, true)">
                     <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
-                  </button>
+                  </button> -->
                 </div>
+                <span class="block text-[#807d7dfc]">{{ 'LEAVES_BALANCES.AVAILABLE_OVER_TOTAL' | translate }} {{
+                  'LEAVES_BALANCES.DAYS' | translate }}</span>
               </th>
               }
               @for (item of selectedLimitedTimesLeaves; track $index) {
               <th>
                 <div class="flex items-center gap-2">
                   {{ getNameBasedOnLanguage(item) }}
-                  <button class="btn black-btn !p-2 !w-[24px] h-[24px]" (click)="openEmployeesDialog(item, false)">
+                  <!-- <button class="btn black-btn !p-2 !w-[24px] h-[24px]" (click)="openEmployeesDialog(item, false)">
                     <img class="min-w-[16px]" src="/assets/icons/edit.png" alt="" />
-                  </button>
+                  </button> -->
                 </div>
+                <span class="block text-[#807d7dfc]">{{ 'LEAVES_BALANCES.AVAILABLE_OVER_TOTAL' | translate }} {{
+                  'LEAVES_BALANCES.TIMES' | translate }}</span>
               </th>
               }
               <th>{{ 'COMMON.ACTION' | translate }}</th>
@@ -272,26 +272,43 @@
               <td>{{ getGenderName(employeeBalance.fkGenderId) }}</td>
               <td>{{ getReligionName(employeeBalance.religion) }}</td>
               <td>
-                <span
-                  class="inline-block rounded-full border border-[#fecdca] bg-[#fef3f2] px-2 text-[12px] font-bold text-[#912018]">
-                  غير مستحق
-                </span>
-                <div class="flex items-center gap-1">
-                  <span class="text-[#161616] text-xl font-bold">15</span>
-                  /
-                  <span class="text-[#161616]">20</span>
-                </div>
-              </td>
-              <td>
                 <div class="rounded-full px-2 bg-[#f9fafb] border border-[#e5e7eb] w-fit">
                   {{ formatExperience(employeeBalance.monthsOfExperience) }}
                 </div>
               </td>
               @for (annualLeave of selectedAnnualLeaves; track $index) {
-              <td>{{ getEmployeeAnnualLeaveBalance(employeeBalance, annualLeave.id!) }}</td>
+              <td>
+                @let annualBalance = getAnnualLeaveBalance(employeeBalance, annualLeave.id!);
+                @if (annualBalance?.isEligible) {
+                <div class="flex items-center gap-1">
+                  <span class="text-[#161616] text-xl font-bold">{{ annualBalance?.remainingBalance ?? 0 }}</span>
+                  /
+                  <span class="text-[#161616]">{{ annualBalance?.totalBalance ?? 0 }}</span>
+                </div>
+                } @else {
+                <span
+                  class="inline-block rounded-full border border-[#fecdca] bg-[#fef3f2] px-2 text-[12px] font-bold text-[#912018]">
+                  {{ 'LEAVES_BALANCES.NOT_ELIGIBLE' | translate }}
+                </span>
+                }
+              </td>
               }
               @for (limitedLeave of selectedLimitedTimesLeaves; track $index) {
-              <td>{{ getEmployeeLimitedLeaveBalance(employeeBalance, limitedLeave.id!) }}</td>
+              <td>
+                @let limitedBalance = getLimitedLeaveBalance(employeeBalance, limitedLeave.id!);
+                @if (limitedBalance?.isEligible) {
+                <div class="flex items-center gap-1">
+                  <span class="text-[#161616] text-xl font-bold">{{ limitedBalance?.remainingTimes ?? 0 }}</span>
+                  /
+                  <span class="text-[#161616]">{{ limitedBalance?.totalTimesAvailable ?? 0 }}</span>
+                </div>
+                } @else {
+                <span
+                  class="inline-block rounded-full border border-[#fecdca] bg-[#fef3f2] px-2 text-[12px] font-bold text-[#912018]">
+                  {{ 'LEAVES_BALANCES.NOT_ELIGIBLE' | translate }}
+                </span>
+                }
+              </td>
               }
               <td>
                 <button class="btn black-btn" (click)="openEmployeeDialog(employeeBalance)">
