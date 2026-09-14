@@ -76,6 +76,13 @@ export default class AttendanceReport extends BaseCrudModel<
   declare totalOvertimeMinutes: number;
   declare totalMissingMinutes: number;
 
+  // null for days processed before permission-restructuring was deployed
+  declare inShiftExtraMinutes?: number | null;
+  declare outOfShiftExtraMinutes?: number | null;
+  declare unpermittedLateMinutes?: number | null;
+  declare unpermittedEarlyLeaveMinutes?: number | null;
+  declare penaltyMinutes?: number | null;
+
   declare creationDate: Date | string | null;
   declare modificationDate?: Date | string | null;
   private languageService?: LanguageService;
@@ -104,47 +111,38 @@ export default class AttendanceReport extends BaseCrudModel<
       ? this.leaveTypeNameEn!
       : this.leaveTypeNameAr!;
   }
-  getTimeDifferenceValue(): string {
-    if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
-      const time = formatMinutes(this.totalOvertimeMinutes);
-      return `+ ${time}`;
-    }
-
-    if (this.totalMissingMinutes && this.totalMissingMinutes > 0) {
-      const time = formatMinutes(this.totalMissingMinutes);
-      return `- ${time}`;
-    }
-    if (this.totalOvertimeMinutes == 0 && this.totalMissingMinutes == 0) {
-      const time = formatMinutes(0);
-      return `${time}`;
-    }
-    return '';
+  formatNullableMinutes(value?: number | null): string {
+    return value == null ? '-' : formatMinutes(value);
   }
-  getTimeDifferenceData(): { value: string; type: 'overtime' | 'missing' | 'ignore' | null } {
-    if (this.totalOvertimeMinutes && this.totalOvertimeMinutes > 0) {
-      const time = formatMinutes(this.totalOvertimeMinutes);
-      return { value: `+ ${time}`, type: 'overtime' };
+  // Extra time (totalOvertimeMinutes = in-shift + out-of-shift) and missing time can both occur
+  // on the same day, so each is shown as its own part instead of being netted into one value.
+  getTimeDifferenceParts(): { value: string; type: 'overtime' | 'missing' | 'ignore' }[] {
+    const parts: { value: string; type: 'overtime' | 'missing' | 'ignore' }[] = [];
+
+    if (this.totalOvertimeMinutes > 0) {
+      parts.push({ value: `+ ${formatMinutes(this.totalOvertimeMinutes)}`, type: 'overtime' });
     }
 
-    if (
-      !this.isFlexibleShift &&
-      this.attendanceStatus == ATTENDANCE_STATUS_ENUM.PRESENT &&
-      this.totalMissingMinutes > 0
-    ) {
-      const time = formatMinutes(this.totalMissingMinutes);
-      return { value: `- ${time}`, type: 'ignore' };
-    }
-
-    if (this.totalMissingMinutes && this.totalMissingMinutes > 0) {
-      const time = formatMinutes(this.totalMissingMinutes);
-      return { value: `- ${time}`, type: 'missing' };
+    if (this.totalMissingMinutes > 0) {
+      // Missing time on a present fixed-shift day keeps its neutral style
+      const isNeutral =
+        !this.isFlexibleShift && this.attendanceStatus == ATTENDANCE_STATUS_ENUM.PRESENT;
+      parts.push({
+        value: `- ${formatMinutes(this.totalMissingMinutes)}`,
+        type: isNeutral ? 'ignore' : 'missing',
+      });
     }
 
     if (this.totalOvertimeMinutes === 0 && this.totalMissingMinutes === 0) {
-      const time = formatMinutes(0);
-      return { value: time, type: 'ignore' };
+      parts.push({ value: formatMinutes(0), type: 'ignore' });
     }
 
-    return { value: '', type: null };
+    return parts;
+  }
+
+  getTimeDifferenceValue(): string {
+    return this.getTimeDifferenceParts()
+      .map((part) => part.value)
+      .join(' / ');
   }
 }

@@ -149,7 +149,17 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
         model.lastLeaveFingerPrint ? new Date(model.lastLeaveFingerPrint) : undefined
       ),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.TIME_DIFFERENCE')]:
-        model.getTimeDifferenceData().value,
+        model.getTimeDifferenceValue(),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.PENALTY')]:
+        model.formatNullableMinutes(model.penaltyMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.UNPERMITTED_LATE')]:
+        model.formatNullableMinutes(model.unpermittedLateMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.UNPERMITTED_EARLY_LEAVE')]:
+        model.formatNullableMinutes(model.unpermittedEarlyLeaveMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.IN_SHIFT_EXTRA')]:
+        model.formatNullableMinutes(model.inShiftExtraMinutes),
+      [this.translateService.instant('ATTENDANCE_REPORT_PAGE.OUT_OF_SHIFT_EXTRA')]:
+        model.formatNullableMinutes(model.outOfShiftExtraMinutes),
       [this.translateService.instant('ATTENDANCE_REPORT_PAGE.STATUS')]: model.attendanceStatus
         ? this.translateService.instant(this.getStatusConfig(model.attendanceStatus).labelKey)
         : '',
@@ -238,9 +248,9 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
   }
 
   getTimeDifference(att: AttendanceReport): string {
-    const data = att.getTimeDifferenceData();
+    const parts = att.getTimeDifferenceParts();
 
-    if (!data.type) return '';
+    if (!parts.length) return '';
 
     const styles = {
       overtime: {
@@ -260,14 +270,18 @@ export class AllAttendanceReportListComponent extends BaseListComponent<
       },
     };
 
-    const style = styles[data.type];
-
-    return `
+    const badges = parts
+      .map((part) => {
+        const style = styles[part.type];
+        return `
     <div class="text-[16px] font-medium ${style.text} min-w-[67px] min-h-[24px]
                 inline-flex justify-center items-center px-3 gap-1 rounded-full
                 border ${style.border} ${style.bg} font-medium">
-      ${data.value}
-    </div>
-  `;
+      ${part.value}
+    </div>`;
+      })
+      .join('');
+
+    return `<div class="flex flex-wrap items-center gap-1">${badges}</div>`;
   }
 }

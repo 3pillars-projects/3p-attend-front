@@ -25,6 +25,12 @@ export class LimitedTimePermissionInterceptor
     delete model.status;
     delete model.department;
     delete model.creationUser;
+    delete model.user;
+    delete model.canEdit;
+    // Omitted fkUserId means the permission is for the current user
+    if (model.fkUserId == null) {
+      delete model.fkUserId;
+    }
     delete (model as any)['languageService'];
 
     model.limitedTimePermissionDate = toDateOnly(model.limitedTimePermissionDate); //"2025-11-16"

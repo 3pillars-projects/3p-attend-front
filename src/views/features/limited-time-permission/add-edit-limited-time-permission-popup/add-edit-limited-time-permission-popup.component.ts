@@ -20,6 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
+import { InputNumber } from 'primeng/inputnumber';
 import { TextareaModule } from 'primeng/textarea';
 import { map, Observable } from 'rxjs';
 import { RequiredMarkerDirective } from '../../../../directives/required-marker.directive';
@@ -27,6 +28,7 @@ import { ViewModeEnum } from '@/enums/view-mode-enum';
 import { ConfirmationService } from '@/services/shared/confirmation.service';
 import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { LIMITED_TIME_PERMISSION_TYPES_ENUM } from '@/enums/limited-time-permission-types-enum';
+import { LIMITED_TIME_PERMISSION_STATUS_ENUM } from '@/enums/limited-time-permission-status-enum';
 
 @Component({
   selector: 'app-add-edit-limited-time-permission-popup',
@@ -37,6 +39,7 @@ import { LIMITED_TIME_PERMISSION_TYPES_ENUM } from '@/enums/limited-time-permiss
     TextareaModule,
     InputTextModule,
     Select,
+    InputNumber,
     CommonModule,
     ReactiveFormsModule,
     ValidationMessagesComponent,
@@ -58,50 +61,82 @@ export class AddEditLimitedTimePermissionPopupComponent
   confirmationService = inject(ConfirmationService);
 
   permissionTypes: BaseLookupModel[] | undefined = [];
-  availableTimeOptions: number[] | undefined = [];
+  employees: BaseLookupModel[] = [];
   data = inject(MAT_DIALOG_DATA);
   isCreateMode = false;
+  // Manager/HR creating for an employee (fkUserId): past dates allowed, created as Accepted
+  isForEmployee = false;
+  // Employees can only request permissions that start in the future
+  minPermissionDate: Date | null = null;
+  showStatusResetNote = false;
+  isSaving = false;
 
   // Constants for permission type IDs
   permissionTypesEnum = LIMITED_TIME_PERMISSION_TYPES_ENUM; // "اثناء الوردية" / "Mid-Shift"
 
   override saveFail(error: Error): void {
-    // logic after error if there
+    // The global interceptor shows the server error; keep entered values and re-enable save
+    this.isSaving = false;
   }
 
   override prepareModel(
     model: LimitedTimePermission,
     form: FormGroup
   ): LimitedTimePermission | Observable<LimitedTimePermission> {
+    this.isSaving = true;
     this.model = Object.assign(model, { ...form.value });
     return this.model;
   }
 
   override initPopup() {
     this.model = this.data.model;
-    this.availableTimeOptions = this.data.lookups.availableTimeOptions;
     this.permissionTypes = this.data.lookups.permissionTypes;
     this.isCreateMode = this.data.viewMode == ViewModeEnum.CREATE;
+    this.isForEmployee = this.isCreateMode && !!this.data.lookups.employees;
+    this.employees = this.data.lookups.employees ?? [];
+
+    if (this.isCreateMode && !this.isForEmployee) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      this.minPermissionDate = today;
+    }
+
+    // Owner edits of an approved permission return it to New; manager/HR edits keep the status
+    this.showStatusResetNote =
+      !this.isCreateMode &&
+      !this.data.fromIncoming &&
+      (this.model.fkStatusId === LIMITED_TIME_PERMISSION_STATUS_ENUM.Accepted ||
+        this.model.fkStatusId === LIMITED_TIME_PERMISSION_STATUS_ENUM.FirstAccepted);
   }
 
   override buildForm() {
     this.form = this.fb.group(this.model.buildForm());
+    if (this.isForEmployee) {
+      this.fkUserIdControl.setValidators([Validators.required]);
+      this.fkUserIdControl.updateValueAndValidity();
+    }
     // Subscribe to permission type changes
     this.setupPermissionTypeListener();
   }
 
   private setupPermissionTypeListener() {
-    this.fkLimitedTimePermissionTypeIdControl.valueChanges.subscribe((typeId: number) => {
-      if (typeId === this.permissionTypesEnum.MidShift) {
-        // Mid-shift selected: make time required
-        this.limitedTimePermissionTimeFromControl.setValidators([Validators.required]);
-      } else {
-        // Other types: remove validators and clear value
-        this.limitedTimePermissionTimeFromControl.clearValidators();
-        this.limitedTimePermissionTimeFromControl.setValue(null);
-      }
-      this.limitedTimePermissionTimeFromControl.updateValueAndValidity();
-    });
+    // Apply to the initial type too, so editing a mid-shift permission still requires the start time
+    this.applyTimeFromRule(this.fkLimitedTimePermissionTypeIdControl.value);
+    this.fkLimitedTimePermissionTypeIdControl.valueChanges.subscribe((typeId: number) =>
+      this.applyTimeFromRule(typeId)
+    );
+  }
+
+  private applyTimeFromRule(typeId: number) {
+    if (typeId === this.permissionTypesEnum.MidShift) {
+      // Mid-shift: start time is required
+      this.limitedTimePermissionTimeFromControl.setValidators([Validators.required]);
+    } else {
+      // Other types: the server ignores the start time and stores null
+      this.limitedTimePermissionTimeFromControl.clearValidators();
+      this.limitedTimePermissionTimeFromControl.setValue(null, { emitEvent: false });
+    }
+    this.limitedTimePermissionTimeFromControl.updateValueAndValidity();
   }
 
   // Helper method to check if time picker should be shown
@@ -153,6 +188,10 @@ export class AddEditLimitedTimePermissionPopupComponent
 
   getPropertyName() {
     return this.languageService.getCurrentLanguage() == LANGUAGE_ENUM.ENGLISH ? 'nameEn' : 'nameAr';
+  }
+
+  get fkUserIdControl() {
+    return this.form.get('fkUserId') as FormControl;
   }
 
   get fkLimitedTimePermissionTypeIdControl() {

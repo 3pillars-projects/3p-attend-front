@@ -269,30 +269,46 @@
                     </td>
                     <td class="w-[36px] whitespace-nowrap">
                       <div class="actions">
-                        @if (permission.fkStatusId !== limitedTimePermissionStatusEnum.New) {
-                          <button
-                            class="table-action-gray-btn"
-                            (click)="openDataDialog(permission)"
-                          >
-                            <img src="/assets/icons/view-action.svg" alt="" />
-                          </button>
-                        }
-                        @if (permission.fkStatusId === limitedTimePermissionStatusEnum.New) {
-                          <div class="flex gap-2 items-center">
+                        <div class="flex gap-2 items-center">
+                          @if (permission.fkStatusId !== limitedTimePermissionStatusEnum.New) {
                             <button
+                              type="button"
                               class="table-action-gray-btn"
+                              [attr.aria-label]="
+                                'LIMITED_TIME_PERMISSION.VIEW_PERMISSION' | translate
+                              "
+                              (click)="openDataDialog(permission)"
+                            >
+                              <img src="/assets/icons/view-action.svg" alt="" />
+                            </button>
+                          }
+                          <!-- canEdit is server-computed: owner before start, manager/HR until rejected or canceled -->
+                          @if (permission.canEdit) {
+                            <button
+                              type="button"
+                              class="table-action-gray-btn"
+                              [attr.aria-label]="
+                                'LIMITED_TIME_PERMISSION.EDIT_PERMISSION' | translate
+                              "
                               (click)="addOrEditModel(permission)"
                             >
                               <img alt="" src="assets/icons/edit-action.svg" />
                             </button>
+                          }
+                          <!-- Delete: owner, status New, before start; the server rejects a started permission -->
+                          @if (permission.fkStatusId === limitedTimePermissionStatusEnum.New) {
                             <button
+                              type="button"
                               class="table-action-red-btn"
+                              [attr.aria-label]="
+                                'LIMITED_TIME_PERMISSION.DELETE_PERMISSION' | translate
+                              "
                               (click)="deleteModel(permission.id)"
                             >
                               <img alt="" src="assets/icons/delete-action.svg" />
                             </button>
-                          </div>
-                        }
+                          }
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -502,6 +518,14 @@
                     >
                       <img src="assets/icons/excel.svg" alt="" />
                     </button>
+                    <button
+                      type="button"
+                      class="btn green-btn"
+                      (click)="addPermissionForEmployee()"
+                    >
+                      <img src="assets/icons/plus.svg" alt="" />
+                      {{ 'LIMITED_TIME_PERMISSION.ADD_PERMISSION_FOR_EMPLOYEE' | translate }}
+                    </button>
                   </div>
                 </div>
                 @if (list && list.length > 0) {
@@ -520,7 +544,7 @@
                     <ng-template #body let-permissionsRequest>
                       <tr>
                         <td>{{ permissionsRequest.getPermissionTypeName() }}</td>
-                        <td>{{ permissionsRequest.getCreationUserName() }}</td>
+                        <td>{{ permissionsRequest.getUserName() }}</td>
                         <td>
                           {{ permissionsRequest.limitedTimePermissionDate | date: 'dd/MM/yyyy' }}
                         </td>
@@ -641,12 +665,30 @@
                         </td>
                         <td class="w-[36px] whitespace-nowrap">
                           <div class="actions">
-                            <button
-                              class="table-action-gray-btn"
-                              (click)="openDataDialog(permissionsRequest)"
-                            >
-                              <img alt="" src="assets/icons/view-action.svg" />
-                            </button>
+                            <div class="flex gap-2 items-center">
+                              <button
+                                type="button"
+                                class="table-action-gray-btn"
+                                [attr.aria-label]="
+                                  'LIMITED_TIME_PERMISSION.VIEW_PERMISSION' | translate
+                                "
+                                (click)="openDataDialog(permissionsRequest)"
+                              >
+                                <img alt="" src="assets/icons/view-action.svg" />
+                              </button>
+                              @if (permissionsRequest.canEdit) {
+                                <button
+                                  type="button"
+                                  class="table-action-gray-btn"
+                                  [attr.aria-label]="
+                                    'LIMITED_TIME_PERMISSION.EDIT_PERMISSION' | translate
+                                  "
+                                  (click)="editIncomingPermission(permissionsRequest)"
+                                >
+                                  <img alt="" src="assets/icons/edit-action.svg" />
+                                </button>
+                              }
+                            </div>
                           </div>
                         </td>
                       </tr>

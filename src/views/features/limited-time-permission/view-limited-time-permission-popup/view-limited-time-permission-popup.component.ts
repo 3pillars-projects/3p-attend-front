@@ -13,6 +13,7 @@ import { Component, Inject, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+import { finalize, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-limited-time-permission-popup',
@@ -31,6 +32,8 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   limitedTimePermissionStatusEnum = LIMITED_TIME_PERMISSION_STATUS_ENUM;
   declare direction: LAYOUT_DIRECTION_ENUM;
   authService = inject(AuthService);
+  // Guards duplicate approval actions while a request is in flight
+  isSubmitting = false;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
@@ -50,53 +53,52 @@ export class ViewLimitedTimePermissionPopupComponent implements OnInit {
   }
 
   acceptPermission() {
-    this.service.acceptPermission(this.model.id).subscribe((updatedPermission) => {
-      this.model = updatedPermission; // optionally update local model
-      const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_HAS_BEEN_ACCEPTED'] };
-      this.alertService.showSuccessMessage(successObject);
-      this.dialogRef.close(DIALOG_ENUM.OK);
-    });
+    this.runAction(
+      this.service.acceptPermission(this.model.id),
+      'LIMITED_TIME_PERMISSION.PERMISSION_HAS_BEEN_ACCEPTED'
+    );
   }
 
   rejectPermission() {
-    this.service.rejectPermission(this.model.id).subscribe((updatedPermission) => {
-      this.model = updatedPermission; // optionally update local model
-      const successObject = { messages: ['LIMITED_TIME_PERMISSION.PERMISSION_HAS_REJECTED'] };
-      this.alertService.showSuccessMessage(successObject);
-      this.dialogRef.close(DIALOG_ENUM.OK);
-    });
+    this.runAction(
+      this.service.rejectPermission(this.model.id),
+      'LIMITED_TIME_PERMISSION.PERMISSION_HAS_REJECTED'
+    );
   }
 
   requestCancel() {
-    this.service.requestCancel(this.model.id).subscribe((updatedPermission) => {
-      this.model = updatedPermission; // optionally update local model
-      const successObject = {
-        messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED'],
-      };
-      this.alertService.showSuccessMessage(successObject);
-      this.dialogRef.close(DIALOG_ENUM.OK);
-    });
+    this.runAction(
+      this.service.requestCancel(this.model.id),
+      'LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REQUESTED'
+    );
   }
 
   approveCancel() {
-    this.service.approveCancel(this.model.id).subscribe((updatedPermission) => {
-      this.model = updatedPermission; // optionally update local model
-      const successObject = {
-        messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED'],
-      };
-      this.alertService.showSuccessMessage(successObject);
-      this.dialogRef.close(DIALOG_ENUM.OK);
-    });
+    this.runAction(
+      this.service.approveCancel(this.model.id),
+      'LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_ACCEPTED'
+    );
   }
 
   rejectCancel() {
-    this.service.rejectCancel(this.model.id).subscribe((updatedPermission) => {
-      this.model = updatedPermission; // optionally update local model
-      const successObject = {
-        messages: ['LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REJECTED'],
-      };
-      this.alertService.showSuccessMessage(successObject);
-      this.dialogRef.close(DIALOG_ENUM.OK);
+    this.runAction(
+      this.service.rejectCancel(this.model.id),
+      'LIMITED_TIME_PERMISSION.PERMISSION_CANCELLATION_HAS_BEEN_REJECTED'
+    );
+  }
+
+  private runAction(action$: Observable<LimitedTimePermission>, successMessageKey: string) {
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
+    action$.pipe(finalize(() => (this.isSubmitting = false))).subscribe({
+      next: (updatedPermission) => {
+        this.model = updatedPermission;
+        this.alertService.showSuccessMessage({ messages: [successMessageKey] });
+        this.dialogRef.close(DIALOG_ENUM.OK);
+      },
+      // 403 AUTH_FORBIDDEN_ACTION and 400 keys are shown by the global error interceptor;
+      // the popup stays open so the user can close it or retry
+      error: () => {},
     });
   }
 
