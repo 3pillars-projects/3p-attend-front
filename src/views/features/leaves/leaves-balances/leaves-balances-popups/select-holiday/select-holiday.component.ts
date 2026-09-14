@@ -12,15 +12,9 @@ import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-select-holiday',
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    TranslatePipe,
-    Select,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, Select],
   templateUrl: './select-holiday.component.html',
-  styleUrl: './select-holiday.component.scss'
+  styleUrl: './select-holiday.component.scss',
 })
 export class SelectHolidayComponent extends BasePopupComponent<any> implements OnInit {
   override model: any = {};
@@ -40,16 +34,13 @@ export class SelectHolidayComponent extends BasePopupComponent<any> implements O
 
     if (this.data && this.data.leavesBalance) {
       const leaves = this.data.leavesBalance;
-      this.leaveTypes = [
-        ...(leaves.annualLeaves || []),
-        ...(leaves.limitedLeaves || []),
-      ];
+      this.leaveTypes = [...(leaves.annualLeaves || []), ...(leaves.limitedLeaves || [])];
     }
   }
 
   override buildForm(): void {
     this.form = this.fb.group({
-      leaveType: [null]
+      leaveType: [null],
     });
   }
 
