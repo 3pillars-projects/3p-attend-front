@@ -11,11 +11,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChipModule } from 'primeng/chip';
-import { Select } from 'primeng/select';
+import { MultiSelect } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { BasePopupComponent } from '@/abstracts/base-components/base-popup/base-popup.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AlertService } from '@/services/shared/alert.service';
 import { EmployeeLeaveBalance } from '@/models/features/business/leaves-balances/employee-leave-balance';
@@ -38,13 +37,12 @@ import { LANGUAGE_ENUM } from '@/enums/language-enum';
     InputNumberModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
     TranslatePipe,
     ValidationMessagesComponent,
     TableModule,
     RadioButtonModule,
     ChipModule,
-    Select,
+    MultiSelect,
     InputTextModule,
   ],
   templateUrl: './edit-multiple-employee-leaves-balances-popup.component.html',
@@ -68,6 +66,8 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
   operationTypes = BalanceOperationType;
   languageEnum = LANGUAGE_ENUM;
   isAnnualLeave!: boolean;
+  searchTerm = '';
+  employeeToRestoreIds: number[] = [];
   override initPopup(): void {
     if (this.data) {
       this.leaveType = this.data.leaveType;
@@ -183,6 +183,50 @@ export class EditMultipleEmployeeLeavesBalancesPopupComponent
     }
   }
 
+  // Employees that were removed from the update: everyone loaded minus the ones
+  // still selected.
+  get excludedEmployees(): EmployeeWithBalanceDetailModel[] {
+    const selectedIds = new Set(this.selectedEmployees.map((e) => e.employee.id));
+    return this.allEmployees.filter((e) => !selectedIds.has(e.employee.id));
+  }
+
+  // Lightweight options for the "restore employee" dropdown.
+  get excludedEmployeeOptions(): { id?: number; name?: string }[] {
+    return this.excludedEmployees.map((e) => ({
+      id: e.employee.id,
+      name: this.getUserName(e),
+    }));
+  }
+
+  // Employees shown in the table: the selected ones, narrowed by the search box.
+  get displayedEmployees(): EmployeeWithBalanceDetailModel[] {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) return this.selectedEmployees;
+    return this.selectedEmployees.filter((e) => this.getUserName(e)?.toLowerCase().includes(term));
+  }
+
+  // Put the picked employees back into the update, keeping the original list order.
+  restoreEmployees() {
+    if (!this.employeeToRestoreIds.length) return;
+    const idsToRestore = new Set(this.employeeToRestoreIds);
+    const alreadySelected = new Set(this.selectedEmployees.map((e) => e.employee.id));
+    this.selectedEmployees = this.allEmployees.filter(
+      (e) => alreadySelected.has(e.employee.id) || idsToRestore.has(e.employee.id!)
+    );
+    this.employeeToRestoreIds = [];
+  }
+
+  getAvailableBalance(emp: EmployeeWithBalanceDetailModel) {
+    return this.isAnnualLeave ? emp.remainingBalance : emp.remainingTimes;
+  }
+
+  getUsedBalance(emp: EmployeeWithBalanceDetailModel) {
+    return this.isAnnualLeave ? emp.usedBalance : emp.timesUsed;
+  }
+
+  getTotalBalance(emp: EmployeeWithBalanceDetailModel) {
+    return this.isAnnualLeave ? emp.totalBalance : emp.totalTimesAvailable;
+  }
 
   getLanguage() {
     return this.languageService.getCurrentLanguage();
