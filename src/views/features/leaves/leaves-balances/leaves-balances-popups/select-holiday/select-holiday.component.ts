@@ -18,15 +18,9 @@ import { markFormGroupTouched } from '@/utils/general-helper';
 
 @Component({
   selector: 'app-select-holiday',
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    TranslatePipe,
-    Select,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslatePipe, Select],
   templateUrl: './select-holiday.component.html',
-  styleUrl: './select-holiday.component.scss'
+  styleUrl: './select-holiday.component.scss',
 })
 export class SelectHolidayComponent extends BasePopupComponent<any> implements OnInit {
   override model: any = {};
@@ -47,6 +41,7 @@ export class SelectHolidayComponent extends BasePopupComponent<any> implements O
 
     if (this.data && this.data.leavesBalance) {
       const leaves = this.data.leavesBalance;
+      this.leaveTypes = [...(leaves.annualLeaves || []), ...(leaves.limitedLeaves || [])];
       const annualLeaves: BaseLookupModel[] = leaves.annualLeaves || [];
       const limitedLeaves: BaseLookupModel[] = leaves.limitedLeaves || [];
       this.annualLeaveIds = new Set(
