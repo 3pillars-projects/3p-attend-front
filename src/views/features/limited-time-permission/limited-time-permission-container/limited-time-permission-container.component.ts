@@ -10,6 +10,7 @@ import { AddEditLimitedTimePermissionPopupComponent } from '../add-edit-limited-
 import { TableModule } from 'primeng/table';
 import { Select } from 'primeng/select';
 import { DatePicker } from 'primeng/datepicker';
+import { InputNumber } from 'primeng/inputnumber';
 import { BaseListComponent } from '@/abstracts/base-components/base-list/base-list.component';
 import { LimitedTimePermission } from '@/models/features/lookups/limited-time-permission/limited-time-permission';
 import { LimitedTimePermissionService } from '@/services/features/lookups/limited-time-permission.service';
@@ -47,6 +48,7 @@ import { UserService } from '@/services/features/user.service';
     Select,
     DatePicker,
     ReactiveFormsModule,
+    InputNumber,
   ],
   templateUrl: './limited-time-permission-container.component.html',
   styleUrl: './limited-time-permission-container.component.scss',
@@ -72,7 +74,6 @@ export default class LimitedTimePermissionContainerComponent
   departments: BaseLookupModel[] = [];
   users: BaseLookupModel[] = [];
   limitedTimeprmissionStatuses: BaseLookupModel[] = [];
-  availableTimeOptions: { label: string; value: number }[] = [];
   myPermissions?: PaginatedList<LimitedTimePermission>;
   filterModel: LimitedTimePermissionFilter = new LimitedTimePermissionFilter();
   viewMode = ViewModeEnum;
@@ -125,13 +126,6 @@ export default class LimitedTimePermissionContainerComponent
 
     this.userService.getMyDepartmentUsersLookup().subscribe((users) => {
       this.users = users || [];
-    });
-
-    this.permissionService.getTimeOptions().subscribe((timeOptions) => {
-      this.availableTimeOptions = (timeOptions?.data || []).map((t: number) => ({
-        label: `${t}`,
-        value: t,
-      }));
     });
   }
 

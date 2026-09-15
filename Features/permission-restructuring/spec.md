@@ -2,7 +2,7 @@
 
 ## Status and ownership
 
-- Status: accepted (2026-09-13), implementation in progress
+- Status: accepted (2026-09-13), mid-shift missing-time correction accepted 2026-09-14, implementation in progress
 - Owner: backend team
 - Backend repository/revision: `3p-attend-back`, branch `permission-restructuring`, based on `e651429` with uncommitted changes
 - Frontend repository/revision: `3p-attend-front`, inspected only (`src/services/features/lookups/limited-time-permission.service.ts`, `src/models/features/attendance/attendance-report/attendance-report.ts`)
@@ -43,8 +43,11 @@ Example (shift 09:00–17:00, all buffers 30 minutes):
 7. The three types are kept:
    - Shift beginning (1) excuses late arrival.
    - Shift ending (3) excuses early leave.
-   - Mid-shift (2) counts toward the daily limits but does not affect the calculation.
+   - Mid-shift (2) records an authorized gap inside the shift. The part of its interval that overlaps
+     the employee's in-shift first/last-fingerprint span is removed from attended time and becomes
+     missing time, without adding a penalty. Extra work inside the shift window can make it up.
 8. The double deduction also applies to full-day absence, single fingerprint days, and flexible shifts.
+9. Employees apply for today or a future date. The check is by date only (clarified 2026-09-14): a permission for today is allowed even if its time has already passed. Past dates are rejected. Editing or deleting by the employee still requires that the permission has not started, and an edited date cannot be in the past.
 
 ## Assumptions accepted with the plan
 
@@ -53,14 +56,14 @@ Example (shift 09:00–17:00, all buffers 30 minutes):
 - A3 On days with no fingerprint or a single fingerprint, missing = required minutes and penalty = required minutes − accepted beginning/ending permission minutes (never below 0).
 - A4 When an employee edits their own Accepted or FirstAccepted permission before it starts, it returns to New. Edits by a manager or HR keep the status.
 - A5 A permission needs a working shift on its date: not a weekend, holiday, or full-day leave.
-- A6 Duration is free minutes. `GET api/LimitedTimePermissions/GetTimeOptions` stays available but is not enforced.
+- A6 Duration is free minutes. `GET api/LimitedTimePermissions/GetTimeOptions` and the monthly-limit settings (`LimitedTimePermissionTimeOptions`, `LimitedTimePermissionMaxNumber`, `LimitedTimePermissionMaxTimeForEmployees`) were removed on 2026-09-14 at the owner's request.
 - A7 `TotalOvertimeMinutes` = in-shift extra + out-of-shift extra.
 
 ## Acceptance criteria
 
 | ID | Given / When / Then | Verification approach |
 |---|---|---|
-| AC-01 | An employee creates a permission whose start is at or before the current app time → 400 `PERMISSION_MUST_START_IN_FUTURE` | Service rule `LimitedTimePermissionService.AddAsync`; manual API check |
+| AC-01 | An employee creates a permission dated before today (app date) → 400 `PERMISSION_DATE_IN_PAST`. A permission dated today is accepted whatever the current time | Service rule `LimitedTimePermissionService.AddAsync`; manual API check |
 | AC-02 | Duration below 1 → 400 `PERMISSION_MIN_DURATION` | `LimitedTimePermissionHelper.ValidateDailyRulesAsync`; manual API check |
 | AC-03 | A 4th non-rejected, non-canceled permission on the same day → 400 `PERMISSION_DAILY_COUNT_EXCEEDED` | Same as AC-02 |
 | AC-04 | Total same-day duration above half the shift → 400 `PERMISSION_DAILY_DURATION_EXCEEDED` | Same as AC-02; `PermissionShiftWindow` unit test |
@@ -80,6 +83,7 @@ Example (shift 09:00–17:00, all buffers 30 minutes):
 | AC-18 | Holiday or weekend work → out-of-shift extra only, no penalty | Scenario script |
 | AC-19 | `GET api/AttendanceReports/time-balance` returns payroll-cycle totals with net missing = max(0, Σmissing − Σin-shift extra) | `AttendanceTimeBalanceCalculator` unit tests; manual API check |
 | AC-20 | Accepting, canceling or changing an accepted permission, or deleting or inserting one dated today or earlier, inserts a `Business.NeedReprocessingLog` row | Scenario/manual DB check |
+| AC-21 | With fingerprints 09:00–17:00 and an accepted 12:00–13:00 mid-shift permission, attended time is 420 and missing time is 60 with no penalty. If the fingerprint span includes 60 extra in-shift minutes, the permission is fully made up. Permission time already outside the fingerprint span is not counted twice | `Sql/Tests/PermissionDeductionScenarios.sql` |
 
 ## Business rules and permissions
 
@@ -119,7 +123,7 @@ Example (shift 09:00–17:00, all buffers 30 minutes):
 |---|---|---|
 | Mission days with fingerprints | Legacy `TotalOvertimeMinutes` still equals attended minutes; new extra and penalty columns are 0 | Kept as before; revisit with the overtime feature |
 | Existing permissions whose `CreationUserId` is NULL | The FK on `FkUserId` fails if such rows exist | Check production data before migrating |
-| Mid-shift permission date on cross-day shifts | Processing previously matched mid-shift permissions by calendar date and time; now by processing date | Accepted as part of A5/the interval rule |
+| Mid-shift permission date on cross-day shifts | Processing matches by processing date and places a `TimeFrom` earlier than the shift window on the next calendar day | Accepted as part of A5/the interval rule |
 | Existing processed days | Report columns change meaning only after reprocessing | Run manual processing for the current payroll month after deployment |
 
 ## Completion and rollout
@@ -128,5 +132,6 @@ Example (shift 09:00–17:00, all buffers 30 minutes):
 - **Migrations:**
   1. `20260913081226_PermissionOwnerAndAttendanceDeductions`: columns, backfill, index, FK.
   2. `20260913081555_ProcessingPermissionDeductions`: procedures and triggers; Down restores the previous procedure text.
+  3. `20260914120000_CountMidShiftPermissionsAsMissingTime`: corrects mid-shift missing-time calculation and processing order; Down restores the previous procedure bodies.
 - **Rollout:** deploy, then reprocess the current payroll month so the new columns are filled.
 - **Evidence location:** `Features/permission-restructuring/handoff.md`.

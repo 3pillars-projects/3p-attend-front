@@ -66,7 +66,7 @@ export class AddEditLimitedTimePermissionPopupComponent
   isCreateMode = false;
   // Manager/HR creating for an employee (fkUserId): past dates allowed, created as Accepted
   isForEmployee = false;
-  // Employees can only request permissions that start in the future
+  // Employees pick today or a later date; the server checks by date only (PERMISSION_DATE_IN_PAST)
   minPermissionDate: Date | null = null;
   showStatusResetNote = false;
   isSaving = false;
@@ -95,7 +95,8 @@ export class AddEditLimitedTimePermissionPopupComponent
     this.isForEmployee = this.isCreateMode && !!this.data.lookups.employees;
     this.employees = this.data.lookups.employees ?? [];
 
-    if (this.isCreateMode && !this.isForEmployee) {
+    // Applies to the employee's own creates and edits; manager/HR may use past dates
+    if (!this.isForEmployee && !this.data.fromIncoming) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       this.minPermissionDate = today;

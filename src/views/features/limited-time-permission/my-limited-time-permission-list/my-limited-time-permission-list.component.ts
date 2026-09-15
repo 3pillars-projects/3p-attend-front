@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DatePicker } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
+import { InputNumber } from 'primeng/inputnumber';
 import { Paginator } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { MenuItem } from '@/models/shared/menu-item';
@@ -14,7 +15,7 @@ import { DIALOG_ENUM } from '@/enums/dialog-enum';
 import { ViewLimitedTimePermissionPopupComponent } from '../view-limited-time-permission-popup/view-limited-time-permission-popup.component';
 @Component({
   selector: 'app-my-limited-time-permission-list',
-  imports: [Select, DatePicker, Paginator, TableModule],
+  imports: [Select, DatePicker, Paginator, TableModule, InputNumber],
   templateUrl: './my-limited-time-permission-list.component.html',
   styleUrl: './my-limited-time-permission-list.component.scss',
 })

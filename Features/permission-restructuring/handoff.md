@@ -8,20 +8,22 @@
 - Migrations to apply, in order:
   1. `20260913081226_PermissionOwnerAndAttendanceDeductions`
   2. `20260913081555_ProcessingPermissionDeductions`
+  3. `20260914120000_CountMidShiftPermissionsAsMissingTime`
 
 ## Verification
 
 | Check | Result |
 |---|---|
-| `dotnet build 3p_attend_back.sln` | Passed: 0 errors (29 existing warnings) |
+| `dotnet build 3p_attend_back.sln` | Required SDK 8.0.419 unavailable. Fallback SDK 8.0.131 passed: 0 errors, 28 existing warnings |
 | `dotnet test Services.Tests/Services.Tests.csproj` | Passed: 18 tests, 0 failed, 0 skipped. Covers permission intervals, the half-shift limit, cross-day mid-shift, payroll cycles, and netting |
-| `Sql/Tests/PermissionDeductionScenarios.sql` (15 processing scenarios) | **Not run**: no SQL Server is available in the implementation environment |
+| `dotnet ef migrations list --no-connect --no-build` | Passed: corrective migration `20260914120000_CountMidShiftPermissionsAsMissingTime` discovered |
+| `Sql/Tests/PermissionDeductionScenarios.sql` (18 processing scenarios) | **Not run**: no SQL Server is available in the implementation environment |
 | Migrations applied to a database | **Not run** |
 | Manual API checks AC-01…AC-12, AC-19, AC-20 | **Not run** |
 
 The service rules that depend on the database are verified only by build and code review:
 - daily count and duration
-- future-only rule for employees
+- no-past-date rule for employees
 - owner vs manager vs HR authorization
 - reprocessing triggers
 
@@ -34,21 +36,21 @@ Verified frontend files:
 
 ### Permission form and lists
 
-1. **Duration:** free minutes from 1 up to the remaining half-shift limit for the day. The fixed time options are no longer enforced (the `GetTimeOptions` endpoint still responds).
-2. **Past times:** employees can only choose a permission that starts after now. The server returns `PERMISSION_MUST_START_IN_FUTURE`.
+1. **Duration:** free minutes from 1 up to the remaining half-shift limit for the day. The `GetTimeOptions` endpoint was removed and now returns 404: stop calling `getTimeOptions()` and replace the `availableTimeOptions` dropdown in `limited-time-permission-container` with a minutes input.
+2. **Past dates:** employees can choose today or a future date; any time today is allowed. Past dates return `PERMISSION_DATE_IN_PAST`.
 3. **Mid-shift:** `limitedTimePermissionTimeFrom` is always required. For other types it is ignored and stored as null.
 4. **Creating for an employee:** managers and HR can send `fkUserId`, and past dates are allowed. The result is created with status Accepted.
 5. **Response fields:** both list responses now include `fkUserId`, `user` (the owner; `creationUser` is now the creator), and `canEdit`. Show the edit action only when `canEdit` is true. Employees lose edit once the permission starts; managers and HR keep it until the permission is rejected or canceled.
 6. **Employee edits:** when the employee edits an Accepted permission, it returns to New and needs approval again.
 7. **Delete:** only the owner can delete, only while the status is New and before the permission starts.
 8. **Forbidden responses:** accept, reject, approve-cancel and reject-cancel return 403 `AUTH_FORBIDDEN_ACTION` when the user is not allowed. Previously they returned `RECORD_MODIFIED_BY_ANOTHER_USER`.
-9. **Monthly limit errors:** these are no longer produced (`EXCEEDED_NUMBER_Of_PERMISSIONS` and related keys).
+9. **Monthly limit errors:** the `EXCEEDED_NUMBER_Of_PERMISSIONS`, `EXCEEDED_PERMISSIONS_DURATION` and `EMPLOYEE_EXCEEDED_*` keys were removed from the backend; their translations can be deleted.
 
 New error keys to translate:
 
 | Key | Default text |
 |---|---|
-| `PERMISSION_MUST_START_IN_FUTURE` | The permission must start after the current time. |
+| `PERMISSION_DATE_IN_PAST` | The permission date cannot be in the past. |
 | `PERMISSION_MIN_DURATION` | The permission duration must be at least 1 minute. |
 | `PERMISSION_DAILY_COUNT_EXCEEDED` | You cannot have more than 3 permissions on the same day. |
 | `PERMISSION_DAILY_DURATION_EXCEEDED` | The total permission duration on the same day cannot exceed half of the shift duration. |
@@ -72,6 +74,10 @@ New error keys to translate:
 `totalOvertimeMinutes` now equals in-shift extra + out-of-shift extra.
 
 `totalMissingMinutes` now counts only time inside the shift window. Accepted permissions no longer reduce it.
+
+For a mid-shift permission, the accepted interval overlapping the employee's in-shift fingerprint
+span is excluded from attended time. It therefore appears as missing time unless additional work
+inside the allowed shift window makes it up; it does not create a penalty.
 
 ### Time balance (new)
 
